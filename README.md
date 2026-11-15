@@ -1,6 +1,8 @@
-# Deernova Style
+# Deernova
 
-Deernova 的设计语言，写成一个给 AI agent 读的 skill。agent 在你的项目里写界面时参考它，用项目现有的技术栈实现 Deernova 的风格。它不是组件库：不会往项目里加任何依赖、样式文件或业务代码。
+Deernova 的设计仓库。现在有两个包：`@deernova/style`（设计语言）和 `@deernova/icons`（图标）；以后加入页面布局和动画。
+
+`@deernova/style` 是 Deernova 的设计语言，写成一个给 AI agent 读的 skill。agent 在你的项目里写界面时参考它，用项目现有的技术栈实现 Deernova 的风格。它不是组件库：不会往项目里加任何依赖、样式文件或业务代码。
 
 一句话：只用黑、白、灰；内容放在不透明的纸面上，原生端的操作层用系统 Liquid Glass，Web 应用用不透明平面加 1px 线；界面和 AI 回答用系统无衬线，衬线只给大标题和长文；桌面端的骨架和密度参照 Claude 桌面端，iOS、iPadOS 和触屏给手指留足位置，官网和文档更舒展。
 

@@ -1,8 +1,8 @@
 version = 2
 
 [workspace]
-id = "deernova-style"
-name = "Deernova Style"
+id = "deernova"
+name = "Deernova"
 
 [projects.website]
 path = "apps/website"

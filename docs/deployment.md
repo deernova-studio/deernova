@@ -94,7 +94,7 @@
 ## 本机开发
 
 ```sh
-cd /Users/srx/projects/deernova-style
+cd /Users/srx/projects/deernova
 npm ci
 npm run dev
 ```

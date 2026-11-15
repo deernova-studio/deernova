@@ -1,6 +1,6 @@
 # 设计变量
 
-由 `assets/tokens.json` 生成（在 deernova-style 仓库里运行 `npm run tokens`），不要手改。同一份数据还生成了 `assets/tokens.css`（CSS 变量）、`assets/tailwind.css`（Tailwind v4 主题）和 `assets/DeernovaTokens.swift`（SwiftUI）。CSS 变量名和这里的 token 名一致，例如 `var(--ink)`、`var(--button-height-md)`。
+由 `assets/tokens.json` 生成（在 deernova 仓库里运行 `npm run tokens`），不要手改。同一份数据还生成了 `assets/tokens.css`（CSS 变量）、`assets/tailwind.css`（Tailwind v4 主题）和 `assets/DeernovaTokens.swift`（SwiftUI）。CSS 变量名和这里的 token 名一致，例如 `var(--ink)`、`var(--button-height-md)`。
 
 每个 token 的值只取决于两件事：**主题**（浅色 / 深色）和**密度**（紧凑 / 常规 / 触控 / 舒展）。token 名字里不出现平台，平台差异全部放在值里。
 
