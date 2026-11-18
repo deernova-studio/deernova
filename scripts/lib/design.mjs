@@ -446,11 +446,11 @@ export function renderTokensMarkdown(tokens) {
   for (const weight of tokens.type.weights) out.push(`| \`${weight.name}\` | \`${weight.value}\` | \`${weight.dark}\` | ${cell(weight.usage)} |`);
   out.push('', '### 字号角色', '',
     '每个角色生成 `--type-<角色>`（`font` 简写，可以直接写 `font: var(--type-body)`）、`--type-<角色>-size` 和 `--type-<角色>-line`。表里是“字号 / 行高”。', '',
-    `| 角色 | 字族 | 字重 | ${densityHeader(tokens).join(' | ')} | SwiftUI（macOS · iOS） | 用途 |`,
+    `| 角色 | 字族 | 字重 | ${densityHeader(tokens).join(' | ')} | SwiftUI（macOS / iOS） | 用途 |`,
     `| --- | --- | --- |${' --- |'.repeat(tokens.densities.length)} --- | --- |`);
   for (const role of tokens.type.roles) {
     const values = densityIds(tokens).map(id => role.values[id].join(' / '));
-    out.push(`| \`${role.name}\` | ${role.family} | ${role.weight} | ${values.join(' | ')} | \`${cell(role.swiftui.macos)}\` · \`${cell(role.swiftui.ios)}\` | ${cell(role.usage)} |`);
+    out.push(`| \`${role.name}\` | ${role.family} | ${role.weight} | ${values.join(' | ')} | \`${cell(role.swiftui.macos)}\` / \`${cell(role.swiftui.ios)}\` | ${cell(role.usage)} |`);
   }
 
   for (const [key, title] of GROUPS) {

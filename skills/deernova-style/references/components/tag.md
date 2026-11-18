@@ -7,7 +7,7 @@
 ## 尺寸
 
 <!-- tokens:tag -->
-| Token | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | 用途 |
+| Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
 | `tag-height` | 20 | 22 | 24 | 标签高度。 |
 | `tag-padding-x` | 6 | 8 | 10 | 标签左右内边距。 |

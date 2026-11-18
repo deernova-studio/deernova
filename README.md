@@ -1,6 +1,6 @@
 # Deernova
 
-Deernova 的设计仓库。现在有两个包：`@deernova/style`（设计语言）和 `@deernova/icons`（图标）；以后加入页面布局和动画。
+Deernova 的设计仓库。现在有两个包：`@deernova/style`（设计语言）和 `@deernova/icons`（图标）；`@deernova/page`（页面布局）在搭建中，还没发布；以后加入动画。
 
 `@deernova/style` 是 Deernova 的设计语言，写成一个给 AI agent 读的 skill。agent 在你的项目里写界面时参考它，用项目现有的技术栈实现 Deernova 的风格。它不是组件库：不会往项目里加任何依赖、样式文件或业务代码。
 
@@ -11,9 +11,11 @@ Deernova 的设计仓库。现在有两个包：`@deernova/style`（设计语言
 | 路径 | 内容 |
 | --- | --- |
 | `skills/deernova-style/` | **skill 本体，也是规范的唯一来源。** `SKILL.md` 是入口：先确定场景，再按路由表读文件；`references/` 分成 `foundations/`（颜色、字体、间距、圆角、线条、阴影等原则）、`components/`（每个组件的尺寸表和 Web / SwiftUI 写法）、`scenes/`（Web 应用、官网、macOS、iOS、iPadOS）以及变量表和审查清单；`assets/` 是 `tokens.json` 和由它生成的 `tokens.css`、`tailwind.css`、`DeernovaTokens.swift`，以及效果截图 |
+| `skills/deernova-page/` | 页面布局 skill：一种页面有哪些区块、按什么顺序、哪些不放、窄屏怎么变。数值和组件都引用 style，不另外定义 |
 | `apps/website/` | 官网。首页传达风格；`guide.html` 是规范页：色卡、字阶、活的组件样例和尺寸表都从 skill 生成，可以切换场景查看 |
 | `art/milu/` | 首页麋鹿的原始插画和离线烘焙脚本，生成首页用的散步帧，不参与构建 |
 | `packages/style/` | npm 包 `@deernova/style`：把 skill 装进其他仓库的命令行工具 |
+| `packages/page/` | npm 包 `@deernova/page`：用同一个安装命令装 page skill，暂不发布 |
 | `scripts/` | 生成 token 文件、构建网站和 npm 包、发布 |
 | `tests/` | skill 结构、token 同步、对比度、构建边界、开发热更新、安装器和动画 |
 | `reviews/` | 当前验收结果、截图，以及单独保留的历史记录 |

@@ -4,7 +4,7 @@ import { cp, mkdtemp, readFile, readdir, rm, stat, writeFile } from 'node:fs/pro
 import { tmpdir } from 'node:os';
 import { dirname, join, relative, resolve } from 'node:path';
 import { buildSite } from '../scripts/build-site.mjs';
-import { buildSkill } from '../scripts/build-skill.mjs';
+import { SKILLS, buildSkill } from '../scripts/build-skill.mjs';
 import { SKILL_DIR } from '../scripts/lib/design.mjs';
 import { hashTree } from '../scripts/lib/files.mjs';
 
@@ -17,22 +17,30 @@ async function files(root) {
   return result;
 }
 
-test('the npm package carries the skill folder byte for byte', async () => {
-  const { version } = JSON.parse(await readFile('package.json', 'utf8'));
-  const manifest = JSON.parse(await readFile('packages/style/skill/manifest.json', 'utf8'));
-  assert.equal(manifest.version, version);
-  assert.equal(manifest.sourceHash, await hashTree('packages/style/skill'));
-  const source = await files(SKILL_DIR);
-  for (const file of source) {
-    assert.deepEqual(await readFile(join('packages/style/skill', relative(SKILL_DIR, file))), await readFile(file), file);
+test('each npm package carries its skill folder byte for byte and the shared installer', async () => {
+  const cli = await readFile('packages/style/bin/cli.mjs');
+  for (const skill of SKILLS) {
+    const pkg = `packages/${skill.package}`;
+    const { name, version } = JSON.parse(await readFile(`${pkg}/package.json`, 'utf8'));
+    const manifest = JSON.parse(await readFile(`${pkg}/skill/manifest.json`, 'utf8'));
+    assert.deepEqual([manifest.name, manifest.package, manifest.version], [skill.name, name, version]);
+    assert.equal(manifest.sourceHash, await hashTree(`${pkg}/skill`));
+    const dir = `skills/${skill.name}`;
+    const source = await files(dir);
+    for (const file of source) {
+      assert.deepEqual(await readFile(join(pkg, 'skill', relative(dir, file))), await readFile(file), file);
+    }
+    assert.equal((await files(`${pkg}/skill`)).length, source.length + 1, 'only manifest.json is added');
+    assert.deepEqual(await readFile(`${pkg}/bin/cli.mjs`), cli, `${pkg} ships the shared installer`);
   }
-  assert.equal((await files('packages/style/skill')).length, source.length + 1, 'only manifest.json is added');
+  const { version } = JSON.parse(await readFile('package.json', 'utf8'));
+  assert.equal(JSON.parse(await readFile('packages/style/package.json', 'utf8')).version, version, 'style moves with the repository version');
 });
 
 test('builds leave sources alone, and website edits do not change the skill', async () => {
   const root = await mkdtemp(join(tmpdir(), 'deernova-build-'));
   try {
-    for (const path of ['skills', 'apps', 'packages/icons/src', 'packages/icons/icons.json', 'packages/icons/loaders.mjs', 'package.json']) await cp(resolve(path), join(root, path), { recursive: true });
+    for (const path of ['skills', 'apps', 'packages/icons/src', 'packages/icons/icons.json', 'packages/icons/loaders.mjs', 'packages/style/package.json', 'packages/page/package.json', 'package.json']) await cp(resolve(path), join(root, path), { recursive: true });
     const sources = async () => Promise.all(['skills', 'apps', 'packages/icons/src'].map(path => hashTree(join(root, path))));
     const before = await sources();
     const skill = await buildSkill({ root });
@@ -55,7 +63,8 @@ test('builds leave sources alone, and website edits do not change the skill', as
 });
 
 test('website pages are fully rendered and only reference files that exist', async () => {
-  for (const page of ['index.html', 'guide.html']) {
+  const { PAGES } = await import('../scripts/build-site.mjs');
+  for (const page of PAGES.map(name => `${name}.html`)) {
     const html = await readFile(join('dist', page), 'utf8');
     assert.doesNotMatch(html, /\{\{\w+\}\}/, `${page} has an unfilled placeholder`);
     for (const [, target] of html.matchAll(/(?:src|href)="([^"#]+)/g)) {

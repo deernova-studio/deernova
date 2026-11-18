@@ -2,7 +2,7 @@ import { cp, rm } from 'node:fs/promises';
 import { join } from 'node:path';
 import { ROOT, isMain, read, write } from './lib/files.mjs';
 import { SKILL_DIR } from './lib/design.mjs';
-import { referenceCss, renderGuide } from './lib/guide.mjs';
+import { referenceCss, renderGuide, renderPageGuide } from './lib/guide.mjs';
 import { readIcons, spriteSvg } from './icons.mjs';
 import { staleTokenOutputs } from './tokens.mjs';
 
@@ -10,7 +10,7 @@ const SITE = 'apps/website';
 // Skill files the website serves as downloads, next to tokens.css.
 export const SHARED_ASSETS = ['tokens.css', 'tokens.json', 'tailwind.css', 'DeernovaTokens.swift'];
 // Every page the site publishes; package-site.mjs and deploy-site.py accept exactly these.
-export const PAGES = ['index', 'guide'];
+export const PAGES = ['index', 'guide', 'page'];
 
 // The dev server and static build share the same renderer. Each {{placeholder}} is filled only when a page uses it.
 export async function renderSiteHtml(html, { root = ROOT } = {}) {
@@ -19,6 +19,7 @@ export async function renderSiteHtml(html, { root = ROOT } = {}) {
   const has = key => html.includes(`{{${key}}}`);
   const icons = has('iconSprite') ? (await readIcons(root)).icons : [];
   const values = has('docs') ? await renderGuide(root) : {};
+  if (has('pageDocs') || has('pageMark')) Object.assign(values, await renderPageGuide(root));
   if (has('referenceCss') && !values.referenceCss) values.referenceCss = await referenceCss(root);
   if (has('iconSprite')) values.iconSprite = spriteSvg(icons);
   if (has('loaderScript')) values.loaderScript = await read(join(root, 'packages/icons/loaders.mjs'));

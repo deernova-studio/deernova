@@ -127,3 +127,20 @@ test('a symlink destination is rejected even with force', async t => {
   assert.equal(await readFile(join(target, 'notes.md'), 'utf8'), 'Keep these notes');
   assert.deepEqual(await readdir(target), ['notes.md']);
 });
+
+test('the page package installs its own skill beside the style skill', async t => {
+  const { base, args } = await fixture(t);
+  const page = resolve('packages/page/bin/cli.mjs');
+  const runPage = (...rest) => spawnSync(process.execPath, [page, ...rest], { encoding: 'utf8' });
+  succeeds('install', ...args);
+  const installed = runPage('install', ...args);
+  assert.equal(installed.status, 0, installed.stderr);
+  assert.deepEqual((await readdir(base)).sort(), ['deernova-page', 'deernova-style']);
+  const report = JSON.parse(runPage('doctor', ...args).stdout);
+  assert.equal(report.path, join(base, 'deernova-page'));
+  assert.equal(report.localChanges, false);
+  assert.match(await readFile(join(base, 'deernova-page/SKILL.md'), 'utf8'), /^name: deernova-page$/m);
+  succeeds('doctor', ...args);
+  assert.match(runPage('unknown').stderr, /^deernova-page: .+\n$/);
+  assert.match(runPage('help').stdout, /npx @deernova\/page@latest/);
+});

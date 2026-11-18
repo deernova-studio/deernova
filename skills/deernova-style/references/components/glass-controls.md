@@ -11,7 +11,7 @@
 ## 尺寸
 
 <!-- tokens:glass-controls -->
-| Token | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | 用途 |
+| Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
 | `glass-button-size` | 34 | 44 | 36 | 玻璃按钮的边长：macOS 26 工具栏按钮约 34（系统绘制，这里只作参考和自绘时对齐），官网页眉的图标按钮也用它；按钮组里的按钮比它小 8。Web 应用的工具栏不用玻璃，用 button-height-md。 |
 <!-- /tokens -->

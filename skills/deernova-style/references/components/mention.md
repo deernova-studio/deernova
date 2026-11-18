@@ -7,7 +7,7 @@
 ## 尺寸
 
 <!-- tokens:mention -->
-| Token | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | 用途 |
+| Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
 | `mention-height` | 20 | 24 | 22 | 文字里提及标签的高度，放进正文的一行里不撑高行距。 |
 | `mention-padding-x` | 4 | 6 | 6 | 提及标签左右内边距。 |

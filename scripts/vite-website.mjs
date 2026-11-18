@@ -2,6 +2,7 @@ import { join } from 'node:path';
 import { normalizePath } from 'vite';
 import { renderSiteHtml } from './build-site.mjs';
 import { SKILL_DIR, readTokens, renderTokensCss } from './lib/design.mjs';
+import { PAGE_SKILL_DIR } from './lib/guide.mjs';
 // Note: tailwind.css, DeernovaTokens.swift and tokens.json are served as committed; only tokens.css is
 // regenerated in memory, because it is the one the pages render with.
 import { ROOT } from './lib/files.mjs';
@@ -9,6 +10,8 @@ import { ROOT } from './lib/files.mjs';
 // Serve shared design assets from their source, without copying or writing to dist.
 export function websitePlugin({ root = ROOT } = {}) {
   const skill = normalizePath(join(root, SKILL_DIR));
+  const pageSkill = normalizePath(join(root, PAGE_SKILL_DIR));
+  const pagePackage = normalizePath(join(root, 'packages/page/package.json'));
   const tokensCss = `${skill}/assets/tokens.css`;
   const tokensJson = `${skill}/assets/tokens.json`;
   const assets = normalizePath(join(root, 'apps/website/assets'));
@@ -18,7 +21,7 @@ export function websitePlugin({ root = ROOT } = {}) {
     name: 'deernova-website',
     apply: 'serve',
     configureServer(server) {
-      server.watcher.add([skill, packageFile]);
+      server.watcher.add([skill, pageSkill, packageFile, pagePackage]);
     },
     transformIndexHtml: {
       order: 'pre',
@@ -46,7 +49,12 @@ export function websitePlugin({ root = ROOT } = {}) {
         return [];
       }
       if (path.startsWith(`${skill}/`) && path.endsWith('.md')) {
-        server.ws.send({ type: 'full-reload', path: '/guide.html' });
+        // Style docs also feed the page guide's specimens (reference CSS) and links.
+        server.ws.send({ type: 'full-reload', path: '*' });
+        return [];
+      }
+      if ((path.startsWith(`${pageSkill}/`) && path.endsWith('.md')) || path === pagePackage) {
+        server.ws.send({ type: 'full-reload', path: '/page.html' });
         return [];
       }
       if (path === packageFile || path.startsWith(`${assets}/`) || path.startsWith(`${skill}/assets/screens/`)) {

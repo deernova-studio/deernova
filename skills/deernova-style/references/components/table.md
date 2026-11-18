@@ -7,7 +7,7 @@
 ## 尺寸
 
 <!-- tokens:table -->
-| Token | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | 用途 |
+| Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
 | `table-row-height` | 36 | 44 | 40 | 表格每一行（包括表头）的高度。 |
 | `table-cell-padding-x` | 12 | 16 | 12 | 单元格左右内边距。 |

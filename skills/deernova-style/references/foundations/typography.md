@@ -44,7 +44,10 @@ Windows 和 Android 上会落到各自的系统字体，这是预期的，不要
 - 界面文字行高约为字号的 1.4–1.6 倍；正文 15/24，中文读起来不挤。
 - 只有 `display` 收紧字距（`--type-display-tracking`），其余保持默认。
 - 需要上下对齐的数字（计数、价格、时间）用等宽数字：`font-variant-numeric: tabular-nums` 或 `.monospacedDigit()`。
-- 想让中文标题也有衬线的气质，可以打包思源宋体（Source Han Serif，开源可商用）的子集，只用在官网大标题上。
+- **官网和文档的标题用宋体。** 这类页面的大标题、区块标题、文章标题用 `--font-display`：英文是 New York，中文是思源宋体（Noto Serif SC 或 Source Han Serif SC，SIL OFL，可商用）。字重 `weight-semibold`。中文标题在语义停顿处手动换行（`<br>`），不让浏览器从词中间断开；英文标题加 `text-wrap: balance`。
+  - 字体自己托管：用 fontTools 把标题里出现的字切成 WOFF2 子集（`pyftsubset 字体.otf --text-file=标题.txt --flavor=woff2`），控制在 200 KB 以内，`@font-face` 里写 `font-display: swap`。国内访问不到 Google Fonts，不要从那里加载。
+  - 没加载到时退回苹方，页面照常可读。
+  - 只用在标题上：正文、按钮、表单和整个应用界面都不用宋体，`--type-display` 和 `--type-title` 在应用里仍然是中文落苹方。
 - 界面紧凑不等于字小：最小的字是 12（`caption`）。
 
 ## 不要

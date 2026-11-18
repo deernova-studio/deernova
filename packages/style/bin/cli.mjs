@@ -1,16 +1,26 @@
 #!/usr/bin/env node
 import { createHash } from 'node:crypto';
+import { readFileSync } from 'node:fs';
 import { cp, lstat, mkdir, mkdtemp, readFile, readdir, rename, rm, writeFile } from 'node:fs/promises';
 import { homedir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const bundledSkill = fileURLToPath(new URL('../skill/', import.meta.url));
-const HELP = `deernova-style install|update|doctor [--repo <existing-repository>] [--global] [--agent codex|claude|agents] [--dir <skills-parent>] [--force]
-deernova-style init [existing-repository]  (alias for install --repo)
-deernova-style version
-Installs design reference files only; does not add app code or package dependencies. Default: project .agents/skills/deernova-style. --global defaults to CODEX_HOME/skills.
-update installs the version bundled in this CLI; use npx @deernova/style@latest update to fetch latest.
+// Every Deernova package ships this same CLI; the bundled manifest says which skill it installs.
+let bundled = {};
+try {
+  bundled = JSON.parse(readFileSync(join(bundledSkill, 'manifest.json'), 'utf8'));
+} catch {
+  // main() reads the manifest again and reports the error.
+}
+const NAME = bundled.name || 'deernova-style';
+const PACKAGE = bundled.package || '@deernova/style';
+const HELP = `${NAME} install|update|doctor [--repo <existing-repository>] [--global] [--agent codex|claude|agents] [--dir <skills-parent>] [--force]
+${NAME} init [existing-repository]  (alias for install --repo)
+${NAME} version
+Installs design reference files only; does not add app code or package dependencies. Default: project .agents/skills/${NAME}. --global defaults to CODEX_HOME/skills.
+update installs the version bundled in this CLI; use npx ${PACKAGE}@latest update to fetch latest.
 --force keeps a timestamped backup before replacing a locally modified skill.`;
 
 function parseArgs(args) {
@@ -81,7 +91,7 @@ async function resolveDestination(options) {
     base = join(repo, `.${agent}`, 'skills');
   }
 
-  return { base, dest: join(base, 'deernova-style') };
+  return { base, dest: join(base, NAME) };
 }
 
 // Keep this digest compatible with existing installations. The manifest is not
@@ -141,7 +151,7 @@ function reportInstallation(dest, installed, bundled) {
 
 async function replaceInstallation({ base, dest }, installed, manifest, force) {
   await mkdir(base, { recursive: true });
-  const temp = await mkdtemp(join(base, '.deernova-style-'));
+  const temp = await mkdtemp(join(base, `.${NAME}-`));
   let backup;
 
   try {
@@ -210,6 +220,6 @@ async function main() {
 }
 
 main().catch(error => {
-  console.error(`deernova-style: ${error.message}`);
+  console.error(`${NAME}: ${error.message}`);
   process.exitCode = 1;
 });

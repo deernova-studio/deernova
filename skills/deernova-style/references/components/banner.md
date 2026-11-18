@@ -7,7 +7,7 @@
 ## 尺寸
 
 <!-- tokens:banner -->
-| Token | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | 用途 |
+| Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
 | `toast-height` | 36 | 40 | 40 | 轻提示胶囊的高度。 |
 | `banner-radius` | 10 | 12 | 12 | 横幅和贴在输入区上方的提示条的圆角。 |

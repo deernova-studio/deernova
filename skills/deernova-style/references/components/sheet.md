@@ -21,7 +21,7 @@
 ## 尺寸
 
 <!-- tokens:sheet -->
-| Token | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | 用途 |
+| Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
 | `sheet-width-sm` | 360 | 360 | 400 | 确认弹窗、只有一两句话的提示。 |
 | `sheet-width-md` | 480 | 540 | 560 | 默认宽度：短表单、选择分享方式这类短任务。 |

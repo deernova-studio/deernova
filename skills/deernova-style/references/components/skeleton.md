@@ -18,7 +18,7 @@
 ## 尺寸
 
 <!-- tokens:skeleton -->
-| Token | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | 用途 |
+| Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
 | `skeleton-line-height` | 12 | 14 | 12 | 骨架里每一行文字块的高度。 |
 
@@ -117,7 +117,7 @@ dn-loader > .dn-loader { width: var(--loader-size, var(--icon-size-md)); height:
   <div class="dn-running" role="status"><dn-loader name="thinking"></dn-loader>正在思考<span class="dn-running-time">8 秒</span></div>
   <div class="dn-running" role="status"><dn-loader name="working"></dn-loader>正在运行 命令<span class="dn-running-time">npm test</span></div>
   <div class="dn-row"><button class="dn-button is-primary" type="button" aria-busy="true" disabled><dn-loader name="spinner"></dn-loader>正在保存</button><span class="dn-running"><dn-loader name="spinner"></dn-loader>正在搜索</span></div>
-  <div class="dn-progress"><div class="dn-progress-track" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" aria-label="上传进度"><div class="dn-progress-bar"></div></div><span class="dn-progress-label">40% · 还剩约 2 分钟</span></div>
+  <div class="dn-progress"><div class="dn-progress-track" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" aria-label="上传进度"><div class="dn-progress-bar"></div></div><span class="dn-progress-label">40%，还剩约 2 分钟</span></div>
   <div class="dn-progress"><div class="dn-progress-track is-indeterminate" role="progressbar" aria-label="正在刷新"><div class="dn-progress-bar"></div></div></div>
 </div>
 ```

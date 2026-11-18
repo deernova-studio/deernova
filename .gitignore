@@ -3,6 +3,8 @@ dist/
 releases/*.tgz
 releases/*.tgz.sha256
 packages/style/skill/
+packages/page/skill/
+packages/page/bin/
 .DS_Store
 .venv/
 __pycache__/

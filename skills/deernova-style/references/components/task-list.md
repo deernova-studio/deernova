@@ -7,7 +7,7 @@ AI 或批量任务的计划和进度：一张描边卡片，每行一个任务�
 ## 尺寸
 
 <!-- tokens:task-list -->
-| Token | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | 用途 |
+| Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
 | `task-row-height` | 28 | 44 | 32 | 任务清单每一行的高度。 |
 | `task-glyph-size` | 16 | 20 | 18 | 左侧状态圈的直径。 |

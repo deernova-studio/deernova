@@ -7,7 +7,7 @@
 ## 尺寸
 
 <!-- tokens:message -->
-| Token | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | 用途 |
+| Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
 | `message-font-size` | 15 | 15 | 15 | 用户消息气泡的字号。AI 回答用 type-body，和界面正文一致。 |
 | `message-action-size` | 24 | 32 | 28 | AI 消息下方操作按钮的可见尺寸。 |
@@ -104,7 +104,7 @@
       <li><strong>订阅转化提升。</strong>年付转化率从 3.1% 升到 4.4%<a class="dn-cite" href="#" aria-label="来源 1">1</a>。</li>
     </ul>
     <p>需要的话，我可以按 <a href="#">周报模板</a> 再排一次，或者导出成 <code>weekly.md</code>。</p>
-    <ul class="dn-sources" aria-label="来源"><li class="dn-sources-label">来源</li><li><svg class="dn-icon" aria-hidden="true"><use href="#dn-file"/></svg>1 · 订阅数据周报.xlsx</li><li><svg class="dn-icon" aria-hidden="true"><use href="#dn-web"/></svg>2 · 定价实验说明 · notion.so</li></ul>
+    <ul class="dn-sources" aria-label="来源"><li class="dn-sources-label">来源</li><li><svg class="dn-icon" aria-hidden="true"><use href="#dn-file"/></svg>1. 订阅数据周报.xlsx</li><li><svg class="dn-icon" aria-hidden="true"><use href="#dn-web"/></svg>2. 定价实验说明（notion.so）</li></ul>
     <div class="dn-message-actions">
       <span class="dn-branch"><button class="dn-icon-button" type="button" aria-label="上一个版本"><svg class="dn-icon" aria-hidden="true"><use href="#dn-chevron-left"/></svg></button>2 / 3<button class="dn-icon-button" type="button" aria-label="下一个版本"><svg class="dn-icon" aria-hidden="true"><use href="#dn-chevron-right"/></svg></button></span>
       <button class="dn-icon-button" type="button" aria-label="复制"><svg class="dn-icon" aria-hidden="true"><use href="#dn-copy"/></svg></button>

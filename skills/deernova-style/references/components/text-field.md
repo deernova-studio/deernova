@@ -7,7 +7,7 @@
 ## 尺寸
 
 <!-- tokens:text-field -->
-| Token | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | 用途 |
+| Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
 | `field-height` | 28 | 44 | 40 | 单行输入框和下拉选择的高度。 |
 | `field-padding-x` | 10 | 12 | 14 | 输入框左右内边距。 |

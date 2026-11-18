@@ -7,7 +7,7 @@ AI 在替用户做事时，遇到需要用户拍板的地方就停下来，在�
 ## 尺寸
 
 <!-- tokens:approval -->
-| Token | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | 用途 |
+| Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
 | `diff-line-height` | 20 | 22 | 22 | 变更对比里每一行的高度。 |
 
@@ -25,7 +25,7 @@ AI 在替用户做事时，遇到需要用户拍板的地方就停下来，在�
 
 ## 权限请求
 
-- 写清 AI 要做什么、对什么做、在哪里做：「运行命令 · 在 deernova-style 目录」「访问 github.com」「写入 3 个文件」。命令原样显示，不改写成自然语言。
+- 写清 AI 要做什么、对什么做、在哪里做：「在 deernova-style 目录运行命令」「访问 github.com」「写入 3 个文件」。命令原样显示，不改写成自然语言。
 - 「总是允许」只给可以放心重复的操作，并写清范围（本会话、本项目、这个命令）；用户之后可以在设置里收回。
 - **危险操作**（删除、强制推送、付款、对外发送、离开工作目录）：图标和一行「这个操作不能撤销」用 `danger`；主按钮用实色危险样式（`is-primary is-danger`），文字写动作「删除 12 个文件」；不提供「总是允许」。
 - 拒绝时 AI 换一种做法或者停下来说明；用户也可以不点按钮，直接在 Composer 里输入新的指示，等于拒绝并告诉它怎么做。
@@ -45,9 +45,9 @@ AI 在替用户做事时，遇到需要用户拍板的地方就停下来，在�
 
 ## 决定之后
 
-- 卡片收起成一行，样式和[执行步骤](step-row.md)的摘要行一样：`ink-secondary` 的「已允许 · 运行 npm install」「已拒绝 · 写入 3 个文件」「已保留 3 个文件的修改」，可以点开看原来的内容。
+- 卡片收起成一行，样式和[执行步骤](step-row.md)的摘要行一样：`ink-secondary` 的「已允许运行 npm install」「已拒绝写入 3 个文件」「已保留 3 个文件的修改」，可以点开看原来的内容。
 - 收起和展开用 `duration-base` 的高度过渡；不要让卡片直接消失，用户要能回看自己批准过什么。
-- 超时或者会话被停止：收起成「未处理 · 运行已停止」，`ink-tertiary`。
+- 超时或者会话被停止：收起成「未处理，运行已停止」，`ink-tertiary`。
 
 ## 等待中的行为
 
@@ -152,8 +152,8 @@ AI 在替用户做事时，遇到需要用户拍板的地方就停下来，在�
       <button class="dn-button is-primary" type="button">开始执行</button>
     </div>
   </div>
-  <div class="dn-approval-done"><svg class="dn-icon" aria-hidden="true"><use href="#dn-check"/></svg>已允许 · 运行 npm test</div>
-  <div class="dn-approval-done"><svg class="dn-icon" aria-hidden="true"><use href="#dn-skipped"/></svg>已拒绝 · 写入 3 个文件</div>
+  <div class="dn-approval-done"><svg class="dn-icon" aria-hidden="true"><use href="#dn-check"/></svg>已允许运行 npm test</div>
+  <div class="dn-approval-done"><svg class="dn-icon" aria-hidden="true"><use href="#dn-skipped"/></svg>已拒绝写入 3 个文件</div>
 </div>
 ```
 

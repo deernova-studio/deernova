@@ -69,17 +69,17 @@
 <div class="dn-row is-top">
   <div class="dn-state-list">
     <div class="dn-state dn-state-row">默认</div>
-    <div class="dn-state dn-state-row is-hover">悬停 · fill-hover</div>
-    <div class="dn-state dn-state-row is-active">按下 · fill-selected</div>
-    <div class="dn-state dn-state-row" aria-current="true">选中 · fill-selected</div>
-    <div class="dn-state dn-state-row" aria-disabled="true">禁用 · opacity-disabled</div>
+    <div class="dn-state dn-state-row is-hover">悬停（fill-hover）</div>
+    <div class="dn-state dn-state-row is-active">按下（fill-selected）</div>
+    <div class="dn-state dn-state-row" aria-current="true">选中（fill-selected）</div>
+    <div class="dn-state dn-state-row" aria-disabled="true">禁用（opacity-disabled）</div>
   </div>
   <div class="dn-card dn-state-list">
     <div class="dn-state dn-state-row">默认</div>
-    <div class="dn-state dn-state-row is-hover">悬停 · fill-hover</div>
-    <div class="dn-state dn-state-row is-active">按下 · fill-selected</div>
-    <div class="dn-state dn-state-row" aria-current="true">选中 · fill-selected</div>
-    <div class="dn-state dn-state-row" aria-disabled="true">禁用 · opacity-disabled</div>
+    <div class="dn-state dn-state-row is-hover">悬停（fill-hover）</div>
+    <div class="dn-state dn-state-row is-active">按下（fill-selected）</div>
+    <div class="dn-state dn-state-row" aria-current="true">选中（fill-selected）</div>
+    <div class="dn-state dn-state-row" aria-disabled="true">禁用（opacity-disabled）</div>
   </div>
 </div>
 ```

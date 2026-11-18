@@ -7,7 +7,7 @@ AI 做到一半，遇到只有用户能定的事（选哪种方案、范围多�
 ## 尺寸
 
 <!-- tokens:question -->
-| Token | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | 用途 |
+| Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
 | `question-option-height` | 36 | 48 | 40 | 提问卡里每个选项的最小高度（只有一行字时的高度）。 |
 <!-- /tokens -->

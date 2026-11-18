@@ -7,7 +7,7 @@
 ## 尺寸
 
 <!-- tokens:sidebar -->
-| Token | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | 用途 |
+| Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
 | `row-height` | 32 | 44 | 40 | 侧边栏项、列表行的最小高度。 |
 | `row-padding-x` | 10 | 16 | 12 | 行的左右内边距；分隔线从这里开始。 |
@@ -43,6 +43,8 @@
 .dn-sidebar-group::details-content { display: flex; flex-direction: column; gap: var(--row-gap); block-size: 0; overflow: clip; transition: block-size var(--duration-base) var(--ease-standard), content-visibility var(--duration-base) allow-discrete; }
 .dn-sidebar-group[open]::details-content { block-size: auto; }
 @media (prefers-reduced-motion: reduce) { .dn-sidebar-group::details-content { transition: none; } }
+/* 窄于 breakpoint-sm 时侧边栏不占位，收进抽屉，由顶栏左边的按钮打开（见场景说明） */
+@media (max-width: 760px) { .dn-app > .dn-sidebar { display: none; } }
 .dn-sidebar-heading {
   display: flex;
   align-items: center;
@@ -108,7 +110,7 @@
     <summary class="dn-sidebar-heading">dumbo<svg class="dn-icon" aria-hidden="true"><use href="#dn-chevron-down"/></svg></summary>
     <a class="dn-sidebar-item" href="#"><span class="dn-sidebar-label">沙箱个人助理实现审查</span></a>
   </details>
-  <div class="dn-sidebar-footer"><span class="dn-avatar" aria-hidden="true">林</span><span class="dn-sidebar-label">林一 · Pro</span><button class="dn-icon-button" type="button" aria-label="设置"><svg class="dn-icon" aria-hidden="true"><use href="#dn-settings"/></svg></button></div>
+  <div class="dn-sidebar-footer"><span class="dn-avatar" aria-hidden="true">林</span><span class="dn-sidebar-label">林一</span><span class="dn-sidebar-count">Pro</span><button class="dn-icon-button" type="button" aria-label="设置"><svg class="dn-icon" aria-hidden="true"><use href="#dn-settings"/></svg></button></div>
 </nav>
 ```
 

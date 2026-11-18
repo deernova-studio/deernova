@@ -1,4 +1,9 @@
-/* Shared by both pages. Colors, type and sizes come from the skill's tokens.css. */
+/* Shared by every page. Colors, type and sizes come from the skill's tokens.css. */
+
+/* Chinese display serif for official-site titles (--font-display): a subset of Noto Serif SC (SIL OFL 1.1,
+   assets/fonts/OFL-noto-serif-sc.txt) holding only the characters the examples use; regenerate it with
+   scripts/subset-display-font.py. Latin stays in New York, which comes first in --font-display. */
+@font-face { font-family: "Noto Serif SC"; src: url("../assets/fonts/noto-serif-sc-600.woff2") format("woff2"); font-weight: 500 700; font-style: normal; font-display: swap; }
 :root {
   --rule: color-mix(in srgb, var(--ink) 14%, var(--surface));
   --frame: 1320px;

@@ -7,7 +7,7 @@ Web 应用的页面骨架：左边是[侧边栏](sidebar.md)，中间是内容�
 ## 尺寸
 
 <!-- tokens:toolbar -->
-| Token | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | 用途 |
+| Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
 | `toolbar-title-size` | 15 | 17 | 15 | 顶栏标题字号（常规字重）。 |
 | `panel-tab-height` | 28 | 36 | 32 | 侧面板标签头里每个标签的高度。 |

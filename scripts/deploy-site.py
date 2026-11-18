@@ -16,7 +16,7 @@ import tarfile
 import uuid
 
 # Keep in step with scripts/package-site.mjs and scripts/build-site.mjs.
-PAGES = {'index.html', 'guide.html'}
+PAGES = {'index.html', 'guide.html', 'page.html'}
 SMOKE_FILES = ('index.html', 'guide.html', 'styles/base.css', 'scripts/site.js', 'assets/tokens.json')
 DOMAINS = ('deernova.me', 'www.deernova.me')
 

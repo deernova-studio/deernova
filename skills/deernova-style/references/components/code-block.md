@@ -7,7 +7,7 @@
 ## 尺寸
 
 <!-- tokens:code-block -->
-| Token | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | 用途 |
+| Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
 | `code-header-height` | 32 | 36 | 36 | 代码块表头的高度。 |
 <!-- /tokens -->

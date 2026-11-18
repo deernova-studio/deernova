@@ -7,7 +7,7 @@ AI 做出来的「东西」：文档、代码文件、网页、图表、图片�
 ## 尺寸
 
 <!-- tokens:artifact -->
-| Token | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | 用途 |
+| Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
 | `artifact-card-height` | 56 | 64 | 60 | 回答里产物卡片的高度。 |
 | `artifact-icon-size` | 36 | 40 | 40 | 产物卡片左侧类型图标块的边长。 |
@@ -16,10 +16,10 @@ AI 做出来的「东西」：文档、代码文件、网页、图表、图片�
 ## 产物卡片
 
 - 在回答正文里占一行：高 `artifact-card-height`，`surface-raised` 底、`line` 描边、`card-radius`，宽度跟正文一致，不超过 `content-max`。
-- 从左到右：类型图标块（边长 `artifact-icon-size`，`surface-sunken` 底、`radius-sm`，里面是 `icon-size-md` 的图标）、标题（`callout`、`weight-medium`、`ink`）和下方一行说明（「文档 · 版本 3 · 刚刚更新」，`caption`、`ink-tertiary`）、右侧的「打开」次按钮和下载图标按钮。
+- 从左到右：类型图标块（边长 `artifact-icon-size`，`surface-sunken` 底、`radius-sm`，里面是 `icon-size-md` 的图标）、标题（`callout`、`weight-medium`、`ink`）和下方一行说明（「第 3 版，刚刚更新」，`caption`、`ink-tertiary`）、右侧的「打开」次按钮和下载图标按钮。
 - 整张卡片都是点击区域，点击在预览面板里打开；当前正在面板里显示的那张，卡片底色换成 `fill-selected`。
-- **生成中**：说明换成微光文字「正在写 · 第 42 行」（见[加载状态](skeleton.md)），「打开」照常可用，面板里能看到内容在长。
-- **被修改**：AI 后来又改了这个产物时，新回答里出现同一张卡片，说明写「已更新 · 版本 4」；旧回答里的卡片仍然指向它当时的版本。
+- **生成中**：说明换成微光文字「正在写第 42 行」（见[加载状态](skeleton.md)），「打开」照常可用，面板里能看到内容在长。
+- **被修改**：AI 后来又改了这个产物时，新回答里出现同一张卡片，说明写「已更新到第 4 版」；旧回答里的卡片仍然指向它当时的版本。
 
 ## 预览面板
 
@@ -37,7 +37,7 @@ AI 做出来的「东西」：文档、代码文件、网页、图表、图片�
 
 ## 图片输出
 
-- 生成中：按最终的宽高比占好位置，`surface-sunken` 底、`radius-md`，上面是骨架的微光和「正在生成 · 62%」（`caption`），完成后图片原地淡入，位置不跳。
+- 生成中：按最终的宽高比占好位置，`surface-sunken` 底、`radius-md`，上面是骨架的微光和「正在生成，62%」（`caption`），完成后图片原地淡入，位置不跳。
 - 一张图宽度和正文一致；多张图排成两列的网格，间距 `space-2`。图片有 `radius-md`，内侧一圈 1px `line`，让白底图片也有边界。
 - 指针悬停在图片上时，右上角出现下载、放大、重新生成三个按钮（`surface-raised` 底的小圆按钮）；触屏上点图片进入全屏查看，按钮在全屏里。
 - 放大查看用全屏的[弹窗](sheet.md)：黑色半透明背景，图片居中，左右切换同一组的其他图片，Esc 关闭。
@@ -78,6 +78,8 @@ AI 做出来的「东西」：文档、代码文件、网页、图表、图片�
 .dn-addressbar { display: flex; align-items: center; gap: 2px; height: var(--toolbar-height); padding: 0 var(--space-2); border-bottom: var(--stroke-line) solid var(--line); }
 .dn-address { flex: 1; min-width: 0; height: var(--button-height-sm); margin: 0 var(--space-1); padding: 0 var(--space-2); overflow: hidden; border-radius: var(--radius-sm); background: var(--surface-sunken); color: var(--ink-secondary); font: var(--weight-regular) var(--type-caption-size)/var(--button-height-sm) var(--font-mono); text-overflow: ellipsis; white-space: nowrap; user-select: all; }
 .dn-preview-frame { flex: 1; min-height: 0; width: 100%; border: 0; background: var(--surface-raised); }
+/* 在回答里跟在文字后面时，和上一段隔开一段的距离（同来源列表） */
+.dn-message-assistant > * + :is(.dn-artifact, .dn-image-grid) { margin-top: var(--space-3); }
 .dn-image-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-2); max-width: var(--content-max); }
 .dn-image { position: relative; aspect-ratio: var(--ratio, 1); overflow: hidden; border-radius: var(--radius-md); background: var(--surface-sunken); outline: var(--stroke-line) solid var(--line); outline-offset: calc(var(--stroke-line) * -1); }
 .dn-image img { display: block; width: 100%; height: 100%; object-fit: cover; }
@@ -97,12 +99,12 @@ AI 做出来的「东西」：文档、代码文件、网页、图表、图片�
 <div class="dn-stack">
   <div class="dn-artifact" role="button" tabindex="0" aria-current="true">
     <span class="dn-artifact-icon"><svg class="dn-icon" aria-hidden="true"><use href="#dn-document"/></svg></span>
-    <span class="dn-artifact-text"><span class="dn-artifact-title">第三季度经营分析</span><span class="dn-artifact-meta">文档 · 版本 3 · 刚刚更新</span></span>
+    <span class="dn-artifact-text"><span class="dn-artifact-title">第三季度经营分析</span><span class="dn-artifact-meta">第 3 版，刚刚更新</span></span>
     <span class="dn-artifact-actions"><button class="dn-button is-sm" type="button">打开</button><button class="dn-icon-button" type="button" aria-label="下载"><svg class="dn-icon" aria-hidden="true"><use href="#dn-download"/></svg></button></span>
   </div>
   <div class="dn-artifact" role="button" tabindex="0">
     <span class="dn-artifact-icon"><svg class="dn-icon" aria-hidden="true"><use href="#dn-code"/></svg></span>
-    <span class="dn-artifact-text"><span class="dn-artifact-title">landing.html</span><span class="dn-artifact-meta"><span class="dn-shimmer-text">正在写 · 第 42 行</span></span></span>
+    <span class="dn-artifact-text"><span class="dn-artifact-title">landing.html</span><span class="dn-artifact-meta"><span class="dn-shimmer-text">正在写第 42 行</span></span></span>
     <span class="dn-artifact-actions"><button class="dn-button is-sm" type="button">打开</button></span>
   </div>
   <div class="dn-preview">
@@ -128,7 +130,7 @@ AI 做出来的「东西」：文档、代码文件、网页、图表、图片�
 ```html
 <div class="dn-image-grid">
   <div class="dn-image"><div class="dn-image-actions"><button class="dn-icon-button" type="button" aria-label="下载"><svg class="dn-icon" aria-hidden="true"><use href="#dn-download"/></svg></button><button class="dn-icon-button" type="button" aria-label="放大查看"><svg class="dn-icon" aria-hidden="true"><use href="#dn-expand"/></svg></button></div></div>
-  <div class="dn-image dn-skeleton-block" aria-busy="true"><span class="dn-image-status">正在生成 · 62%</span></div>
+  <div class="dn-image dn-skeleton-block" aria-busy="true"><span class="dn-image-status">正在生成，62%</span></div>
 </div>
 ```
 

@@ -16,15 +16,15 @@
 
 | 元素 | 进入 | 退出 | 动什么 |
 | --- | --- | --- | --- |
-| Tooltip | `duration-instant` · `ease-enter` | `duration-instant` · `ease-exit` | 透明度 |
-| 菜单、下拉选择、popover、悬停卡片 | `duration-base` · `ease-enter` | `duration-instant` · `ease-exit` | 透明度，加上从触发器那一侧 0.96 → 1 的缩放 |
-| 轻提示 | `duration-base` · `ease-enter` | `duration-instant` · `ease-exit` | 透明度，加上向上 8px 的位移 |
-| 居中弹窗 | `duration-slow` · `ease-enter` | `duration-base` · `ease-exit` | 面板的透明度和 0.96 → 1 的缩放；遮罩的透明度 |
-| 底部弹窗 | `duration-slow` · `ease-drawer` | `duration-base` · `ease-drawer` | 从底边整块滑入；遮罩的透明度 |
-| 侧边抽屉 | `duration-slow` · `ease-drawer` | `duration-base` · `ease-drawer` | 从左边或右边整块滑入；遮罩的透明度 |
-| 展开收起（侧边栏分组、执行步骤、目录） | `duration-base` · `ease-standard` | 同进入 | 内容高度，箭头同步旋转 |
-| 悬停、按下、选中 | `duration-instant` · `ease-standard` | 同进入 | 颜色，见 [交互状态](states.md) |
-| 按钮和可点卡片按下 | `duration-press` · `ease-standard` | `duration-release` · `ease-release` | 只有底色层缩到 `press-scale`，文字不动；松开时带回弹 |
+| Tooltip | `duration-instant`、`ease-enter` | `duration-instant`、`ease-exit` | 透明度 |
+| 菜单、下拉选择、popover、悬停卡片 | `duration-base`、`ease-enter` | `duration-instant`、`ease-exit` | 透明度，加上从触发器那一侧 0.96 → 1 的缩放 |
+| 轻提示 | `duration-base`、`ease-enter` | `duration-instant`、`ease-exit` | 透明度，加上向上 8px 的位移 |
+| 居中弹窗 | `duration-slow`、`ease-enter` | `duration-base`、`ease-exit` | 面板的透明度和 0.96 → 1 的缩放；遮罩的透明度 |
+| 底部弹窗 | `duration-slow`、`ease-drawer` | `duration-base`、`ease-drawer` | 从底边整块滑入；遮罩的透明度 |
+| 侧边抽屉 | `duration-slow`、`ease-drawer` | `duration-base`、`ease-drawer` | 从左边或右边整块滑入；遮罩的透明度 |
+| 展开收起（侧边栏分组、执行步骤、目录） | `duration-base`、`ease-standard` | 同进入 | 内容高度，箭头同步旋转 |
+| 悬停、按下、选中 | `duration-instant`、`ease-standard` | 同进入 | 颜色，见 [交互状态](states.md) |
+| 按钮和可点卡片按下 | `duration-press`、`ease-standard` | `duration-release`、`ease-release` | 只有底色层缩到 `press-scale`，文字不动；松开时带回弹 |
 
 ## 原则
 

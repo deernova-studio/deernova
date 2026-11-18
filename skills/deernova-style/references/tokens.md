@@ -106,6 +106,7 @@
 | serif | `--font-serif` | `ui-serif, "New York", "Iowan Old Style", Georgia, "PingFang SC", serif` |
 | sans | `--font-sans` | `-apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Hiragino Sans GB", system-ui, sans-serif` |
 | mono | `--font-mono` | `ui-monospace, "SF Mono", Menlo, "PingFang SC", monospace` |
+| display | `--font-display` | `ui-serif, "New York", "Iowan Old Style", Georgia, "Noto Serif SC", "Source Han Serif SC", "Songti SC", "PingFang SC", serif` |
 
 ### 字重
 
@@ -121,17 +122,17 @@
 
 每个角色生成 `--type-<角色>`（`font` 简写，可以直接写 `font: var(--type-body)`）、`--type-<角色>-size` 和 `--type-<角色>-line`。表里是“字号 / 行高”。
 
-| 角色 | 字族 | 字重 | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | SwiftUI（macOS · iOS） | 用途 |
+| 角色 | 字族 | 字重 | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | SwiftUI（macOS / iOS） | 用途 |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `display` | serif | 600 | 26 / 32 | 30 / 36 | 44 / 52 | `.system(size: 26, weight: .semibold, design: .serif)` · `.system(.largeTitle, design: .serif).weight(.semibold)` | 空状态、引导页、页面的大标题（衬线）。每屏最多一个。 |
-| `title` | serif | 600 | 18 / 24 | 20 / 25 | 24 / 32 | `.system(size: 18, weight: .semibold, design: .serif)` · `.system(.title3, design: .serif).weight(.semibold)` | 文章标题、弹窗标题（衬线）。 |
-| `headline` | sans | 600 | 15 / 22 | 17 / 22 | 16 / 24 | `.system(size: 15, weight: .semibold)` · `.headline` | 区块标题、卡片标题、横幅标题、列表行标题。 |
-| `body` | sans | 400 | 15 / 24 | 17 / 23 | 15 / 24 | `.system(size: 15)` · `.body` | 界面正文、AI 回答、用户消息、列表、表单。 |
-| `prose` | serif | 400 | 16 / 26 | 17 / 26 | 17 / 28 | `.system(size: 16, design: .serif)` · `.system(.body, design: .serif)` | 文章、文档这类长文阅读（衬线）。AI 回答不用它。 |
-| `callout` | sans | 400 | 14 / 20 | 15 / 20 | 14 / 22 | `.system(size: 14)` · `.callout` | 说明文字、弹窗正文、AI 输入框右下方的模型、权限和上下文用量。 |
-| `footnote` | sans | 400 | 13 / 18 | 13 / 17 | 13 / 20 | `.system(size: 13)` · `.footnote` | 侧边栏分组标题、分组列表的页头页脚、卡片摘要。 |
-| `caption` | sans | 400 | 12 / 16 | 12 / 15 | 12 / 16 | `.system(size: 12)` · `.caption` | 时间戳、计数、标签。界面里最小的字。 |
-| `code` | mono | 400 | 13 / 20 | 13 / 18 | 13 / 20 | `.system(size: 13, design: .monospaced)` · `.system(.footnote, design: .monospaced)` | 代码块、命令、文件路径、需要对齐的数据。 |
+| `display` | serif | 600 | 26 / 32 | 30 / 36 | 44 / 52 | `.system(size: 26, weight: .semibold, design: .serif)` / `.system(.largeTitle, design: .serif).weight(.semibold)` | 空状态、引导页、页面的大标题（衬线）。每屏最多一个。 |
+| `title` | serif | 600 | 18 / 24 | 20 / 25 | 24 / 32 | `.system(size: 18, weight: .semibold, design: .serif)` / `.system(.title3, design: .serif).weight(.semibold)` | 文章标题、弹窗标题（衬线）。 |
+| `headline` | sans | 600 | 15 / 22 | 17 / 22 | 16 / 24 | `.system(size: 15, weight: .semibold)` / `.headline` | 区块标题、卡片标题、横幅标题、列表行标题。 |
+| `body` | sans | 400 | 15 / 24 | 17 / 23 | 15 / 24 | `.system(size: 15)` / `.body` | 界面正文、AI 回答、用户消息、列表、表单。 |
+| `prose` | serif | 400 | 16 / 26 | 17 / 26 | 17 / 28 | `.system(size: 16, design: .serif)` / `.system(.body, design: .serif)` | 文章、文档这类长文阅读（衬线）。AI 回答不用它。 |
+| `callout` | sans | 400 | 14 / 20 | 15 / 20 | 14 / 22 | `.system(size: 14)` / `.callout` | 说明文字、弹窗正文、AI 输入框右下方的模型、权限和上下文用量。 |
+| `footnote` | sans | 400 | 13 / 18 | 13 / 17 | 13 / 20 | `.system(size: 13)` / `.footnote` | 侧边栏分组标题、分组列表的页头页脚、卡片摘要。 |
+| `caption` | sans | 400 | 12 / 16 | 12 / 15 | 12 / 16 | `.system(size: 12)` / `.caption` | 时间戳、计数、标签。界面里最小的字。 |
+| `code` | mono | 400 | 13 / 20 | 13 / 18 | 13 / 20 | `.system(size: 13, design: .monospaced)` / `.system(.footnote, design: .monospaced)` | 代码块、命令、文件路径、需要对齐的数据。 |
 
 ## 间距
 
@@ -150,7 +151,7 @@
 | `space-12` | `48px` | 官网与文档的章节间距。 |
 | `space-16` | `64px` | 官网首屏的上下留白。 |
 
-| Token | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | 用途 |
+| Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
 | `gap-inline` | 6 | 6 | 8 | 同一行里图标和文字之间、按钮里图标和标签之间。 |
 | `gap-stack` | 8 | 8 | 12 | 同一组里相邻元素之间：表单项、卡片里的段落、并排的按钮。 |
@@ -266,7 +267,7 @@
 | `scrollbar-size` | `10px` | 网页滚动条占的宽度（横向滚动条是高度）。（仅网页） |
 | `scrollbar-thumb-size` | `6px` | 滚动条里胶囊滑块的粗细，两边各留 (scrollbar-size − 它) ÷ 2。（仅网页） |
 
-| Token | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | 用途 |
+| Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
 | `hit-min` | 24 | 44 | 24 | 最小点击区域。可见尺寸比它小时，用透明的命中区补足，不加大可见的按钮。 |
 | `sidebar-width` | 288 | 320 | 260 | 侧边栏默认宽度。iPhone 没有侧边栏；macOS 用系统侧边栏，宽度只作参考。 |
@@ -284,7 +285,7 @@
 
 见 [components/button.md](components/button.md)。
 
-| Token | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | 用途 |
+| Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
 | `button-height-sm` | 24 | 30 | 32 | 小按钮的可见高度：列表行、卡片角落里的行内操作。 |
 | `button-height-md` | 28 | 36 | 36 | 默认按钮、图标按钮、发送按钮、步骤行的高度。 |
@@ -303,7 +304,7 @@
 
 见 [components/toolbar.md](components/toolbar.md)。
 
-| Token | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | 用途 |
+| Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
 | `toolbar-title-size` | 15 | 17 | 15 | 顶栏标题字号（常规字重）。 |
 | `panel-tab-height` | 28 | 36 | 32 | 侧面板标签头里每个标签的高度。 |
@@ -312,7 +313,7 @@
 
 见 [components/glass-controls.md](components/glass-controls.md)。
 
-| Token | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | 用途 |
+| Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
 | `glass-button-size` | 34 | 44 | 36 | 玻璃按钮的边长：macOS 26 工具栏按钮约 34（系统绘制，这里只作参考和自绘时对齐），官网页眉的图标按钮也用它；按钮组里的按钮比它小 8。Web 应用的工具栏不用玻璃，用 button-height-md。 |
 
@@ -320,7 +321,7 @@
 
 见 [components/segmented.md](components/segmented.md)。
 
-| Token | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | 用途 |
+| Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
 | `segmented-height` | 24 | 28 | 28 | 选项块的高度；外层再加上下各 segmented-padding。 |
 | `segmented-padding` | 2 | 2 | 2 | 底槽内边距。 |
@@ -332,7 +333,7 @@
 
 见 [components/text-field.md](components/text-field.md)。
 
-| Token | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | 用途 |
+| Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
 | `field-height` | 28 | 44 | 40 | 单行输入框和下拉选择的高度。 |
 | `field-padding-x` | 10 | 12 | 14 | 输入框左右内边距。 |
@@ -344,7 +345,7 @@
 
 见 [components/composer.md](components/composer.md)。
 
-| Token | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | 用途 |
+| Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
 | `composer-radius` | 14 | 24 | 16 | Composer 外框圆角。 |
 | `composer-min-height` | 44 | 44 | 48 | 单行布局的高度：加号、输入、发送排在同一行，输入多行时向上长高。 |
@@ -358,7 +359,7 @@
 
 见 [components/mention.md](components/mention.md)。
 
-| Token | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | 用途 |
+| Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
 | `mention-height` | 20 | 24 | 22 | 文字里提及标签的高度，放进正文的一行里不撑高行距。 |
 | `mention-padding-x` | 4 | 6 | 6 | 提及标签左右内边距。 |
@@ -372,7 +373,7 @@
 
 见 [components/sidebar.md](components/sidebar.md)。
 
-| Token | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | 用途 |
+| Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
 | `row-height` | 32 | 44 | 40 | 侧边栏项、列表行的最小高度。 |
 | `row-padding-x` | 10 | 16 | 12 | 行的左右内边距；分隔线从这里开始。 |
@@ -383,7 +384,7 @@
 
 见 [components/list.md](components/list.md)。
 
-| Token | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | 用途 |
+| Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
 | `row-icon-size` | 20 | 28 | 24 | 列表行左侧图标底的边长。 |
 | `switch-width` | 36 | 51 | 44 | 开关宽度。 |
@@ -393,7 +394,7 @@
 
 见 [components/card.md](components/card.md)。
 
-| Token | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | 用途 |
+| Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
 | `card-padding-x` | 16 | 16 | 24 | 卡片左右内边距。 |
 | `card-padding-y` | 12 | 14 | 24 | 卡片上下内边距。 |
@@ -404,7 +405,7 @@
 
 见 [components/tag.md](components/tag.md)。
 
-| Token | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | 用途 |
+| Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
 | `tag-height` | 20 | 22 | 24 | 标签高度。 |
 | `tag-padding-x` | 6 | 8 | 10 | 标签左右内边距。 |
@@ -415,7 +416,7 @@
 
 见 [components/code-block.md](components/code-block.md)。
 
-| Token | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | 用途 |
+| Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
 | `code-header-height` | 32 | 36 | 36 | 代码块表头的高度。 |
 
@@ -423,7 +424,7 @@
 
 见 [components/task-list.md](components/task-list.md)。
 
-| Token | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | 用途 |
+| Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
 | `task-row-height` | 28 | 44 | 32 | 任务清单每一行的高度。 |
 | `task-glyph-size` | 16 | 20 | 18 | 左侧状态圈的直径。 |
@@ -432,7 +433,7 @@
 
 见 [components/empty-state.md](components/empty-state.md)。
 
-| Token | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | 用途 |
+| Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
 | `empty-title-size` | 24 | 20 | 32 | 空状态标题（衬线）字号。 |
 | `empty-icon-size` | 32 | 36 | 40 | 空状态图标的边长。 |
@@ -441,7 +442,7 @@
 
 见 [components/banner.md](components/banner.md)。
 
-| Token | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | 用途 |
+| Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
 | `toast-height` | 36 | 40 | 40 | 轻提示胶囊的高度。 |
 | `banner-radius` | 10 | 12 | 12 | 横幅和贴在输入区上方的提示条的圆角。 |
@@ -454,7 +455,7 @@
 
 见 [components/menu.md](components/menu.md)。
 
-| Token | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | 用途 |
+| Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
 | `menu-item-height` | 28 | 44 | 36 | 菜单项和下拉选项的高度。 |
 | `menu-item-padding-x` | 8 | 10 | 10 | 菜单项左右内边距。 |
@@ -472,7 +473,7 @@
 
 见 [components/sheet.md](components/sheet.md)。
 
-| Token | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | 用途 |
+| Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
 | `sheet-width-sm` | 360 | 360 | 400 | 确认弹窗、只有一两句话的提示。 |
 | `sheet-width-md` | 480 | 540 | 560 | 默认宽度：短表单、选择分享方式这类短任务。 |
@@ -491,7 +492,7 @@
 
 见 [components/tooltip.md](components/tooltip.md)。
 
-| Token | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | 用途 |
+| Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
 | `tooltip-height` | 24 | 28 | 28 | 单行 tooltip 的高度；折成两行时随内容长高。 |
 | `tooltip-padding-x` | 8 | 10 | 10 | tooltip 左右内边距。 |
@@ -509,7 +510,7 @@
 
 见 [components/message.md](components/message.md)。
 
-| Token | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | 用途 |
+| Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
 | `message-font-size` | 15 | 15 | 15 | 用户消息气泡的字号。AI 回答用 type-body，和界面正文一致。 |
 | `message-action-size` | 24 | 32 | 28 | AI 消息下方操作按钮的可见尺寸。 |
@@ -519,7 +520,7 @@
 
 见 [components/approval.md](components/approval.md)。
 
-| Token | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | 用途 |
+| Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
 | `diff-line-height` | 20 | 22 | 22 | 变更对比里每一行的高度。 |
 
@@ -532,7 +533,7 @@
 
 见 [components/step-row.md](components/step-row.md)。
 
-| Token | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | 用途 |
+| Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
 | `tool-key-width` | 88 | 96 | 96 | 工具详情预览里参数名一栏的宽度，超长时截断。 |
 
@@ -544,7 +545,7 @@
 
 见 [components/question.md](components/question.md)。
 
-| Token | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | 用途 |
+| Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
 | `question-option-height` | 36 | 48 | 40 | 提问卡里每个选项的最小高度（只有一行字时的高度）。 |
 
@@ -552,7 +553,7 @@
 
 见 [components/notification.md](components/notification.md)。
 
-| Token | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | 用途 |
+| Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
 | `badge-size` | 16 | 18 | 16 | 数字角标的高度和最小宽度。 |
 
@@ -566,7 +567,7 @@
 
 见 [components/choice.md](components/choice.md)。
 
-| Token | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | 用途 |
+| Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
 | `check-size` | 16 | 22 | 18 | 复选框和单选的边长。 |
 | `slider-thumb-size` | 16 | 24 | 20 | 滑块圆钮的直径。 |
@@ -579,7 +580,7 @@
 
 见 [components/form.md](components/form.md)。
 
-| Token | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | 用途 |
+| Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
 
 | Token | 值 | 用途 |
@@ -590,7 +591,7 @@
 
 见 [components/table.md](components/table.md)。
 
-| Token | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | 用途 |
+| Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
 | `table-row-height` | 36 | 44 | 40 | 表格每一行（包括表头）的高度。 |
 | `table-cell-padding-x` | 12 | 16 | 12 | 单元格左右内边距。 |
@@ -599,7 +600,7 @@
 
 见 [components/command.md](components/command.md)。
 
-| Token | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | 用途 |
+| Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
 | `command-input-height` | 48 | 52 | 52 | 命令面板搜索框的高度。 |
 
@@ -611,7 +612,7 @@
 
 见 [components/skeleton.md](components/skeleton.md)。
 
-| Token | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | 用途 |
+| Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
 | `skeleton-line-height` | 12 | 14 | 12 | 骨架里每一行文字块的高度。 |
 
@@ -624,7 +625,7 @@
 
 见 [components/suggestion.md](components/suggestion.md)。
 
-| Token | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | 用途 |
+| Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
 
 | Token | 值 | 用途 |
@@ -635,7 +636,7 @@
 
 见 [components/artifact.md](components/artifact.md)。
 
-| Token | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | 用途 |
+| Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
 | `artifact-card-height` | 56 | 64 | 60 | 回答里产物卡片的高度。 |
 | `artifact-icon-size` | 36 | 40 | 40 | 产物卡片左侧类型图标块的边长。 |
@@ -644,7 +645,7 @@
 
 见 [foundations/iconography.md](foundations/iconography.md)。
 
-| Token | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | 用途 |
+| Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
 | `icon-size-sm` | 14 | 17 | 16 | 按钮和标签里的图标。 |
 | `icon-size-md` | 16 | 20 | 18 | 侧边栏、列表、横幅、工具栏里的图标。 |

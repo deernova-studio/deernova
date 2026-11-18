@@ -169,7 +169,7 @@ function strokeSpecimen() {
   return `<div class="specimen-panel" ${APP}><div class="stroke-row">
 <figure><span class="stroke-sample is-line"></span><figcaption><code>stroke-line</code> 分隔线</figcaption></figure>
 <figure><span class="stroke-sample is-control"></span><figcaption><code>stroke-control</code> 必要的控件边界</figcaption></figure>
-<figure><span class="stroke-sample is-field">输入内容</span><figcaption>输入框 · 浅灰底加 1px 浅线</figcaption></figure>
+<figure><span class="stroke-sample is-field">输入内容</span><figcaption>输入框：浅灰底加 1px 浅线</figcaption></figure>
 <figure><span class="stroke-sample is-focus">按钮</span><figcaption><code>stroke-focus</code> 键盘焦点环</figcaption></figure>
 <figure><span class="stroke-sample is-dropzone">拖入文件</span><figcaption><code>line-style-dropzone</code> 拖放区</figcaption></figure>
 </div></div>`;
@@ -177,10 +177,10 @@ function strokeSpecimen() {
 
 function elevationSpecimen() {
   return `<div class="specimen-panel elevation-panel" ${APP}><div class="elevation-row">
-<figure><span class="elevation-card">纸面</span><figcaption>0 · 细线，无阴影</figcaption></figure>
-<figure><span class="elevation-card is-control">控件</span><figcaption>1 · <code>shadow-control</code></figcaption></figure>
-<figure><span class="elevation-card is-float">浮层</span><figcaption>2 · <code>shadow-float</code></figcaption></figure>
-<figure><span class="elevation-card dn-glass is-glass">玻璃</span><figcaption>玻璃 · <code>shadow-glass</code></figcaption></figure>
+<figure><span class="elevation-card">纸面</span><figcaption>0：细线，无阴影</figcaption></figure>
+<figure><span class="elevation-card is-control">控件</span><figcaption>1：<code>shadow-control</code></figcaption></figure>
+<figure><span class="elevation-card is-float">浮层</span><figcaption>2：<code>shadow-float</code></figcaption></figure>
+<figure><span class="elevation-card dn-glass is-glass">玻璃</span><figcaption>玻璃：<code>shadow-glass</code></figcaption></figure>
 </div></div>`;
 }
 
@@ -225,7 +225,11 @@ function renderMarkdown(path, markdown, tokens, { hoistSpecimen = false } = {}) 
         const inner = this.parser.parseInline(text);
         if (/^https?:/.test(href)) return `<a href="${escape(href)}">${inner}</a>`;
         const [file, hash] = href.split('#');
-        const target = file ? docId(posix.normalize(posix.join(posix.dirname(path), file))) : null;
+        const resolved = file ? posix.normalize(posix.join(posix.dirname(path), file)) : '';
+        // The page guide links into the style guide, which is a separate page on the site.
+        const style = resolved.match(/^\.\.\/deernova-style\/(.+)$/)?.[1];
+        if (style) return `<a href="guide.html#${docId(style) ?? 'overview'}">${inner}</a>`;
+        const target = file ? docId(resolved) : null;
         if (target) return `<a href="#${target}">${inner}</a>`;
         return hash ? inner : `<a href="${escape(href)}">${inner}</a>`;
       }
@@ -361,4 +365,96 @@ export async function renderGuide(root) {
   docs.push(renderLoadersDoc(icons.find(icon => icon.name === 'thinking').body.join(''), productMark('loaders', 'mark-loaders')));
 
   return { nav: nav.join('\n'), docs: docs.join('\n'), referenceCss: await referenceCss(root) };
+}
+
+// A page doc rendered like docSection, with each platform section (网页, Mac 应用, iPhone 应用) wrapped for the filter.
+const PLATFORM = { '网页': 'web', 'Mac 应用': 'mac', 'iPhone 应用': 'ios' };
+function pageSection(path, markdown, tokens) {
+  const id = docId(path);
+  const body = renderMarkdown(path, markdown, tokens).split(/(?=<h3 id=")/).map(chunk => {
+    const platform = PLATFORM[chunk.match(/^<h3 id="[^"]+">([^<]+)<\/h3>/)?.[1]];
+    return platform ? `<div class="platform" data-platform="${platform}">${chunk}</div>` : chunk;
+  }).join('');
+  return `<section class="doc" id="${id}" aria-labelledby="${id}-title">
+<header class="doc-head"><h2 id="${id}-title">${escape(titleOf(markdown))}</h2><code class="doc-path">${escape(path)}</code></header>
+<div class="doc-body">${body}</div>
+</section>`;
+}
+
+// ---------- the page guide (skills/deernova-page) ----------
+
+export const PAGE_SKILL_DIR = 'skills/deernova-page';
+
+// Page docs listed in the page skill's 页面 table, in table order.
+export async function pageDocs(root) {
+  const skill = await read(join(root, PAGE_SKILL_DIR, 'SKILL.md'));
+  return [...section(skill, '页面').matchAll(/\]\(references\/pages\/([\w-]+)\.md\)/g)].map(match => match[1]);
+}
+
+// The page guide uses the style guide's frame and renderer: same specimens, same reference CSS, its own skill.
+export async function renderPageGuide(root) {
+  const tokens = await readTokens(root);
+  const skill = await read(join(root, PAGE_SKILL_DIR, 'SKILL.md'));
+  const { version } = JSON.parse(await read(join(root, 'packages/page/package.json')));
+  const lede = withoutTitle(skill).trim().split('\n\n')[0];
+  const nav = ['<a class="toc-top" href="#overview">总览</a>', '<ol><li><a href="#overview-1">和 Style 的分工</a></li><li><a href="#overview-2">工作流程</a></li></ol>'];
+  const docs = [`<section class="doc doc-overview" id="overview" aria-labelledby="overview-title">
+<header class="overview-head"><h1 id="overview-title">Deernova Page</h1><p class="lede">${inline(lede)}</p></header>
+<div class="doc-body">
+<h3 id="overview-1">和 Style 的分工</h3>${renderMarkdown('SKILL.md', section(skill, '和 deernova-style 的分工'), tokens)}
+<h3 id="overview-2">工作流程</h3>${renderMarkdown('SKILL.md', section(skill, '工作流程'), tokens)}
+</div>
+</section>`];
+
+  // The page table is grouped by category (### headings under 页面); each group gets a heading in the flow.
+  const pages = await pageDocs(root);
+  const markdowns = new Map();
+  for (const name of pages) markdowns.set(name, await read(join(root, PAGE_SKILL_DIR, `references/pages/${name}.md`)));
+  const groups = section(skill, '页面').split(/^### /m).slice(1).map(part => ({
+    title: part.split('\n')[0].trim(),
+    names: [...part.matchAll(/\]\(references\/pages\/([\w-]+)\.md\)/g)].map(match => match[1])
+  }));
+  if (!groups.length && pages.length) groups.push({ title: '页面', names: pages });
+  if (pages.length) {
+    groups.forEach((group, index) => {
+      nav.push(`<p class="toc-group">${escape(group.title)}</p>`, '<ol>');
+      docs.push(`<header class="doc-group" id="group-${index + 1}"><h2>${escape(group.title)}</h2></header>`);
+      for (const name of group.names) {
+        const path = `references/pages/${name}.md`;
+        nav.push(`<li><a href="#${docId(path)}">${escape(titleOf(markdowns.get(name)))}</a></li>`);
+        docs.push(pageSection(path, markdowns.get(name), tokens));
+      }
+      nav.push('</ol>');
+    });
+  } else {
+    nav.push('<ol><li><a href="#pages">还没有页面</a></li></ol>');
+    docs.push(`<section class="doc" id="pages" aria-labelledby="pages-title">
+<header class="doc-head"><h2 id="pages-title">页面</h2></header>
+<div class="doc-body"><div class="specimen" ${APP}><div class="dn-empty">
+<svg class="dn-icon" aria-hidden="true"><use href="#dn-file"/></svg>
+<h3 class="dn-empty-title">还没有页面</h3>
+<p class="dn-empty-body">先按 Style 的总则和整页示例搭。</p>
+<div class="dn-empty-actions"><a class="dn-button is-lg" href="guide.html#examples">看整页示例</a></div>
+</div></div></div>
+</section>`);
+  }
+
+  nav.push('<p class="toc-group">资源</p><ol><li><a href="#resources">安装</a></li></ol>');
+  const commands = [
+    ['npx @deernova/page@latest install --agent claude', 'Claude Code：写入项目的 .claude/skills/deernova-page/'],
+    ['npx @deernova/page@latest install --global --agent claude', '写入 ~/.claude/skills/deernova-page/']
+  ].map(([command, text]) => `<li><code>${command}</code><span>${text}</span></li>`).join('');
+  docs.push(`<section class="doc" id="resources" aria-labelledby="resources-title">
+<header class="doc-head"><h2 id="resources-title">安装</h2></header>
+<div class="doc-body"><p>还没有发布到 npm。发布后和 Style 装在一起：</p><ul class="commands">${commands}</ul></div>
+</section>`);
+
+  // Each page doc's example CSS lays out its live examples, the way component CSS does on the style guide.
+  const pageCss = [];
+  for (const name of pages) {
+    const path = `references/pages/${name}.md`;
+    const markdown = await read(join(root, PAGE_SKILL_DIR, path));
+    for (const [, css] of markdown.matchAll(/```css\n([\s\S]*?)```/g)) pageCss.push(`/* ${path} */\n${css}`);
+  }
+  return { pageNav: nav.join('\n'), pageDocs: docs.join('\n'), pageCss: pageCss.join('\n'), pageVersion: version, pageMark: productMark('page', 'mark-page') };
 }

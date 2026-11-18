@@ -154,6 +154,7 @@
   --font-serif: ui-serif, "New York", "Iowan Old Style", Georgia, "PingFang SC", serif;
   --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Hiragino Sans GB", system-ui, sans-serif;
   --font-mono: ui-monospace, "SF Mono", Menlo, "PingFang SC", monospace;
+  --font-display: ui-serif, "New York", "Iowan Old Style", Georgia, "Noto Serif SC", "Source Han Serif SC", "Songti SC", "PingFang SC", serif;
   --type-display-tracking: -0.01em;
   --space-1: 4px;
   --space-2: 8px;

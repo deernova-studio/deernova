@@ -7,7 +7,7 @@ AI 主动给出的下一步：新对话首页的**起始建议**，以及回答�
 ## 尺寸
 
 <!-- tokens:suggestion -->
-| Token | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | 用途 |
+| Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
 
 | Token | 值 | 用途 |

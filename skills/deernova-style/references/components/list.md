@@ -7,7 +7,7 @@
 ## 尺寸
 
 <!-- tokens:list -->
-| Token | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | 用途 |
+| Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
 | `row-icon-size` | 20 | 28 | 24 | 列表行左侧图标底的边长。 |
 | `switch-width` | 36 | 51 | 44 | 开关宽度。 |
@@ -56,7 +56,8 @@
 .dn-list-icon { display: grid; place-items: center; flex: none; width: var(--row-icon-size); height: var(--row-icon-size); border-radius: var(--radius-sm); background: var(--accent-soft); color: var(--ink); }
 .dn-list-icon .dn-icon { width: calc(var(--row-icon-size) * 0.6); height: calc(var(--row-icon-size) * 0.6); }
 .dn-list-value { margin-left: auto; color: var(--ink-secondary); white-space: nowrap; }
-.dn-list-row .dn-chevron { width: var(--icon-size-sm); height: var(--icon-size-sm); color: var(--ink-tertiary); }
+.dn-list-row .dn-chevron { width: var(--icon-size-sm); height: var(--icon-size-sm); margin-left: auto; color: var(--ink-tertiary); }
+.dn-list-value + .dn-chevron { margin-left: 0; }
 
 .dn-switch {
   position: relative;

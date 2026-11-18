@@ -218,21 +218,26 @@
 - **少写字**：标题上方的胶囊，「重新定义」「一站式」「无缝」，编造的用户数、可用率、评分和客户标志。
 - **只有纸、墨和线**：渐变背景、渐变文字、紫色强调。
 - **每个控件都要干活**：三个按钮，「免费开始使用」「了解更多」都说不清点了去哪。
+- **没有自己的东西**：居中的标题、一句话、一排按钮，换个产品名照样成立。
 
 改成：
 
 ```html
 <div class="ex-page ex-site" data-density="comfortable">
-  <h2 class="ex-site-title">把想法写下来，<br>它会自己长成文档。</h2>
-  <p class="ex-site-lede">Deernova 笔记在你写的时候整理结构，在你需要的时候找到它。</p>
-  <div class="dn-row">
-    <button class="dn-button is-primary is-lg" type="button">下载 Mac 版</button>
-    <button class="dn-button is-lg" type="button">在浏览器中使用</button>
+  <div class="ex-site-copy">
+    <h2 class="ex-site-title">把想法写下来，<br>它会自己长成文档。</h2>
+    <p class="ex-site-lede">你写的时候，它整理结构；你要找的时候，它已经放在那里。</p>
+    <div class="dn-row">
+      <button class="dn-button is-primary is-lg" type="button">下载 Mac 版</button>
+      <button class="dn-button is-plain is-lg" type="button">在浏览器中使用</button>
+    </div>
   </div>
+  <img class="ex-site-art shot-light" src="assets/examples/halftone-light.png" alt="">
+  <img class="ex-site-art shot-dark" src="assets/examples/halftone-dark.png" alt="">
 </div>
 ```
 
-一个衬线标题说清它做什么，一句话补充，两个具体的按钮。下面接真实的产品截图，不放凑出来的数字，见 [官网与文档](scenes/web-marketing.md)。
+左对齐的宋体标题说清它做什么，一句话补充，一个主按钮；右边是这个产品自己的网点插画，出血到边缘。下面接真实的产品截图，不放凑出来的数字，见 [官网与文档](scenes/web-marketing.md)。
 
 ## 每种情况都有样子
 

@@ -18,7 +18,7 @@
 ## 尺寸
 
 <!-- tokens:tooltip -->
-| Token | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | 用途 |
+| Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
 | `tooltip-height` | 24 | 28 | 28 | 单行 tooltip 的高度；折成两行时随内容长高。 |
 | `tooltip-padding-x` | 8 | 10 | 10 | tooltip 左右内边距。 |

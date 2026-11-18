@@ -1,0 +1,20 @@
+{
+  "name": "@deernova/page",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "bin": {
+    "deernova-page": "bin/cli.mjs"
+  },
+  "files": [
+    "bin",
+    "skill"
+  ],
+  "description": "Install the Deernova page layout skill into an existing repository"
+}

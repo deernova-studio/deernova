@@ -7,7 +7,7 @@
 ## 尺寸
 
 <!-- tokens:command -->
-| Token | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | 用途 |
+| Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
 | `command-input-height` | 48 | 52 | 52 | 命令面板搜索框的高度。 |
 

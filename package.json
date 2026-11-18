@@ -5,6 +5,7 @@
   "type": "module",
   "workspaces": [
     "packages/style",
+    "packages/page",
     "packages/icons"
   ],
   "engines": {

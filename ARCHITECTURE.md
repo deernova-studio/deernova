@@ -1,6 +1,6 @@
 # 仓库架构
 
-这个仓库只有一个真正的产品：`skills/deernova-style/` 这个 skill。网站和 npm 包都从它派生，不另外维护一份规范。
+仓库的产品是 `skills/` 下的 skill，每个 skill 发成一个 npm 包。`deernova-style` 是底座，管颜色、字体、尺寸和组件；`deernova-page` 管页面由哪些区块组成、怎么排，只引用 style，不定义数值。依赖只能从 page 指向 style。网站和 npm 包都从 skill 派生，不另外维护一份规范。
 
 ## 源文件
 
@@ -20,10 +20,16 @@ skills/deernova-style/          skill 本体，规范的唯一来源
     tailwind.css                Tailwind v4 主题映射（生成）
     DeernovaTokens.swift        SwiftUI 颜色、尺寸和字体（生成）
     screens/                    Mac 窗口、iPhone 页面、iOS 按钮尺寸的效果截图，各有浅色和深色
+skills/deernova-page/           页面布局 skill（搭建中，未发布）
+  SKILL.md                      入口：和 style 的分工、页面表、工作流程
+  references/pages/             每种页面一份（应用里的 AI 对话、AI 任务、列表、详情、文档编辑、卡片、图片库与查看器、数据概览、搜索结果、设置、登录与首次打开、分享只读、整页错误；官网的主页、文档、博客、更新记录、定价）：开头一段说用途，然后固定为 区块、网页、Mac 应用、iPhone 应用、状态、不要（只在浏览器里打开的页面只有网页一节；窄屏和手机浏览器写在网页一节最后）；SKILL.md 的页面表按 AI 系统、中台、信息展示、官网与文档、通用分组；示例里的 CSS 只写页面骨架，变量全部来自 style，规范页把它和组件 CSS 一起内联
 apps/website/                   官网
   index.html                    首页：满屏麋鹿动画，依次走过草原、森林、雪山、星空、沙漠；点天空有场景特效，点鹿向全画面扩散颜色后淡回黑白；顶部保留玻璃导航
   guide.html                    规范页（首页产品菜单里的 Deernova Style）：顶栏左侧是和产品菜单相同的图标与名称；总览（总则和作为第 7 部分的整页示例、核心规则、不要做）、基础、组件、场景、资源。活样例按设备的默认密度显示（桌面，触屏设备上是触控），尺寸表列出全部场景
-  styles/                       网站自己的样式
+  page.html                     Page 规范页（首页产品菜单里的 Deernova Page）：和 guide.html 同一套框架和渲染器（guide.mjs 的 renderPageGuide），但所有页面排成一整页往下滚（`<main data-flow="scroll">`），目录跟着滚动标出当前一节；guide.html 仍然一次显示一篇，内容来自 skills/deernova-page；页面表为空时显示空状态，指向 Style 的整页示例；page 文档里指向 ../deernova-style/ 的链接变成 guide.html 的锚点
+  styles/                       网站自己的样式；base.css 里用 @font-face 声明官网标题的中文宋体
+  assets/fonts/                 思源宋体（Noto Serif SC，SIL OFL）600 的 WOFF2 子集，只含示例里出现的字，附许可证和字表；由 scripts/subset-display-font.py 生成
+  assets/examples/              页面示例用的网点插画，浅色和深色各一张
   assets/milu-run-*.png          两张灰度透明图集：烘焙好的散步，每完整循环 160 帧（由 art/milu 生成）
   scripts/site.js               主题、复制命令、规范目录高亮
   scripts/guide.js              规范页的窄屏目录
@@ -33,7 +39,8 @@ apps/website/                   官网
 art/screens/                    skill 截图的源页面（mac-window.html、iphone-screens.html、iphone-button-sizes.html，手机机身共用 phone.css），用 skill 自己的 tokens.css 和组件参考 CSS 画；`npm run screens` 用本机 Chrome 无头模式渲染成浅色、深色两张 2 倍 PNG
 art/milu/                       首页麋鹿的原始彩色插画（source/）、姿态表、登记和离线烘焙脚本，不进网站构建
 packages/style/                 npm 包 @deernova/style
-  bin/cli.mjs                   install / update / doctor
+  bin/cli.mjs                   install / update / doctor；所有包共用这一份，按 manifest 里的名字决定装哪个 skill
+packages/page/                  npm 包 @deernova/page（private，第一批页面写完再去掉）；bin/ 和 skill/ 都由 build-skill 生成
 scripts/                        tokens、build-site、build-skill、发布工具
   vite-website.mjs               开发时渲染规范、提供共享素材并监听规范和 token 修改
   deploy-one.mjs                 从 One / Infisical 的独立目录读取部署凭据
@@ -72,11 +79,13 @@ skills/deernova-style/ ─┬─ build-skill ─→ packages/style/skill/ + mani
                         └─ build-site ──→ dist/（index.html、guide.html、四个变量文件、截图）
 apps/website/ ──────────┘
 
+skills/deernova-page/ ──── build-skill ─→ packages/page/skill/ + manifest.json，bin/cli.mjs 从 style 复制
+
 art/milu/source/ + drawings.json ── python art/milu/bake.py ──→ apps/website/assets/milu-run-*.png + scripts/meadow/stride.js   （提交进仓库）
 ```
 
 - 生成文件会提交，因为 skill 要能直接从仓库里使用，不依赖构建。手写的 Markdown 里可以用 `<!-- tokens:名字 -->` 和 `<!-- /tokens -->` 标出一段由 token 生成的表格（组件尺寸表、场景表、场景速查），`npm run tokens` 会重写这段。`npm test` 会检查所有生成内容和 `tokens.json` 是否一致；不一致时两个构建都会直接报错。
-- `build-skill` 原样复制 skill 文件夹，再写入 `manifest.json`（版本号和内容哈希）。安装器用这个哈希判断是否需要更新、文件是否被改过。
+- `build-skill` 原样复制每个 skill 文件夹，再写入 `manifest.json`（skill 名、包名、版本号和内容哈希）；版本号取各自包的 `package.json`。style 的版本跟仓库一起走（`npm run release:version`），page 和 icons 各自手动改版本号。安装器用这个哈希判断是否需要更新、文件是否被改过。
 - `build-site` 读取同一份 skill（渲染逻辑在 `scripts/lib/guide.mjs`）：规范页的色卡、字阶、间距标尺和尺寸表直接由 `tokens.json` 生成；组件说明里第一段示例 HTML 放到该节顶部作为活样例，`dn-` 参考 CSS 内联进页面，所以页面上看到的组件就是参考写法本身；代码示例默认收起；文件之间的链接改成页内锚点。
 - 两个构建互不影响，也都不会写回源文件。网站的改动不会改变 skill 的哈希。
 - 麋鹿烘焙是 Python 脚本（OpenCV、NumPy、Pillow，版本固定在 `art/milu/requirements.txt`），只在改动插画、姿态顺序或节奏时手动运行，输出提交进仓库；`npm test` 和网站构建都不依赖它。
@@ -106,7 +115,7 @@ art/milu/source/ + drawings.json ── python art/milu/bake.py ──→ apps/w
 
 `?t=18` 固定城市、`?t=27` 固定工厂、`?t=35` 固定海边、`?t=10` 固定稻田，附加 `&play` 从该处继续轮换，`?halftone=0` 查看灰度画面。时间轴、取帧规则、步态贴地与地面速度、轮廓点击分流、上色／褪色与键盘交互在 Node.js 中测试，视觉与真实设备性能另行验证。之前的奔跑版本和撤回的实验见 [整只鹿的奔跑烘焙](reviews/reference/milu-whole-deer-bake.md)、[按真鹿重画](reviews/reference/milu-real-gallop-redraw.md)。
 
-安装器保留一个自包含入口 `packages/style/bin/cli.mjs`，分别处理参数、目录、完整性检查和替换。替换时先准备完整的新目录，再将旧安装移到备份位置；新目录就位失败时恢复备份。内容哈希算法保持兼容，避免整理代码后把旧安装误判为本地修改。
+安装器保留一个自包含入口 `packages/style/bin/cli.mjs`，分别处理参数、目录、完整性检查和替换。其他包复制同一份文件，从自带的 `skill/manifest.json` 读出 skill 名和包名，所以 `deernova-page` 装进同级的 `deernova-page/` 目录，帮助和报错也用自己的名字。替换时先准备完整的新目录，再将旧安装移到备份位置；新目录就位失败时恢复备份。内容哈希算法保持兼容，避免整理代码后把旧安装误判为本地修改。
 
 ## 改动应该落在哪里
 
@@ -118,15 +127,17 @@ art/milu/source/ + drawings.json ── python art/milu/bake.py ──→ apps/w
 | 某个组件的规格和写法 | `references/components/` 对应的文件；尺寸改 `tokens.json` 的 `components` | 新组件要在 `SKILL.md` 的「组件」里加链接，并在 `scripts/lib/guide.mjs` 的 `SECTIONS` 里排序 |
 | 某个平台的落地方式 | `references/scenes/` 对应的文件 | |
 | agent 什么时候读哪份文件 | `SKILL.md` 的「读什么」 | |
+| 新增一种页面 | `skills/deernova-page/references/pages/` 加一份，按固定的分节写（区块、网页、Mac 应用、iPhone 应用、状态、不要） | 在 page 的 `SKILL.md` 页面表里加一行；数值和组件只引用 style |
 | 首页、规范页的样子 | `apps/website/` | 不需要发布 npm 版本 |
 | 首页麋鹿的姿态、节奏、头部处理 | `art/milu/`（原图、`register.py`、`drawings.json`、`bake.py`） | 重新烘焙，运行 `npm test` 并看首页 |
 | 安装、更新、备份行为 | `packages/style/bin/cli.mjs` | 运行安装器测试 |
+| 示例里加了新的中文 | page 的页面文件或 style 的 `examples.md` | 用完整的 Noto Serif SC SemiBold 运行 `python scripts/subset-display-font.py 字体.otf`（需要 fontTools、brotli），测试会检查字表是否覆盖 |
 
 网站是这套规范的一个应用实例。网站上为了展示而做的东西（首页的网点动画和字符转场、页面的分栏线）不是通用规则；需要变成规则时，写进 skill。
 
 ## 测试覆盖什么
 
-`npm test` 先构建，再检查：SKILL.md 的 frontmatter；skill 内所有链接和 `assets/` 路径都能找到，SKILL.md 链到每一份参考文件；skill 只包含 Markdown、token 文件和截图；所有生成文件和表格与 `tokens.json` 同步；token 名字里没有平台名、每个密度都有值；参考 CSS 只用已定义的变量，按钮高度来自 token、上下内边距为 0、行高不继承页面；两套主题的文字、控件和状态色对比度；npm 包里的 skill 与源文件逐字节一致；构建不改源文件、网站改动不改变 skill 哈希；网站页面没有遗漏的模板占位符，链接和模块依赖都能找到；安装器的安装、更新、改动保护、备份和参数错误；动画的九个场景交接、烘焙帧与姿态表一致、相邻帧连续过渡、散步帧贴地且地面速度与着地蹄子一致、点鹿后上色且行走时钟保持连续，点击周围仍保留场景交互、图集尺寸与帧位置、不同刷新率及时间戳抖动下的 60 帧调度、暂停恢复、图集失败重试与降级、CSS 热更新后的 Canvas 配色和动画状态。
+`npm test` 先构建，再检查：SKILL.md 的 frontmatter；skill 内所有链接和 `assets/` 路径都能找到，SKILL.md 链到每一份参考文件；skill 只包含 Markdown、token 文件和截图；所有生成文件和表格与 `tokens.json` 同步；token 名字里没有平台名、每个密度都有值；参考 CSS 只用已定义的变量，按钮高度来自 token、上下内边距为 0、行高不继承页面；两套主题的文字、控件和状态色对比度；npm 包里的 skill 与源文件逐字节一致；构建不改源文件、网站改动不改变 skill 哈希；网站页面没有遗漏的模板占位符，链接和模块依赖都能找到；安装器的安装、更新、改动保护、备份和参数错误，page 包装进自己的目录、不碰 style；page skill 的 frontmatter、只含 Markdown 且不声明 CSS 变量、页面表和页面文件一一对应、每份页面文件的五节顺序；动画的九个场景交接、烘焙帧与姿态表一致、相邻帧连续过渡、散步帧贴地且地面速度与着地蹄子一致、点鹿后上色且行走时钟保持连续，点击周围仍保留场景交互、图集尺寸与帧位置、不同刷新率及时间戳抖动下的 60 帧调度、暂停恢复、图集失败重试与降级、CSS 热更新后的 Canvas 配色和动画状态。
 
 开发服务测试会在临时副本中启动 Vite，通过 HTTP 与真实 WebSocket 检查 CSS 热更新、HTML／脚本／图片刷新、规范 Markdown 渲染以及 token JSON 联动，并确认服务不写回源文件或生成 `dist/`。
 

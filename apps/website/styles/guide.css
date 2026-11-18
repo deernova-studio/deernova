@@ -25,7 +25,7 @@ body.guide-page { background: var(--surface); font: var(--type-body); }
 .toc a { display: flex; align-items: center; min-height: 24px; padding: 0 var(--space-2); border-radius: var(--radius-sm); color: var(--ink-secondary); font-size: 13px; line-height: 18px; text-decoration: none; transition: background-color 0.12s var(--ease), color 0.12s var(--ease); }
 @media (hover: hover) { .toc a:hover { background: var(--fill-hover); color: var(--ink); } }
 .toc a:active { background: var(--fill-selected); }
-.toc a[aria-current="page"] { background: var(--fill-selected); color: var(--ink); font-weight: var(--weight-medium); }
+.toc a[aria-current] { background: var(--fill-selected); color: var(--ink); font-weight: var(--weight-medium); }
 .toc .toc-top { font-weight: var(--weight-semibold); color: var(--ink); }
 .toc-group { margin: var(--space-4) 0 var(--space-1); padding: 0 var(--space-2); font: var(--weight-semibold) 11px/16px var(--font-sans); letter-spacing: 0.04em; color: var(--ink-tertiary); }
 .toc ol { margin: 0; padding: 0; list-style: none; }
@@ -118,9 +118,10 @@ body.guide-page { background: var(--surface); font: var(--type-body); }
 .specimen .dn-scroll-x { max-width: 420px; margin-top: var(--space-4); }
 .specimen:has(.dn-tooltip-anchor) { padding-bottom: var(--space-12); }
 .specimen .dn-centered { min-height: 240px; border: var(--stroke-line) solid var(--line); border-radius: var(--radius-md); }
+.specimen .ex-page .dn-centered { min-height: 100%; border: 0; border-radius: 0; }
 /* Page-level examples in 总则: a fixed frame standing in for a whole window */
 .specimen .ex-page { min-width: 720px; height: 440px; overflow: hidden; border: var(--stroke-line) solid var(--line); border-radius: var(--radius-md); }
-.specimen .ex-page :where(h2, p, ol) { margin: 0; }
+:where(.specimen .ex-page) :where(h2, p, ol) { margin: 0; }
 .specimen .dn-app.ex-page > .dn-app-main:only-child { grid-column: 1 / -1; }
 .specimen .ex-page .dn-sidebar { width: 220px; border: 0; border-right: var(--stroke-line) solid var(--line); border-radius: 0; }
 .specimen .ex-page .dn-message-assistant ol { padding-left: 1.4em; }
@@ -129,9 +130,113 @@ body.guide-page { background: var(--surface); font: var(--type-body); }
 .specimen .ex-dock { margin-bottom: var(--space-4); }
 .specimen .ex-page .dn-thread { max-width: none; }
 .specimen .ex-page .dn-app-content:has(> .dn-column) { padding-inline: 0; }
-.specimen .ex-site { display: grid; align-content: center; justify-items: center; gap: var(--space-5); padding: var(--space-8); background: var(--canvas); text-align: center; }
-.specimen .ex-site-title { font: var(--weight-semibold) 40px/1.15 var(--font-serif); letter-spacing: var(--type-display-tracking); }
-.specimen .ex-site-lede { max-width: 420px; color: var(--ink-secondary); font: var(--type-prose); }
+.specimen .ex-page.is-tall { height: 600px; }
+.specimen .ex-page.is-auto { height: auto; }
+.specimen .dn-site.ex-page { overflow: hidden auto; }
+.specimen .ex-shot { height: 300px; }
+.specimen .ex-shot .dn-sidebar { width: 200px; }
+.specimen .ex-shot .dn-app-content p { margin: 0; max-width: var(--content-max); font: var(--type-body); }
+/* Page examples show the wide layout at any window width; their own media queries describe narrow screens. */
+.specimen .ex-page .dn-split { grid-template-columns: 260px minmax(0, 1fr); }
+.specimen .ex-page .dn-split-list { display: flex; }
+.specimen .ex-docs { grid-template-columns: 170px minmax(0, 1fr) 150px; }
+.specimen .ex-docs .dn-docs-nav { display: flex; }
+.specimen .ex-docs .dn-docs-toc { display: grid; }
+/* Page guide: the platform switch lives in the masthead; it hides the other platforms' sections. */
+.masthead .platform-filter { margin-right: var(--space-3); }
+@media (max-width: 760px) { .masthead .platform-filter { display: none; } }
+.guide-main[data-platform="web"] .platform:not([data-platform="web"]),
+.guide-main[data-platform="mac"] .platform:not([data-platform="mac"]),
+.guide-main[data-platform="ios"] .platform:not([data-platform="ios"]) { display: none; }
+/* Device frames for the page guide's Mac and iPhone examples. */
+.specimen .ex-device { display: flex; justify-content: center; padding: var(--space-2) 0; }
+.specimen .ex-phone { position: relative; display: flex; flex-direction: column; width: 340px; height: 700px; overflow: hidden; border: 8px solid #1d1d1f; border-radius: 52px; background: var(--canvas); color: var(--ink); }
+.specimen .ex-phone-status { display: flex; justify-content: space-between; padding: 14px 30px 4px; font: var(--weight-semibold) 15px/1 var(--font-sans); }
+.specimen .ex-phone-body { display: flex; flex-direction: column; gap: var(--space-3); flex: 1; min-height: 0; overflow: hidden; padding: 0 var(--space-4) 96px; }
+.specimen .ex-ios-nav { display: flex; align-items: center; gap: var(--space-2); min-height: 44px; }
+.specimen .ex-ios-nav > :last-child:not(:first-child) { margin-left: auto; }
+.specimen .ex-ios-nav-title { flex: 1; text-align: center; font: var(--weight-semibold) 17px/1.2 var(--font-sans); }
+.specimen .ex-ios-large { margin: 0; font: var(--weight-semibold) 32px/1.15 var(--font-sans); }
+.specimen .ex-ios-dock { position: absolute; left: var(--space-4); right: var(--space-4); bottom: 22px; display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); }
+.specimen .ex-ios-dock .dn-composer { flex: 1; }
+.specimen .ex-mac { display: grid; grid-template-columns: 220px minmax(0, 1fr); height: 480px; overflow: hidden; border: var(--stroke-line) solid var(--line); border-radius: 14px; background: var(--canvas); box-shadow: var(--shadow-float); }
+.specimen .ex-mac.has-list { grid-template-columns: 200px 250px minmax(0, 1fr); }
+.specimen .ex-mac.has-inspector { grid-template-columns: minmax(0, 1fr) 240px; }
+.specimen .ex-mac.is-settings { display: flex; flex-direction: column; width: 520px; height: auto; margin: 0 auto; }
+.specimen .ex-mac-sidebar { display: flex; flex-direction: column; gap: var(--row-gap); min-height: 0; margin: 8px; padding: 10px 8px; border: var(--stroke-line) solid var(--glass-stroke); border-radius: 16px; background: var(--glass-fill); }
+.specimen .ex-mac-pad > .dn-chart { margin-top: var(--space-6); }
+.specimen .ex-lights { display: flex; gap: 8px; padding: 2px 6px 12px; }
+.specimen .ex-lights i { width: 12px; height: 12px; border-radius: 50%; background: #ff5f57; }
+.specimen .ex-lights i:nth-child(2) { background: #febc2e; }
+.specimen .ex-lights i:nth-child(3) { background: #28c840; }
+.specimen .ex-mac-main { display: flex; flex-direction: column; min-width: 0; min-height: 0; }
+.specimen .ex-mac-bar { display: flex; align-items: center; gap: var(--space-2); min-height: 52px; padding: 0 var(--space-3) 0 var(--space-4); }
+.specimen .ex-mac-bar > .dn-glass-group, .specimen .ex-mac-bar > .dn-glass:last-child { margin-left: auto; }
+.specimen .ex-mac-title { font: var(--weight-semibold) 15px/1.2 var(--font-sans); }
+.specimen .ex-mac-col { display: flex; flex-direction: column; gap: 2px; min-height: 0; overflow: hidden; padding: 52px var(--space-2) var(--space-2); border-right: var(--stroke-line) solid var(--line); }
+.specimen .ex-mac-body { flex: 1; min-height: 0; overflow: hidden; padding: var(--space-2) var(--space-6); }
+.specimen .ex-mac-dock { padding: 0 var(--space-6) var(--space-4); }
+.specimen .ex-mac-inspector { padding: 52px var(--space-4) var(--space-4); border-left: var(--stroke-line) solid var(--line); }
+.specimen .ex-mac.is-settings .ex-mac-bar { position: relative; justify-content: center; }
+.specimen .ex-mac.is-settings .ex-lights { position: absolute; left: var(--space-4); padding-bottom: 0; }
+.specimen .ex-mac-tabs { display: flex; justify-content: center; gap: var(--space-1); padding: 0 var(--space-4) var(--space-3); border-bottom: var(--stroke-line) solid var(--line); }
+.specimen .ex-mac-tabs button { display: grid; justify-items: center; gap: 2px; min-width: 64px; padding: 6px 8px; border: 0; border-radius: var(--radius-sm); background: none; color: var(--ink-secondary); font: var(--type-caption); }
+.specimen .ex-mac-tabs button[aria-pressed="true"] { background: var(--fill-selected); color: var(--ink); }
+.specimen .ex-mac-tabs .dn-icon { width: 22px; height: 22px; }
+/* Inside the phone frame the page is wide, so media queries never fire: apply each page's narrow rules here. */
+.specimen .ex-phone-body.is-web { padding: 0 0 var(--space-6); gap: 0; overflow: hidden; }
+.specimen .ex-phone .dn-site { min-height: 0; }
+.specimen .ex-phone .dn-site-header { gap: var(--space-3); padding: 0 var(--space-2) 0 var(--space-4); }
+.specimen .ex-phone .dn-site-nav a { display: none; }
+.specimen .ex-phone .dn-hero { grid-template-columns: minmax(0, 1fr); min-height: 0; }
+.specimen .ex-phone .dn-hero-art { order: -1; height: 220px; }
+.specimen .ex-phone .dn-hero-copy { gap: var(--space-4); padding: var(--space-6) var(--space-4); }
+.specimen .ex-phone .dn-hero-title { font-size: 28px; }
+.specimen .ex-phone .dn-hero-actions { flex-direction: column; align-items: stretch; justify-self: stretch; }
+.specimen .ex-phone .dn-docs { grid-template-columns: minmax(0, 1fr); padding-inline: var(--space-4); }
+.specimen .ex-phone :is(.dn-docs-nav, .dn-docs-toc, .dn-docs-search) { display: none; }
+.specimen .ex-phone .dn-docs-main { padding-top: var(--space-5); }
+.specimen .ex-phone .dn-docs-main h1 { font-size: 28px; line-height: 1.25; }
+.specimen .ex-phone :is(.dn-blog, .dn-article, .dn-changelog, .dn-pricing) { width: auto; margin: 0 var(--space-4); padding: var(--space-6) 0; }
+.specimen .ex-phone .dn-article h1 { font-size: 28px; }
+.specimen .ex-phone .dn-post { grid-template-columns: minmax(0, 1fr); }
+.specimen .ex-phone .dn-post-summary { grid-column: 1; }
+.specimen .ex-phone .dn-release { grid-template-columns: minmax(0, 1fr); }
+.specimen .ex-phone .dn-release-meta { position: static; display: flex; align-items: baseline; gap: var(--space-3); }
+.specimen .ex-phone .dn-pricing-period { margin-left: 0; }
+.specimen .ex-phone .dn-share-bar { padding: 0 var(--space-4); }
+.specimen .ex-phone .dn-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.specimen .ex-phone .dn-photos { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2px; margin-inline: calc(-1 * var(--space-4)); }
+.specimen .ex-phone .dn-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: var(--space-4); }
+.specimen .ex-phone .dn-kpi:nth-child(odd) { padding-left: 0; border-left: 0; }
+.specimen .ex-phone .dn-kpi { padding-right: var(--space-2); }
+.specimen .ex-keyboard { position: absolute; left: 0; right: 0; bottom: 0; height: 200px; border-top: var(--stroke-line) solid var(--line); background: var(--surface-sunken); }
+.specimen .ex-keyboard-bar { position: absolute; left: 0; right: 0; bottom: 200px; display: flex; gap: 2px; padding: var(--space-1) var(--space-2); border-top: var(--stroke-line) solid var(--line); background: var(--surface-raised); }
+.specimen .ex-mac.is-small { display: flex; flex-direction: column; width: 420px; height: auto; margin: 0 auto; }
+.specimen .ex-mac.ex-mac-wide { width: 640px; }
+.specimen .ex-mac-search { width: 240px; margin-left: auto; }
+.specimen .ex-stack-actions { flex-direction: column; align-items: stretch; }
+.specimen .ex-stack-actions .dn-button { justify-content: center; margin: 0; }
+.specimen .ex-mac .dn-kpis { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.specimen .ex-mac-bar > .dn-segmented { margin-left: auto; }
+.specimen .ex-phone .dn-doc h1 { font-size: 26px; }
+.specimen :is(.ex-mac, .ex-phone) .dn-centered { min-height: 100%; border: 0; border-radius: 0; }
+.specimen .ex-phone .dn-centered { flex: 1; min-height: 0; }
+.specimen .ex-mac-pad { padding: var(--space-3) var(--space-6) var(--space-8); }
+.specimen .ex-danger-row { color: var(--danger); }
+.specimen .ex-mac-form { display: grid; gap: var(--gap-group); padding: var(--space-5); }
+.specimen .ex-site { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); background: var(--canvas); }
+.specimen .ex-site-copy { display: grid; align-content: center; justify-items: start; gap: var(--space-5); padding: var(--space-8); }
+.specimen .ex-site-title { font: var(--weight-semibold) 34px/1.25 var(--font-display); letter-spacing: -0.01em; text-wrap: balance; }
+.specimen .ex-site-lede { max-width: 22em; color: var(--ink-secondary); font: var(--type-prose); }
+.specimen .ex-site-art { width: 100%; height: 100%; object-fit: cover; object-position: left top; }
+.specimen .ex-page .dn-hero { flex: 1; min-height: 0; }
+.specimen .dn-chat .ex-chat-preview { width: 340px; }
+.specimen .ex-doc-preview { padding: var(--space-6); overflow: hidden; }
+.specimen .ex-doc-preview h3 { margin: 0 0 var(--space-3); font: var(--type-title); }
+.specimen .ex-doc-preview p { color: var(--ink-secondary); font: var(--type-body); }
+.specimen .ex-select { position: relative; }
+.specimen .ex-format-bar { bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%); }
 .specimen .dn-sidebar { border: var(--stroke-line) solid var(--line); border-radius: var(--radius-lg); }
 .dn-glass-demo { display: grid; place-items: center; min-height: 140px; padding: var(--space-6); border-radius: var(--radius-md); background:
   repeating-linear-gradient(135deg, transparent 0 14px, var(--fill-selected) 14px 15px),
@@ -221,6 +326,7 @@ body.guide-page { background: var(--surface); font: var(--type-body); }
 
 .guide-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--space-2); padding-top: var(--space-5); border-top: 1px solid var(--rule); font-size: 12.5px; color: var(--ink-secondary); }
 .guide-footer a { text-decoration-color: var(--line-control); text-underline-offset: 3px; }
+.guide-footer-links { display: flex; flex-wrap: wrap; gap: var(--space-4); font-variant-numeric: tabular-nums; }
 
 @media (max-width: 960px) {
   .guide { grid-template-columns: minmax(0, 1fr); }

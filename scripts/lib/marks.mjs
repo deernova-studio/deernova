@@ -1,9 +1,10 @@
 // Product marks. All three share the antlered "Ui" of the Deernova Style mark (assets/deernova-style-icon.png);
 // only the accent in the top-right corner changes: Style keeps its four-point star, Icons gets an icon tile,
-// Loaders gets an open loading arc. The marks are filled with currentColor, so they follow the theme.
+// Loaders gets an open loading arc, Page gets a page with a header band. The marks are filled with currentColor, so they follow the theme.
 const ACCENTS = {
   icons: '<rect x="822" y="347" width="126" height="126" rx="32" fill="none" stroke="currentColor" stroke-width="34"/>',
-  loaders: '<path d="M885 340A72 72 0 1 1 813 412" fill="none" stroke="currentColor" stroke-width="36" stroke-linecap="round"/>'
+  loaders: '<path d="M885 340A72 72 0 1 1 813 412" fill="none" stroke="currentColor" stroke-width="36" stroke-linecap="round"/>',
+  page: '<rect x="830" y="330" width="112" height="146" rx="24" fill="none" stroke="currentColor" stroke-width="32"/><path d="M830 386H942" stroke="currentColor" stroke-width="32"/>'
 };
 
 // `id` must be unique on the page: each mark carries its own filter, mask and clip.

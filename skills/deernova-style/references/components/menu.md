@@ -17,7 +17,7 @@
 ## 尺寸
 
 <!-- tokens:menu -->
-| Token | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | 用途 |
+| Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
 | `menu-item-height` | 28 | 44 | 36 | 菜单项和下拉选项的高度。 |
 | `menu-item-padding-x` | 8 | 10 | 10 | 菜单项左右内边距。 |

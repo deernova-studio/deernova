@@ -9,7 +9,7 @@
 ## 尺寸
 
 <!-- tokens:composer -->
-| Token | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | 用途 |
+| Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
 | `composer-radius` | 14 | 24 | 16 | Composer 外框圆角。 |
 | `composer-min-height` | 44 | 44 | 48 | 单行布局的高度：加号、输入、发送排在同一行，输入多行时向上长高。 |
@@ -291,7 +291,7 @@
 <div class="dn-composer-stack">
   <div class="dn-composer-notice" role="status">
     <svg class="dn-icon" aria-hidden="true"><use href="#dn-history"/></svg>
-    <span>本周额度将提前用完 <span class="dn-muted">已使用 52% · 11 月 9 日重置</span></span>
+    <span>本周额度将提前用完 <span class="dn-muted">已使用 52%，11 月 9 日重置</span></span>
     <button class="dn-icon-button" type="button" aria-label="关闭提示"><svg class="dn-icon" aria-hidden="true"><use href="#dn-close"/></svg></button>
   </div>
   <div class="dn-composer">
@@ -397,7 +397,7 @@ VStack(alignment: .trailing, spacing: Deernova.space2) {
             .font(.deernovaCaption).foregroundStyle(.inkTertiary)
             .padding(.leading, Deernova.space2)
             .frame(maxWidth: .infinity, alignment: .leading)
-        Menu("Opus 5.5 · 高") { modelMenu }
+        Menu("Opus 5.5 高") { modelMenu }
         Menu("询问权限") { permissionMenu }
         ContextRing(used: contextUsed)
     }

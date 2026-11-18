@@ -9,7 +9,7 @@ AI 在对话里想了什么、做了什么。思考和工具调用都是「过�
 行高用 `button-height-md`，图标用 `icon-size-md`；工具详情另有两个：
 
 <!-- tokens:step-row -->
-| Token | 桌面<br>Web 应用 · macOS 内容区 | 触控<br>iOS · iPadOS · Web 触屏 | 舒展<br>官网与文档 | 用途 |
+| Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
 | `tool-key-width` | 88 | 96 | 96 | 工具详情预览里参数名一栏的宽度，超长时截断。 |
 
@@ -29,8 +29,8 @@ AI 在对话里想了什么、做了什么。思考和工具调用都是「过�
 步骤行给人看，不是给开发者看。工具的原始名字和参数 JSON 都不出现在这一行。
 
 - **动作名**：把工具翻译成 2–4 个字的动词：读取、修改、搜索、运行、委派、查询。认识的工具用固定的译名；不认识的 MCP 工具，用它自己声明的标题（`title`），没有就把名字拆成词（`delegate_task` →「delegate task」），不要显示 `mcp.herd.delegate_task` 这种全名。
-- **对象摘要**：只放最能说明这一步的那一个参数：文件路径、搜索词、命令、委派任务的第一句、接收方的名字。写成「DSH · 第 20 轮成语接龙」，不要写成 `{"server":"herd","tool":…`。
-- 工具的原名（`herd · delegate_task`）放进详情的左上角，需要的人点开能看到。
+- **对象摘要**：只放最能说明这一步的那一个参数：文件路径、搜索词、命令、委派任务的第一句、接收方的名字。写成「DSH：第 20 轮成语接龙」，不要写成 `{"server":"herd","tool":…`。
+- 工具的原名（`herd/delegate_task`）放进详情的左上角，需要的人点开能看到。
 
 ## 工具详情
 
@@ -40,7 +40,7 @@ AI 在对话里想了什么、做了什么。思考和工具调用都是「过�
 
 - **结构**：上面是参数，一条 `line` 细线，下面是结果。每一项排成两列：左边参数名，`caption`、`ink-tertiary`，栏宽 `tool-key-width`，超长截断；右边是值，`callout`、`ink`，按正文排，不用等宽。两列首行对齐。
 - **值怎么显示**：
-  - 普通文字照常换行；超过两行时只显示两行，下面是「展开全部 · 312 字」文字按钮。
+  - 普通文字照常换行；超过两行时只显示两行，下面是「展开全部（312 字）」文字按钮。
   - ID、路径、命令、哈希这类机器值用等宽 `caption`、`ink-secondary`；很长的 ID 截成前 8 位和后 4 位（`afa13cc4…442a`），完整值在 JSON 里。
   - 嵌套的对象和数组不在预览里展开，写成「3 项」，要看去 JSON。
   - 布尔值写成人话（「已接受」「否」），空值不显示这一项。
@@ -189,7 +189,7 @@ details > .dn-step { cursor: pointer; }
       <div class="dn-step is-success"><svg class="dn-icon dn-step-glyph" aria-hidden="true"><use href="#dn-success"/></svg><span class="dn-step-name">读取</span><span class="dn-step-summary">周报草稿.md</span><span class="dn-step-meta">0.4 秒</span></div>
       <details open>
         <summary class="dn-step is-success"><svg class="dn-icon dn-step-glyph" aria-hidden="true"><use href="#dn-success"/></svg><span class="dn-step-name">运行</span><span class="dn-step-summary">npm test</span><span class="dn-step-meta">12.3 秒</span></summary>
-        <div class="dn-step-detail"><span class="dn-step-detail-label">输入</span><div>npm test</div><span class="dn-step-detail-label">输出</span><div>tests 63 · pass 63 · fail 0</div></div>
+        <div class="dn-step-detail"><span class="dn-step-detail-label">输入</span><div>npm test</div><span class="dn-step-detail-label">输出</span><div>tests 63, pass 63, fail 0</div></div>
       </details>
       <div class="dn-step is-failed"><svg class="dn-icon dn-step-glyph" aria-hidden="true"><use href="#dn-error"/></svg><span class="dn-step-name">运行</span><span class="dn-step-summary">npm run lint：找不到 eslint 配置</span><span class="dn-step-meta">已跳过</span></div>
     </div>
@@ -204,17 +204,17 @@ details > .dn-step { cursor: pointer; }
 
 ### 工具详情示例
 
-预览视图：上面是一次委派（MCP 工具 `herd · delegate_task`），下面是一条失败的命令。
+预览视图：上面是一次委派（MCP 工具 `herd/delegate_task`），下面是一条失败的命令。
 
 ```html
 <div class="dn-steps">
   <details open>
-    <summary class="dn-step is-success"><svg class="dn-icon dn-step-glyph" aria-hidden="true"><use href="#dn-success"/></svg><span class="dn-step-name">委派</span><span class="dn-step-summary">DSH · 第 20 轮成语接龙，接「化」开头的成语</span><span class="dn-step-meta">6 秒</span></summary>
+    <summary class="dn-step is-success"><svg class="dn-icon dn-step-glyph" aria-hidden="true"><use href="#dn-success"/></svg><span class="dn-step-name">委派</span><span class="dn-step-summary">DSH：第 20 轮成语接龙，接「化」开头的成语</span><span class="dn-step-meta">6 秒</span></summary>
     <div class="dn-tool">
-      <div class="dn-tool-head"><span class="dn-tool-name">herd · delegate_task</span><div class="dn-tool-view" role="group" aria-label="显示方式"><button type="button" aria-pressed="true">预览</button><button type="button" aria-pressed="false">JSON</button></div><button class="dn-icon-button" type="button" aria-label="复制原始数据"><svg class="dn-icon" aria-hidden="true"><use href="#dn-copy"/></svg></button></div>
+      <div class="dn-tool-head"><span class="dn-tool-name">herd/delegate_task</span><div class="dn-tool-view" role="group" aria-label="显示方式"><button type="button" aria-pressed="true">预览</button><button type="button" aria-pressed="false">JSON</button></div><button class="dn-icon-button" type="button" aria-label="复制原始数据"><svg class="dn-icon" aria-hidden="true"><use href="#dn-copy"/></svg></button></div>
       <dl class="dn-tool-fields">
         <dt>接收方</dt><dd>DSH <span class="dn-step-summary">afa13cc4…442a</span></dd>
-        <dt>任务</dt><dd><div class="dn-tool-clamp">完成追加 10 轮成语接龙（第 11–20 轮）的最后一轮。每轮 Codex 和 DSH 各一个，严格尾字接首字，同字不谐音，全局不重复。已用成语依次为：一心一意、意气风发、发扬光大、大器晚成……</div><button class="dn-tool-more" type="button">展开全部 · 312 字</button></dd>
+        <dt>任务</dt><dd><div class="dn-tool-clamp">完成追加 10 轮成语接龙（第 11–20 轮）的最后一轮。每轮 Codex 和 DSH 各一个，严格尾字接首字，同字不谐音，全局不重复。已用成语依次为：一心一意、意气风发、发扬光大、大器晚成……</div><button class="dn-tool-more" type="button">展开全部（312 字）</button></dd>
       </dl>
       <dl class="dn-tool-fields">
         <dt>回复</dt><dd>第 20 轮 DSH：化险为夷</dd>
@@ -245,9 +245,9 @@ error: Could not resolve "./tokens.css" from "src/main.ts"</dd>
 ```html
 <div class="dn-steps">
   <details open>
-    <summary class="dn-step is-success"><svg class="dn-icon dn-step-glyph" aria-hidden="true"><use href="#dn-success"/></svg><span class="dn-step-name">委派</span><span class="dn-step-summary">DSH · 第 20 轮成语接龙，接「化」开头的成语</span><span class="dn-step-meta">6 秒</span></summary>
+    <summary class="dn-step is-success"><svg class="dn-icon dn-step-glyph" aria-hidden="true"><use href="#dn-success"/></svg><span class="dn-step-name">委派</span><span class="dn-step-summary">DSH：第 20 轮成语接龙，接「化」开头的成语</span><span class="dn-step-meta">6 秒</span></summary>
     <div class="dn-tool">
-      <div class="dn-tool-head"><span class="dn-tool-name">herd · delegate_task</span><div class="dn-tool-view" role="group" aria-label="显示方式"><button type="button" aria-pressed="false">预览</button><button type="button" aria-pressed="true">JSON</button></div><button class="dn-icon-button" type="button" aria-label="复制原始数据"><svg class="dn-icon" aria-hidden="true"><use href="#dn-copy"/></svg></button></div>
+      <div class="dn-tool-head"><span class="dn-tool-name">herd/delegate_task</span><div class="dn-tool-view" role="group" aria-label="显示方式"><button type="button" aria-pressed="false">预览</button><button type="button" aria-pressed="true">JSON</button></div><button class="dn-icon-button" type="button" aria-label="复制原始数据"><svg class="dn-icon" aria-hidden="true"><use href="#dn-copy"/></svg></button></div>
       <span class="dn-tool-label">输入</span>
 <pre class="dn-json"><span class="dn-json-punct">{</span>
   <span class="dn-json-key">"agentId"</span><span class="dn-json-punct">:</span> "afa13cc4-e519-4cec-9ef3-72c0081a442a"<span class="dn-json-punct">,</span>
