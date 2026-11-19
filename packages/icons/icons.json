@@ -832,6 +832,72 @@
           "sf": "speaker.slash"
         }
       ]
+    },
+    {
+      "id": "work",
+      "title": "工作",
+      "icons": [
+        {
+          "name": "calendar",
+          "label": "日历",
+          "source": "lucide",
+          "lucide": "calendar",
+          "keywords": [
+            "日历",
+            "日程",
+            "日期"
+          ],
+          "sf": "calendar"
+        },
+        {
+          "name": "board",
+          "label": "看板",
+          "source": "lucide",
+          "lucide": "square-kanban",
+          "keywords": [
+            "看板",
+            "状态列",
+            "进度"
+          ],
+          "sf": "square.split.3x1"
+        },
+        {
+          "name": "team",
+          "label": "成员",
+          "source": "lucide",
+          "lucide": "users",
+          "keywords": [
+            "成员",
+            "团队",
+            "邀请"
+          ],
+          "sf": "person.2"
+        },
+        {
+          "name": "card",
+          "label": "付款方式",
+          "source": "lucide",
+          "lucide": "credit-card",
+          "keywords": [
+            "银行卡",
+            "付款",
+            "订阅"
+          ],
+          "sf": "creditcard"
+        },
+        {
+          "name": "receipt",
+          "label": "发票",
+          "source": "lucide",
+          "lucide": "receipt",
+          "keywords": [
+            "发票",
+            "账单",
+            "收据"
+          ],
+          "sf": "doc.text"
+        }
+      ]
     }
   ]
 }

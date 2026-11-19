@@ -166,6 +166,9 @@ body.guide-page { background: var(--surface); font: var(--type-body); }
 .specimen .ex-mac.has-log { grid-template-columns: 190px 280px minmax(0, 1fr); }
 .specimen .ex-mac.has-log .ex-mac-col { gap: var(--space-3); }
 .specimen .ex-mac.has-inspector { grid-template-columns: minmax(0, 1fr) 240px; }
+.specimen .ex-mac.has-aside { grid-template-columns: 190px minmax(0, 1fr) 220px; }
+.specimen .ex-mac .dn-board { padding: var(--space-2) var(--space-4) var(--space-4); }
+.specimen .ex-page .dn-board { padding-inline: var(--space-4); }
 .specimen .ex-mac.is-settings { display: flex; flex-direction: column; width: 520px; height: auto; margin: 0 auto; }
 .specimen .ex-mac-sidebar { display: flex; flex-direction: column; gap: var(--row-gap); min-height: 0; margin: 8px; padding: 10px 8px; border: var(--stroke-line) solid var(--glass-stroke); border-radius: 16px; background: var(--glass-fill); }
 .specimen .ex-mac-pad > .dn-chart { margin-top: var(--space-6); }
@@ -189,6 +192,7 @@ body.guide-page { background: var(--surface); font: var(--type-body); }
 .specimen .ex-mac-tabs .dn-icon { width: 22px; height: 22px; }
 /* Inside the phone frame the page is wide, so media queries never fire: apply each page's narrow rules here. */
 .specimen .ex-phone-body.is-web { padding: 0 0 var(--space-6); gap: 0; overflow: hidden; }
+.specimen .ex-dm-phone { flex: none; padding: 0; overflow: hidden; }
 .specimen .ex-profile-actions { grid-column: 1 / -1; }
 .specimen .ex-profile-actions > :first-child { flex: 1; }
 .specimen .ex-phone .dn-profile-head { padding: 0; }
@@ -237,6 +241,7 @@ body.guide-page { background: var(--surface); font: var(--type-body); }
 .specimen .ex-phone .dn-centered { flex: 1; min-height: 0; }
 .specimen .ex-mac-pad { padding: var(--space-3) var(--space-6) var(--space-8); }
 .specimen .ex-danger-row { color: var(--danger); }
+.specimen .ex-link-row { color: var(--link); }
 .specimen .ex-mac-form { display: grid; gap: var(--gap-group); padding: var(--space-5); }
 .specimen .ex-mac-form > * { min-width: 0; width: 100%; }
 .specimen .ex-site { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); background: var(--canvas); }

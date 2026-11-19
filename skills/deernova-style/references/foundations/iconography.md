@@ -146,6 +146,16 @@
 | `play` | 播放 | `play` |
 | `volume` | 有声 | `speaker.wave.2` |
 | `mute` | 静音 | `speaker.slash` |
+
+**工作**
+
+| 名字 | 用途 | SF Symbols |
+| --- | --- | --- |
+| `calendar` | 日历 | `calendar` |
+| `board` | 看板 | `square.split.3x1` |
+| `team` | 成员 | `person.2` |
+| `card` | 付款方式 | `creditcard` |
+| `receipt` | 发票 | `doc.text` |
 <!-- /tokens -->
 
 ## Web 写法
