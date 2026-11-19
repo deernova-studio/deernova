@@ -56,7 +56,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 ```html
 <div class="dn-site ex-page is-tall" data-density="comfortable">
   <header class="dn-site-header">
-    <a class="dn-site-mark" href="#">deernova.</a>
+    <a class="dn-site-mark" href="#">deernova<span>.</span></a>
     <label class="dn-input-group dn-docs-search"><svg class="dn-icon" aria-hidden="true"><use href="#dn-search"/></svg><input type="search" placeholder="搜索文档" aria-label="搜索文档"><kbd class="dn-input-kbd">⌘K</kbd></label>
     <nav class="dn-site-nav" aria-label="主导航"><a href="#">更新记录</a><a href="#">GitHub</a></nav>
   </header>
@@ -109,7 +109,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
     <div class="ex-phone-status" aria-hidden="true"><span>9:41</span><span>100%</span></div>
     <div class="ex-phone-body is-web">
       <div class="dn-site" data-density="comfortable">
-        <header class="dn-site-header"><a class="dn-site-mark" href="#">deernova.</a><nav class="dn-site-nav" aria-label="主导航"><a href="#">GitHub</a></nav><button class="dn-icon-button" type="button" aria-label="搜索文档"><svg class="dn-icon" aria-hidden="true"><use href="#dn-search"/></svg></button><button class="dn-icon-button" type="button" aria-label="文档目录"><svg class="dn-icon" aria-hidden="true"><use href="#dn-sidebar"/></svg></button></header>
+        <header class="dn-site-header"><a class="dn-site-mark" href="#">deernova<span>.</span></a><nav class="dn-site-nav" aria-label="主导航"><a href="#">GitHub</a></nav><button class="dn-icon-button" type="button" aria-label="搜索文档"><svg class="dn-icon" aria-hidden="true"><use href="#dn-search"/></svg></button><button class="dn-icon-button" type="button" aria-label="文档目录"><svg class="dn-icon" aria-hidden="true"><use href="#dn-sidebar"/></svg></button></header>
         <div class="dn-docs">
           <article class="dn-docs-main">
             <p class="dn-docs-section"><a href="#">开始</a></p>

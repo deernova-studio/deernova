@@ -757,6 +757,81 @@
           "sf": "icloud"
         }
       ]
+    },
+    {
+      "id": "media",
+      "title": "社交与媒体",
+      "icons": [
+        {
+          "name": "heart",
+          "label": "喜欢",
+          "source": "lucide",
+          "lucide": "heart",
+          "keywords": [
+            "喜欢",
+            "点赞",
+            "收藏"
+          ],
+          "sf": "heart"
+        },
+        {
+          "name": "repost",
+          "label": "转发",
+          "source": "lucide",
+          "lucide": "repeat-2",
+          "keywords": [
+            "转发",
+            "转帖",
+            "分享"
+          ],
+          "sf": "arrow.2.squarepath"
+        },
+        {
+          "name": "bookmark",
+          "label": "收藏",
+          "source": "lucide",
+          "lucide": "bookmark",
+          "keywords": [
+            "书签",
+            "收藏",
+            "稍后看"
+          ],
+          "sf": "bookmark"
+        },
+        {
+          "name": "play",
+          "label": "播放",
+          "source": "lucide",
+          "lucide": "play",
+          "keywords": [
+            "播放",
+            "视频"
+          ],
+          "sf": "play"
+        },
+        {
+          "name": "volume",
+          "label": "有声",
+          "source": "lucide",
+          "lucide": "volume-2",
+          "keywords": [
+            "声音",
+            "音量"
+          ],
+          "sf": "speaker.wave.2"
+        },
+        {
+          "name": "mute",
+          "label": "静音",
+          "source": "lucide",
+          "lucide": "volume-x",
+          "keywords": [
+            "静音",
+            "关闭声音"
+          ],
+          "sf": "speaker.slash"
+        }
+      ]
     }
   ]
 }

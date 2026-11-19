@@ -30,7 +30,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 ```html
 <div class="dn-site ex-page" data-density="comfortable">
   <header class="dn-site-header">
-    <a class="dn-site-mark" href="#">deernova.</a>
+    <a class="dn-site-mark" href="#">deernova<span>.</span></a>
     <nav class="dn-site-nav" aria-label="主导航"><a href="#">文档</a><a href="#">更新记录</a><a href="#">定价</a></nav>
   </header>
   <section class="dn-hero">

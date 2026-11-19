@@ -21,7 +21,7 @@ AI 在对话里想了什么、做了什么。思考和工具调用都是「过�
 - **摘要行**：`type-body` 字号、`ink-secondary`；前面一个 `icon-size-md` 的图标（思考是 `thinking`，工具调用是 `tool`），末尾一个小箭头，点开后箭头转向下；悬停时文字变 `ink`。没有底色、没有边框，和正文段落之间 `space-4`。
 - **执行步骤**：在摘要下方缩进，左边一条 1px `line`。每步高 `button-height-md`，`radius-sm`，悬停 `fill-hover`。状态图标：进行中是 `spinner` 动效（`ink`），成功 `success`，失败 `danger`（失败时摘要写清楚原因）。动作名 `callout` 半粗 `ink`；对象摘要 `caption` 等宽、单行截断；耗时 `caption`、`ink-tertiary`、等宽数字。
 - **步骤详情**：再点开一步，缩进到和文字对齐，`surface-sunken` 底，`radius-sm`。默认显示可读的**预览**，原始数据放在 **JSON** 视图里，见下面的[工具详情](#工具详情)。
-- **运行中**：对话末尾一行：加载动效（思考时 `thinking`，运行工具时 `working`，见[加载状态](skeleton.md)）+ 动作名 + 已用时间（`ink-tertiary`），`type-body`、`ink-secondary`。思考结束时动效停下，正好落成摘要行前面的 `thinking` 图标。等待用户确认时改成「等待你确认」，动效换成 `waiting` 图标，见 [确认与审批](approval.md)。
+- **运行中**：对话末尾一行：朱砂 `brand` 色的加载动效（思考时 `thinking`，运行工具时 `working`，见[加载状态](skeleton.md)）+ 动作名 + 已用时间（`ink-tertiary`），`type-body`、`ink-secondary`。思考结束时动效停下，正好落成摘要行前面的 `thinking` 图标。等待用户确认时改成「等待你确认」，动效换成 `waiting` 图标，见 [确认与审批](approval.md)。
 - **更多状态**：等待确认是 `ink` 色的暂停图标；被拒绝、被跳过是 `ink-tertiary` 的斜线圆，动作名后写「已拒绝」；运行被停止时，还没完成的步骤显示 `ink-tertiary` 的方块和「已停止」。这些状态的步骤也留在原处，不删掉。
 
 ## 步骤行怎么写
@@ -123,7 +123,7 @@ details > .dn-step { cursor: pointer; }
 .dn-step-meta { margin-left: auto; padding-left: var(--space-2); color: var(--ink-tertiary); font: var(--weight-regular) var(--type-caption-size)/1 var(--font-sans); font-variant-numeric: tabular-nums; white-space: nowrap; }
 .dn-step.is-success .dn-step-glyph { color: var(--success); }
 .dn-step.is-failed .dn-step-glyph { color: var(--danger); }
-.dn-step.is-waiting .dn-step-glyph { color: var(--ink); }
+.dn-step.is-waiting .dn-step-glyph { color: var(--warning); }
 .dn-step.is-skipped, .dn-step.is-skipped .dn-step-name { color: var(--ink-tertiary); }
 .dn-step-detail-label { display: block; margin: 0 0 2px; color: var(--ink-tertiary); font: var(--weight-regular) var(--type-caption-size)/var(--type-caption-line) var(--font-sans); }
 .dn-step-detail-label + * + .dn-step-detail-label { margin-top: var(--space-2); }
@@ -174,6 +174,7 @@ details > .dn-step { cursor: pointer; }
 .dn-tool-head .dn-icon-button .dn-icon { width: var(--icon-size-sm); height: var(--icon-size-sm); }
 
 .dn-running { display: flex; align-items: center; gap: var(--space-2); min-height: var(--button-height-md); color: var(--ink-secondary); font: var(--type-body); }
+.dn-running > dn-loader { color: var(--brand); }
 .dn-running-time { color: var(--ink-tertiary); font-variant-numeric: tabular-nums; }
 ```
 

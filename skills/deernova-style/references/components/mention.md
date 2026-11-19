@@ -19,7 +19,7 @@
 <!-- /tokens -->
 
 - 浮层外观和[菜单](menu.md)相同：`surface-raised` 底、`line` 描边、`menu-radius`、`shadow-float`、内边距 `menu-padding`，每一项高 `menu-item-height`；宽 `suggest-width`，窄屏时和 Composer 同宽。
-- 标签在文字里占一个字的位置：高 `mention-height`，左右内边距 `mention-padding-x`，圆角 `mention-radius`，`fill-selected` 底、`ink` 字，前面一个 `icon-size-sm` 的类型图标；文字和正文同字号，基线和正文对齐。
+- 标签在文字里占一个字的位置：高 `mention-height`，左右内边距 `mention-padding-x`，圆角 `mention-radius`，`link-soft` 底、`link` 字（靛青，表示能点过去；`/` 命令不是引用，用 `fill-selected` 底、`ink` 字），前面一个 `icon-size-sm` 的类型图标；文字和正文同字号，基线和正文对齐。
 
 ## 触发
 
@@ -96,16 +96,16 @@
   height: var(--mention-height);
   padding: 0 var(--mention-padding-x);
   border-radius: var(--mention-radius);
-  background: var(--fill-selected);
-  color: var(--ink);
+  background: var(--link-soft);
+  color: var(--link);
   font: inherit;
   line-height: 1;
   white-space: nowrap;
   vertical-align: baseline;
   user-select: all;
 }
-.dn-mention > .dn-icon { width: var(--icon-size-sm); height: var(--icon-size-sm); color: var(--ink-secondary); }
-.dn-mention.is-command { font-family: var(--font-mono); font-size: 0.92em; }
+.dn-mention > .dn-icon { width: var(--icon-size-sm); height: var(--icon-size-sm); color: inherit; }
+.dn-mention.is-command { background: var(--fill-selected); color: var(--ink); font-family: var(--font-mono); font-size: 0.92em; }
 .dn-mention.is-missing { color: var(--ink-tertiary); text-decoration: line-through; }
 .dn-compose-text { flex: 1; min-width: 0; padding: calc((var(--button-height-md) - var(--type-body-line)) / 2) var(--space-1); color: var(--ink); font: var(--type-body); outline: none; }
 ```

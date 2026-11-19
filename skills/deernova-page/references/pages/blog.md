@@ -69,7 +69,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 ```html
 <div class="dn-site ex-page is-tall" data-density="comfortable">
   <header class="dn-site-header">
-    <a class="dn-site-mark" href="#">deernova.</a>
+    <a class="dn-site-mark" href="#">deernova<span>.</span></a>
     <nav class="dn-site-nav" aria-label="主导航"><a href="#">文档</a><a href="#" aria-current="page">博客</a><a href="#">更新记录</a></nav>
   </header>
   <main class="dn-blog">
@@ -118,7 +118,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
     <div class="ex-phone-status" aria-hidden="true"><span>9:41</span><span>100%</span></div>
     <div class="ex-phone-body is-web">
       <div class="dn-site" data-density="comfortable">
-        <header class="dn-site-header"><a class="dn-site-mark" href="#">deernova.</a><nav class="dn-site-nav" aria-label="主导航"><a href="#">文档</a></nav><button class="dn-icon-button" type="button" aria-label="菜单"><svg class="dn-icon" aria-hidden="true"><use href="#dn-sidebar"/></svg></button></header>
+        <header class="dn-site-header"><a class="dn-site-mark" href="#">deernova<span>.</span></a><nav class="dn-site-nav" aria-label="主导航"><a href="#">文档</a></nav><button class="dn-icon-button" type="button" aria-label="菜单"><svg class="dn-icon" aria-hidden="true"><use href="#dn-sidebar"/></svg></button></header>
         <main class="dn-blog">
           <h2 class="dn-blog-title">博客</h2>
           <ol class="dn-posts">

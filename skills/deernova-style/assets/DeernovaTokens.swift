@@ -58,8 +58,15 @@ public enum DeernovaColor {
     public static let accentSoft = Color(deernovaLight: 0xE8E8E8, 1, dark: 0x2F2F2F, 1)
     /// accent 填充上的文字和图标：浅色主题白字，深色主题黑字。
     public static let onAccent = Color(deernovaLight: 0xFFFFFF, 1, dark: 0x171717, 1)
-    /// 键盘焦点环的颜色。只在 `:focus-visible` 时画在按钮、链接、卡片、开关这类非输入控件外面，在 canvas、surface、surface-raised 上不低于 3:1。输入框和菜单项不用它。
-    public static let focusRing = Color(deernovaLight: 0x737373, 1, dark: 0xA3A3A3, 1)
+    public static let focusRing = link
+    /// 朱砂，像纸上的一枚印章：只表示「AI 正在做事」。生成中、运行中的任务、思考、加载动画，以及 Deernova 的标志。只做图标、动画和一行状态文字的颜色，不做按钮、不做大面积填充。
+    public static let brand = Color(deernovaLight: 0xAB3E26, 1, dark: 0xEC8A6C, 1)
+    /// 朱砂的浅底，少用：AI 正在写的那一段的标记底。上面的文字用 brand 或 ink。
+    public static let brandSoft = Color(deernovaLight: 0xFAE6DF, 1, dark: 0x3A221B, 1)
+    /// 靛青，像校对的蓝笔：可以点过去的东西。链接文字、引用（产物、文件、@ 提及）、键盘焦点环。不用于按钮填充和选中行。
+    public static let link = Color(deernovaLight: 0x2D5AA0, 1, dark: 0x8DB0EA, 1)
+    /// 引用小块的浅底：正文里的产物、文件、@ 提及。上面的文字用 link。
+    public static let linkSoft = Color(deernovaLight: 0xE2E9F5, 1, dark: 0x1D2739, 1)
     /// 成功、已完成、已同步、开关打开。作为文字用在纸面和 success-soft 上。
     public static let success = Color(deernovaLight: 0x1F6B66, 1, dark: 0x6CC3B4, 1)
     /// 成功状态的浅底（标签、横幅）。
@@ -101,6 +108,10 @@ public extension ShapeStyle where Self == Color {
     static var accentSoft: Color { DeernovaColor.accentSoft }
     static var onAccent: Color { DeernovaColor.onAccent }
     static var focusRing: Color { DeernovaColor.focusRing }
+    static var brand: Color { DeernovaColor.brand }
+    static var brandSoft: Color { DeernovaColor.brandSoft }
+    static var link: Color { DeernovaColor.link }
+    static var linkSoft: Color { DeernovaColor.linkSoft }
     static var success: Color { DeernovaColor.success }
     static var successSoft: Color { DeernovaColor.successSoft }
     static var warning: Color { DeernovaColor.warning }

@@ -121,7 +121,7 @@ test('text and control colors keep their contrast in both themes', async () => {
     for (const paper of ['canvas', 'surface', 'surface-raised']) {
       assert.ok(ratio(color('line-control', theme), color(paper, theme)) >= 3, `${theme} line-control on ${paper}`);
     }
-    for (const status of ['success', 'warning', 'danger', 'info']) {
+    for (const status of ['success', 'warning', 'danger', 'info', 'brand', 'link']) {
       assert.ok(ratio(color(status, theme), color(`${status}-soft`, theme)) >= 4.5, `${theme} ${status} on ${status}-soft`);
       assert.ok(ratio(color(status, theme), color('surface', theme)) >= 4.5, `${theme} ${status} on surface`);
     }

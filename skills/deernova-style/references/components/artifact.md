@@ -16,7 +16,7 @@ AI 做出来的「东西」：文档、代码文件、网页、图表、图片�
 ## 产物卡片
 
 - 在回答正文里占一行：高 `artifact-card-height`，`surface-raised` 底、`line` 描边、`card-radius`，宽度跟正文一致，不超过 `content-max`。
-- 从左到右：类型图标块（边长 `artifact-icon-size`，`surface-sunken` 底、`radius-sm`，里面是 `icon-size-md` 的图标）、标题（`callout`、`weight-medium`、`ink`）和下方一行说明（「第 3 版，刚刚更新」，`caption`、`ink-tertiary`）、右侧的「打开」次按钮和下载图标按钮。
+- 从左到右：类型图标块（边长 `artifact-icon-size`，`link-soft` 底、`link` 色的图标、`radius-sm`；靛青表示点一下就能打开它，里面是 `icon-size-md` 的图标）、标题（`callout`、`weight-medium`、`ink`）和下方一行说明（「第 3 版，刚刚更新」，`caption`、`ink-tertiary`）、右侧的「打开」次按钮和下载图标按钮。
 - 整张卡片都是点击区域，点击在预览面板里打开；当前正在面板里显示的那张，卡片底色换成 `fill-selected`。
 - **生成中**：说明换成微光文字「正在写第 42 行」（见[加载状态](skeleton.md)），「打开」照常可用，面板里能看到内容在长。
 - **被修改**：AI 后来又改了这个产物时，新回答里出现同一张卡片，说明写「已更新到第 4 版」；旧回答里的卡片仍然指向它当时的版本。
@@ -64,7 +64,7 @@ AI 做出来的「东西」：文档、代码文件、网页、图表、图片�
 }
 @media (hover: hover) { .dn-artifact:hover { background-image: linear-gradient(var(--fill-hover), var(--fill-hover)); } }
 .dn-artifact[aria-current="true"] { background-image: linear-gradient(var(--fill-selected), var(--fill-selected)); }
-.dn-artifact-icon { display: grid; place-items: center; flex: none; width: var(--artifact-icon-size); height: var(--artifact-icon-size); border-radius: var(--radius-sm); background: var(--surface-sunken); color: var(--ink-secondary); }
+.dn-artifact-icon { display: grid; place-items: center; flex: none; width: var(--artifact-icon-size); height: var(--artifact-icon-size); border-radius: var(--radius-sm); background: var(--link-soft); color: var(--link); }
 .dn-artifact-icon .dn-icon { width: var(--icon-size-md); height: var(--icon-size-md); }
 .dn-artifact-text { display: grid; gap: 2px; flex: 1; min-width: 0; }
 .dn-artifact-title { overflow: hidden; font: var(--weight-medium) var(--type-callout-size)/var(--type-callout-line) var(--font-sans); text-overflow: ellipsis; white-space: nowrap; }

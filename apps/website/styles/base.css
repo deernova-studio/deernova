@@ -73,7 +73,7 @@ p { margin: 0; }
 /* Masthead: the one piece of glass on the page, so content scrolls underneath it. */
 .masthead { position: sticky; top: 0; z-index: 5; display: flex; align-items: center; gap: var(--space-6); height: var(--masthead); padding: 0 var(--space-6); border-bottom: 1px solid var(--rule); background: color-mix(in srgb, var(--surface) 78%, transparent); -webkit-backdrop-filter: blur(16px) saturate(1.4); backdrop-filter: blur(16px) saturate(1.4); }
 .wordmark { font-family: var(--font-serif); font-size: 22px; font-weight: var(--weight-semibold); letter-spacing: -0.02em; text-decoration: none; line-height: 1; }
-.wordmark span { color: var(--ink-tertiary); }
+.wordmark span { color: var(--brand); }
 
 /* A product's icon and name: the homepage product menu and the product page header use the same pair. */
 .product-symbol { flex: 0 0 20px; width: 20px; height: 20px; fill: currentColor; stroke: none; }

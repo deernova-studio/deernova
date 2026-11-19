@@ -18,7 +18,8 @@
 - 用在条目各自独立、找到一条就去处理的场合：任务、订单、联系人、文件、通知。
 - 列表在内容区里居中，宽不超过 `wide-max`；一行一条，行之间一条细线，不放进卡片。
 - 点一行打开详情页，或者就地完成（勾选任务、切换状态）；勾选框、行尾操作不触发打开。
-- 行比列表加详情里的更舒展：主文字一行，下面一行灰色的所属（项目、客户），行尾是时间或金额。
+- 行比列表加详情里的更舒展：主文字一行，下面是灰色的所属（项目、客户）或备注，行尾是时间或金额。
+- **所有东西对齐第一行。** 勾选框、状态图标、行尾的时间和操作都和主文字的第一行对齐，不在整行里垂直居中；第二行的备注变长时，它们留在原地。代表整条的头像或标记例外，和整块文字垂直居中。备注最多两行，多出的用省略号。
 
 **列表加详情**
 
@@ -43,14 +44,13 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 .dn-rows-bar > :last-child { margin-left: auto; }
 .dn-rows { margin: 0; padding: 0; list-style: none; }
 .dn-rows-group { margin: var(--space-5) 0 0; padding: 0 var(--row-padding-x) var(--space-2); border-bottom: var(--stroke-line) solid var(--line); color: var(--ink-tertiary); font: var(--type-footnote); }
-.dn-rows-item { display: flex; align-items: center; gap: var(--space-3); min-height: calc(var(--row-height) + var(--space-4)); padding: 0 var(--row-padding-x); border-bottom: var(--stroke-line) solid var(--line); color: var(--ink); text-decoration: none; }
+.dn-rows-item { display: flex; align-items: flex-start; gap: var(--space-3); padding: var(--space-2) var(--row-padding-x); border-bottom: var(--stroke-line) solid var(--line); color: var(--ink); text-decoration: none; }
 @media (hover: hover) { .dn-rows-item:hover { background: var(--fill-hover); } }
-.dn-rows-item > .dn-choice-box { margin-top: 0; }
 .dn-rows-text { display: grid; flex: 1; min-width: 0; color: inherit; text-decoration: none; }
 .dn-rows-title { overflow: hidden; font: var(--type-body); text-overflow: ellipsis; white-space: nowrap; }
-.dn-rows-detail { color: var(--ink-tertiary); font: var(--type-footnote); }
-.dn-rows-meta { flex: none; color: var(--ink-secondary); font: var(--type-callout); font-variant-numeric: tabular-nums; }
-.dn-rows-actions { flex: none; opacity: 0; transition: opacity var(--duration-instant) var(--ease-standard); }
+.dn-rows-detail { display: -webkit-box; overflow: hidden; color: var(--ink-tertiary); font: var(--type-footnote); -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+.dn-rows-meta { flex: none; color: var(--ink-secondary); font: var(--weight-regular) var(--type-callout-size)/var(--type-body-line) var(--font-sans); font-variant-numeric: tabular-nums; }
+.dn-rows-actions { flex: none; margin-block: calc((var(--type-body-line) - var(--button-height-md)) / 2); opacity: 0; transition: opacity var(--duration-instant) var(--ease-standard); }
 .dn-rows-item:is(:hover, :focus-within) .dn-rows-actions { opacity: 1; }
 .dn-split { display: grid; grid-template-columns: var(--pane-width) minmax(0, 1fr); flex: 1; min-height: 0; }
 .dn-split-list { display: flex; flex-direction: column; min-height: 0; border-right: var(--stroke-line) solid var(--line); }
@@ -97,7 +97,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
           <li class="dn-rows-item"><span class="dn-choice-box"><input type="checkbox" aria-label="完成：设置页先出交互稿"><svg class="dn-icon is-check" aria-hidden="true"><use href="#dn-check"/></svg></span><a class="dn-rows-text" href="#"><span class="dn-rows-title">设置页先出交互稿</span><span class="dn-rows-detail">设置页改版</span></a><span class="dn-rows-meta">周五</span><button class="dn-icon-button dn-rows-actions" type="button" aria-label="更多"><svg class="dn-icon" aria-hidden="true"><use href="#dn-more"/></svg></button></li>
           <li class="dn-rows-item"><span class="dn-choice-box"><input type="checkbox" aria-label="完成：约设计组过一遍侧边栏"><svg class="dn-icon is-check" aria-hidden="true"><use href="#dn-check"/></svg></span><a class="dn-rows-text" href="#"><span class="dn-rows-title">约设计组过一遍侧边栏</span><span class="dn-rows-detail">首页改版</span></a><span class="dn-rows-meta">周三</span><button class="dn-icon-button dn-rows-actions" type="button" aria-label="更多"><svg class="dn-icon" aria-hidden="true"><use href="#dn-more"/></svg></button></li>
           <li class="dn-rows-group">更晚</li>
-          <li class="dn-rows-item"><span class="dn-choice-box"><input type="checkbox" aria-label="完成：支付超时复盘的改进上线"><svg class="dn-icon is-check" aria-hidden="true"><use href="#dn-check"/></svg></span><a class="dn-rows-text" href="#"><span class="dn-rows-title">支付超时复盘的改进上线</span><span class="dn-rows-detail">支付</span></a><span class="dn-rows-meta">11月28日</span><button class="dn-icon-button dn-rows-actions" type="button" aria-label="更多"><svg class="dn-icon" aria-hidden="true"><use href="#dn-more"/></svg></button></li>
+          <li class="dn-rows-item"><span class="dn-choice-box"><input type="checkbox" aria-label="完成：支付超时复盘的改进上线"><svg class="dn-icon is-check" aria-hidden="true"><use href="#dn-check"/></svg></span><a class="dn-rows-text" href="#"><span class="dn-rows-title">支付超时复盘的改进上线</span><span class="dn-rows-detail">支付：重试间隔改成指数退避，失败三次以后转人工处理。上线前要和风控确认新的阈值，灰度期间每天看一次超时率，以及重复扣款的工单数量有没有下降。</span></a><span class="dn-rows-meta">11月28日</span><button class="dn-icon-button dn-rows-actions" type="button" aria-label="更多"><svg class="dn-icon" aria-hidden="true"><use href="#dn-more"/></svg></button></li>
           <li class="dn-rows-item"><span class="dn-choice-box"><input type="checkbox" aria-label="完成：整理 2027 年第一季度计划"><svg class="dn-icon is-check" aria-hidden="true"><use href="#dn-check"/></svg></span><a class="dn-rows-text" href="#"><span class="dn-rows-title">整理 2027 年第一季度计划</span><span class="dn-rows-detail">计划</span></a><span class="dn-rows-meta">12月5日</span><button class="dn-icon-button dn-rows-actions" type="button" aria-label="更多"><svg class="dn-icon" aria-hidden="true"><use href="#dn-more"/></svg></button></li>
         </ul>
       </div>

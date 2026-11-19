@@ -43,7 +43,7 @@ const SHAPES = {
   // A 1:2 Lissajous figure, the ∞ of work going back and forth.
   working: { extent: 17, at: t => [Math.sin(t * TAU), Math.sin(2 * t * TAU) / 2] },
   // A circle, for ordinary loading.
-  spinner: { extent: 16, at: t => [Math.cos(t * TAU - Math.PI / 2), Math.sin(t * TAU - Math.PI / 2)] }
+  spinner: { extent: 17.5, at: t => [Math.cos(t * TAU - Math.PI / 2), Math.sin(t * TAU - Math.PI / 2)] }
 };
 
 // How each loader moves. duration: one lap in ms. trail: share of the curve the stroke covers.

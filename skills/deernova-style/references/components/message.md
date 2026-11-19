@@ -15,7 +15,7 @@
 <!-- /tokens -->
 
 - 用户消息：靠右，最大宽度 80%，`surface-raised` 底，`radius-lg`，内边距上下 `space-3`、左右 `space-4`，字号 `message-font-size`、行高同 `type-body`。
-- AI 消息：靠左，不加气泡，正文用 `type-body`（桌面 15/24），栏宽不超过 `content-max`。段落之间 `space-3`；加粗用 600；列表缩进一级、项与项之间 4。代码见[代码块](code-block.md)，行内代码用等宽字加 `fill-selected` 底。
+- AI 消息：靠左，不加气泡，正文用 `type-body`（桌面 15/24），栏宽不超过 `content-max`。段落之间 `space-3`；加粗用 600；列表缩进一级、项与项之间 4。代码见[代码块](code-block.md)，行内代码用等宽字加 `fill-selected` 底；链接用靛青 `link` 加一条浅下划线。
 - 消息、工具调用行、卡片之间统一 `space-4`。
 - 操作按钮放在 AI 消息下方，`message-action-size` 的图标按钮，`ink-tertiary` 色；什么时候显示见下文「操作和分支」。
 - 链接用 `ink` 色，加 1px 的 `line-control` 色下划线，下偏移 3px。
@@ -30,7 +30,7 @@
 
 ## 引用和来源
 
-- 引用了网页或文件的句子，句末放一个编号角标：高 `cite-height`，`caption` 字号、等宽数字，`fill-selected` 底、`radius-xs`，和正文基线对齐。
+- 引用了网页或文件的句子，句末放一个编号角标：高 `cite-height`，`caption` 字号、等宽数字，`link-soft` 底、`link` 字、`radius-xs`，和正文基线对齐。
 - 悬停或聚焦角标，出现[悬停卡片](tooltip.md)：来源标题、域名或文件路径、一两行摘录；点击打开来源。
 - 回答末尾、操作行上方放一行来源：「来源」加编号列表，每项是图标、标题和域名（`ink-secondary`），超过 3 条时折叠成「还有 5 个来源」。不用网站的彩色图标，统一用地球或文件图标。
 
@@ -69,7 +69,8 @@
 .dn-message-assistant li + li { margin-top: var(--space-1); }
 .dn-message-assistant strong { font-weight: var(--weight-semibold); }
 .dn-message-assistant code { padding: 1px 5px; border-radius: var(--radius-xs); background: var(--fill-selected); font: 0.9em/1 var(--font-mono); }
-.dn-message-assistant a { color: var(--ink); text-decoration: underline 1px var(--line-control); text-underline-offset: 3px; }
+.dn-message-assistant a { color: var(--link); text-decoration: underline 1px color-mix(in srgb, var(--link) 40%, transparent); text-underline-offset: 3px; }
+@media (hover: hover) { .dn-message-assistant a:hover { text-decoration-color: var(--link); } }
 .dn-message-actions { display: flex; align-items: center; gap: 2px; margin: var(--space-2) 0 0 calc(var(--space-1) * -1); }
 .dn-message-actions .dn-icon-button { width: var(--message-action-size); height: var(--message-action-size); color: var(--ink-tertiary); }
 .dn-message-actions .dn-icon { width: var(--icon-size-sm); height: var(--icon-size-sm); }
@@ -79,8 +80,8 @@
 }
 .dn-message-actions .dn-icon-button[aria-pressed="true"] { color: var(--ink); }
 .dn-branch { display: inline-flex; align-items: center; gap: 2px; margin-right: var(--space-1); color: var(--ink-tertiary); font: var(--weight-regular) var(--type-caption-size)/1 var(--font-sans); font-variant-numeric: tabular-nums; }
-.dn-cite { display: inline-grid; place-items: center; min-width: var(--cite-height); height: var(--cite-height); margin: 0 1px; padding: 0 3px; border-radius: var(--radius-xs); background: var(--fill-selected); color: var(--ink-secondary); font: var(--weight-regular) var(--type-caption-size)/1 var(--font-sans); font-variant-numeric: tabular-nums; text-decoration: none; vertical-align: 0.1em; }
-@media (hover: hover) { .dn-cite:hover { color: var(--ink); background-image: linear-gradient(var(--fill-hover), var(--fill-hover)); } }
+.dn-cite { display: inline-grid; place-items: center; min-width: var(--cite-height); height: var(--cite-height); margin: 0 1px; padding: 0 3px; border-radius: var(--radius-xs); background: var(--link-soft); color: var(--link); font: var(--weight-regular) var(--type-caption-size)/1 var(--font-sans); font-variant-numeric: tabular-nums; text-decoration: none; vertical-align: 0.1em; }
+@media (hover: hover) { .dn-cite:hover { background-image: linear-gradient(var(--fill-hover), var(--fill-hover)); } }
 .dn-sources { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-1) var(--space-3); margin: var(--space-3) 0 0; padding: 0; list-style: none; color: var(--ink-secondary); font: var(--type-callout); }
 .dn-sources > li { display: inline-flex; align-items: center; gap: var(--gap-inline); min-width: 0; }
 .dn-sources .dn-icon { width: var(--icon-size-sm); height: var(--icon-size-sm); }

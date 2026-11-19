@@ -51,7 +51,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 
 ```html
 <div class="dn-auth ex-page is-tall" data-density="comfortable">
-  <header class="dn-auth-header"><a class="dn-site-mark" href="#">deernova.</a></header>
+  <header class="dn-auth-header"><a class="dn-site-mark" href="#">deernova<span>.</span></a></header>
   <main class="dn-auth-main">
     <form class="dn-auth-form">
       <h2 class="dn-auth-title">登录 Deernova</h2>

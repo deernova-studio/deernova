@@ -61,6 +61,14 @@
 | `blue-69` | `#82b4dc` |
 | `blue-35` | `#2c5f86` |
 | `blue-17` | `#1d2c3a` |
+| `vermilion-91` | `#fae6df` |
+| `vermilion-67` | `#ec8a6c` |
+| `vermilion-41` | `#ab3e26` |
+| `vermilion-17` | `#3a221b` |
+| `indigo-93` | `#e2e9f5` |
+| `indigo-74` | `#8db0ea` |
+| `indigo-40` | `#2d5aa0` |
+| `indigo-17` | `#1d2739` |
 
 ## 颜色
 
@@ -81,7 +89,11 @@
 | `accent` | = `ink` | = `ink` | 强调：主按钮填充、选中指示。就是墨色本身，浅色主题是黑，深色主题是白；不用来画激活或焦点外框。 |
 | `accent-soft` | `gray-91` `#e8e8e8` | `gray-18` `#2f2f2f` | 强调的浅底：列表图标底。上面的文字用 ink；不用作输入框的聚焦外圈。 |
 | `on-accent` | `gray-100` `#ffffff` | `gray-9` `#171717` | accent 填充上的文字和图标：浅色主题白字，深色主题黑字。 |
-| `focus-ring` | `gray-45` `#737373` | `gray-64` `#a3a3a3` | 键盘焦点环的颜色。只在 `:focus-visible` 时画在按钮、链接、卡片、开关这类非输入控件外面，在 canvas、surface、surface-raised 上不低于 3:1。输入框和菜单项不用它。 |
+| `focus-ring` | = `link` | = `link` | 键盘焦点环的颜色，就是靛青 `link`。只在 `:focus-visible` 时画在按钮、链接、卡片、开关这类非输入控件外面，在 canvas、surface、surface-raised 上不低于 3:1。输入框和菜单项不用它。 |
+| `brand` | `vermilion-41` `#ab3e26` | `vermilion-67` `#ec8a6c` | 朱砂，像纸上的一枚印章：只表示「AI 正在做事」。生成中、运行中的任务、思考、加载动画，以及 Deernova 的标志。只做图标、动画和一行状态文字的颜色，不做按钮、不做大面积填充。 |
+| `brand-soft` | `vermilion-91` `#fae6df` | `vermilion-17` `#3a221b` | 朱砂的浅底，少用：AI 正在写的那一段的标记底。上面的文字用 brand 或 ink。 |
+| `link` | `indigo-40` `#2d5aa0` | `indigo-74` `#8db0ea` | 靛青，像校对的蓝笔：可以点过去的东西。链接文字、引用（产物、文件、@ 提及）、键盘焦点环。不用于按钮填充和选中行。 |
+| `link-soft` | `indigo-93` `#e2e9f5` | `indigo-17` `#1d2739` | 引用小块的浅底：正文里的产物、文件、@ 提及。上面的文字用 link。 |
 | `success` | `teal-27` `#1f6b66` | `teal-59` `#6cc3b4` | 成功、已完成、已同步、开关打开。作为文字用在纸面和 success-soft 上。 |
 | `success-soft` | `teal-90` `#ddeeec` | `teal-15` `#183230` | 成功状态的浅底（标签、横幅）。 |
 | `warning` | `amber-29` `#8a5a0b` | `amber-61` `#e2b054` | 需要注意但不阻断：额度将用完、网络较慢。 |

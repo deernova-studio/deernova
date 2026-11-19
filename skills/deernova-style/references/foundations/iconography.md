@@ -18,14 +18,14 @@
 
 ## 用哪套图标
 
-- **Web：`@deernova/icons`。** 73 个线性图标：24×24 网格、1.75 描边、圆头圆角、无填充，颜色跟随文字。不混用其他图标库，也不手画路径；缺图标时加进这个包（加法见包里的 README），再用。
+- **Web：`@deernova/icons`。** 79 个线性图标：24×24 网格、1.75 描边、圆头圆角、无填充，颜色跟随文字。不混用其他图标库，也不手画路径；缺图标时加进这个包（加法见包里的 README），再用。
 - **原生：SF Symbols。** 和系统保持一致，13pt 文字旁的图标用 `.medium`。每个 Web 图标在下表里都有对应的 SF Symbol；标「自定义 Symbol」的四个（思考、委派、上下文、/ 命令）系统里没有，用包里的 SVG 导出成自定义 Symbol，导出前暂时用文字代替。
 - **加载动效和图标是一套**：`thinking` 图标就是 `thinking` 加载动效停下的样子，见[加载状态](../components/skeleton.md)。
 - 不用 emoji 当图标；不用星星、魔法棒这类符号表示 AI。
 
 ## 规则
 
-- 默认颜色 `ink-secondary`，选中态和主操作用 `ink`。图标不用彩色，状态图标除外。
+- 默认颜色 `ink-secondary`，选中态和主操作用 `ink`。图标不用彩色，只有三种例外：状态图标用状态色，AI 正在运行的那一个用朱砂 `brand`，引用小块里的图标跟着靛青 `link`。
 - 状态图标固定为：成功 `success`（`checkmark.circle.fill`），警告 `warning`（`exclamationmark.triangle.fill`），错误 `error`（`xmark.circle.fill`），提示 `info`（`info.circle.fill`）。原生端用实心，Web 用同样形状的线性图标。
 - 一个意思只用一个图标：删除永远是 `trash`，关闭永远是 `close`，展开下拉永远是 `chevron-down`；同一个图标也不表示两件事。
 - 只有图标的按钮必须有无障碍标签（`aria-label`，或 SwiftUI 的 `Button("搜索", systemImage:)` 加 `.labelStyle(.iconOnly)`）；旁边已经有文字的图标对读屏隐藏。
@@ -135,6 +135,17 @@
 | `user` | 用户 | `person` |
 | `pause` | 暂停 | `pause` |
 | `cloud` | 同步 | `icloud` |
+
+**社交与媒体**
+
+| 名字 | 用途 | SF Symbols |
+| --- | --- | --- |
+| `heart` | 喜欢 | `heart` |
+| `repost` | 转发 | `arrow.2.squarepath` |
+| `bookmark` | 收藏 | `bookmark` |
+| `play` | 播放 | `play` |
+| `volume` | 有声 | `speaker.wave.2` |
+| `mute` | 静音 | `speaker.slash` |
 <!-- /tokens -->
 
 ## Web 写法

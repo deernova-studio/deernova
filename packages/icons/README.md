@@ -1,6 +1,6 @@
 # @deernova/icons
 
-Deernova 的线性图标：AI 应用常用的 73 个，24×24 网格、1.75 描边、圆头圆角、无填充，颜色跟随文字。
+Deernova 的线性图标：AI 应用和社交内容常用的 79 个，24×24 网格、1.75 描边、圆头圆角、无填充，颜色跟随文字。
 
 ```js
 import { svg } from '@deernova/icons';

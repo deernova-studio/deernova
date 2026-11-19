@@ -13,6 +13,10 @@ function syncSpecimens() {
 }
 syncSpecimens();
 coarse.addEventListener('change', syncSpecimens);
+// Links inside examples point nowhere (href="#"); following them would jump the guide to the top.
+document.addEventListener('click', event => {
+  if (event.target.closest?.('.specimen a[href="#"], .specimen-panel a[href="#"]')) event.preventDefault();
+});
 for (const link of document.querySelectorAll('.toc a')) {
   link.addEventListener('click', () => { if (!wide.matches && toc) toc.open = false; });
 }

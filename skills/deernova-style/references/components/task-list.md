@@ -15,10 +15,10 @@ AI 或批量任务的计划和进度：一张描边卡片，每行一个任务�
 
 - 卡片：无底色（直接在内容区上），1px `line` 描边，`card-radius`，内边距上下 `space-3`、左右 `card-padding-x`。
 - 每行高 `task-row-height`，文字 `type-body`、`ink`，状态圈和文字之间 `space-2`。
-- 状态圈直径 `task-glyph-size`：
+- 状态圈占一个 `task-glyph-size` 的方格，四种状态画出来的圆一样大：直径是方格的 17.5/24，线宽 1.75/24，和图标库里成功、失败图标的圆一致；不要用边框画满整个方格。
   - 待办：`ink-tertiary` 虚线圆圈。
-  - 进行中：`spinner` 动效，`ink` 色，大小同状态圈。同一时间只有一项在进行。曲线动效只放在对话末尾的运行状态行，清单里不放。
-  - 完成：`ink-secondary` 的对勾圆圈，文字变 `ink-secondary`，不加删除线。
+  - 进行中：`spinner` 动效，朱砂 `brand` 色，大小同状态圈。同一时间只有一项在进行。曲线动效只放在对话末尾的运行状态行，清单里不放。
+  - 完成：`success` 的对勾圆圈，文字变 `ink-secondary`，不加删除线。
   - 失败：`danger` 的叉号圆圈，后面跟一句原因。
 - 任务超过 8 项时，默认只显示进行中前后的几项，其余折叠成「还有 5 项」。
 
@@ -36,10 +36,13 @@ AI 或批量任务的计划和进度：一张描边卡片，每行一个任务�
   list-style: none;
 }
 .dn-task { display: flex; align-items: center; gap: var(--space-2); min-height: var(--task-row-height); color: var(--ink); font: var(--type-body); }
-.dn-task-glyph { flex: none; box-sizing: border-box; width: var(--task-glyph-size); height: var(--task-glyph-size); border: 1.5px var(--line-style-dropzone) var(--ink-tertiary); border-radius: var(--radius-full); }
-.dn-task > dn-loader { --loader-size: var(--task-glyph-size); color: var(--ink); }
+.dn-task-glyph { flex: none; width: var(--task-glyph-size); height: var(--task-glyph-size); }
+span.dn-task-glyph { display: grid; place-items: center; }
+span.dn-task-glyph::before { content: ""; box-sizing: border-box; width: calc(var(--task-glyph-size) * 17.5 / 24); height: calc(var(--task-glyph-size) * 17.5 / 24); border: calc(var(--task-glyph-size) * 1.75 / 24) var(--line-style-dropzone) var(--ink-tertiary); border-radius: var(--radius-full); }
+.dn-task > dn-loader { --loader-size: var(--task-glyph-size); color: var(--brand); }
 .dn-task.is-done { color: var(--ink-secondary); }
-.dn-task.is-done .dn-task-glyph, .dn-task.is-failed .dn-task-glyph { border: 0; fill: none; stroke: currentColor; stroke-width: var(--icon-stroke); stroke-linecap: var(--line-cap); stroke-linejoin: var(--line-join); }
+.dn-task.is-done .dn-task-glyph { color: var(--success); }
+.dn-task.is-done .dn-task-glyph, .dn-task.is-failed .dn-task-glyph { fill: none; stroke: currentColor; stroke-width: var(--icon-stroke); stroke-linecap: var(--line-cap); stroke-linejoin: var(--line-join); }
 .dn-task.is-failed .dn-task-glyph { color: var(--danger); }
 .dn-task-note { color: var(--ink-tertiary); font: var(--type-callout); }
 ```
