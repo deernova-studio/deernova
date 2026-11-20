@@ -47,6 +47,8 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 .dn-ws-home { display: grid; align-content: start; gap: var(--space-8); width: 100%; max-width: var(--content-max); margin-inline: auto; padding-top: var(--space-6); }
 .dn-ws-home h2 { margin: 0 0 var(--space-2); color: var(--ink-tertiary); font: var(--weight-medium) var(--type-footnote-size)/var(--type-footnote-line) var(--font-sans); }
 .dn-ws-path { color: var(--ink-tertiary); }
+.dn-ws-home .dn-rows-item > .dn-icon { flex: none; width: var(--icon-size-md); height: var(--icon-size-md); margin-top: calc((var(--type-body-line) - var(--icon-size-md)) / 2); color: var(--ink-secondary); }
+.dn-ws-home .dn-rows-item > .dn-avatar { align-self: center; width: var(--button-height-md); height: var(--button-height-md); }
 ```
 
 工作区首页：侧边栏里是收藏和两组页面树；主区只有最近编辑和提到你的评论：

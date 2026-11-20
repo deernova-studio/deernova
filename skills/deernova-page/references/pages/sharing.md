@@ -33,6 +33,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 .dn-access-invite > .dn-select { width: 112px; }
 .dn-access-list { display: grid; gap: var(--space-1); margin: 0; padding: 0; list-style: none; }
 .dn-access-list > li { display: grid; grid-template-columns: auto minmax(0, 1fr) 120px; align-items: center; gap: var(--space-3); min-height: var(--row-height); }
+.dn-access-list > li > .dn-avatar { width: var(--button-height-md); height: var(--button-height-md); }
 .dn-access-list .dn-member-name > span:last-child { color: var(--ink-tertiary); font: var(--type-footnote); }
 .dn-access-list .dn-select > select { height: var(--button-height-sm); border-color: transparent; background: none; }
 .dn-access-role { padding-left: var(--field-padding-x); color: var(--ink-tertiary); font: var(--type-callout); }

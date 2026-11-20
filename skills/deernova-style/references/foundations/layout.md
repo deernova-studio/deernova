@@ -17,6 +17,7 @@
 - 一屏只有一个主内容区。侧边栏、列表栏、侧面板是辅助栏，宽度固定或可以拖动，主内容区占剩下的空间。
 - 侧边栏可以在 `sidebar-width-min` 和 `sidebar-width-max` 之间拖动，双击分隔线恢复默认宽度 `sidebar-width`。
 - 内容比可用宽度窄时，在主内容区里水平居中，两边留白；不要把文字拉满宽屏。左右至少留 `page-margin`。
+- 左边有分类栏或步骤栏的页面（设置、配置、向导）也一样：内容列在分类栏右边剩下的区域里居中，不贴着分类栏、把留白全堆在右边。
 - 各平台的具体骨架见场景说明：[Web 应用](../scenes/web.md)、[官网与文档](../scenes/web-marketing.md)、[macOS](../scenes/macos.md)、[iPadOS](../scenes/ipados.md)。
 
 ## 网格
@@ -39,7 +40,7 @@
 1. **单行控件和行：在固定高度里垂直居中。** 按钮、输入框、列表行、菜单项、标签、顶栏都用 `height`（或 `min-height`）加 `display: flex; align-items: center`，文字行高为 1。不要用上下内边距撑，也不要用 `padding-top`、`top: 1px` 微调。
 2. **图标和文字：按中线对齐。** 同一行的图标和文字用 `align-items: center`，不按基线，也不用 `vertical-align: middle`。图标尺寸跟着字号：12–13 号字配 `icon-size-sm`，14–15 号配 `icon-size-md`，更大的配 `icon-size-lg`。
 3. **不同字号的文字并排：按基线对齐。** 标题旁边的计数、单位、时间（例如 18 号标题旁边 13 号的「128 条」）用 `align-items: baseline`；按中线对齐时小字看起来会往上飘。
-4. **两行条目（标题加一行说明）：整行居中。** 设置项、列表行、横幅里，前导图标和尾部的开关、箭头、按钮都在整行里垂直居中。
+4. **两行条目（标题加一行说明）：前导按大小选，尾部整行居中。** 设置项、列表行、横幅里，不带底的小图标（`icon-size-md`）对齐第一行，和标题的中线对齐，写法同第 5 条；小图标放在两行字中间会悬空，看不出属于哪一行。头像和带框的标记用 `button-height-md`，和两行字差不多高，在整行里居中，看起来是一个整体；不要用 `button-height-sm` 及以下的头像或标记配两行字，它比文字矮一截，也会悬在两行中间。尾部的开关、箭头、按钮在整行里居中。同一个列表里，所有行的前导用同一种。
 5. **长内容（三行以上，或者高度不固定）：对齐第一行。** 消息、任务说明、多行横幅里，前导的图标、头像、复选框和第一行文字的中线对齐，不跟着整块内容居中。写法是 `align-items: flex-start`，图标的上外边距等于（行高 − 图标高）÷ 2。尾部只有一个短按钮时可以在整块里居中（横幅）；内容很长时，尾部操作也对齐第一行，或者放到内容下方。
 6. **标签和控件左右并排：中线对齐。** 设置项、筛选条里的标签和控件中线对齐；控件是多行文本框时，标签对齐它的第一行。
 7. **表格：** 单行的单元格垂直居中；有单元格会折行时，整行改成顶部对齐。
@@ -93,13 +94,13 @@
 .dn-baseline-title { margin: 0; font: var(--type-title); }
 .dn-baseline-meta { color: var(--ink-tertiary); font: var(--type-footnote); font-variant-numeric: tabular-nums; }
 .dn-item { display: flex; align-items: center; gap: var(--space-3); min-width: 0; }
-.dn-item > .dn-icon { color: var(--ink-secondary); }
+.dn-item > .dn-icon { align-self: flex-start; margin-top: calc((var(--type-body-line) - var(--icon-size-md)) / 2); color: var(--ink-secondary); }
+.dn-item > .dn-avatar { width: var(--button-height-md); height: var(--button-height-md); }
 .dn-item-text { flex: 1; min-width: 0; }
 .dn-item-title { margin: 0; color: var(--ink); font: var(--weight-medium) var(--type-body-size)/var(--type-body-line) var(--font-sans); }
 .dn-item-detail { margin: 0; color: var(--ink-secondary); font: var(--type-callout); }
 .dn-item-end { flex: none; margin-left: auto; }
 .dn-item.is-top { align-items: flex-start; }
-.dn-item.is-top > .dn-icon { margin-top: calc((var(--type-body-line) - var(--icon-size-md)) / 2); }
 .dn-item.is-top > .dn-item-end { margin-top: calc((var(--type-body-line) - var(--button-height-sm)) / 2); }
 .dn-centered { display: grid; grid-template-rows: 2fr auto 3fr; justify-items: center; min-height: 100%; text-align: center; }
 .dn-centered > * { grid-row: 2; }
@@ -124,7 +125,7 @@
 </div>
 ```
 
-两行条目，图标和尾部按钮在整行里居中：
+两行条目：小图标对齐标题那一行，尾部按钮在整行里居中；头像用 `button-height-md`，在整行里居中：
 
 ```html
 <div class="dn-item">
@@ -134,6 +135,14 @@
     <p class="dn-item-detail">在登录同一账户的设备之间保持一致。</p>
   </div>
   <button class="dn-button is-sm dn-item-end" type="button">管理</button>
+</div>
+<div class="dn-item">
+  <span class="dn-avatar" aria-hidden="true">林</span>
+  <div class="dn-item-text">
+    <p class="dn-item-title">林一</p>
+    <p class="dn-item-detail">lin@deernova.me，所有者</p>
+  </div>
+  <button class="dn-button is-sm dn-item-end" type="button">移除</button>
 </div>
 ```
 
@@ -195,7 +204,7 @@ HStack(alignment: .firstTextBaseline, spacing: Deernova.space2) {
     Text("128 条").font(.footnote).monospacedDigit().foregroundStyle(.inkTertiary)
 }
 
-// 两行条目：整行居中
+// 两行条目：Label 把小图标对齐到第一行，开关在整行里居中
 HStack(spacing: Deernova.space3) {
     Label {
         VStack(alignment: .leading, spacing: 2) {

@@ -8,7 +8,7 @@
 | --- | --- | --- |
 | 顶栏 | 关闭、标题（「新建项目」）、草稿状态（「草稿已保存」） | 是 |
 | 步骤 | 左边一列步骤名，做完的打勾、能点回去；当前这一步底色标出 | 三步及以上时 |
-| 这一步 | 一个标题、一句说明这一步决定什么，然后是字段；宽度不超过 `form-max`，靠左 | 是 |
+| 这一步 | 一个标题、一句说明这一步决定什么，然后是字段；宽度不超过 `form-max`，在步骤列右边的区域里居中 | 是 |
 | 底部操作 | 吸底一条：左边「上一步」，右边「下一步」；最后一步的主按钮写结果，「创建项目」 | 是 |
 | 确认 | 最后一步把前面填的列成一张清单，每组右边一个「修改」，点了跳回那一步 | 四步及以上时 |
 | 预览 | 右边一栏，边填边显示建好之后的样子 | 否 |
@@ -38,17 +38,17 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 .is-done .dn-wizard-num { border-color: var(--accent); background: var(--accent); color: var(--on-accent); }
 [aria-current="step"] .dn-wizard-num { border-color: var(--ink); color: var(--ink); }
 .dn-wizard-main { display: flex; flex-direction: column; min-width: 0; min-height: 0; }
-.dn-wizard-body { flex: 1; min-height: 0; overflow-y: auto; padding: var(--space-6) var(--page-margin) var(--space-8); }
-.dn-wizard-body > * { max-width: var(--form-max); }
+.dn-wizard-body { flex: 1; min-height: 0; overflow-y: auto; padding: var(--space-6) max(var(--page-margin), calc((100% - var(--form-max)) / 2)) var(--space-8); }
 .dn-wizard-title { margin: 0 0 var(--space-1); font: var(--type-title); }
 .dn-wizard-lede { margin: 0 0 var(--space-6); color: var(--ink-secondary); font: var(--type-callout); }
-.dn-wizard-foot { padding: var(--space-3) var(--page-margin); border-top: var(--stroke-line) solid var(--line); background: var(--canvas); }
-.dn-wizard-foot > div { display: flex; align-items: center; gap: var(--space-2); max-width: var(--form-max); }
+.dn-wizard-foot { padding: var(--space-3) max(var(--page-margin), calc((100% - var(--form-max)) / 2)); border-top: var(--stroke-line) solid var(--line); background: var(--canvas); }
+.dn-wizard-foot > div { display: flex; align-items: center; gap: var(--space-2); }
 .dn-wizard-foot .is-primary { margin-left: auto; }
 .dn-wizard-invite { display: flex; gap: var(--space-2); }
 .dn-wizard-invite > .dn-input { flex: 1; min-width: 0; }
 .dn-people { display: grid; margin: 0; padding: 0; list-style: none; }
 .dn-people > li { display: grid; grid-template-columns: auto minmax(0, 1fr) 128px auto; align-items: center; gap: var(--space-3); min-height: calc(var(--row-height) + var(--space-4)); border-bottom: var(--stroke-line) solid var(--line); }
+.dn-people > li > .dn-avatar { width: var(--button-height-md); height: var(--button-height-md); }
 .dn-people-name { display: grid; min-width: 0; font: var(--type-callout); }
 .dn-people-name > span:last-child { overflow: hidden; color: var(--ink-tertiary); font: var(--type-footnote); text-overflow: ellipsis; }
 .dn-people-pending { color: var(--ink-tertiary); font: var(--type-footnote); }

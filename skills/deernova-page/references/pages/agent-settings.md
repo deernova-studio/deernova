@@ -38,8 +38,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 .dn-builder { display: grid; grid-template-columns: 200px minmax(0, 1fr) minmax(300px, 360px); flex: 1; min-height: 0; }
 .dn-builder.is-solo { grid-template-columns: 200px minmax(0, 1fr); }
 .dn-builder > .dn-settings-nav .dn-sidebar-count.is-warning { color: var(--warning); }
-.dn-builder-main { display: flex; flex-direction: column; min-width: 0; min-height: 0; overflow-y: auto; padding: var(--space-6) var(--space-8) var(--space-10); }
-.dn-builder-main > * { width: 100%; max-width: var(--content-max); }
+.dn-builder-main { display: flex; flex-direction: column; min-width: 0; min-height: 0; overflow-y: auto; padding: var(--space-6) max(var(--space-8), calc((100% - var(--content-max)) / 2)) var(--space-10); }
 .dn-builder-main > h3 { margin: 0 0 var(--space-1); font: var(--type-title); }
 .dn-builder-main > h4 { margin: var(--space-8) 0 var(--space-2); font: var(--type-headline); }
 .dn-builder-lede { margin: 0 0 var(--space-5); color: var(--ink-secondary); font: var(--type-callout); }
@@ -70,7 +69,6 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 .dn-toolset { margin: 0; padding: 0; border: var(--stroke-line) solid var(--line); border-radius: var(--radius-lg); background: var(--surface); list-style: none; }
 .dn-toolset-item { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: var(--space-1) var(--space-3); padding: var(--space-3) var(--space-4); }
 .dn-toolset-item + .dn-toolset-item { border-top: var(--stroke-line) solid var(--line); }
-.dn-toolset-item > .dn-agent-mark { width: var(--button-height-sm); height: var(--button-height-sm); }
 .dn-toolset-name { display: grid; gap: 2px; font: var(--type-body); }
 .dn-toolset-name > span { color: var(--ink-tertiary); font: var(--type-footnote); }
 .dn-toolset-name > span.is-warning { color: var(--warning); }

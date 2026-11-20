@@ -15,7 +15,7 @@
 - **改了就生效。** 开关、单选、下拉选择改完立即保存，不放「保存」按钮；需要填写的项（名字、邮箱）在失焦时保存，出错时在这一项下面说明。
 - **当前值写在行尾。** 「外观　跟随系统 ›」，不用点进去就知道现在是什么。
 - **进下一级用箭头。** 一项有多个子选项时，行尾放当前值和箭头，点进去是下一页；不在当前页展开一大片。
-- 内容栏宽不超过 `form-max`，靠左，不居中漂在宽屏中间。
+- 内容栏宽不超过 `form-max`，在分类栏右边剩下的区域里居中；不贴着分类栏、把留白都堆在右边。
 - 设置项的名字写名词（「通知声音」），不写「是否开启通知声音」。
 
 ## 网页
@@ -26,8 +26,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 .dn-settings { display: grid; grid-template-columns: 220px minmax(0, 1fr); flex: 1; min-height: 0; }
 .dn-settings-nav { display: flex; flex-direction: column; gap: var(--row-gap); min-height: 0; overflow-y: auto; padding: var(--space-3) var(--space-2); border-right: var(--stroke-line) solid var(--line); }
 .dn-settings-nav > .dn-input-group { margin-bottom: var(--space-2); }
-.dn-settings-main { min-width: 0; min-height: 0; overflow-y: auto; padding: var(--space-6) var(--page-margin) var(--space-12); }
-.dn-settings-main > * { max-width: var(--form-max); }
+.dn-settings-main { min-width: 0; min-height: 0; overflow-y: auto; padding: var(--space-6) max(var(--page-margin), calc((100% - var(--form-max)) / 2)) var(--space-12); }
 .dn-settings-main > .dn-list-section + .dn-list-section { margin-top: var(--gap-group); }
 .dn-settings-main h2 { margin: 0 0 var(--space-5); font: var(--type-title); }
 @media (max-width: 960px) {

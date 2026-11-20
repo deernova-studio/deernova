@@ -37,6 +37,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 .dn-members .dn-table-bar > .dn-input-group { width: min(100%, 280px); }
 .dn-members .dn-table td { height: calc(var(--table-row-height) + var(--space-4)); }
 .dn-members .dn-table-cell { gap: var(--space-3); }
+.dn-members .dn-table-cell > .dn-avatar { width: var(--button-height-md); height: var(--button-height-md); }
 .dn-member-name { display: grid; min-width: 0; }
 .dn-member-name > span:last-child { overflow: hidden; color: var(--ink-tertiary); font: var(--type-footnote); text-overflow: ellipsis; }
 .dn-members .dn-select { width: 128px; }
