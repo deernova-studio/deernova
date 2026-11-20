@@ -124,7 +124,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
   <div class="dn-sheet-content">
     <div class="dn-field">
       <label class="dn-field-label" for="ex-cancel-why">为什么取消 <span class="dn-optional">（可选）</span></label>
-      <span class="dn-select"><select id="ex-cancel-why"><option selected>不说了</option><option>太贵了</option><option>团队不用了</option><option>换了别的工具</option><option>其他</option></select></span>
+      <span class="dn-select"><select id="ex-cancel-why"><option selected>不说了</option><option>太贵了</option><option>团队不用了</option><option>换了别的工具</option><option>其他</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span>
     </div>
   </div>
   <div class="dn-sheet-actions">

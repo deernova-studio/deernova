@@ -7,22 +7,26 @@
 | 区块 | 放什么 | 必须 |
 | --- | --- | --- |
 | 顶栏 | 返回、标记和名字（直接点了改）、草稿状态（「草稿，已自动保存」）、试用开关、「发布」 | 是 |
-| 分类 | 左边一列：指令、模型、资料、工具、权限、触发、版本；每项行尾一个短状态：「2 个」「每周五」「1 个要重新登录」 | 是 |
+| 分类 | 左边一列：指令、模型、资料、工具、权限、定时任务、版本；每项行尾一个短状态：「2 个」「每周五」「1 个要重新登录」 | 是 |
 | 指令 | 一个占满高度的编辑区，像写一页文档；输入 @ 引用资料和工具，被引用的写成[提及](../../../deernova-style/references/components/mention.md)；上面是一句话说明（显示在智能体列表里） | 是 |
-| 模型 | 模型、思考深度、快慢；每项写来自哪里：「团队默认」或「这个智能体单独设置」 | 是 |
+| 模型 | 接口格式（OpenAI 或 Anthropic）、地址、API Key、模型名，加「测试连接」；再往下是思考深度这类生成设置。团队设过默认的，打开「跟随团队」就不用填 | 是 |
 | 资料 | 它能读的文件夹、笔记本、日历和数据源，每个一行：名字、条数、只读还是能写 | 否 |
 | 工具 | 每个连接一行：名字、状态（已连接、要重新登录）、开关；展开是这个连接里的每个操作 | 是 |
 | 权限 | 先选一档整体权限，再列例外：某个操作单独「总是允许」「每次询问」或「不允许」 | 是 |
-| 触发 | 手动、定时（每周五 16:00）、某件事发生时（收到带发票的邮件）；下面是最近几次运行，点开是[AI 任务页](task.md) | 否 |
+| 定时任务 | 一个任务一行：名字、什么时候运行、结果放哪、开关；点一行在弹窗里改。下面是最近几次运行，点开是[AI 任务页](task.md) | 否 |
 | 版本 | 每次发布的说明和时间；选一版打开成新的草稿 | 是 |
 | 试用 | 右边一栏，用当前草稿对话；左边改了什么，下一条消息就按新的来 | 是 |
 
 - **一次只看一类。** 左边分类、中间这一类、右边试用。智能体能配的东西越来越多，一长串表单翻到底才看到权限，改的人会漏看最要紧的那几项。
 - **指令是一页文档，不是一个输入框。** 编辑区占满中间的高度，正文字号，段落之间有间距；不要把指令拆成「角色」「目标」「语气」「限制」十几个小框。底部一行灰字写字数。
-- **定时写在触发里，不写进指令。** 「每周五下午」是什么时候运行，属于触发；指令只写它要做什么。指令里出现时间词时，触发那一项旁边提示「指令里提到了每周五，要设成定时吗」。
+- **模型就是填一个接口。** 选接口格式（OpenAI 格式或 Anthropic 格式），填服务商的地址和 API Key，再选模型名。DeepSeek、通义千问、Kimi、自己部署的模型，只要兼容其中一种格式就能用；不做一页服务商目录。
+- **API Key 填完就看不到。** 只存在服务端，输入框里只显示后四位（`sk-••••3f9a`），旁边「更换」；页面、试用和日志里都不出现完整的 Key。
+- **先测试，再发布。** 「测试连接」发一个最小的请求，结果写在这一行：「已连接，模型列表已更新」或者原因「401：Key 不对」。没测通时「发布」旁边提示一句，但不拦着保存草稿。
+- **定时写成任务，不写进指令。** 「每周五 16:00 起草周报」是一个定时任务：名字、时间、发给它的那句话、结果是新开对话还是接着上次。指令只写它要做什么。
 - **权限先选一档，再列例外。** 整体权限四档，从紧到松：每次都问、只在外发前问、自动、完全放开。大部分人只需要选一档；个别操作和整体不同时，写在例外里。不让人给十几个操作一个一个选。
 - **会发送、付费、删除的操作，只有「完全放开」不问。** 选「完全放开」时，这一档的说明换成 `warning` 色，写清后果：「它会直接发邮件、删除笔记，不再问你」。
-- **每个值都写来自哪里。** 模型、权限这类团队有默认值的项，旁边一行灰字「团队默认」；单独改过的写「单独设置，团队默认是“标准”」加「恢复」。连接的权限是上限，这里只能收得更紧，见[工具与连接](connections.md)。
+- **设置排成一行一行。** 每一类是几个分组卡片，卡片里一行一项：左边名字和一句说明，右边控件。单选组、整行的大输入框不散着铺在页面上。
+- **每个值都写来自哪里。** 团队有默认值的项，跟随团队时说明里写「团队默认」；单独改过的，名字旁边一个恢复按钮，说明写「单独设置，团队默认是“低”」。连接的权限是上限，这里只能收得更紧，见[工具与连接](connections.md)。
 - **草稿自动保存，发布才生效。** 草稿只有改的人能用；「发布」时写一句改了什么，进版本，可以回到任何一版。离开页面不问「是否保存」。
 - **只有要处理的才有颜色。** 分类行尾的状态是灰字；要重新登录的连接用 `warning`；试用里正在回答时的加载动效用朱砂，和其他 AI 页面一致。
 
@@ -72,8 +76,24 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 .dn-toolset-name > span.is-warning { color: var(--warning); }
 .dn-toolset-item > .dn-perms { grid-column: 2 / -1; margin-top: var(--space-1); }
 .dn-toolset-item > .dn-perms > .dn-perm:last-child { border-bottom: 0; }
-.dn-runs { margin-top: var(--space-2); }
-.dn-builder-main > .dn-form-pair { margin-top: var(--space-4); max-width: var(--form-max); }
+.dn-setting-group { margin: 0; padding: 0; border: var(--stroke-line) solid var(--line); border-radius: var(--radius-lg); background: var(--surface); list-style: none; }
+.dn-setting { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 300px); align-items: center; gap: var(--space-1) var(--space-6); min-height: calc(var(--row-height) + var(--space-4)); padding: var(--space-3) var(--space-4); }
+.dn-setting + .dn-setting { border-top: var(--stroke-line) solid var(--line); }
+.dn-setting-text { display: grid; gap: 2px; min-width: 0; }
+.dn-setting-title { display: flex; align-items: center; gap: var(--space-1); color: var(--ink); font: var(--weight-medium) var(--type-body-size)/var(--type-body-line) var(--font-sans); }
+.dn-setting-help { color: var(--ink-tertiary); font: var(--type-footnote); }
+.dn-setting-help.is-ok { color: var(--success); }
+.dn-setting-help.is-warning { color: var(--warning); }
+.dn-setting-reset { width: 22px; height: 22px; color: var(--ink-tertiary); }
+.dn-setting-reset .dn-icon { width: var(--icon-size-sm); height: var(--icon-size-sm); }
+.dn-setting-control { display: flex; align-items: center; justify-content: flex-end; gap: var(--space-2); min-width: 0; }
+.dn-setting-control > :is(.dn-input, .dn-select) { flex: 1; min-width: 0; }
+.dn-setting-control > .dn-input.is-code { font-family: var(--font-mono); font-size: var(--type-footnote-size); }
+.dn-setting-control > .dn-segmented { flex: 1; }
+.dn-setting-control > .dn-segmented > button { flex: 1; }
+.dn-builder-main > .dn-setting-group + .dn-setting-group { margin-top: var(--space-5); }
+.dn-builder-main > .dn-setting-group + .dn-builder-add { margin-top: var(--space-3); }
+.dn-builder-add { align-self: flex-start; width: auto; }
 .dn-toolbar .dn-button.is-plain[aria-pressed="true"] { background: var(--fill-selected); }
 .dn-builder-try { display: flex; flex-direction: column; min-width: 0; min-height: 0; border-left: var(--stroke-line) solid var(--line); }
 .dn-builder-try-head { display: flex; align-items: center; justify-content: space-between; height: var(--toolbar-height); padding: 0 var(--space-4); border-bottom: var(--stroke-line) solid var(--line); color: var(--ink-secondary); font: var(--type-callout); }
@@ -107,11 +127,11 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
     <div class="dn-builder">
       <nav class="dn-settings-nav" aria-label="配置分类">
         <a class="dn-sidebar-item" href="#" aria-current="page"><svg class="dn-icon" aria-hidden="true"><use href="#dn-document"/></svg><span class="dn-sidebar-label">指令</span></a>
-        <a class="dn-sidebar-item" href="#"><svg class="dn-icon" aria-hidden="true"><use href="#dn-model"/></svg><span class="dn-sidebar-label">模型</span><span class="dn-sidebar-count">标准</span></a>
+        <a class="dn-sidebar-item" href="#"><svg class="dn-icon" aria-hidden="true"><use href="#dn-model"/></svg><span class="dn-sidebar-label">模型</span><span class="dn-sidebar-count">deepseek-chat</span></a>
         <a class="dn-sidebar-item" href="#"><svg class="dn-icon" aria-hidden="true"><use href="#dn-folder"/></svg><span class="dn-sidebar-label">资料</span><span class="dn-sidebar-count">2 个</span></a>
         <a class="dn-sidebar-item" href="#"><svg class="dn-icon" aria-hidden="true"><use href="#dn-tool"/></svg><span class="dn-sidebar-label">工具</span><span class="dn-sidebar-count is-warning">1 个要登录</span></a>
         <a class="dn-sidebar-item" href="#"><svg class="dn-icon" aria-hidden="true"><use href="#dn-permission"/></svg><span class="dn-sidebar-label">权限</span><span class="dn-sidebar-count">外发前问</span></a>
-        <a class="dn-sidebar-item" href="#"><svg class="dn-icon" aria-hidden="true"><use href="#dn-calendar"/></svg><span class="dn-sidebar-label">触发</span><span class="dn-sidebar-count">每周五</span></a>
+        <a class="dn-sidebar-item" href="#"><svg class="dn-icon" aria-hidden="true"><use href="#dn-calendar"/></svg><span class="dn-sidebar-label">定时任务</span><span class="dn-sidebar-count">1 个</span></a>
         <a class="dn-sidebar-item" href="#"><svg class="dn-icon" aria-hidden="true"><use href="#dn-history"/></svg><span class="dn-sidebar-label">版本</span><span class="dn-sidebar-count">v4</span></a>
       </nav>
       <div class="dn-builder-main">
@@ -138,7 +158,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 </div>
 ```
 
-「权限」这一类：先选一档整体权限，写清它来自哪里；下面是和整体不同的例外。试用栏收起时，中间占满：
+「模型」这一类：选接口格式，填地址和 API Key，选模型，测一下；思考深度单独改过，名字旁边有恢复按钮：
 
 ```html
 <div class="dn-app ex-page is-tall">
@@ -156,32 +176,54 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
     <div class="dn-builder is-solo">
       <nav class="dn-settings-nav" aria-label="配置分类">
         <a class="dn-sidebar-item" href="#"><svg class="dn-icon" aria-hidden="true"><use href="#dn-document"/></svg><span class="dn-sidebar-label">指令</span></a>
-        <a class="dn-sidebar-item" href="#"><svg class="dn-icon" aria-hidden="true"><use href="#dn-model"/></svg><span class="dn-sidebar-label">模型</span><span class="dn-sidebar-count">标准</span></a>
+        <a class="dn-sidebar-item" href="#" aria-current="page"><svg class="dn-icon" aria-hidden="true"><use href="#dn-model"/></svg><span class="dn-sidebar-label">模型</span><span class="dn-sidebar-count">deepseek-chat</span></a>
         <a class="dn-sidebar-item" href="#"><svg class="dn-icon" aria-hidden="true"><use href="#dn-folder"/></svg><span class="dn-sidebar-label">资料</span><span class="dn-sidebar-count">2 个</span></a>
         <a class="dn-sidebar-item" href="#"><svg class="dn-icon" aria-hidden="true"><use href="#dn-tool"/></svg><span class="dn-sidebar-label">工具</span><span class="dn-sidebar-count is-warning">1 个要登录</span></a>
-        <a class="dn-sidebar-item" href="#" aria-current="page"><svg class="dn-icon" aria-hidden="true"><use href="#dn-permission"/></svg><span class="dn-sidebar-label">权限</span><span class="dn-sidebar-count">外发前问</span></a>
-        <a class="dn-sidebar-item" href="#"><svg class="dn-icon" aria-hidden="true"><use href="#dn-calendar"/></svg><span class="dn-sidebar-label">触发</span><span class="dn-sidebar-count">每周五</span></a>
+        <a class="dn-sidebar-item" href="#"><svg class="dn-icon" aria-hidden="true"><use href="#dn-permission"/></svg><span class="dn-sidebar-label">权限</span><span class="dn-sidebar-count">外发前问</span></a>
+        <a class="dn-sidebar-item" href="#"><svg class="dn-icon" aria-hidden="true"><use href="#dn-calendar"/></svg><span class="dn-sidebar-label">定时任务</span><span class="dn-sidebar-count">1 个</span></a>
         <a class="dn-sidebar-item" href="#"><svg class="dn-icon" aria-hidden="true"><use href="#dn-history"/></svg><span class="dn-sidebar-label">版本</span><span class="dn-sidebar-count">v4</span></a>
       </nav>
       <div class="dn-builder-main">
-        <h3>权限</h3>
-        <p class="dn-builder-lede">它做事前什么时候停下来问你。只读的操作都不问。</p>
-        <fieldset class="dn-levels">
-          <label class="dn-level"><span class="dn-choice-box"><input type="radio" name="ex-ag-level"></span><span class="dn-level-text"><span class="dn-level-name">每次都问</span><span class="dn-level-help">新建、修改、发送前都先问你。</span></span></label>
-          <label class="dn-level"><span class="dn-choice-box"><input type="radio" name="ex-ag-level" checked></span><span class="dn-level-text"><span class="dn-level-name">只在外发前问</span><span class="dn-level-help">新建和修改直接做；发送、付费、删除前问你。</span></span></label>
-          <label class="dn-level"><span class="dn-choice-box"><input type="radio" name="ex-ag-level"></span><span class="dn-level-text"><span class="dn-level-name">自动</span><span class="dn-level-help">只在它拿不准、或者要付费时问你。</span></span></label>
-          <label class="dn-level is-risky"><span class="dn-choice-box"><input type="radio" name="ex-ag-level"></span><span class="dn-level-text"><span class="dn-level-name">完全放开</span><span class="dn-level-help">所有操作都不问，包括发邮件和删除。</span></span></label>
-        </fieldset>
-        <p class="dn-source">团队默认</p>
-        <h4>例外</h4>
-        <ul class="dn-perms">
-          <li class="dn-perm"><span class="dn-perm-name">发送邮件<span>邮箱 lin@deernova.me</span></span><span class="dn-select"><select aria-label="发送邮件的权限"><option>跟随整体</option><option>总是允许</option><option>每次询问</option><option selected>不允许</option></select></span></li>
-          <li class="dn-perm"><span class="dn-perm-name">新建日程<span>日历：工作</span></span><span class="dn-select"><select aria-label="新建日程的权限"><option>跟随整体</option><option>总是允许</option><option selected>每次询问</option><option>不允许</option></select></span></li>
+        <h3>模型</h3>
+        <p class="dn-builder-lede">填一个兼容 OpenAI 或 Anthropic 格式的接口。团队设过默认的，跟随团队就不用填。</p>
+        <ul class="dn-setting-group">
+          <li class="dn-setting"><span class="dn-setting-text"><span class="dn-setting-title">跟随团队</span><span class="dn-setting-help">团队默认：Anthropic 格式，团队自己的 Key</span></span><span class="dn-setting-control"><input class="dn-switch" type="checkbox" role="switch" aria-label="跟随团队"></span></li>
         </ul>
-        <p class="dn-source"><button class="dn-button is-plain is-sm" type="button"><svg class="dn-icon" aria-hidden="true"><use href="#dn-plus"/></svg>添加例外</button></p>
+        <ul class="dn-setting-group">
+          <li class="dn-setting"><span class="dn-setting-text"><span class="dn-setting-title">接口格式</span><span class="dn-setting-help">大部分服务商兼容 OpenAI 格式</span></span><span class="dn-setting-control"><span class="dn-segmented" role="group" aria-label="接口格式"><button type="button" aria-pressed="true">OpenAI</button><button type="button" aria-pressed="false">Anthropic</button></span></span></li>
+          <li class="dn-setting"><span class="dn-setting-text"><span class="dn-setting-title">地址</span><span class="dn-setting-help">服务商文档里的 Base URL</span></span><span class="dn-setting-control"><input class="dn-input is-code" value="https://api.deepseek.com/v1" aria-label="地址"></span></li>
+          <li class="dn-setting"><span class="dn-setting-text"><span class="dn-setting-title">API Key</span><span class="dn-setting-help">只存在服务端，保存后只显示后四位</span></span><span class="dn-setting-control"><input class="dn-input is-code" value="sk-••••••••3f9a" aria-label="API Key" readonly><button class="dn-button is-sm" type="button">更换</button></span></li>
+          <li class="dn-setting"><span class="dn-setting-text"><span class="dn-setting-title">模型</span><span class="dn-setting-help">列表来自服务商，也可以直接输入</span></span><span class="dn-setting-control"><span class="dn-select"><select aria-label="模型"><option selected>deepseek-chat</option><option>deepseek-reasoner</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span></span></li>
+          <li class="dn-setting"><span class="dn-setting-text"><span class="dn-setting-title">连接</span><span class="dn-setting-help is-ok">已连接，找到 2 个模型，2 分钟前</span></span><span class="dn-setting-control"><button class="dn-button is-sm" type="button">测试连接</button></span></li>
+        </ul>
+        <ul class="dn-setting-group">
+          <li class="dn-setting"><span class="dn-setting-text"><span class="dn-setting-title">思考深度<button class="dn-icon-button dn-setting-reset" type="button" aria-label="恢复成团队默认"><svg class="dn-icon" aria-hidden="true"><use href="#dn-undo"/></svg></button></span><span class="dn-setting-help">单独设置，团队默认是「低」</span></span><span class="dn-setting-control"><span class="dn-select"><select aria-label="思考深度"><option>关</option><option>低</option><option selected>中</option><option>高</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span></span></li>
+          <li class="dn-setting"><span class="dn-setting-text"><span class="dn-setting-title">回答最长</span><span class="dn-setting-help">团队默认</span></span><span class="dn-setting-control"><input class="dn-input" value="4,000 token" aria-label="回答最长"></span></li>
+        </ul>
       </div>
     </div>
   </div>
+</div>
+```
+
+「权限」这一类：先选一档整体权限，再把和整体不同的操作列成例外，每个例外一行：
+
+```html
+<div class="dn-builder-main">
+  <h3>权限</h3>
+  <p class="dn-builder-lede">它做事前什么时候停下来问你。只读的操作都不问。</p>
+  <fieldset class="dn-levels">
+    <label class="dn-level"><span class="dn-choice-box"><input type="radio" name="ex-ag-level"></span><span class="dn-level-text"><span class="dn-level-name">每次都问</span><span class="dn-level-help">新建、修改、发送前都先问你。</span></span></label>
+    <label class="dn-level"><span class="dn-choice-box"><input type="radio" name="ex-ag-level" checked></span><span class="dn-level-text"><span class="dn-level-name">只在外发前问</span><span class="dn-level-help">新建和修改直接做；发送、付费、删除前问你。团队默认。</span></span></label>
+    <label class="dn-level"><span class="dn-choice-box"><input type="radio" name="ex-ag-level"></span><span class="dn-level-text"><span class="dn-level-name">自动</span><span class="dn-level-help">只在它拿不准、或者要付费时问你。</span></span></label>
+    <label class="dn-level is-risky"><span class="dn-choice-box"><input type="radio" name="ex-ag-level"></span><span class="dn-level-text"><span class="dn-level-name">完全放开</span><span class="dn-level-help">所有操作都不问，包括发邮件和删除。</span></span></label>
+  </fieldset>
+  <h4>例外</h4>
+  <ul class="dn-setting-group">
+    <li class="dn-setting"><span class="dn-setting-text"><span class="dn-setting-title">发送邮件</span><span class="dn-setting-help">邮箱 lin@deernova.me</span></span><span class="dn-setting-control"><span class="dn-select"><select aria-label="发送邮件的权限"><option>跟随整体</option><option>总是允许</option><option>每次询问</option><option selected>不允许</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span></span></li>
+    <li class="dn-setting"><span class="dn-setting-text"><span class="dn-setting-title">新建日程</span><span class="dn-setting-help">日历：工作</span></span><span class="dn-setting-control"><span class="dn-select"><select aria-label="新建日程的权限"><option>跟随整体</option><option>总是允许</option><option selected>每次询问</option><option>不允许</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span></span></li>
+  </ul>
+  <button class="dn-button is-plain is-sm dn-builder-add" type="button"><svg class="dn-icon" aria-hidden="true"><use href="#dn-plus"/></svg>添加例外</button>
 </div>
 ```
 
@@ -197,8 +239,8 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
       <span class="dn-toolset-name">笔记<span>已连接，5 个操作</span></span>
       <input class="dn-switch" type="checkbox" role="switch" checked aria-label="使用笔记">
       <ul class="dn-perms">
-        <li class="dn-perm"><span class="dn-perm-name">搜索笔记</span><span class="dn-select"><select aria-label="搜索笔记的权限"><option selected>跟随整体</option><option>每次询问</option><option>不允许</option></select></span></li>
-        <li class="dn-perm"><span class="dn-perm-name">新建笔记</span><span class="dn-select"><select aria-label="新建笔记的权限"><option selected>跟随整体</option><option>总是允许</option><option>每次询问</option><option>不允许</option></select></span></li>
+        <li class="dn-perm"><span class="dn-perm-name">搜索笔记</span><span class="dn-select"><select aria-label="搜索笔记的权限"><option selected>跟随整体</option><option>每次询问</option><option>不允许</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span></li>
+        <li class="dn-perm"><span class="dn-perm-name">新建笔记</span><span class="dn-select"><select aria-label="新建笔记的权限"><option selected>跟随整体</option><option>总是允许</option><option>每次询问</option><option>不允许</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span></li>
       </ul>
     </li>
     <li class="dn-toolset-item">
@@ -215,26 +257,46 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 </div>
 ```
 
-「触发」这一类：定时写在这里，不写进指令；下面是最近几次运行：
+「定时任务」这一类：一个任务一行，开关在行尾；点一行在弹窗里改。下面是最近几次运行：
 
 ```html
 <div class="dn-builder-main">
-  <h3>触发</h3>
-  <p class="dn-builder-lede">它什么时候自己开始。手动随时都能用。</p>
-  <fieldset class="dn-choice-group">
-    <label class="dn-choice"><span class="dn-choice-box"><input type="radio" name="ex-ag-trigger"></span><span class="dn-choice-text"><span class="dn-choice-label">只在我叫它时</span></span></label>
-    <label class="dn-choice"><span class="dn-choice-box"><input type="radio" name="ex-ag-trigger" checked></span><span class="dn-choice-text"><span class="dn-choice-label">定时</span><span class="dn-choice-help">每周五 16:00，北京时间</span></span></label>
-    <label class="dn-choice"><span class="dn-choice-box"><input type="radio" name="ex-ag-trigger"></span><span class="dn-choice-text"><span class="dn-choice-label">某件事发生时</span><span class="dn-choice-help">比如收到带附件的邮件、日历里新加了会议</span></span></label>
-  </fieldset>
-  <div class="dn-form-pair">
-    <div class="dn-field"><label class="dn-field-label" for="ex-ag-day">每周</label><span class="dn-select"><select id="ex-ag-day"><option>周一</option><option selected>周五</option></select></span></div>
-    <div class="dn-field"><label class="dn-field-label" for="ex-ag-time">时间</label><input class="dn-input" id="ex-ag-time" value="16:00"></div>
-  </div>
-  <h4>最近运行</h4>
-  <ul class="dn-rows dn-runs">
-    <li class="dn-rows-item"><a class="dn-rows-text" href="#"><span class="dn-rows-title">11月14日 16:00</span><span class="dn-rows-detail">起草了周报，问了 1 个问题</span></a></li>
-    <li class="dn-rows-item"><a class="dn-rows-text" href="#"><span class="dn-rows-title">11月7日 16:00</span><span class="dn-rows-detail">起草了周报</span></a></li>
+  <h3>定时任务</h3>
+  <p class="dn-builder-lede">到点了它自己开始，结果放进对话里等你看。随时也能手动叫它。</p>
+  <ul class="dn-setting-group">
+    <li class="dn-setting"><span class="dn-setting-text"><span class="dn-setting-title">起草周报</span><span class="dn-setting-help">每周五 16:00，每次新开一个对话</span></span><span class="dn-setting-control"><input class="dn-switch" type="checkbox" role="switch" checked aria-label="启用起草周报"><button class="dn-icon-button" type="button" aria-label="起草周报的更多操作"><svg class="dn-icon" aria-hidden="true"><use href="#dn-more"/></svg></button></span></li>
+    <li class="dn-setting"><span class="dn-setting-text"><span class="dn-setting-title">月底整理笔记</span><span class="dn-setting-help">每月最后一天 18:00，已暂停</span></span><span class="dn-setting-control"><input class="dn-switch" type="checkbox" role="switch" aria-label="启用月底整理笔记"><button class="dn-icon-button" type="button" aria-label="月底整理笔记的更多操作"><svg class="dn-icon" aria-hidden="true"><use href="#dn-more"/></svg></button></span></li>
   </ul>
+  <button class="dn-button is-plain is-sm dn-builder-add" type="button"><svg class="dn-icon" aria-hidden="true"><use href="#dn-plus"/></svg>新建定时任务</button>
+  <h4>最近运行</h4>
+  <ul class="dn-setting-group">
+    <li class="dn-setting"><span class="dn-setting-text"><span class="dn-setting-title">11月14日 16:00</span><span class="dn-setting-help">起草了周报，问了 1 个问题</span></span><span class="dn-setting-control"><a class="dn-button is-plain is-sm" href="#">查看</a></span></li>
+    <li class="dn-setting"><span class="dn-setting-text"><span class="dn-setting-title">11月7日 16:00</span><span class="dn-setting-help">起草了周报</span></span><span class="dn-setting-control"><a class="dn-button is-plain is-sm" href="#">查看</a></span></li>
+  </ul>
+</div>
+```
+
+新建或改一个定时任务，在弹窗里填：名字、哪几天、几点、发给它的那句话、结果放哪：
+
+```html
+<div class="dn-sheet" role="dialog" aria-modal="true" aria-label="起草周报">
+  <div class="dn-sheet-head"><div class="dn-sheet-heading"><h3 class="dn-sheet-title">起草周报</h3><p class="dn-sheet-description">下次运行：11月21日 周五 16:00</p></div></div>
+  <div class="dn-sheet-content">
+    <div class="dn-form">
+      <div class="dn-field"><label class="dn-field-label" for="ex-task-name">名字</label><input class="dn-input" id="ex-task-name" value="起草周报"></div>
+      <div class="dn-form-pair">
+        <div class="dn-field"><label class="dn-field-label" for="ex-task-day">哪几天</label><span class="dn-select"><select id="ex-task-day"><option>每天</option><option>工作日</option><option selected>每周五</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span></div>
+        <div class="dn-field"><label class="dn-field-label" for="ex-task-time">几点</label><input class="dn-input" id="ex-task-time" value="16:00"></div>
+      </div>
+      <div class="dn-field"><label class="dn-field-label" for="ex-task-prompt">发给它的话</label><textarea class="dn-input" id="ex-task-prompt" rows="2">按这周的笔记和日程起草周报。</textarea></div>
+      <fieldset class="dn-choice-group">
+        <legend>结果</legend>
+        <label class="dn-choice"><span class="dn-choice-box"><input type="radio" name="ex-task-dest" checked></span><span class="dn-choice-text"><span class="dn-choice-label">每次新开一个对话</span></span></label>
+        <label class="dn-choice"><span class="dn-choice-box"><input type="radio" name="ex-task-dest"></span><span class="dn-choice-text"><span class="dn-choice-label">接着上次的对话</span><span class="dn-choice-help">它能看到之前几次的结果</span></span></label>
+      </fieldset>
+    </div>
+  </div>
+  <div class="dn-sheet-actions"><button class="dn-button" type="button">取消</button><button class="dn-button is-primary" type="button">保存</button></div>
 </div>
 ```
 
@@ -251,6 +313,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 - 一个智能体的配置在它自己的窗口里打开：侧边栏是分类，中间是这一类，试用在 `.inspector` 里，可以收起（⌥⌘I）。
 - 整体权限用 `Picker` 加 `.pickerStyle(.radioGroup)`，每一档下面一行说明；例外用 `Table`。
 - 指令用 `TextEditor`，占满中间；名字在窗口标题上，双击改。「发布」在工具栏，⇧⌘P。
+- 模型用分组的 `Form`：接口格式是分段控件，API Key 用 `SecureField`，存进钥匙串，不回显。
 
 ```swift
 NavigationSplitView {
@@ -271,6 +334,20 @@ NavigationSplitView {
             Section("例外") { ExceptionsTable(exceptions: $draft.exceptions) }
         }
         .formStyle(.grouped)
+    case .model:
+        Form {
+            Toggle("跟随团队", isOn: $draft.model.followsTeam)
+            Section {
+                Picker("接口格式", selection: $draft.model.format) { Text("OpenAI").tag(APIFormat.openAI); Text("Anthropic").tag(APIFormat.anthropic) }
+                    .pickerStyle(.segmented)
+                TextField("地址", text: $draft.model.baseURL).font(.body.monospaced())
+                SecureField("API Key", text: $newKey, prompt: Text(draft.model.maskedKey))
+                Picker("模型", selection: $draft.model.name) { ForEach(fetchedModels, id: \.self) { Text($0).tag($0) } }
+                LabeledContent { Button("测试连接", action: testConnection) } label: { Text(connectionStatus) }
+            }
+            .disabled(draft.model.followsTeam)
+        }
+        .formStyle(.grouped)
     default: SectionView(section: section, draft: $draft)
     }
 }
@@ -287,10 +364,10 @@ NavigationSplitView {
   <nav class="ex-mac-sidebar" aria-label="配置分类">
     <div class="ex-lights" aria-hidden="true"><i></i><i></i><i></i></div>
     <a class="dn-sidebar-item" href="#"><svg class="dn-icon" aria-hidden="true"><use href="#dn-document"/></svg><span class="dn-sidebar-label">指令</span></a>
-    <a class="dn-sidebar-item" href="#"><svg class="dn-icon" aria-hidden="true"><use href="#dn-model"/></svg><span class="dn-sidebar-label">模型</span><span class="dn-sidebar-count">标准</span></a>
+    <a class="dn-sidebar-item" href="#"><svg class="dn-icon" aria-hidden="true"><use href="#dn-model"/></svg><span class="dn-sidebar-label">模型</span><span class="dn-sidebar-count">deepseek-chat</span></a>
     <a class="dn-sidebar-item" href="#"><svg class="dn-icon" aria-hidden="true"><use href="#dn-tool"/></svg><span class="dn-sidebar-label">工具</span><span class="dn-sidebar-count">3</span></a>
     <a class="dn-sidebar-item" href="#" aria-current="page"><svg class="dn-icon" aria-hidden="true"><use href="#dn-permission"/></svg><span class="dn-sidebar-label">权限</span></a>
-    <a class="dn-sidebar-item" href="#"><svg class="dn-icon" aria-hidden="true"><use href="#dn-calendar"/></svg><span class="dn-sidebar-label">触发</span><span class="dn-sidebar-count">每周五</span></a>
+    <a class="dn-sidebar-item" href="#"><svg class="dn-icon" aria-hidden="true"><use href="#dn-calendar"/></svg><span class="dn-sidebar-label">定时任务</span><span class="dn-sidebar-count">1 个</span></a>
   </nav>
   <div class="ex-mac-main">
     <div class="ex-mac-bar"><span class="ex-mac-title">周报助手</span><span class="dn-builder-state">草稿</span><button class="dn-button is-primary is-sm" type="button">发布</button></div>
@@ -313,17 +390,18 @@ NavigationSplitView {
 - 第一页是分类的分组列表，行尾写当前状态；点进去是这一类。指令进去是全屏编辑。
 - 「试用」在底部，点开是从底部升起的 sheet，用当前草稿对话；「发布」在右上角。
 - 整体权限是一页单选列表，每一档下面一行说明。
+- 模型一页：接口格式、地址、API Key、模型名、测试连接；粘贴 Key 后直接测一次。
 
 ```swift
 Form {
     Section {
         NavigationLink { InstructionsEditor(text: $draft.instructions) } label: { LabeledContent("指令", value: "\(draft.instructions.count) 字") }
-        NavigationLink { ModelView(draft: $draft) } label: { LabeledContent("模型", value: draft.model.title) }
+        NavigationLink { ModelView(model: $draft.model) } label: { LabeledContent("模型", value: draft.model.name) }
     }
     Section {
         NavigationLink { ToolsView(draft: $draft) } label: { LabeledContent("工具", value: draft.toolStatus) }
         NavigationLink { LevelView(level: $draft.level) } label: { LabeledContent("权限", value: draft.level.title) }
-        NavigationLink { TriggerView(trigger: $draft.trigger) } label: { LabeledContent("触发", value: draft.trigger.title) }
+        NavigationLink { ScheduledTasksView(tasks: $draft.tasks) } label: { LabeledContent("定时任务", value: draft.tasks.summary) }
     }
 }
 .navigationTitle(draft.name)
@@ -343,13 +421,13 @@ Form {
       <h3 class="ex-ios-large">周报助手</h3>
       <section class="dn-list-section"><ul class="dn-list">
         <li class="dn-list-row">指令<span class="dn-list-value">142 字</span><svg class="dn-icon dn-chevron" aria-hidden="true"><use href="#dn-chevron-right"/></svg></li>
-        <li class="dn-list-row">模型<span class="dn-list-value">标准</span><svg class="dn-icon dn-chevron" aria-hidden="true"><use href="#dn-chevron-right"/></svg></li>
+        <li class="dn-list-row">模型<span class="dn-list-value">deepseek-chat</span><svg class="dn-icon dn-chevron" aria-hidden="true"><use href="#dn-chevron-right"/></svg></li>
         <li class="dn-list-row">资料<span class="dn-list-value">2 个</span><svg class="dn-icon dn-chevron" aria-hidden="true"><use href="#dn-chevron-right"/></svg></li>
       </ul></section>
       <section class="dn-list-section"><ul class="dn-list">
         <li class="dn-list-row">工具<span class="dn-list-value is-soon">1 个要登录</span><svg class="dn-icon dn-chevron" aria-hidden="true"><use href="#dn-chevron-right"/></svg></li>
         <li class="dn-list-row">权限<span class="dn-list-value">只在外发前问</span><svg class="dn-icon dn-chevron" aria-hidden="true"><use href="#dn-chevron-right"/></svg></li>
-        <li class="dn-list-row">触发<span class="dn-list-value">每周五 16:00</span><svg class="dn-icon dn-chevron" aria-hidden="true"><use href="#dn-chevron-right"/></svg></li>
+        <li class="dn-list-row">定时任务<span class="dn-list-value">每周五 16:00</span><svg class="dn-icon dn-chevron" aria-hidden="true"><use href="#dn-chevron-right"/></svg></li>
       </ul></section>
       <p class="dn-list-footer">草稿，已自动保存。发布后对所有人生效。</p>
     </div>
@@ -366,7 +444,8 @@ Form {
 | 有未发布的改动 | 顶栏「草稿，已自动保存」，「发布」可以点；没有改动时「发布」不可点，状态写「已发布，11月14日」 |
 | 资料或工具连不上 | 分类行尾 `warning` 色写「1 个要登录」；那一行写原因和「重新登录」；试用时用到它，回答里会说明 |
 | 选了「完全放开」 | 这一档的说明换成 `warning` 色；发布时的小窗口里再写一次「这一版不再问你就会发邮件和删除」 |
-| 指令里写了时间 | 触发那一类出现一行提示「指令里提到了每周五，要设成定时吗」，加「设成定时」 |
+| 指令里写了时间 | 定时任务那一类出现一行提示「指令里提到了每周五，要建一个定时任务吗」，加「新建」 |
+| 连接测不通 | 「连接」那一行写 `warning` 的原因：「401：Key 不对」「地址打不开」「这个地址不是 OpenAI 格式」；分类行尾也写「连不上」 |
 | 发布 | 弹一个小窗口写「这一版改了什么」，可以留空；发布后顶栏状态变成「已发布」，版本里多一条 |
 | 回到旧版本 | 版本里选一版，打开成新的草稿，不直接覆盖已发布的版本 |
 | 只能查看 | 团队共享、你不是管理员时，整页只读，顶栏写「由林一管理」，没有「发布」 |
@@ -375,7 +454,9 @@ Form {
 
 - 所有配置排成一长串表单，权限在最底下，要翻好几屏才看到。
 - 指令只给一个几行高的输入框；或者拆成「角色」「目标」「语气」「限制」十几个小框。
-- 把「每周五下午」这种运行时间写在指令里，而不是设成定时。
+- 把「每周五下午」这种运行时间写在指令里，而不是建一个定时任务。
+- 为了接一个模型，先去另一页建「服务商」；或者把完整的 API Key 显示在页面上。
+- 设置项散着铺：单选组一排、输入框拉满整行，看不出哪几项是一组。
 - 权限只能一个工具一个工具地选，没有整体的一档。
 - 工具默认全部「总是允许」，用户不知道它能替自己发邮件。
 - 看不出一个值是团队默认还是单独改过的。

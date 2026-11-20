@@ -91,8 +91,8 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
             </div>
             <ul class="dn-people" aria-label="已添加的成员">
               <li><span class="dn-avatar" aria-hidden="true">林</span><span class="dn-people-name"><span>林一（你）</span><span>lin@deernova.me</span></span><span class="dn-people-pending">所有者</span><span></span></li>
-              <li><span class="dn-avatar" aria-hidden="true">周</span><span class="dn-people-name"><span>周舟</span><span>zhou@deernova.me</span></span><span class="dn-select"><select aria-label="周舟的角色"><option selected>可以编辑</option><option>只能查看</option></select></span><button class="dn-icon-button" type="button" aria-label="移除周舟"><svg class="dn-icon" aria-hidden="true"><use href="#dn-close"/></svg></button></li>
-              <li><span class="dn-avatar" aria-hidden="true">s</span><span class="dn-people-name"><span>shen@studio.cn</span><span>还没有账户，会收到注册邀请</span></span><span class="dn-select"><select aria-label="shen@studio.cn 的角色"><option selected>可以编辑</option><option>只能查看</option></select></span><button class="dn-icon-button" type="button" aria-label="移除 shen@studio.cn"><svg class="dn-icon" aria-hidden="true"><use href="#dn-close"/></svg></button></li>
+              <li><span class="dn-avatar" aria-hidden="true">周</span><span class="dn-people-name"><span>周舟</span><span>zhou@deernova.me</span></span><span class="dn-select"><select aria-label="周舟的角色"><option selected>可以编辑</option><option>只能查看</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span><button class="dn-icon-button" type="button" aria-label="移除周舟"><svg class="dn-icon" aria-hidden="true"><use href="#dn-close"/></svg></button></li>
+              <li><span class="dn-avatar" aria-hidden="true">s</span><span class="dn-people-name"><span>shen@studio.cn</span><span>还没有账户，会收到注册邀请</span></span><span class="dn-select"><select aria-label="shen@studio.cn 的角色"><option selected>可以编辑</option><option>只能查看</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span><button class="dn-icon-button" type="button" aria-label="移除 shen@studio.cn"><svg class="dn-icon" aria-hidden="true"><use href="#dn-close"/></svg></button></li>
             </ul>
             <fieldset class="dn-choice-group">
               <legend>谁能找到这个项目</legend>
@@ -186,7 +186,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
     </div>
     <ul class="dn-people" aria-label="已添加的成员">
       <li><span class="dn-avatar" aria-hidden="true">林</span><span class="dn-people-name"><span>林一（你）</span><span>lin@deernova.me</span></span><span class="dn-people-pending">所有者</span><span></span></li>
-      <li><span class="dn-avatar" aria-hidden="true">周</span><span class="dn-people-name"><span>周舟</span><span>zhou@deernova.me</span></span><span class="dn-select"><select aria-label="周舟的角色"><option selected>可以编辑</option><option>只能查看</option></select></span><button class="dn-icon-button" type="button" aria-label="移除周舟"><svg class="dn-icon" aria-hidden="true"><use href="#dn-close"/></svg></button></li>
+      <li><span class="dn-avatar" aria-hidden="true">周</span><span class="dn-people-name"><span>周舟</span><span>zhou@deernova.me</span></span><span class="dn-select"><select aria-label="周舟的角色"><option selected>可以编辑</option><option>只能查看</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span><button class="dn-icon-button" type="button" aria-label="移除周舟"><svg class="dn-icon" aria-hidden="true"><use href="#dn-close"/></svg></button></li>
     </ul>
     <div class="dn-form-actions"><button class="dn-button is-plain" type="button">取消</button><button class="dn-button" type="button">上一步</button><button class="dn-button is-primary" type="button">下一步</button></div>
   </div>

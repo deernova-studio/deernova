@@ -61,7 +61,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
         <div class="dn-seats"><div class="dn-progress-track" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" aria-label="席位"><div class="dn-progress-bar" style="width: 80%"></div></div>已用 8 个席位，共 10 个<a href="#">增加席位</a></div>
         <div class="dn-table-bar">
           <label class="dn-input-group"><svg class="dn-icon" aria-hidden="true"><use href="#dn-search"/></svg><input type="search" placeholder="搜索名字或邮箱" aria-label="搜索成员"></label>
-          <span class="dn-select"><select aria-label="按角色筛选"><option selected>所有角色</option><option>所有者</option><option>管理员</option><option>成员</option><option>访客</option></select></span>
+          <span class="dn-select"><select aria-label="按角色筛选"><option selected>所有角色</option><option>所有者</option><option>管理员</option><option>成员</option><option>访客</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span>
         </div>
         <div class="dn-table-wrap">
           <table class="dn-table">
@@ -74,17 +74,17 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
               </tr>
               <tr>
                 <td class="is-primary"><span class="dn-table-cell"><span class="dn-avatar" aria-hidden="true">周</span><span class="dn-member-name"><span>周舟</span><span>zhou@deernova.me</span></span></span></td>
-                <td><span class="dn-select"><select aria-label="周舟的角色"><option>管理员</option><option selected>成员</option><option>访客</option></select></span></td><td>2 小时前</td>
+                <td><span class="dn-select"><select aria-label="周舟的角色"><option>管理员</option><option selected>成员</option><option>访客</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span></td><td>2 小时前</td>
                 <td class="is-actions"><span class="dn-table-cell"><button class="dn-icon-button" type="button" aria-label="更多操作"><svg class="dn-icon" aria-hidden="true"><use href="#dn-more"/></svg></button></span></td>
               </tr>
               <tr>
                 <td class="is-primary"><span class="dn-table-cell"><span class="dn-avatar" aria-hidden="true">沈</span><span class="dn-member-name"><span>沈遥</span><span>shen@deernova.me</span></span></span></td>
-                <td><span class="dn-select"><select aria-label="沈遥的角色"><option selected>管理员</option><option>成员</option><option>访客</option></select></span></td><td>昨天</td>
+                <td><span class="dn-select"><select aria-label="沈遥的角色"><option selected>管理员</option><option>成员</option><option>访客</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span></td><td>昨天</td>
                 <td class="is-actions"><span class="dn-table-cell"><button class="dn-icon-button" type="button" aria-label="更多操作"><svg class="dn-icon" aria-hidden="true"><use href="#dn-more"/></svg></button></span></td>
               </tr>
               <tr>
                 <td class="is-primary"><span class="dn-table-cell"><span class="dn-avatar" aria-hidden="true">许</span><span class="dn-member-name"><span>许明</span><span>xu@agency.cn</span></span></span></td>
-                <td><span class="dn-select"><select aria-label="许明的角色"><option>管理员</option><option>成员</option><option selected>访客</option></select></span></td><td>10月30日</td>
+                <td><span class="dn-select"><select aria-label="许明的角色"><option>管理员</option><option>成员</option><option selected>访客</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span></td><td>10月30日</td>
                 <td class="is-actions"><span class="dn-table-cell"><button class="dn-icon-button" type="button" aria-label="更多操作"><svg class="dn-icon" aria-hidden="true"><use href="#dn-more"/></svg></button></span></td>
               </tr>
             </tbody>
@@ -177,8 +177,8 @@ Form {
         <thead><tr><th scope="col">成员</th><th scope="col">角色</th></tr></thead>
         <tbody>
           <tr><td class="is-primary"><span class="dn-table-cell"><span class="dn-avatar" aria-hidden="true">林</span><span class="dn-member-name"><span>林一（你）</span><span>lin@deernova.me</span></span></span></td><td>所有者</td></tr>
-          <tr aria-selected="true"><td class="is-primary"><span class="dn-table-cell"><span class="dn-avatar" aria-hidden="true">周</span><span class="dn-member-name"><span>周舟</span><span>zhou@deernova.me</span></span></span></td><td><span class="dn-select"><select aria-label="周舟的角色"><option>管理员</option><option selected>成员</option><option>访客</option></select></span></td></tr>
-          <tr><td class="is-primary"><span class="dn-table-cell"><span class="dn-avatar" aria-hidden="true">沈</span><span class="dn-member-name"><span>沈遥</span><span>shen@deernova.me</span></span></span></td><td><span class="dn-select"><select aria-label="沈遥的角色"><option selected>管理员</option><option>成员</option><option>访客</option></select></span></td></tr>
+          <tr aria-selected="true"><td class="is-primary"><span class="dn-table-cell"><span class="dn-avatar" aria-hidden="true">周</span><span class="dn-member-name"><span>周舟</span><span>zhou@deernova.me</span></span></span></td><td><span class="dn-select"><select aria-label="周舟的角色"><option>管理员</option><option selected>成员</option><option>访客</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span></td></tr>
+          <tr><td class="is-primary"><span class="dn-table-cell"><span class="dn-avatar" aria-hidden="true">沈</span><span class="dn-member-name"><span>沈遥</span><span>shen@deernova.me</span></span></span></td><td><span class="dn-select"><select aria-label="沈遥的角色"><option selected>管理员</option><option>成员</option><option>访客</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span></td></tr>
         </tbody>
       </table>
       <div class="dn-seats"><span class="dn-plusminus"><button class="dn-icon-button" type="button" aria-label="邀请"><svg class="dn-icon" aria-hidden="true"><use href="#dn-plus"/></svg></button><button class="dn-icon-button" type="button" aria-label="移除选中的成员"><svg class="dn-icon" aria-hidden="true"><use href="#dn-minus"/></svg></button></span>已用 8 个席位，共 10 个</div>

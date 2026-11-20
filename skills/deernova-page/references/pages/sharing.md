@@ -52,19 +52,19 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
   <p class="dn-access-now">鹿野工作室的所有人可以查看，3 个人可以编辑。和「产品」不同 <a href="#">恢复成一样</a></p>
   <div class="dn-access-invite">
     <input class="dn-input" placeholder="名字或邮箱" aria-label="邀请">
-    <span class="dn-select"><select aria-label="邀请的权限"><option selected>可以编辑</option><option>可以评论</option><option>可以查看</option></select></span>
+    <span class="dn-select"><select aria-label="邀请的权限"><option selected>可以编辑</option><option>可以评论</option><option>可以查看</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span>
     <button class="dn-button is-primary" type="button">邀请</button>
   </div>
   <ul class="dn-access-list" aria-label="有权限的人">
     <li><span class="dn-avatar" aria-hidden="true">林</span><span class="dn-member-name"><span>林一（你）</span><span>lin@deernova.me</span></span><span class="dn-access-role">所有者</span></li>
-    <li><span class="dn-avatar" aria-hidden="true">周</span><span class="dn-member-name"><span>周舟</span><span>来自「产品」</span></span><span class="dn-select"><select aria-label="周舟的权限"><option selected>可以编辑</option><option>可以评论</option><option>可以查看</option><option>移除</option></select></span></li>
-    <li><span class="dn-avatar" aria-hidden="true">沈</span><span class="dn-member-name"><span>沈遥</span><span>来自「产品」</span></span><span class="dn-select"><select aria-label="沈遥的权限"><option selected>可以编辑</option><option>可以评论</option><option>可以查看</option><option>移除</option></select></span></li>
-    <li><span class="dn-avatar" aria-hidden="true">许</span><span class="dn-member-name"><span>许明</span><span>xu@agency.cn</span></span><span class="dn-select"><select aria-label="许明的权限"><option>可以编辑</option><option selected>可以评论</option><option>可以查看</option><option>移除</option></select></span></li>
+    <li><span class="dn-avatar" aria-hidden="true">周</span><span class="dn-member-name"><span>周舟</span><span>来自「产品」</span></span><span class="dn-select"><select aria-label="周舟的权限"><option selected>可以编辑</option><option>可以评论</option><option>可以查看</option><option>移除</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span></li>
+    <li><span class="dn-avatar" aria-hidden="true">沈</span><span class="dn-member-name"><span>沈遥</span><span>来自「产品」</span></span><span class="dn-select"><select aria-label="沈遥的权限"><option selected>可以编辑</option><option>可以评论</option><option>可以查看</option><option>移除</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span></li>
+    <li><span class="dn-avatar" aria-hidden="true">许</span><span class="dn-member-name"><span>许明</span><span>xu@agency.cn</span></span><span class="dn-select"><select aria-label="许明的权限"><option>可以编辑</option><option selected>可以评论</option><option>可以查看</option><option>移除</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span></li>
   </ul>
   <div class="dn-access-general">
     <svg class="dn-icon" aria-hidden="true"><use href="#dn-team"/></svg>
-    <span class="dn-select"><select aria-label="一般访问"><option>只有被邀请的人</option><option selected>鹿野工作室的所有人</option><option>有链接的任何人</option></select></span>
-    <span class="dn-select"><select aria-label="一般访问的权限"><option selected>可以查看</option><option>可以评论</option></select></span>
+    <span class="dn-select"><select aria-label="一般访问"><option>只有被邀请的人</option><option selected>鹿野工作室的所有人</option><option>有链接的任何人</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span>
+    <span class="dn-select"><select aria-label="一般访问的权限"><option selected>可以查看</option><option>可以评论</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span>
     <p>工作室里的人在搜索和页面树里都能找到这一页。</p>
   </div>
   <div class="dn-access-foot">
@@ -80,8 +80,8 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 <div class="dn-access" role="dialog" aria-label="分享「需求文档」">
   <div class="dn-access-general">
     <svg class="dn-icon" aria-hidden="true"><use href="#dn-web"/></svg>
-    <span class="dn-select"><select aria-label="一般访问"><option>只有被邀请的人</option><option>鹿野工作室的所有人</option><option selected>有链接的任何人</option></select></span>
-    <span class="dn-select"><select aria-label="一般访问的权限"><option selected>可以查看</option><option>可以评论</option></select></span>
+    <span class="dn-select"><select aria-label="一般访问"><option>只有被邀请的人</option><option>鹿野工作室的所有人</option><option selected>有链接的任何人</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span>
+    <span class="dn-select"><select aria-label="一般访问的权限"><option selected>可以查看</option><option>可以评论</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span>
     <p>不用登录就能打开，包括 3 个子页面。</p>
   </div>
   <ul class="dn-list">
