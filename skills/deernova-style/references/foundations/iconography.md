@@ -156,6 +156,9 @@
 | `team` | 成员 | `person.2` |
 | `card` | 付款方式 | `creditcard` |
 | `receipt` | 发票 | `doc.text` |
+| `grip` | 拖动 | `line.3.horizontal` |
+| `comment` | 评论 | `text.bubble` |
+| `template` | 模板 | `rectangle.3.group` |
 <!-- /tokens -->
 
 ## Web 写法

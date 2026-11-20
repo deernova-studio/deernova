@@ -231,6 +231,11 @@ body.guide-page { background: var(--surface); font: var(--type-body); }
 .specimen .ex-keyboard-bar { position: absolute; left: 0; right: 0; bottom: 200px; display: flex; gap: 2px; padding: var(--space-1) var(--space-2); border-top: var(--stroke-line) solid var(--line); background: var(--surface-raised); }
 .specimen .ex-mac.is-small { display: flex; flex-direction: column; width: 420px; height: auto; margin: 0 auto; }
 .specimen .ex-mac.ex-mac-wide { width: 640px; }
+.specimen .ex-gallery-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.specimen .ex-sheet-panel { position: absolute; left: 0; right: 0; bottom: 0; display: grid; gap: var(--space-3); padding: var(--space-4) var(--space-4) var(--space-8); border-radius: 24px 24px 0 0; background: var(--surface); box-shadow: var(--shadow-float); }
+.specimen .ex-sheet-panel > .dn-menu-heading { margin: 0; padding: 0; }
+.specimen .ex-block-menu { position: absolute; top: 76px; left: 180px; width: 220px; }
+.specimen .ex-mac-pad:has(.ex-block-menu) { position: relative; min-height: 220px; }
 .specimen .ex-mac-search { width: 240px; margin-left: auto; }
 .specimen .ex-stack-actions { flex-direction: column; align-items: stretch; }
 .specimen .ex-stack-actions .dn-button { justify-content: center; margin: 0; }

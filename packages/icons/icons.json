@@ -896,6 +896,42 @@
             "收据"
           ],
           "sf": "doc.text"
+        },
+        {
+          "name": "grip",
+          "label": "拖动",
+          "source": "lucide",
+          "lucide": "grip-vertical",
+          "keywords": [
+            "拖动",
+            "把手",
+            "排序"
+          ],
+          "sf": "line.3.horizontal"
+        },
+        {
+          "name": "comment",
+          "label": "评论",
+          "source": "lucide",
+          "lucide": "message-square",
+          "keywords": [
+            "评论",
+            "批注",
+            "讨论"
+          ],
+          "sf": "text.bubble"
+        },
+        {
+          "name": "template",
+          "label": "模板",
+          "source": "lucide",
+          "lucide": "layout-template",
+          "keywords": [
+            "模板",
+            "样板",
+            "新建"
+          ],
+          "sf": "rectangle.3.group"
         }
       ]
     }
