@@ -26,10 +26,6 @@
 HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机浏览器见本节最后。
 
 ```css
-.dn-presence { display: flex; align-items: center; }
-.dn-presence > .dn-avatar { margin-left: -6px; box-shadow: 0 0 0 2px var(--canvas); }
-.dn-presence > .dn-avatar:first-child { margin-left: 0; }
-.dn-presence > .dn-avatar.is-more { background: var(--surface-sunken); color: var(--ink-secondary); }
 .dn-cursor { position: relative; display: inline-block; width: 0; height: 1lh; margin: 0 -1px; border-left: var(--stroke-control) solid var(--ink); vertical-align: top; }
 .dn-cursor > span { position: absolute; bottom: 100%; left: -2px; padding: 1px var(--space-1); border-radius: var(--radius-xs) var(--radius-xs) var(--radius-xs) 0; background: var(--ink); color: var(--canvas); font: var(--weight-medium) var(--type-caption-size)/1.3 var(--font-sans); white-space: nowrap; }
 .dn-their-selection { background: var(--fill-hover); box-shadow: inset 0 calc(-1 * var(--stroke-line)) var(--ink-tertiary); }
@@ -43,7 +39,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 .dn-thread-card.is-open { border-color: var(--line-control); box-shadow: var(--shadow-float); }
 .dn-thread-card.is-quiet { padding-block: var(--space-2); color: var(--ink-secondary); }
 .dn-comment-row { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 2px var(--space-2); font: var(--type-callout); }
-.dn-comment-row > .dn-avatar { grid-row: span 2; width: 24px; height: 24px; }
+.dn-comment-row > .dn-avatar { grid-row: span 2; }
 .dn-comment-row > b { font-weight: var(--weight-medium); }
 .dn-comment-row > b > span { margin-left: var(--space-2); color: var(--ink-tertiary); font: var(--type-caption); }
 .dn-comment-row > p { margin: 0; color: var(--ink); }
@@ -63,7 +59,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
     <header class="dn-toolbar">
       <button class="dn-button is-plain is-sm" type="button"><svg class="dn-icon" aria-hidden="true"><use href="#dn-chevron-left"/></svg>发布 2.0</button>
       <div class="dn-toolbar-actions">
-        <div class="dn-presence" aria-label="正在看的人：周舟、沈遥、许明、另外 2 人"><span class="dn-avatar" aria-hidden="true">周</span><span class="dn-avatar" aria-hidden="true">沈</span><span class="dn-avatar" aria-hidden="true">许</span><span class="dn-avatar is-more" aria-hidden="true">+2</span></div>
+        <div class="dn-avatar-stack" aria-label="正在看的人：周舟、沈遥、许明、另外 2 人"><span class="dn-avatar" aria-hidden="true">周</span><span class="dn-avatar" aria-hidden="true">沈</span><span class="dn-avatar" aria-hidden="true">许</span><span class="dn-avatar is-more" aria-hidden="true">+2</span></div>
         <button class="dn-icon-button" type="button" aria-label="评论"><svg class="dn-icon" aria-hidden="true"><use href="#dn-comment"/></svg></button>
         <button class="dn-button is-sm" type="button">分享</button>
       </div>
@@ -81,12 +77,12 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
       <aside class="dn-rail" aria-label="评论">
         <div class="dn-rail-head"><button class="dn-button is-plain is-sm" type="button">已解决 3</button></div>
         <div class="dn-thread-card is-open">
-          <div class="dn-comment-row"><span class="dn-avatar" aria-hidden="true">沈</span><b>沈遥<span>10 分钟前</span></b><p>5% 会不会太少，两天看不出问题？<span class="dn-mention">@林一</span> 你定一下。</p></div>
-          <div class="dn-comment-row"><span class="dn-avatar" aria-hidden="true">林</span><b>林一<span>刚刚</span></b><p>新用户一天大约 4,000 人，5% 够看崩溃率了。先这样。</p></div>
+          <div class="dn-comment-row"><span class="dn-avatar is-sm" aria-hidden="true">沈</span><b>沈遥<span>10 分钟前</span></b><p>5% 会不会太少，两天看不出问题？<span class="dn-mention">@林一</span> 你定一下。</p></div>
+          <div class="dn-comment-row"><span class="dn-avatar is-sm" aria-hidden="true">林</span><b>林一<span>刚刚</span></b><p>新用户一天大约 4,000 人，5% 够看崩溃率了。先这样。</p></div>
           <div class="dn-thread-actions"><input class="dn-input" placeholder="回复" aria-label="回复"><button class="dn-button is-sm" type="button"><svg class="dn-icon" aria-hidden="true"><use href="#dn-check"/></svg>解决</button></div>
         </div>
         <div class="dn-thread-card is-quiet">
-          <div class="dn-comment-row"><span class="dn-avatar" aria-hidden="true">周</span><b>周舟<span>昨天</span></b><p>说明里加一张截图？</p></div>
+          <div class="dn-comment-row"><span class="dn-avatar is-sm" aria-hidden="true">周</span><b>周舟<span>昨天</span></b><p>说明里加一张截图？</p></div>
         </div>
       </aside>
     </div>
@@ -125,12 +121,12 @@ EditorView(document: $document, remoteCursors: session.cursors)
 ```html
 <div class="ex-mac has-inspector">
   <div class="ex-mac-main">
-    <div class="ex-mac-bar"><div class="ex-lights" aria-hidden="true"><i></i><i></i><i></i></div><span class="ex-mac-title">发布清单</span><div class="dn-presence" aria-label="正在看的人：周舟、沈遥"><span class="dn-avatar" aria-hidden="true">周</span><span class="dn-avatar" aria-hidden="true">沈</span></div></div>
+    <div class="ex-mac-bar"><div class="ex-lights" aria-hidden="true"><i></i><i></i><i></i></div><span class="ex-mac-title">发布清单</span><div class="dn-avatar-stack" aria-label="正在看的人：周舟、沈遥"><span class="dn-avatar" aria-hidden="true">周</span><span class="dn-avatar" aria-hidden="true">沈</span></div></div>
     <div class="ex-mac-pad"><article class="dn-doc"><p>灰度从周三开始，<span class="dn-anchor is-open">先开 5% 的新用户</span>，观察两天的崩溃率和同步失败率。<span class="dn-cursor"><span>周舟</span></span></p></article></div>
   </div>
   <aside class="ex-mac-inspector dn-rail" aria-label="评论">
     <div class="dn-thread-card is-open">
-      <div class="dn-comment-row"><span class="dn-avatar" aria-hidden="true">沈</span><b>沈遥<span>10 分钟前</span></b><p>5% 会不会太少？</p></div>
+      <div class="dn-comment-row"><span class="dn-avatar is-sm" aria-hidden="true">沈</span><b>沈遥<span>10 分钟前</span></b><p>5% 会不会太少？</p></div>
       <div class="dn-thread-actions"><input class="dn-input" placeholder="回复" aria-label="回复"></div>
     </div>
   </aside>
@@ -166,8 +162,8 @@ EditorView(document: $document)
       <article class="dn-doc"><h2>发布清单</h2><p>灰度从周三开始，<span class="dn-anchor is-open">先开 5% 的新用户</span>，观察两天的崩溃率和同步失败率，没有异常再放到 30%。</p></article>
     </div>
     <div class="ex-sheet-panel">
-      <div class="dn-comment-row"><span class="dn-avatar" aria-hidden="true">沈</span><b>沈遥<span>10 分钟前</span></b><p>5% 会不会太少，两天看不出问题？<span class="dn-mention">@林一</span> 你定一下。</p></div>
-      <div class="dn-comment-row"><span class="dn-avatar" aria-hidden="true">林</span><b>林一<span>刚刚</span></b><p>新用户一天大约 4,000 人，5% 够看崩溃率了。</p></div>
+      <div class="dn-comment-row"><span class="dn-avatar is-sm" aria-hidden="true">沈</span><b>沈遥<span>10 分钟前</span></b><p>5% 会不会太少，两天看不出问题？<span class="dn-mention">@林一</span> 你定一下。</p></div>
+      <div class="dn-comment-row"><span class="dn-avatar is-sm" aria-hidden="true">林</span><b>林一<span>刚刚</span></b><p>新用户一天大约 4,000 人，5% 够看崩溃率了。</p></div>
       <div class="dn-thread-actions"><input class="dn-input" placeholder="回复" aria-label="回复"><button class="dn-button is-sm" type="button">解决</button></div>
     </div>
   </div>

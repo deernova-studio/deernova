@@ -29,15 +29,10 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 .dn-agents .dn-table-bar > .dn-input-group { width: min(100%, 320px); }
 .dn-agents .dn-table td { height: calc(var(--table-row-height) + var(--space-5)); }
 .dn-agents .dn-table-cell { gap: var(--space-3); max-width: 440px; }
-.dn-agent-mark { display: grid; place-items: center; flex: none; width: var(--button-height-md); height: var(--button-height-md); border: var(--stroke-line) solid var(--line); border-radius: var(--radius-sm); background: var(--surface); color: var(--ink); font: var(--weight-semibold) var(--type-callout-size)/1 var(--font-sans); }
-.dn-agent-mark > .dn-icon { width: var(--icon-size-md); height: var(--icon-size-md); }
-.dn-agent-name { display: grid; gap: 2px; min-width: 0; }
-.dn-agent-name > a { overflow: hidden; color: var(--ink); font-weight: var(--weight-medium); text-decoration: none; text-overflow: ellipsis; }
-.dn-agent-name > span { overflow: hidden; color: var(--ink-tertiary); font: var(--type-footnote); text-overflow: ellipsis; }
-.dn-rows-item > .dn-agent-mark { align-self: center; }
+.dn-rows-item > .dn-mark { align-self: center; }
 .dn-agent-running { display: inline-flex; align-items: center; gap: var(--space-1); color: var(--ink-secondary); white-space: nowrap; }
 .dn-agent-running > dn-loader { --loader-size: var(--icon-size-sm); color: var(--brand); }
-.dn-agents tr.is-off :is(.dn-agent-mark, .dn-agent-name) { opacity: 0.5; }
+.dn-agents tr.is-off :is(.dn-mark, .dn-item-text) { opacity: 0.5; }
 ```
 
 等你确认的排在最前，空闲的不写状态，出错的写原因；点名字去用，行尾是设置：
@@ -67,31 +62,31 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
             </tr></thead>
             <tbody>
               <tr>
-                <td class="is-primary"><span class="dn-table-cell"><span class="dn-agent-mark" aria-hidden="true">票</span><span class="dn-agent-name"><a href="#">发票整理</a><span>读邮箱里的发票，按月汇总成表格</span></span></span></td>
+                <td class="is-primary"><span class="dn-table-cell"><span class="dn-mark" aria-hidden="true">票</span><span class="dn-item-text"><a class="dn-item-title" href="#">发票整理</a><span class="dn-item-detail">读邮箱里的发票，按月汇总成表格</span></span></span></td>
                 <td><span class="dn-tag is-warning"><span class="dn-dot"></span>等你确认 1</span></td>
                 <td>标准</td><td class="is-number">64</td><td>15 分钟前</td>
                 <td class="is-actions"><span class="dn-table-cell"><button class="dn-button is-plain is-sm" type="button">设置</button><button class="dn-icon-button" type="button" aria-label="更多操作"><svg class="dn-icon" aria-hidden="true"><use href="#dn-more"/></svg></button></span></td>
               </tr>
               <tr>
-                <td class="is-primary"><span class="dn-table-cell"><span class="dn-agent-mark" aria-hidden="true"><svg class="dn-icon"><use href="#dn-code"/></svg></span><span class="dn-agent-name"><a href="#">代码审查</a><span>看每个合并请求，指出可能出错的地方</span></span></span></td>
+                <td class="is-primary"><span class="dn-table-cell"><span class="dn-mark" aria-hidden="true"><svg class="dn-icon"><use href="#dn-code"/></svg></span><span class="dn-item-text"><a class="dn-item-title" href="#">代码审查</a><span class="dn-item-detail">看每个合并请求，指出可能出错的地方</span></span></span></td>
                 <td><span class="dn-agent-running"><dn-loader name="spinner"></dn-loader>运行中 2</span></td>
                 <td>深度</td><td class="is-number">312</td><td>刚刚</td>
                 <td class="is-actions"><span class="dn-table-cell"><button class="dn-button is-plain is-sm" type="button">设置</button><button class="dn-icon-button" type="button" aria-label="更多操作"><svg class="dn-icon" aria-hidden="true"><use href="#dn-more"/></svg></button></span></td>
               </tr>
               <tr>
-                <td class="is-primary"><span class="dn-table-cell"><span class="dn-agent-mark" aria-hidden="true">周</span><span class="dn-agent-name"><a href="#">周报助手</a><span>每周五读本周的笔记和日程，起草周报</span></span></span></td>
+                <td class="is-primary"><span class="dn-table-cell"><span class="dn-mark" aria-hidden="true">周</span><span class="dn-item-text"><a class="dn-item-title" href="#">周报助手</a><span class="dn-item-detail">每周五读本周的笔记和日程，起草周报</span></span></span></td>
                 <td></td>
                 <td>标准</td><td class="is-number">26</td><td>周五</td>
                 <td class="is-actions"><span class="dn-table-cell"><button class="dn-button is-plain is-sm" type="button">设置</button><button class="dn-icon-button" type="button" aria-label="更多操作"><svg class="dn-icon" aria-hidden="true"><use href="#dn-more"/></svg></button></span></td>
               </tr>
               <tr>
-                <td class="is-primary"><span class="dn-table-cell"><span class="dn-agent-mark" aria-hidden="true"><svg class="dn-icon"><use href="#dn-mail"/></svg></span><span class="dn-agent-name"><a href="#">客服回复</a><span>按帮助中心的文档起草回复，发送前给人看</span></span></span></td>
+                <td class="is-primary"><span class="dn-table-cell"><span class="dn-mark" aria-hidden="true"><svg class="dn-icon"><use href="#dn-mail"/></svg></span><span class="dn-item-text"><a class="dn-item-title" href="#">客服回复</a><span class="dn-item-detail">按帮助中心的文档起草回复，发送前给人看</span></span></span></td>
                 <td><span class="dn-tag is-danger"><span class="dn-dot"></span>出错：帮助中心连不上</span></td>
                 <td>快速</td><td class="is-number">1,208</td><td>昨天</td>
                 <td class="is-actions"><span class="dn-table-cell"><button class="dn-button is-plain is-sm" type="button">设置</button><button class="dn-icon-button" type="button" aria-label="更多操作"><svg class="dn-icon" aria-hidden="true"><use href="#dn-more"/></svg></button></span></td>
               </tr>
               <tr class="is-off">
-                <td class="is-primary"><span class="dn-table-cell"><span class="dn-agent-mark" aria-hidden="true">研</span><span class="dn-agent-name"><a href="#">竞品调研</a><span>已停用</span></span></span></td>
+                <td class="is-primary"><span class="dn-table-cell"><span class="dn-mark" aria-hidden="true">研</span><span class="dn-item-text"><a class="dn-item-title" href="#">竞品调研</a><span class="dn-item-detail">已停用</span></span></span></td>
                 <td></td>
                 <td>深度</td><td class="is-number">0</td><td>10月3日</td>
                 <td class="is-actions"><span class="dn-table-cell"><button class="dn-button is-plain is-sm" type="button">设置</button><button class="dn-icon-button" type="button" aria-label="更多操作"><svg class="dn-icon" aria-hidden="true"><use href="#dn-more"/></svg></button></span></td>
@@ -162,10 +157,10 @@ NavigationSplitView {
       <div class="dn-agents"><table class="dn-table">
         <thead><tr><th scope="col">智能体</th><th scope="col">状态</th><th class="is-number" scope="col">30 天对话</th></tr></thead>
         <tbody>
-          <tr><td class="is-primary"><span class="dn-table-cell"><span class="dn-agent-mark" aria-hidden="true">票</span><span class="dn-agent-name"><a href="#">发票整理</a><span>按月汇总发票</span></span></span></td><td><span class="dn-tag is-warning"><span class="dn-dot"></span>等你确认 1</span></td><td class="is-number">64</td></tr>
-          <tr aria-selected="true"><td class="is-primary"><span class="dn-table-cell"><span class="dn-agent-mark" aria-hidden="true"><svg class="dn-icon"><use href="#dn-code"/></svg></span><span class="dn-agent-name"><a href="#">代码审查</a><span>看每个合并请求</span></span></span></td><td><span class="dn-agent-running"><dn-loader name="spinner"></dn-loader>运行中 2</span></td><td class="is-number">312</td></tr>
-          <tr><td class="is-primary"><span class="dn-table-cell"><span class="dn-agent-mark" aria-hidden="true">周</span><span class="dn-agent-name"><a href="#">周报助手</a><span>每周五起草周报</span></span></span></td><td></td><td class="is-number">26</td></tr>
-          <tr><td class="is-primary"><span class="dn-table-cell"><span class="dn-agent-mark" aria-hidden="true"><svg class="dn-icon"><use href="#dn-mail"/></svg></span><span class="dn-agent-name"><a href="#">客服回复</a><span>帮助中心连不上</span></span></span></td><td><span class="dn-tag is-danger"><span class="dn-dot"></span>出错</span></td><td class="is-number">1,208</td></tr>
+          <tr><td class="is-primary"><span class="dn-table-cell"><span class="dn-mark" aria-hidden="true">票</span><span class="dn-item-text"><a class="dn-item-title" href="#">发票整理</a><span class="dn-item-detail">按月汇总发票</span></span></span></td><td><span class="dn-tag is-warning"><span class="dn-dot"></span>等你确认 1</span></td><td class="is-number">64</td></tr>
+          <tr aria-selected="true"><td class="is-primary"><span class="dn-table-cell"><span class="dn-mark" aria-hidden="true"><svg class="dn-icon"><use href="#dn-code"/></svg></span><span class="dn-item-text"><a class="dn-item-title" href="#">代码审查</a><span class="dn-item-detail">看每个合并请求</span></span></span></td><td><span class="dn-agent-running"><dn-loader name="spinner"></dn-loader>运行中 2</span></td><td class="is-number">312</td></tr>
+          <tr><td class="is-primary"><span class="dn-table-cell"><span class="dn-mark" aria-hidden="true">周</span><span class="dn-item-text"><a class="dn-item-title" href="#">周报助手</a><span class="dn-item-detail">每周五起草周报</span></span></span></td><td></td><td class="is-number">26</td></tr>
+          <tr><td class="is-primary"><span class="dn-table-cell"><span class="dn-mark" aria-hidden="true"><svg class="dn-icon"><use href="#dn-mail"/></svg></span><span class="dn-item-text"><a class="dn-item-title" href="#">客服回复</a><span class="dn-item-detail">帮助中心连不上</span></span></span></td><td><span class="dn-tag is-danger"><span class="dn-dot"></span>出错</span></td><td class="is-number">1,208</td></tr>
         </tbody>
       </table></div>
     </div>
@@ -211,10 +206,10 @@ NavigationStack {
       <div class="ex-ios-nav"><span></span><button class="dn-icon-button" type="button" aria-label="新建"><svg class="dn-icon" aria-hidden="true"><use href="#dn-plus"/></svg></button></div>
       <h3 class="ex-ios-large">智能体</h3>
       <ul class="dn-rows">
-        <li class="dn-rows-item"><span class="dn-agent-mark" aria-hidden="true">票</span><a class="dn-rows-text" href="#"><span class="dn-rows-title">发票整理</span><span class="dn-rows-detail">等你确认：把汇总表发给财务</span></a></li>
-        <li class="dn-rows-item"><span class="dn-agent-mark" aria-hidden="true"><svg class="dn-icon"><use href="#dn-code"/></svg></span><a class="dn-rows-text" href="#"><span class="dn-rows-title">代码审查</span><span class="dn-rows-detail">运行中 2</span></a></li>
-        <li class="dn-rows-item"><span class="dn-agent-mark" aria-hidden="true">周</span><a class="dn-rows-text" href="#"><span class="dn-rows-title">周报助手</span><span class="dn-rows-detail">每周五读本周的笔记和日程，起草周报</span></a></li>
-        <li class="dn-rows-item"><span class="dn-agent-mark" aria-hidden="true"><svg class="dn-icon"><use href="#dn-mail"/></svg></span><a class="dn-rows-text" href="#"><span class="dn-rows-title">客服回复</span><span class="dn-rows-detail">出错：帮助中心连不上</span></a></li>
+        <li class="dn-rows-item"><span class="dn-mark" aria-hidden="true">票</span><a class="dn-rows-text" href="#"><span class="dn-rows-title">发票整理</span><span class="dn-rows-detail">等你确认：把汇总表发给财务</span></a></li>
+        <li class="dn-rows-item"><span class="dn-mark" aria-hidden="true"><svg class="dn-icon"><use href="#dn-code"/></svg></span><a class="dn-rows-text" href="#"><span class="dn-rows-title">代码审查</span><span class="dn-rows-detail">运行中 2</span></a></li>
+        <li class="dn-rows-item"><span class="dn-mark" aria-hidden="true">周</span><a class="dn-rows-text" href="#"><span class="dn-rows-title">周报助手</span><span class="dn-rows-detail">每周五读本周的笔记和日程，起草周报</span></a></li>
+        <li class="dn-rows-item"><span class="dn-mark" aria-hidden="true"><svg class="dn-icon"><use href="#dn-mail"/></svg></span><a class="dn-rows-text" href="#"><span class="dn-rows-title">客服回复</span><span class="dn-rows-detail">出错：帮助中心连不上</span></a></li>
       </ul>
     </div>
   </div>

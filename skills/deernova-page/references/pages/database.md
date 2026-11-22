@@ -7,7 +7,7 @@
 | 区块 | 放什么 | 必须 |
 | --- | --- | --- |
 | 标题 | 数据库的名字和一句说明；它在页面树里的位置写在顶栏 | 是 |
-| 视图标签 | 标题下面一行：每个视图一个标签（图标和名字），最后一个「+」新建视图 | 是 |
+| 视图标签 | 标题下面一行：每个视图一个标签（图标和名字），最后一个「+」新建视图；用[侧面板的标签](../../../deernova-style/references/components/toolbar.md)加 `is-plain` | 是 |
 | 工具 | 视图标签的同一行右边：筛选、排序、搜索、新建 | 是 |
 | 筛选条 | 生效的筛选写成能读的短句：「状态 是 进行中」「负责人 是 我」，每条能点开改、能移除 | 有筛选时 |
 | 表格 | 第一列是标题，其余是属性；表头只写属性名，类型在列菜单里 | 表格视图 |
@@ -31,19 +31,12 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 .dn-db { display: grid; align-content: start; gap: var(--space-3); width: 100%; min-width: 0; }
 .dn-db-title { margin: 0; font: var(--type-display); letter-spacing: var(--type-display-tracking); }
 .dn-db-lede { margin: calc(-1 * var(--space-2)) 0 var(--space-2); color: var(--ink-secondary); font: var(--type-callout); }
-.dn-db-bar { display: flex; align-items: center; gap: var(--space-2); border-bottom: var(--stroke-line) solid var(--line); }
-.dn-views { display: flex; gap: var(--space-4); min-width: 0; overflow-x: auto; scrollbar-width: none; }
-.dn-views > button { display: flex; align-items: center; gap: var(--space-1); flex: none; padding: var(--space-2) 0; margin-bottom: calc(-1 * var(--stroke-line)); border: 0; border-bottom: var(--stroke-control) solid transparent; background: none; color: var(--ink-tertiary); font: var(--weight-medium) var(--type-callout-size)/1.2 var(--font-sans); cursor: pointer; }
-.dn-views > button > .dn-icon { width: var(--icon-size-md); height: var(--icon-size-md); }
-.dn-views > [aria-selected="true"] { border-bottom-color: var(--ink); color: var(--ink); }
-.dn-db-tools { display: flex; align-items: center; gap: var(--space-1); margin-left: auto; padding-bottom: var(--space-1); }
 .dn-db-unsaved { color: var(--ink-tertiary); font: var(--type-footnote); white-space: nowrap; }
 .dn-filters { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
 .dn-filter { display: inline-flex; align-items: center; gap: var(--space-1); height: var(--button-height-sm); padding: 0 var(--space-1) 0 var(--space-3); border: var(--stroke-line) solid var(--line); border-radius: var(--radius-full); background: var(--surface); color: var(--ink-secondary); font: var(--type-footnote); }
 .dn-filter > b { color: var(--ink); font-weight: var(--weight-medium); }
 .dn-filter > .dn-icon-button { width: 20px; height: 20px; }
 .dn-db .dn-table-cell { gap: var(--space-2); }
-.dn-db .dn-avatar { width: 20px; height: 20px; }
 .dn-db td.is-empty { color: transparent; }
 .dn-db td.is-active { box-shadow: inset 0 0 0 var(--stroke-line) var(--ink); }
 .dn-db-add > td { color: var(--ink-tertiary); }
@@ -76,14 +69,12 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
       <div class="dn-db">
         <h2 class="dn-db-title">需求池</h2>
         <p class="dn-db-lede">所有提过的需求，排期在评审会上定。</p>
-        <div class="dn-db-bar">
-          <div class="dn-views" role="tablist" aria-label="视图">
+        <div class="dn-panel-tabs is-plain" role="tablist" aria-label="视图">
             <button type="button" role="tab" aria-selected="true"><svg class="dn-icon" aria-hidden="true"><use href="#dn-table"/></svg>全部</button>
             <button type="button" role="tab" aria-selected="false"><svg class="dn-icon" aria-hidden="true"><use href="#dn-board"/></svg>按状态</button>
             <button type="button" role="tab" aria-selected="false"><svg class="dn-icon" aria-hidden="true"><use href="#dn-calendar"/></svg>排期</button>
-            <button type="button" aria-label="新建视图"><svg class="dn-icon" aria-hidden="true"><use href="#dn-plus"/></svg></button>
-          </div>
-          <div class="dn-db-tools">
+            <button class="dn-icon-button" type="button" aria-label="新建视图"><svg class="dn-icon" aria-hidden="true"><use href="#dn-plus"/></svg></button>
+          <div class="dn-panel-actions">
             <span class="dn-db-unsaved">只对你生效</span><button class="dn-button is-plain is-sm" type="button">保存给所有人</button>
             <button class="dn-icon-button" type="button" aria-label="排序"><svg class="dn-icon" aria-hidden="true"><use href="#dn-arrow-down"/></svg></button>
             <button class="dn-icon-button" type="button" aria-label="搜索"><svg class="dn-icon" aria-hidden="true"><use href="#dn-search"/></svg></button>
@@ -99,9 +90,9 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
           <table class="dn-table">
             <thead><tr><th scope="col">名称</th><th scope="col">状态</th><th scope="col">负责人</th><th scope="col">截止</th><th class="is-number" scope="col">估时（天）</th></tr></thead>
             <tbody>
-              <tr><td class="is-primary"><a href="#">导入时保留附件</a></td><td><span class="dn-tag">进行中</span></td><td><span class="dn-table-cell"><span class="dn-avatar" aria-hidden="true">周</span>周舟</span></td><td>11月28日</td><td class="is-number">5</td></tr>
-              <tr><td class="is-primary"><a href="#">分享链接设置有效期</a></td><td><span class="dn-tag">进行中</span></td><td><span class="dn-table-cell"><span class="dn-avatar" aria-hidden="true">林</span>林一</span></td><td class="is-active">11月21日</td><td class="is-number">3</td></tr>
-              <tr><td class="is-primary"><a href="#">同步冲突时保留两份</a></td><td><span class="dn-tag is-danger">阻塞</span></td><td><span class="dn-table-cell"><span class="dn-avatar" aria-hidden="true">周</span>周舟</span></td><td>12月2日</td><td class="is-number">8</td></tr>
+              <tr><td class="is-primary"><a href="#">导入时保留附件</a></td><td><span class="dn-tag">进行中</span></td><td><span class="dn-table-cell"><span class="dn-avatar is-sm" aria-hidden="true">周</span>周舟</span></td><td>11月28日</td><td class="is-number">5</td></tr>
+              <tr><td class="is-primary"><a href="#">分享链接设置有效期</a></td><td><span class="dn-tag">进行中</span></td><td><span class="dn-table-cell"><span class="dn-avatar is-sm" aria-hidden="true">林</span>林一</span></td><td class="is-active">11月21日</td><td class="is-number">3</td></tr>
+              <tr><td class="is-primary"><a href="#">同步冲突时保留两份</a></td><td><span class="dn-tag is-danger">阻塞</span></td><td><span class="dn-table-cell"><span class="dn-avatar is-sm" aria-hidden="true">周</span>周舟</span></td><td>12月2日</td><td class="is-number">8</td></tr>
               <tr><td class="is-primary"><a href="#">命令面板支持拼音</a></td><td><span class="dn-tag">待评审</span></td><td class="is-empty">添加</td><td class="is-empty">添加</td><td class="is-number">2</td></tr>
               <tr class="dn-db-add"><td colspan="5"><button type="button"><svg class="dn-icon" aria-hidden="true"><use href="#dn-plus"/></svg>新建</button></td></tr>
               <tr class="dn-db-sum"><td>4 条</td><td></td><td></td><td></td><td class="is-number">合计 18</td></tr>

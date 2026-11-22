@@ -33,8 +33,6 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 .dn-access-invite > .dn-select { width: 112px; }
 .dn-access-list { display: grid; gap: var(--space-1); margin: 0; padding: 0; list-style: none; }
 .dn-access-list > li { display: grid; grid-template-columns: auto minmax(0, 1fr) 120px; align-items: center; gap: var(--space-3); min-height: var(--row-height); }
-.dn-access-list > li > .dn-avatar { width: var(--button-height-md); height: var(--button-height-md); }
-.dn-access-list .dn-member-name > span:last-child { color: var(--ink-tertiary); font: var(--type-footnote); }
 .dn-access-list .dn-select > select { height: var(--button-height-sm); border-color: transparent; background: none; }
 .dn-access-role { padding-left: var(--field-padding-x); color: var(--ink-tertiary); font: var(--type-callout); }
 .dn-access-general { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: var(--space-1) var(--space-3); padding-top: var(--space-4); border-top: var(--stroke-line) solid var(--line); }
@@ -57,10 +55,10 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
     <button class="dn-button is-primary" type="button">邀请</button>
   </div>
   <ul class="dn-access-list" aria-label="有权限的人">
-    <li><span class="dn-avatar" aria-hidden="true">林</span><span class="dn-member-name"><span>林一（你）</span><span>lin@deernova.me</span></span><span class="dn-access-role">所有者</span></li>
-    <li><span class="dn-avatar" aria-hidden="true">周</span><span class="dn-member-name"><span>周舟</span><span>来自「产品」</span></span><span class="dn-select"><select aria-label="周舟的权限"><option selected>可以编辑</option><option>可以评论</option><option>可以查看</option><option>移除</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span></li>
-    <li><span class="dn-avatar" aria-hidden="true">沈</span><span class="dn-member-name"><span>沈遥</span><span>来自「产品」</span></span><span class="dn-select"><select aria-label="沈遥的权限"><option selected>可以编辑</option><option>可以评论</option><option>可以查看</option><option>移除</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span></li>
-    <li><span class="dn-avatar" aria-hidden="true">许</span><span class="dn-member-name"><span>许明</span><span>xu@agency.cn</span></span><span class="dn-select"><select aria-label="许明的权限"><option>可以编辑</option><option selected>可以评论</option><option>可以查看</option><option>移除</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span></li>
+    <li><span class="dn-avatar is-lg" aria-hidden="true">林</span><span class="dn-item-text"><span class="dn-item-title">林一（你）</span><span class="dn-item-detail">lin@deernova.me</span></span><span class="dn-access-role">所有者</span></li>
+    <li><span class="dn-avatar is-lg" aria-hidden="true">周</span><span class="dn-item-text"><span class="dn-item-title">周舟</span><span class="dn-item-detail">来自「产品」</span></span><span class="dn-select"><select aria-label="周舟的权限"><option selected>可以编辑</option><option>可以评论</option><option>可以查看</option><option>移除</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span></li>
+    <li><span class="dn-avatar is-lg" aria-hidden="true">沈</span><span class="dn-item-text"><span class="dn-item-title">沈遥</span><span class="dn-item-detail">来自「产品」</span></span><span class="dn-select"><select aria-label="沈遥的权限"><option selected>可以编辑</option><option>可以评论</option><option>可以查看</option><option>移除</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span></li>
+    <li><span class="dn-avatar is-lg" aria-hidden="true">许</span><span class="dn-item-text"><span class="dn-item-title">许明</span><span class="dn-item-detail">xu@agency.cn</span></span><span class="dn-select"><select aria-label="许明的权限"><option>可以编辑</option><option selected>可以评论</option><option>可以查看</option><option>移除</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span></li>
   </ul>
   <div class="dn-access-general">
     <svg class="dn-icon" aria-hidden="true"><use href="#dn-team"/></svg>

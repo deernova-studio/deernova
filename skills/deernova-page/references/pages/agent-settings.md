@@ -39,59 +39,24 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 .dn-builder.is-solo { grid-template-columns: 200px minmax(0, 1fr); }
 .dn-builder > .dn-settings-nav .dn-sidebar-count.is-warning { color: var(--warning); }
 .dn-builder-main { display: flex; flex-direction: column; min-width: 0; min-height: 0; overflow-y: auto; padding: var(--space-6) max(var(--space-8), calc((100% - var(--content-max)) / 2)) var(--space-10); }
+.dn-builder-main > * { flex-shrink: 0; }
 .dn-builder-main > h3 { margin: 0 0 var(--space-1); font: var(--type-title); }
 .dn-builder-main > h4 { margin: var(--space-8) 0 var(--space-2); font: var(--type-headline); }
 .dn-builder-lede { margin: 0 0 var(--space-5); color: var(--ink-secondary); font: var(--type-callout); }
 .dn-builder-state { color: var(--ink-tertiary); font: var(--type-footnote); white-space: nowrap; }
-.dn-toolbar > .dn-agent-mark { width: var(--button-height-sm); height: var(--button-height-sm); font-size: var(--type-footnote-size); }
 .dn-builder-name { width: 9em; min-width: 0; height: var(--button-height-sm); padding: 0 var(--space-2); border: 0; border-radius: var(--radius-sm); background: none; color: var(--ink); font: var(--weight-semibold) var(--toolbar-title-size)/1.2 var(--font-sans); }
 @media (hover: hover) { .dn-builder-name:hover { background: var(--fill-hover); } }
 .dn-builder-name:focus { outline: none; background: var(--surface-sunken); }
 .dn-builder-summary { margin-bottom: var(--space-4); }
-.dn-prompt { flex: 1; min-height: calc(var(--type-body-line) * 12); padding: var(--space-4) var(--space-5); border: var(--stroke-line) solid var(--line); border-radius: var(--radius-lg); background: var(--surface); color: var(--ink); font: var(--type-body); }
+.dn-prompt { flex: 1 0 auto; min-height: calc(var(--type-body-line) * 12); padding: var(--space-4) var(--space-5); border: var(--stroke-line) solid var(--line); border-radius: var(--radius-lg); background: var(--surface); color: var(--ink); font: var(--type-body); }
 .dn-prompt:focus-within { border-color: var(--line-control); box-shadow: var(--shadow-control); }
 .dn-prompt > p { margin: 0 0 var(--space-3); }
 .dn-prompt-foot { display: flex; justify-content: space-between; gap: var(--space-4); margin-top: var(--space-2); color: var(--ink-tertiary); font: var(--type-footnote); }
-.dn-levels { display: grid; margin: 0; padding: 0; border: var(--stroke-line) solid var(--line); border-radius: var(--radius-lg); background: var(--surface); }
-.dn-levels > legend { padding: 0; margin-bottom: var(--space-2); font: var(--type-headline); }
-.dn-level { display: flex; align-items: flex-start; gap: var(--space-3); padding: var(--space-3) var(--space-4); cursor: pointer; }
-.dn-level + .dn-level { border-top: var(--stroke-line) solid var(--line); }
-.dn-level:has(input:checked) { background: var(--fill-hover); }
-.dn-level-text { display: grid; gap: 2px; }
-.dn-level-name { color: var(--ink); font: var(--weight-medium) var(--type-body-size)/var(--type-body-line) var(--font-sans); }
-.dn-level-help { color: var(--ink-tertiary); font: var(--type-footnote); }
-.dn-level.is-risky:has(input:checked) .dn-level-help { color: var(--warning); }
-.dn-source { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--space-2); margin: var(--space-2) 0 0; color: var(--ink-tertiary); font: var(--type-footnote); }
-.dn-perms { margin: 0; padding: 0; list-style: none; }
-.dn-perm { display: grid; grid-template-columns: minmax(0, 1fr) 140px; align-items: center; gap: var(--space-3); padding: var(--space-2) 0; border-bottom: var(--stroke-line) solid var(--line); }
-.dn-perm-name { display: grid; gap: 2px; color: var(--ink); font: var(--type-body); }
-.dn-perm-name > span { color: var(--ink-tertiary); font: var(--type-footnote); }
-.dn-toolset { margin: 0; padding: 0; border: var(--stroke-line) solid var(--line); border-radius: var(--radius-lg); background: var(--surface); list-style: none; }
-.dn-toolset-item { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: var(--space-1) var(--space-3); padding: var(--space-3) var(--space-4); }
-.dn-toolset-item + .dn-toolset-item { border-top: var(--stroke-line) solid var(--line); }
-.dn-toolset-name { display: grid; gap: 2px; font: var(--type-body); }
-.dn-toolset-name > span { color: var(--ink-tertiary); font: var(--type-footnote); }
-.dn-toolset-name > span.is-warning { color: var(--warning); }
-.dn-toolset-item > .dn-perms { grid-column: 2 / -1; margin-top: var(--space-1); }
-.dn-toolset-item > .dn-perms > .dn-perm:last-child { border-bottom: 0; }
-.dn-setting-group { margin: 0; padding: 0; border: var(--stroke-line) solid var(--line); border-radius: var(--radius-lg); background: var(--surface); list-style: none; }
-.dn-setting { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 300px); align-items: center; gap: var(--space-1) var(--space-6); min-height: calc(var(--row-height) + var(--space-4)); padding: var(--space-3) var(--space-4); }
-.dn-setting + .dn-setting { border-top: var(--stroke-line) solid var(--line); }
-.dn-setting-text { display: grid; gap: 2px; min-width: 0; }
-.dn-setting-title { display: flex; align-items: center; gap: var(--space-1); color: var(--ink); font: var(--weight-medium) var(--type-body-size)/var(--type-body-line) var(--font-sans); }
-.dn-setting-help { color: var(--ink-tertiary); font: var(--type-footnote); }
-.dn-setting-help.is-ok { color: var(--success); }
-.dn-setting-help.is-warning { color: var(--warning); }
-.dn-setting-reset { width: 22px; height: 22px; color: var(--ink-tertiary); }
-.dn-setting-reset .dn-icon { width: var(--icon-size-sm); height: var(--icon-size-sm); }
-.dn-setting-control { display: flex; align-items: center; justify-content: flex-end; gap: var(--space-2); min-width: 0; }
-.dn-setting-control > :is(.dn-input, .dn-select) { flex: 1; min-width: 0; }
-.dn-setting-control > .dn-input.is-code { font-family: var(--font-mono); font-size: var(--type-footnote-size); }
-.dn-setting-control > .dn-segmented { flex: 1; }
-.dn-setting-control > .dn-segmented > button { flex: 1; }
-.dn-builder-main > .dn-setting-group + .dn-setting-group { margin-top: var(--space-5); }
-.dn-builder-main > .dn-setting-group + .dn-builder-add { margin-top: var(--space-3); }
+.dn-builder-main > :is(.dn-list, .dn-list-section) + :is(.dn-list, .dn-list-section) { margin-top: var(--gap-group); }
+.dn-builder-main > .dn-list + .dn-builder-add { margin-top: var(--space-3); }
 .dn-builder-add { align-self: flex-start; width: auto; }
+.dn-builder-main .dn-input.is-code { font-family: var(--font-mono); font-size: var(--type-footnote-size); }
+.dn-list-row.is-risky:has(input:checked) .dn-item-detail { color: var(--warning); }
 .dn-toolbar .dn-button.is-plain[aria-pressed="true"] { background: var(--fill-selected); }
 .dn-builder-try { display: flex; flex-direction: column; min-width: 0; min-height: 0; border-left: var(--stroke-line) solid var(--line); }
 .dn-builder-try-head { display: flex; align-items: center; justify-content: space-between; height: var(--toolbar-height); padding: 0 var(--space-4); border-bottom: var(--stroke-line) solid var(--line); color: var(--ink-secondary); font: var(--type-callout); }
@@ -114,7 +79,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
   <div class="dn-app-main">
     <header class="dn-toolbar">
       <button class="dn-icon-button" type="button" aria-label="返回智能体列表"><svg class="dn-icon" aria-hidden="true"><use href="#dn-chevron-left"/></svg></button>
-      <button class="dn-agent-mark" type="button" aria-label="更换标记">周</button>
+      <button class="dn-mark is-sm" type="button" aria-label="更换标记">周</button>
       <input class="dn-builder-name" value="周报助手" aria-label="名字">
       <span class="dn-builder-state">草稿，已自动保存</span>
       <div class="dn-toolbar-actions">
@@ -163,7 +128,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
   <div class="dn-app-main">
     <header class="dn-toolbar">
       <button class="dn-icon-button" type="button" aria-label="返回智能体列表"><svg class="dn-icon" aria-hidden="true"><use href="#dn-chevron-left"/></svg></button>
-      <button class="dn-agent-mark" type="button" aria-label="更换标记">周</button>
+      <button class="dn-mark is-sm" type="button" aria-label="更换标记">周</button>
       <input class="dn-builder-name" value="周报助手" aria-label="名字">
       <span class="dn-builder-state">草稿，已自动保存</span>
       <div class="dn-toolbar-actions">
@@ -184,19 +149,19 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
       <div class="dn-builder-main">
         <h3>模型</h3>
         <p class="dn-builder-lede">填一个兼容 OpenAI 或 Anthropic 格式的接口。团队设过默认的，跟随团队就不用填。</p>
-        <ul class="dn-setting-group">
-          <li class="dn-setting"><span class="dn-setting-text"><span class="dn-setting-title">跟随团队</span><span class="dn-setting-help">团队默认：Anthropic 格式，团队自己的 Key</span></span><span class="dn-setting-control"><input class="dn-switch" type="checkbox" role="switch" aria-label="跟随团队"></span></li>
+        <ul class="dn-list">
+          <li class="dn-list-row"><span class="dn-item-text"><span class="dn-item-title">跟随团队</span><span class="dn-item-detail">团队默认：Anthropic 格式，团队自己的 Key</span></span><span class="dn-list-control"><input class="dn-switch" type="checkbox" role="switch" aria-label="跟随团队"></span></li>
         </ul>
-        <ul class="dn-setting-group">
-          <li class="dn-setting"><span class="dn-setting-text"><span class="dn-setting-title">接口格式</span><span class="dn-setting-help">大部分服务商兼容 OpenAI 格式</span></span><span class="dn-setting-control"><span class="dn-segmented" role="group" aria-label="接口格式"><button type="button" aria-pressed="true">OpenAI</button><button type="button" aria-pressed="false">Anthropic</button></span></span></li>
-          <li class="dn-setting"><span class="dn-setting-text"><span class="dn-setting-title">地址</span><span class="dn-setting-help">服务商文档里的 Base URL</span></span><span class="dn-setting-control"><input class="dn-input is-code" value="https://api.deepseek.com/v1" aria-label="地址"></span></li>
-          <li class="dn-setting"><span class="dn-setting-text"><span class="dn-setting-title">API Key</span><span class="dn-setting-help">只存在服务端，保存后只显示后四位</span></span><span class="dn-setting-control"><input class="dn-input is-code" value="sk-••••••••3f9a" aria-label="API Key" readonly><button class="dn-button is-sm" type="button">更换</button></span></li>
-          <li class="dn-setting"><span class="dn-setting-text"><span class="dn-setting-title">模型</span><span class="dn-setting-help">列表来自服务商，也可以直接输入</span></span><span class="dn-setting-control"><span class="dn-select"><select aria-label="模型"><option selected>deepseek-chat</option><option>deepseek-reasoner</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span></span></li>
-          <li class="dn-setting"><span class="dn-setting-text"><span class="dn-setting-title">连接</span><span class="dn-setting-help is-ok">已连接，找到 2 个模型，2 分钟前</span></span><span class="dn-setting-control"><button class="dn-button is-sm" type="button">测试连接</button></span></li>
+        <ul class="dn-list">
+          <li class="dn-list-row"><span class="dn-item-text"><span class="dn-item-title">接口格式</span><span class="dn-item-detail">大部分服务商兼容 OpenAI 格式</span></span><span class="dn-list-control"><span class="dn-segmented" role="group" aria-label="接口格式"><button type="button" aria-pressed="true">OpenAI</button><button type="button" aria-pressed="false">Anthropic</button></span></span></li>
+          <li class="dn-list-row"><span class="dn-item-text"><span class="dn-item-title">地址</span><span class="dn-item-detail">服务商文档里的 Base URL</span></span><span class="dn-list-control"><input class="dn-input is-code" value="https://api.deepseek.com/v1" aria-label="地址"></span></li>
+          <li class="dn-list-row"><span class="dn-item-text"><span class="dn-item-title">API Key</span><span class="dn-item-detail">只存在服务端，保存后只显示后四位</span></span><span class="dn-list-control"><input class="dn-input is-code" value="sk-••••••••3f9a" aria-label="API Key" readonly><button class="dn-button is-sm" type="button">更换</button></span></li>
+          <li class="dn-list-row"><span class="dn-item-text"><span class="dn-item-title">模型</span><span class="dn-item-detail">列表来自服务商，也可以直接输入</span></span><span class="dn-list-control"><span class="dn-select"><select aria-label="模型"><option selected>deepseek-chat</option><option>deepseek-reasoner</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span></span></li>
+          <li class="dn-list-row"><span class="dn-item-text"><span class="dn-item-title">连接</span><span class="dn-item-detail is-success">已连接，找到 2 个模型，2 分钟前</span></span><span class="dn-list-control"><button class="dn-button is-sm" type="button">测试连接</button></span></li>
         </ul>
-        <ul class="dn-setting-group">
-          <li class="dn-setting"><span class="dn-setting-text"><span class="dn-setting-title">思考深度<button class="dn-icon-button dn-setting-reset" type="button" aria-label="恢复成团队默认"><svg class="dn-icon" aria-hidden="true"><use href="#dn-undo"/></svg></button></span><span class="dn-setting-help">单独设置，团队默认是「低」</span></span><span class="dn-setting-control"><span class="dn-select"><select aria-label="思考深度"><option>关</option><option>低</option><option selected>中</option><option>高</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span></span></li>
-          <li class="dn-setting"><span class="dn-setting-text"><span class="dn-setting-title">回答最长</span><span class="dn-setting-help">团队默认</span></span><span class="dn-setting-control"><input class="dn-input" value="4,000 token" aria-label="回答最长"></span></li>
+        <ul class="dn-list">
+          <li class="dn-list-row"><span class="dn-item-text"><span class="dn-item-title">思考深度<button class="dn-icon-button dn-list-reset" type="button" aria-label="恢复成团队默认"><svg class="dn-icon" aria-hidden="true"><use href="#dn-undo"/></svg></button></span><span class="dn-item-detail">单独设置，团队默认是「低」</span></span><span class="dn-list-control"><span class="dn-select"><select aria-label="思考深度"><option>关</option><option>低</option><option selected>中</option><option>高</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span></span></li>
+          <li class="dn-list-row"><span class="dn-item-text"><span class="dn-item-title">回答最长</span><span class="dn-item-detail">团队默认</span></span><span class="dn-list-control"><input class="dn-input" value="4,000 token" aria-label="回答最长"></span></li>
         </ul>
       </div>
     </div>
@@ -210,16 +175,16 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 <div class="dn-builder-main">
   <h3>权限</h3>
   <p class="dn-builder-lede">它做事前什么时候停下来问你。只读的操作都不问。</p>
-  <fieldset class="dn-levels">
-    <label class="dn-level"><span class="dn-choice-box"><input type="radio" name="ex-ag-level"></span><span class="dn-level-text"><span class="dn-level-name">每次都问</span><span class="dn-level-help">新建、修改、发送前都先问你。</span></span></label>
-    <label class="dn-level"><span class="dn-choice-box"><input type="radio" name="ex-ag-level" checked></span><span class="dn-level-text"><span class="dn-level-name">只在外发前问</span><span class="dn-level-help">新建和修改直接做；发送、付费、删除前问你。团队默认。</span></span></label>
-    <label class="dn-level"><span class="dn-choice-box"><input type="radio" name="ex-ag-level"></span><span class="dn-level-text"><span class="dn-level-name">自动</span><span class="dn-level-help">只在它拿不准、或者要付费时问你。</span></span></label>
-    <label class="dn-level is-risky"><span class="dn-choice-box"><input type="radio" name="ex-ag-level"></span><span class="dn-level-text"><span class="dn-level-name">完全放开</span><span class="dn-level-help">所有操作都不问，包括发邮件和删除。</span></span></label>
-  </fieldset>
+  <div class="dn-list" role="radiogroup" aria-label="整体权限">
+    <label class="dn-list-row"><span class="dn-choice-box"><input type="radio" name="ex-ag-level"></span><span class="dn-item-text"><span class="dn-item-title">每次都问</span><span class="dn-item-detail">新建、修改、发送前都先问你。</span></span></label>
+    <label class="dn-list-row"><span class="dn-choice-box"><input type="radio" name="ex-ag-level" checked></span><span class="dn-item-text"><span class="dn-item-title">只在外发前问</span><span class="dn-item-detail">新建和修改直接做；发送、付费、删除前问你。团队默认。</span></span></label>
+    <label class="dn-list-row"><span class="dn-choice-box"><input type="radio" name="ex-ag-level"></span><span class="dn-item-text"><span class="dn-item-title">自动</span><span class="dn-item-detail">只在它拿不准、或者要付费时问你。</span></span></label>
+    <label class="dn-list-row is-risky"><span class="dn-choice-box"><input type="radio" name="ex-ag-level"></span><span class="dn-item-text"><span class="dn-item-title">完全放开</span><span class="dn-item-detail">所有操作都不问，包括发邮件和删除。</span></span></label>
+  </div>
   <h4>例外</h4>
-  <ul class="dn-setting-group">
-    <li class="dn-setting"><span class="dn-setting-text"><span class="dn-setting-title">发送邮件</span><span class="dn-setting-help">邮箱 lin@deernova.me</span></span><span class="dn-setting-control"><span class="dn-select"><select aria-label="发送邮件的权限"><option>跟随整体</option><option>总是允许</option><option>每次询问</option><option selected>不允许</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span></span></li>
-    <li class="dn-setting"><span class="dn-setting-text"><span class="dn-setting-title">新建日程</span><span class="dn-setting-help">日历：工作</span></span><span class="dn-setting-control"><span class="dn-select"><select aria-label="新建日程的权限"><option>跟随整体</option><option>总是允许</option><option selected>每次询问</option><option>不允许</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span></span></li>
+  <ul class="dn-list">
+    <li class="dn-list-row"><span class="dn-item-text"><span class="dn-item-title">发送邮件</span><span class="dn-item-detail">邮箱 lin@deernova.me</span></span><span class="dn-list-control"><span class="dn-select"><select aria-label="发送邮件的权限"><option>跟随整体</option><option>总是允许</option><option>每次询问</option><option selected>不允许</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span></span></li>
+    <li class="dn-list-row"><span class="dn-item-text"><span class="dn-item-title">新建日程</span><span class="dn-item-detail">日历：工作</span></span><span class="dn-list-control"><span class="dn-select"><select aria-label="新建日程的权限"><option>跟随整体</option><option>总是允许</option><option selected>每次询问</option><option>不允许</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span></span></li>
   </ul>
   <button class="dn-button is-plain is-sm dn-builder-add" type="button"><svg class="dn-icon" aria-hidden="true"><use href="#dn-plus"/></svg>添加例外</button>
 </div>
@@ -231,24 +196,21 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 <div class="dn-builder-main">
   <h3>工具</h3>
   <p class="dn-builder-lede">它能用哪些连接。连接本身在「工具与连接」里接入，这里只决定这个智能体用不用。</p>
-  <ul class="dn-toolset">
-    <li class="dn-toolset-item">
-      <span class="dn-agent-mark" aria-hidden="true"><svg class="dn-icon"><use href="#dn-document"/></svg></span>
-      <span class="dn-toolset-name">笔记<span>已连接，5 个操作</span></span>
-      <input class="dn-switch" type="checkbox" role="switch" checked aria-label="使用笔记">
-      <ul class="dn-perms">
-        <li class="dn-perm"><span class="dn-perm-name">搜索笔记</span><span class="dn-select"><select aria-label="搜索笔记的权限"><option selected>跟随整体</option><option>每次询问</option><option>不允许</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span></li>
-        <li class="dn-perm"><span class="dn-perm-name">新建笔记</span><span class="dn-select"><select aria-label="新建笔记的权限"><option selected>跟随整体</option><option>总是允许</option><option>每次询问</option><option>不允许</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span></li>
-      </ul>
-    </li>
-    <li class="dn-toolset-item">
-      <span class="dn-agent-mark" aria-hidden="true"><svg class="dn-icon"><use href="#dn-calendar"/></svg></span>
-      <span class="dn-toolset-name">日历<span>已连接，只读</span></span>
+  <ul class="dn-list">
+    <li class="dn-list-row has-lead">
+      <span class="dn-mark" aria-hidden="true"><svg class="dn-icon"><use href="#dn-document"/></svg></span>
+      <span class="dn-item-text"><span class="dn-item-title">笔记</span><span class="dn-item-detail">已连接，5 个操作</span></span>
+      <input class="dn-switch" type="checkbox" role="switch" checked aria-label="使用笔记"></li>
+        <li class="dn-list-row is-sub"><span class="dn-item-text"><span class="dn-item-title">搜索笔记</span></span><span class="dn-list-control"><span class="dn-select"><select aria-label="搜索笔记的权限"><option selected>跟随整体</option><option>每次询问</option><option>不允许</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span></span></li>
+        <li class="dn-list-row is-sub"><span class="dn-item-text"><span class="dn-item-title">新建笔记</span></span><span class="dn-list-control"><span class="dn-select"><select aria-label="新建笔记的权限"><option selected>跟随整体</option><option>总是允许</option><option>每次询问</option><option>不允许</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span></span></li>
+    <li class="dn-list-row has-lead">
+      <span class="dn-mark" aria-hidden="true"><svg class="dn-icon"><use href="#dn-calendar"/></svg></span>
+      <span class="dn-item-text"><span class="dn-item-title">日历</span><span class="dn-item-detail">已连接，只读</span></span>
       <input class="dn-switch" type="checkbox" role="switch" checked aria-label="使用日历">
     </li>
-    <li class="dn-toolset-item">
-      <span class="dn-agent-mark" aria-hidden="true"><svg class="dn-icon"><use href="#dn-mail"/></svg></span>
-      <span class="dn-toolset-name">邮箱<span class="is-warning">授权过期，要重新登录</span></span>
+    <li class="dn-list-row has-lead">
+      <span class="dn-mark" aria-hidden="true"><svg class="dn-icon"><use href="#dn-mail"/></svg></span>
+      <span class="dn-item-text"><span class="dn-item-title">邮箱</span><span class="dn-item-detail is-warning">授权过期，要重新登录</span></span>
       <button class="dn-button is-sm" type="button">重新登录</button>
     </li>
   </ul>
@@ -261,15 +223,15 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 <div class="dn-builder-main">
   <h3>定时任务</h3>
   <p class="dn-builder-lede">到点了它自己开始，结果放进对话里等你看。随时也能手动叫它。</p>
-  <ul class="dn-setting-group">
-    <li class="dn-setting"><span class="dn-setting-text"><span class="dn-setting-title">起草周报</span><span class="dn-setting-help">每周五 16:00，每次新开一个对话</span></span><span class="dn-setting-control"><input class="dn-switch" type="checkbox" role="switch" checked aria-label="启用起草周报"><button class="dn-icon-button" type="button" aria-label="起草周报的更多操作"><svg class="dn-icon" aria-hidden="true"><use href="#dn-more"/></svg></button></span></li>
-    <li class="dn-setting"><span class="dn-setting-text"><span class="dn-setting-title">月底整理笔记</span><span class="dn-setting-help">每月最后一天 18:00，已暂停</span></span><span class="dn-setting-control"><input class="dn-switch" type="checkbox" role="switch" aria-label="启用月底整理笔记"><button class="dn-icon-button" type="button" aria-label="月底整理笔记的更多操作"><svg class="dn-icon" aria-hidden="true"><use href="#dn-more"/></svg></button></span></li>
+  <ul class="dn-list">
+    <li class="dn-list-row"><span class="dn-item-text"><span class="dn-item-title">起草周报</span><span class="dn-item-detail">每周五 16:00，每次新开一个对话</span></span><span class="dn-list-control"><input class="dn-switch" type="checkbox" role="switch" checked aria-label="启用起草周报"><button class="dn-icon-button" type="button" aria-label="起草周报的更多操作"><svg class="dn-icon" aria-hidden="true"><use href="#dn-more"/></svg></button></span></li>
+    <li class="dn-list-row"><span class="dn-item-text"><span class="dn-item-title">月底整理笔记</span><span class="dn-item-detail">每月最后一天 18:00，已暂停</span></span><span class="dn-list-control"><input class="dn-switch" type="checkbox" role="switch" aria-label="启用月底整理笔记"><button class="dn-icon-button" type="button" aria-label="月底整理笔记的更多操作"><svg class="dn-icon" aria-hidden="true"><use href="#dn-more"/></svg></button></span></li>
   </ul>
   <button class="dn-button is-plain is-sm dn-builder-add" type="button"><svg class="dn-icon" aria-hidden="true"><use href="#dn-plus"/></svg>新建定时任务</button>
   <h4>最近运行</h4>
-  <ul class="dn-setting-group">
-    <li class="dn-setting"><span class="dn-setting-text"><span class="dn-setting-title">11月14日 16:00</span><span class="dn-setting-help">起草了周报，问了 1 个问题</span></span><span class="dn-setting-control"><a class="dn-button is-plain is-sm" href="#">查看</a></span></li>
-    <li class="dn-setting"><span class="dn-setting-text"><span class="dn-setting-title">11月7日 16:00</span><span class="dn-setting-help">起草了周报</span></span><span class="dn-setting-control"><a class="dn-button is-plain is-sm" href="#">查看</a></span></li>
+  <ul class="dn-list">
+    <li class="dn-list-row"><span class="dn-item-text"><span class="dn-item-title">11月14日 16:00</span><span class="dn-item-detail">起草了周报，问了 1 个问题</span></span><span class="dn-list-control"><a class="dn-button is-plain is-sm" href="#">查看</a></span></li>
+    <li class="dn-list-row"><span class="dn-item-text"><span class="dn-item-title">11月7日 16:00</span><span class="dn-item-detail">起草了周报</span></span><span class="dn-list-control"><a class="dn-button is-plain is-sm" href="#">查看</a></span></li>
   </ul>
 </div>
 ```
@@ -370,12 +332,12 @@ NavigationSplitView {
   <div class="ex-mac-main">
     <div class="ex-mac-bar"><span class="ex-mac-title">周报助手</span><span class="dn-builder-state">草稿</span><button class="dn-button is-primary is-sm" type="button">发布</button></div>
     <div class="ex-mac-body">
-      <fieldset class="dn-levels">
-        <label class="dn-level"><span class="dn-choice-box"><input type="radio" name="ex-mac-level"></span><span class="dn-level-text"><span class="dn-level-name">每次都问</span><span class="dn-level-help">新建、修改、发送前都先问你。</span></span></label>
-        <label class="dn-level"><span class="dn-choice-box"><input type="radio" name="ex-mac-level" checked></span><span class="dn-level-text"><span class="dn-level-name">只在外发前问</span><span class="dn-level-help">新建和修改直接做；发送、付费、删除前问你。</span></span></label>
-        <label class="dn-level"><span class="dn-choice-box"><input type="radio" name="ex-mac-level"></span><span class="dn-level-text"><span class="dn-level-name">自动</span><span class="dn-level-help">只在它拿不准、或者要付费时问你。</span></span></label>
-      </fieldset>
-      <p class="dn-source">团队默认</p>
+      <div class="dn-list" role="radiogroup" aria-label="整体权限">
+        <label class="dn-list-row"><span class="dn-choice-box"><input type="radio" name="ex-mac-level"></span><span class="dn-item-text"><span class="dn-item-title">每次都问</span><span class="dn-item-detail">新建、修改、发送前都先问你。</span></span></label>
+        <label class="dn-list-row"><span class="dn-choice-box"><input type="radio" name="ex-mac-level" checked></span><span class="dn-item-text"><span class="dn-item-title">只在外发前问</span><span class="dn-item-detail">新建和修改直接做；发送、付费、删除前问你。</span></span></label>
+        <label class="dn-list-row"><span class="dn-choice-box"><input type="radio" name="ex-mac-level"></span><span class="dn-item-text"><span class="dn-item-title">自动</span><span class="dn-item-detail">只在它拿不准、或者要付费时问你。</span></span></label>
+      </div>
+      <p class="dn-list-footer">团队默认</p>
     </div>
   </div>
 </div>

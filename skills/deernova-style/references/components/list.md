@@ -22,6 +22,11 @@
 - 分隔线 `stroke-line`、`line` 色，从文字起点开始。
 - 页头 `footnote` 字号、`ink-secondary`；页脚 `footnote` 字号、`ink-tertiary`，写清楚这个设置会带来什么后果。
 - 开关打开时用 `success`。不要用黑白色调的开关：深色主题下白色轨道会把白色圆钮吞掉。
+- **设置行**：一行一项，左边是名字和一句说明（[`dn-item-text`](../foundations/layout.md)），右边是控件（开关、下拉、短输入框、按钮），放在 `dn-list-control` 里，最宽 300px。说明只写后果或当前来源，不复述名字。
+- **恢复继承**：值来自团队或上一级默认、又被单独改过时，名字后面一个恢复按钮（`dn-list-reset`），说明写「单独设置，默认是“低”」；跟随默认时说明写「默认」，没有恢复按钮。
+- **单选行**：一组互斥的选项排成一组列表（`div.dn-list` 加 `role="radiogroup"`，每行是一个 `label.dn-list-row`），每行左边是单选圆，和第一行文字对齐；不把单选组散着铺在页面上。
+- **子项**：一行下面附属的几项（一个连接里的几个操作），缩进到主行文字的起点，分隔线也从那里开始。
+- 一组里的前导统一：都是小图标，或者都是 `button-height-md` 的头像或标记。
 
 ## Web
 
@@ -29,6 +34,7 @@
 
 ```css
 .dn-list-section { display: grid; gap: 6px; }
+.dn-list-section + .dn-list-section { margin-top: var(--gap-group); }
 .dn-list-header, .dn-list-footer { margin: 0; padding: 0 var(--row-padding-x); font: var(--weight-regular) var(--type-footnote-size)/var(--type-footnote-line) var(--font-sans); }
 .dn-list-header { color: var(--ink-secondary); }
 .dn-list-footer { color: var(--ink-tertiary); }
@@ -58,6 +64,20 @@
 .dn-list-value { margin-left: auto; color: var(--ink-secondary); white-space: nowrap; }
 .dn-list-row .dn-chevron { width: var(--icon-size-sm); height: var(--icon-size-sm); margin-left: auto; color: var(--ink-tertiary); }
 .dn-list-value + .dn-chevron { margin-left: 0; }
+.dn-list-row:has(> .dn-item-text > .dn-item-detail) { padding-block: var(--space-2); }
+.dn-list-row > .dn-item-text { flex: 1; min-width: 9em; }
+.dn-list-row > :is(.dn-avatar, .dn-mark) { flex: none; }
+.dn-list-row.has-lead { --separator-inset: calc(var(--row-padding-x) + var(--button-height-md) + var(--space-3)); }
+.dn-list-row.is-sub { --separator-inset: calc(var(--row-padding-x) + var(--button-height-md) + var(--space-3)); padding-left: var(--separator-inset); }
+label.dn-list-row { cursor: pointer; }
+.dn-list-row > .dn-choice-box { align-self: flex-start; }
+.dn-list-row:has(> .dn-item-text > .dn-item-detail) > .dn-choice-box { margin-top: calc((var(--type-body-line) - var(--check-size)) / 2); }
+.dn-list-control { display: flex; flex: 0 1 300px; align-items: center; justify-content: flex-end; gap: var(--space-2); min-width: 0; margin-left: auto; }
+.dn-list-control > :is(.dn-input, .dn-select, .dn-segmented) { flex: 1; min-width: 0; }
+.dn-list-control > .dn-segmented > button { flex: 1; }
+.dn-list-control > :is(.dn-switch, .dn-button, .dn-icon-button) { flex: none; margin-left: 0; }
+.dn-list-reset { width: var(--button-height-sm); height: var(--button-height-sm); margin-block: calc(-1 * var(--space-1)); color: var(--ink-tertiary); vertical-align: middle; }
+.dn-list-reset .dn-icon { width: var(--icon-size-sm); height: var(--icon-size-sm); }
 
 .dn-switch {
   position: relative;
@@ -96,6 +116,26 @@
     <li class="dn-list-row has-icon"><span class="dn-list-icon"><svg class="dn-icon" aria-hidden="true"><use href="#dn-cloud"/></svg></span><label for="sync">iCloud 同步</label><input class="dn-switch" id="sync" type="checkbox" role="switch" checked></li>
   </ul>
   <p class="dn-list-footer">关闭 iCloud 同步后，新笔记只保存在这台设备上。</p>
+</section>
+```
+
+设置行：名字和说明在左，控件在右；单独改过的值有恢复按钮；单选行的圆对齐第一行：
+
+```html
+<section class="dn-list-section">
+  <h3 class="dn-list-header">模型</h3>
+  <ul class="dn-list">
+    <li class="dn-list-row"><span class="dn-item-text"><span class="dn-item-title">地址</span><span class="dn-item-detail">服务商文档里的 Base URL</span></span><span class="dn-list-control"><input class="dn-input" value="https://api.deepseek.com/v1" aria-label="地址"></span></li>
+    <li class="dn-list-row"><span class="dn-item-text"><span class="dn-item-title">思考深度<button class="dn-icon-button dn-list-reset" type="button" aria-label="恢复成默认"><svg class="dn-icon" aria-hidden="true"><use href="#dn-undo"/></svg></button></span><span class="dn-item-detail">单独设置，默认是「低」</span></span><span class="dn-list-control"><span class="dn-select"><select aria-label="思考深度"><option>低</option><option selected>中</option><option>高</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span></span></li>
+    <li class="dn-list-row"><span class="dn-item-text"><span class="dn-item-title">连接</span><span class="dn-item-detail is-success">已连接，2 分钟前</span></span><span class="dn-list-control"><button class="dn-button is-sm" type="button">测试连接</button></span></li>
+  </ul>
+</section>
+<section class="dn-list-section">
+  <h3 class="dn-list-header">整体权限</h3>
+  <div class="dn-list" role="radiogroup" aria-label="整体权限">
+    <label class="dn-list-row"><span class="dn-choice-box"><input type="radio" name="list-level"></span><span class="dn-item-text"><span class="dn-item-title">每次都问</span><span class="dn-item-detail">新建、修改、发送前都先问你</span></span></label>
+    <label class="dn-list-row"><span class="dn-choice-box"><input type="radio" name="list-level" checked></span><span class="dn-item-text"><span class="dn-item-title">只在外发前问</span><span class="dn-item-detail">发送、付费、删除前问你</span></span></label>
+  </div>
 </section>
 ```
 

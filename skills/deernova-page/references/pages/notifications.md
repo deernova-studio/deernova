@@ -29,9 +29,6 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 .dn-notif { position: relative; display: grid; grid-template-columns: var(--icon-size-md) minmax(0, 1fr) auto; gap: var(--space-3); padding: var(--space-3) 0; border-bottom: var(--stroke-line) solid var(--line); color: var(--ink); text-decoration: none; }
 .dn-notif.is-unread::before { content: ""; position: absolute; top: calc(var(--space-3) + (var(--type-body-line) - var(--badge-dot-size)) / 2); left: calc(var(--space-4) * -1); width: var(--badge-dot-size); height: var(--badge-dot-size); border-radius: var(--radius-full); background: var(--ink); }
 .dn-notif-type { width: var(--icon-size-md); height: var(--icon-size-md); margin-top: calc((var(--type-body-line) - var(--icon-size-md)) / 2); color: var(--ink-secondary); }
-.dn-avatars { display: flex; }
-.dn-avatars > span { display: grid; place-items: center; width: 28px; height: 28px; margin-left: -8px; border: 2px solid var(--canvas); border-radius: var(--radius-full); background: var(--fill-selected); color: var(--ink); font: var(--weight-medium) var(--type-caption-size)/1 var(--font-sans); }
-.dn-avatars > span:first-child { margin-left: 0; }
 .dn-notif-text { margin: var(--space-2) 0 0; font: var(--type-body); }
 .dn-notif-text:first-child { margin-top: 0; }
 .dn-notif-text b { font-weight: var(--weight-medium); }
@@ -72,7 +69,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
         <a class="dn-notif is-unread" href="#">
           <svg class="dn-icon dn-notif-type" aria-hidden="true"><use href="#dn-heart"/></svg>
           <div>
-            <div class="dn-avatars" aria-hidden="true"><span>沈</span><span>周</span><span>陈</span></div>
+            <div class="dn-avatar-stack" aria-hidden="true"><span class="dn-avatar">沈</span><span class="dn-avatar">周</span><span class="dn-avatar">陈</span></div>
             <p class="dn-notif-text"><b>沈遥</b>和另外 23 人喜欢了你的帖子</p>
             <p class="dn-notif-quote">设置页的交互稿周五评审，欢迎来挑刺。</p>
           </div>
@@ -90,7 +87,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
         <a class="dn-notif" href="#">
           <svg class="dn-icon dn-notif-type" aria-hidden="true"><use href="#dn-repost"/></svg>
           <div>
-            <div class="dn-avatars" aria-hidden="true"><span>林</span><span>周</span></div>
+            <div class="dn-avatar-stack" aria-hidden="true"><span class="dn-avatar">林</span><span class="dn-avatar">周</span></div>
             <p class="dn-notif-text"><b>林一</b>和<b>周舟</b>转发了你的帖子</p>
             <p class="dn-notif-quote">0.4.0 发布：按钮按下时会轻轻一缩。</p>
           </div>
@@ -154,7 +151,7 @@ List {
       </div>
       <a class="dn-notif is-unread" href="#">
         <svg class="dn-icon dn-notif-type" aria-hidden="true"><use href="#dn-heart"/></svg>
-        <div><div class="dn-avatars" aria-hidden="true"><span>沈</span><span>周</span><span>陈</span></div><p class="dn-notif-text"><b>沈遥</b>和另外 23 人喜欢了你的帖子</p></div>
+        <div><div class="dn-avatar-stack" aria-hidden="true"><span class="dn-avatar">沈</span><span class="dn-avatar">周</span><span class="dn-avatar">陈</span></div><p class="dn-notif-text"><b>沈遥</b>和另外 23 人喜欢了你的帖子</p></div>
         <span class="dn-notif-time">1 小时</span>
       </a>
       <div class="dn-notif">
@@ -207,7 +204,7 @@ NavigationStack {
         </div>
         <a class="dn-notif is-unread" href="#">
           <svg class="dn-icon dn-notif-type" aria-hidden="true"><use href="#dn-heart"/></svg>
-          <div><div class="dn-avatars" aria-hidden="true"><span>沈</span><span>周</span><span>陈</span></div><p class="dn-notif-text"><b>沈遥</b>和另外 23 人喜欢了你的帖子</p></div>
+          <div><div class="dn-avatar-stack" aria-hidden="true"><span class="dn-avatar">沈</span><span class="dn-avatar">周</span><span class="dn-avatar">陈</span></div><p class="dn-notif-text"><b>沈遥</b>和另外 23 人喜欢了你的帖子</p></div>
           <span class="dn-notif-time">1 小时</span>
         </a>
         <div class="dn-notif">

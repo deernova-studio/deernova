@@ -29,10 +29,8 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 .dn-connect .dn-rows-item > .dn-button { flex: none; }
 .dn-connect-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: var(--space-3); margin-top: var(--space-3); }
 .dn-connect-card { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: var(--space-3); padding: var(--space-3); border: var(--stroke-line) solid var(--line); border-radius: var(--card-radius); }
-.dn-connect-card strong { display: block; color: var(--ink); font: var(--weight-medium) var(--type-callout-size)/var(--type-callout-line) var(--font-sans); }
-.dn-connect-card span { color: var(--ink-tertiary); font: var(--type-footnote); }
 .dn-connect-head { display: flex; align-items: center; gap: var(--space-3); }
-.dn-connect-head .dn-agent-mark { width: calc(var(--button-height-md) * 1.5); height: calc(var(--button-height-md) * 1.5); }
+.dn-connect-head .dn-mark { width: calc(var(--button-height-md) * 1.5); height: calc(var(--button-height-md) * 1.5); }
 .dn-connect-head h3 { margin: 0; }
 .dn-connect-head p { margin: 0; color: var(--ink-secondary); font: var(--type-callout); }
 ```
@@ -48,18 +46,18 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
         <section>
           <h3>已连接</h3>
           <ul class="dn-rows">
-            <li class="dn-rows-item"><span class="dn-agent-mark" aria-hidden="true"><svg class="dn-icon"><use href="#dn-web"/></svg></span><a class="dn-rows-text" href="#"><span class="dn-rows-title">帮助中心</span><span class="dn-rows-detail">授权在 11月15日过期，客服回复现在读不到它</span></a><button class="dn-button is-primary is-sm" type="button">重新授权</button></li>
-            <li class="dn-rows-item"><span class="dn-agent-mark" aria-hidden="true"><svg class="dn-icon"><use href="#dn-mail"/></svg></span><a class="dn-rows-text" href="#"><span class="dn-rows-title">邮件</span><span class="dn-rows-detail">lin@deernova.me，3 个智能体在用</span></a><button class="dn-button is-plain is-sm" type="button">管理</button></li>
-            <li class="dn-rows-item"><span class="dn-agent-mark" aria-hidden="true">历</span><a class="dn-rows-text" href="#"><span class="dn-rows-title">日历</span><span class="dn-rows-detail">工作日历，只读，1 个智能体在用</span></a><button class="dn-button is-plain is-sm" type="button">管理</button></li>
-            <li class="dn-rows-item"><span class="dn-agent-mark" aria-hidden="true"><svg class="dn-icon"><use href="#dn-code"/></svg></span><a class="dn-rows-text" href="#"><span class="dn-rows-title">代码仓库</span><span class="dn-rows-detail">deernova-studio，2 个仓库，1 个智能体在用</span></a><button class="dn-button is-plain is-sm" type="button">管理</button></li>
+            <li class="dn-rows-item"><span class="dn-mark" aria-hidden="true"><svg class="dn-icon"><use href="#dn-web"/></svg></span><a class="dn-rows-text" href="#"><span class="dn-rows-title">帮助中心</span><span class="dn-rows-detail">授权在 11月15日过期，客服回复现在读不到它</span></a><button class="dn-button is-primary is-sm" type="button">重新授权</button></li>
+            <li class="dn-rows-item"><span class="dn-mark" aria-hidden="true"><svg class="dn-icon"><use href="#dn-mail"/></svg></span><a class="dn-rows-text" href="#"><span class="dn-rows-title">邮件</span><span class="dn-rows-detail">lin@deernova.me，3 个智能体在用</span></a><button class="dn-button is-plain is-sm" type="button">管理</button></li>
+            <li class="dn-rows-item"><span class="dn-mark" aria-hidden="true">历</span><a class="dn-rows-text" href="#"><span class="dn-rows-title">日历</span><span class="dn-rows-detail">工作日历，只读，1 个智能体在用</span></a><button class="dn-button is-plain is-sm" type="button">管理</button></li>
+            <li class="dn-rows-item"><span class="dn-mark" aria-hidden="true"><svg class="dn-icon"><use href="#dn-code"/></svg></span><a class="dn-rows-text" href="#"><span class="dn-rows-title">代码仓库</span><span class="dn-rows-detail">deernova-studio，2 个仓库，1 个智能体在用</span></a><button class="dn-button is-plain is-sm" type="button">管理</button></li>
           </ul>
         </section>
         <section>
           <h3>可以连接</h3>
           <div class="dn-connect-grid">
-            <div class="dn-connect-card"><span class="dn-agent-mark" aria-hidden="true"><svg class="dn-icon"><use href="#dn-cloud"/></svg></span><div><strong>网盘</strong><span>读取共享文件夹里的文件</span></div><button class="dn-button is-sm" type="button">连接</button></div>
-            <div class="dn-connect-card"><span class="dn-agent-mark" aria-hidden="true"><svg class="dn-icon"><use href="#dn-table"/></svg></span><div><strong>表格</strong><span>读写你指定的几张表</span></div><button class="dn-button is-sm" type="button">连接</button></div>
-            <div class="dn-connect-card"><span class="dn-agent-mark" aria-hidden="true"><svg class="dn-icon"><use href="#dn-chat"/></svg></span><div><strong>即时消息</strong><span>在群里收到提问时回复</span></div><button class="dn-button is-sm" type="button">连接</button></div>
+            <div class="dn-connect-card"><span class="dn-mark" aria-hidden="true"><svg class="dn-icon"><use href="#dn-cloud"/></svg></span><span class="dn-item-text"><span class="dn-item-title">网盘</span><span class="dn-item-detail">读取共享文件夹里的文件</span></span><button class="dn-button is-sm" type="button">连接</button></div>
+            <div class="dn-connect-card"><span class="dn-mark" aria-hidden="true"><svg class="dn-icon"><use href="#dn-table"/></svg></span><span class="dn-item-text"><span class="dn-item-title">表格</span><span class="dn-item-detail">读写你指定的几张表</span></span><button class="dn-button is-sm" type="button">连接</button></div>
+            <div class="dn-connect-card"><span class="dn-mark" aria-hidden="true"><svg class="dn-icon"><use href="#dn-chat"/></svg></span><span class="dn-item-text"><span class="dn-item-title">即时消息</span><span class="dn-item-detail">在群里收到提问时回复</span></span><button class="dn-button is-sm" type="button">连接</button></div>
           </div>
         </section>
         <section>
@@ -81,22 +79,22 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
     <header class="dn-toolbar"><button class="dn-button is-plain is-sm" type="button"><svg class="dn-icon" aria-hidden="true"><use href="#dn-chevron-left"/></svg>工具与连接</button></header>
     <div class="dn-app-content">
       <div class="dn-connect">
-        <div class="dn-connect-head"><span class="dn-agent-mark" aria-hidden="true"><svg class="dn-icon"><use href="#dn-mail"/></svg></span><div><h3>邮件</h3><p>lin@deernova.me，11月2日授权</p></div></div>
+        <div class="dn-connect-head"><span class="dn-mark" aria-hidden="true"><svg class="dn-icon"><use href="#dn-mail"/></svg></span><div><h3>邮件</h3><p>lin@deernova.me，11月2日授权</p></div></div>
         <section>
           <h3>它能做什么</h3>
-          <ul class="dn-perms">
-            <li class="dn-perm"><span class="dn-perm-name">读取邮件<span>搜索和读取收件箱里的邮件</span></span><div class="dn-select"><select aria-label="读取邮件的权限"><option>总是允许</option><option>每次询问</option><option>不允许</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></div></li>
-            <li class="dn-perm"><span class="dn-perm-name">起草邮件<span>存成草稿，不会发出去</span></span><div class="dn-select"><select aria-label="起草邮件的权限"><option>总是允许</option><option>每次询问</option><option>不允许</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></div></li>
-            <li class="dn-perm"><span class="dn-perm-name">发送邮件<span>以 lin@deernova.me 的名义发出</span></span><div class="dn-select"><select aria-label="发送邮件的权限"><option>每次询问</option><option>总是允许</option><option>不允许</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></div></li>
-            <li class="dn-perm"><span class="dn-perm-name">删除邮件<span>移到废纸篓</span></span><div class="dn-select"><select aria-label="删除邮件的权限"><option>不允许</option><option>每次询问</option><option>总是允许</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></div></li>
+          <ul class="dn-list">
+            <li class="dn-list-row"><span class="dn-item-text"><span class="dn-item-title">读取邮件</span><span class="dn-item-detail">搜索和读取收件箱里的邮件</span></span><span class="dn-list-control"><div class="dn-select"><select aria-label="读取邮件的权限"><option>总是允许</option><option>每次询问</option><option>不允许</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></div></span></li>
+            <li class="dn-list-row"><span class="dn-item-text"><span class="dn-item-title">起草邮件</span><span class="dn-item-detail">存成草稿，不会发出去</span></span><span class="dn-list-control"><div class="dn-select"><select aria-label="起草邮件的权限"><option>总是允许</option><option>每次询问</option><option>不允许</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></div></span></li>
+            <li class="dn-list-row"><span class="dn-item-text"><span class="dn-item-title">发送邮件</span><span class="dn-item-detail">以 lin@deernova.me 的名义发出</span></span><span class="dn-list-control"><div class="dn-select"><select aria-label="发送邮件的权限"><option>每次询问</option><option>总是允许</option><option>不允许</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></div></span></li>
+            <li class="dn-list-row"><span class="dn-item-text"><span class="dn-item-title">删除邮件</span><span class="dn-item-detail">移到废纸篓</span></span><span class="dn-list-control"><div class="dn-select"><select aria-label="删除邮件的权限"><option>不允许</option><option>每次询问</option><option>总是允许</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></div></span></li>
           </ul>
           <p class="dn-connect-note">这是所有智能体的上限；每个智能体可以在自己的配置里再收紧。</p>
         </section>
         <section>
           <h3>谁在用</h3>
           <ul class="dn-rows">
-            <li class="dn-rows-item"><span class="dn-agent-mark" aria-hidden="true">票</span><a class="dn-rows-text" href="#"><span class="dn-rows-title">发票整理</span><span class="dn-rows-detail">读取邮件</span></a></li>
-            <li class="dn-rows-item"><span class="dn-agent-mark" aria-hidden="true"><svg class="dn-icon"><use href="#dn-mail"/></svg></span><a class="dn-rows-text" href="#"><span class="dn-rows-title">客服回复</span><span class="dn-rows-detail">读取邮件、起草邮件</span></a></li>
+            <li class="dn-rows-item"><span class="dn-mark" aria-hidden="true">票</span><a class="dn-rows-text" href="#"><span class="dn-rows-title">发票整理</span><span class="dn-rows-detail">读取邮件</span></a></li>
+            <li class="dn-rows-item"><span class="dn-mark" aria-hidden="true"><svg class="dn-icon"><use href="#dn-mail"/></svg></span><a class="dn-rows-text" href="#"><span class="dn-rows-title">客服回复</span><span class="dn-rows-detail">读取邮件、起草邮件</span></a></li>
           </ul>
         </section>
         <section>

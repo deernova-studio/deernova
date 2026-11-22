@@ -26,8 +26,6 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 ```css
 .dn-library { display: grid; grid-template-columns: minmax(0, 1fr) var(--pane-width); flex: 1; min-height: 0; }
 .dn-library-main { min-width: 0; min-height: 0; overflow: auto; padding: var(--space-3) var(--page-margin) var(--space-8); }
-.dn-library-name { display: grid; gap: 2px; min-width: 0; }
-.dn-library-name > span:last-child { color: var(--ink-tertiary); font: var(--type-footnote); }
 .dn-library .dn-table td { height: calc(var(--table-row-height) + var(--space-4)); }
 .dn-library td.is-unused { color: var(--ink-tertiary); }
 .dn-library-aside { display: flex; flex-direction: column; gap: var(--space-5); min-height: 0; overflow-y: auto; padding: var(--space-4); border-left: var(--stroke-line) solid var(--line); }
@@ -59,11 +57,11 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
           <table class="dn-table">
             <thead><tr><th scope="col">名称</th><th class="is-number" scope="col">多少</th><th scope="col">用在</th><th scope="col">状态</th></tr></thead>
             <tbody>
-              <tr aria-selected="true"><td class="is-primary"><span class="dn-table-cell"><svg class="dn-icon" aria-hidden="true"><use href="#dn-web"/></svg><span class="dn-library-name"><span>帮助中心</span><span>每小时同步</span></span></span></td><td class="is-number">1,284 篇</td><td>客服回复</td><td>同步于 10 分钟前</td></tr>
-              <tr><td class="is-primary"><span class="dn-table-cell"><svg class="dn-icon" aria-hidden="true"><use href="#dn-folder"/></svg><span class="dn-library-name"><span>笔记 / 工作</span><span>连接的文件夹</span></span></span></td><td class="is-number">64 篇</td><td>周报助手</td><td>同步于刚刚</td></tr>
-              <tr><td class="is-primary"><span class="dn-table-cell"><svg class="dn-icon" aria-hidden="true"><use href="#dn-folder"/></svg><span class="dn-library-name"><span>2026 年发票</span><span>上传的文件夹</span></span></span></td><td class="is-number">120 个文件</td><td>发票整理</td><td><div class="dn-progress"><div class="dn-progress-track" role="progressbar" aria-valuenow="27" aria-valuemin="0" aria-valuemax="100" aria-label="处理进度"><div class="dn-progress-bar" style="width: 27%"></div></div><span class="dn-progress-label">32 / 120</span></div></td></tr>
-              <tr><td class="is-primary"><span class="dn-table-cell"><svg class="dn-icon" aria-hidden="true"><use href="#dn-file"/></svg><span class="dn-library-name"><span>产品规格.pdf</span><span>上传的文件</span></span></span></td><td class="is-number">48 页</td><td>代码审查、客服回复</td><td><span class="dn-tag is-warning"><span class="dn-dot"></span>3 页是扫描件，读不出文字</span></td></tr>
-              <tr><td class="is-primary"><span class="dn-table-cell"><svg class="dn-icon" aria-hidden="true"><use href="#dn-folder"/></svg><span class="dn-library-name"><span>竞品资料</span><span>上传的文件夹</span></span></span></td><td class="is-number">18 个文件</td><td class="is-unused">没有智能体在用</td><td>10月3日上传</td></tr>
+              <tr aria-selected="true"><td class="is-primary"><span class="dn-table-cell"><svg class="dn-icon" aria-hidden="true"><use href="#dn-web"/></svg><span class="dn-item-text"><span class="dn-item-title">帮助中心</span><span class="dn-item-detail">每小时同步</span></span></span></td><td class="is-number">1,284 篇</td><td>客服回复</td><td>同步于 10 分钟前</td></tr>
+              <tr><td class="is-primary"><span class="dn-table-cell"><svg class="dn-icon" aria-hidden="true"><use href="#dn-folder"/></svg><span class="dn-item-text"><span class="dn-item-title">笔记 / 工作</span><span class="dn-item-detail">连接的文件夹</span></span></span></td><td class="is-number">64 篇</td><td>周报助手</td><td>同步于刚刚</td></tr>
+              <tr><td class="is-primary"><span class="dn-table-cell"><svg class="dn-icon" aria-hidden="true"><use href="#dn-folder"/></svg><span class="dn-item-text"><span class="dn-item-title">2026 年发票</span><span class="dn-item-detail">上传的文件夹</span></span></span></td><td class="is-number">120 个文件</td><td>发票整理</td><td><div class="dn-progress"><div class="dn-progress-track" role="progressbar" aria-valuenow="27" aria-valuemin="0" aria-valuemax="100" aria-label="处理进度"><div class="dn-progress-bar" style="width: 27%"></div></div><span class="dn-progress-label">32 / 120</span></div></td></tr>
+              <tr><td class="is-primary"><span class="dn-table-cell"><svg class="dn-icon" aria-hidden="true"><use href="#dn-file"/></svg><span class="dn-item-text"><span class="dn-item-title">产品规格.pdf</span><span class="dn-item-detail">上传的文件</span></span></span></td><td class="is-number">48 页</td><td>代码审查、客服回复</td><td><span class="dn-tag is-warning"><span class="dn-dot"></span>3 页是扫描件，读不出文字</span></td></tr>
+              <tr><td class="is-primary"><span class="dn-table-cell"><svg class="dn-icon" aria-hidden="true"><use href="#dn-folder"/></svg><span class="dn-item-text"><span class="dn-item-title">竞品资料</span><span class="dn-item-detail">上传的文件夹</span></span></span></td><td class="is-number">18 个文件</td><td class="is-unused">没有智能体在用</td><td>10月3日上传</td></tr>
             </tbody>
           </table>
         </div>

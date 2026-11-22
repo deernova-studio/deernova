@@ -55,10 +55,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 .dn-doc blockquote { margin: 0 0 var(--space-3); padding-left: var(--space-4); border-left: var(--stroke-control) solid var(--ink); }
 .dn-subpage { display: flex; align-items: center; gap: var(--space-2); margin: 0 0 var(--space-1); color: var(--ink); text-decoration: underline; text-decoration-color: var(--line-control); text-underline-offset: 3px; }
 .dn-subpage > .dn-icon { width: var(--icon-size-md); height: var(--icon-size-md); color: var(--ink-secondary); }
-.dn-embed { display: flex; align-items: center; gap: var(--space-3); margin: 0 0 var(--space-3); padding: var(--space-3); border: var(--stroke-line) solid var(--line); border-radius: var(--radius-md); color: var(--ink); text-decoration: none; }
-.dn-embed > .dn-icon { flex: none; width: var(--icon-size-md); height: var(--icon-size-md); color: var(--ink-secondary); }
-.dn-embed > span { display: grid; flex: 1; min-width: 0; font: var(--type-callout); }
-.dn-embed > span > span { color: var(--ink-tertiary); font: var(--type-footnote); }
+.dn-embed { margin: 0 0 var(--space-3); padding: var(--space-3); border: var(--stroke-line) solid var(--line); border-radius: var(--radius-md); color: var(--ink); text-decoration: none; }
 .dn-columns { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-6); margin: 0 0 var(--space-3); }
 ```
 
@@ -104,7 +101,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
   <details class="dn-toggle" open><summary><svg class="dn-icon" aria-hidden="true"><use href="#dn-chevron-down"/></svg><strong>为什么不改编辑器</strong></summary><p>两件事一起上线，出了问题分不清是谁的。编辑器的改动放到 2.1。</p></details>
   <blockquote><p>迁移这件事，用户只会在出错的时候注意到它。</p></blockquote>
   <a class="dn-subpage" href="#"><svg class="dn-icon" aria-hidden="true"><use href="#dn-document"/></svg>迁移测试记录</a>
-  <a class="dn-embed" href="#"><svg class="dn-icon" aria-hidden="true"><use href="#dn-web"/></svg><span>旧版导出格式说明<span>help.deernova.me</span></span><svg class="dn-icon" aria-hidden="true"><use href="#dn-external"/></svg></a>
+  <a class="dn-embed dn-item" href="#"><svg class="dn-icon" aria-hidden="true"><use href="#dn-web"/></svg><span class="dn-item-text"><span class="dn-item-title">旧版导出格式说明</span><span class="dn-item-detail">help.deernova.me</span></span><svg class="dn-icon dn-item-end" aria-hidden="true"><use href="#dn-external"/></svg></a>
   <div class="dn-columns"><div><h2>迁移</h2><p>笔记、附件、标签。</p></div><div><h2>分享</h2><p>链接、权限、有效期。</p></div></div>
 </article>
 ```

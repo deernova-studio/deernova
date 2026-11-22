@@ -107,7 +107,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 
 ### 窄屏和手机浏览器
 
-- 一屏一列，左右滑动换列，列宽是屏宽减去两边各一点，露出下一列的边，让人知道还能滑。
+- 一屏一列，顶上一行列名用[侧面板的标签](../../../deernova-style/references/components/toolbar.md)加 `is-plain`；左右滑动换列，列宽是屏宽减去两边各一点，露出下一列的边，让人知道还能滑。
 - 拖卡片换成卡片上的「移到…」菜单，列出各列；长按拖动保留，拖到屏幕边缘时自动滑到下一列。
 - 顶栏的视图切换收进「更多」，筛选留在顶栏。
 
@@ -220,7 +220,7 @@ TabView(selection: $column) {
     <div class="ex-phone-status" aria-hidden="true"><span>9:41</span><span>100%</span></div>
     <div class="ex-phone-body">
       <div class="ex-ios-nav"><button class="dn-icon-button" type="button" aria-label="返回"><svg class="dn-icon" aria-hidden="true"><use href="#dn-back"/></svg></button><span class="ex-ios-nav-title">发布 2.0</span><button class="dn-icon-button" type="button" aria-label="新建"><svg class="dn-icon" aria-hidden="true"><use href="#dn-plus"/></svg></button></div>
-      <div class="dn-board-strip" role="tablist" aria-label="列">
+      <div class="dn-panel-tabs is-plain" role="tablist" aria-label="列">
         <button type="button" role="tab" aria-selected="false">待办 6</button>
         <button type="button" role="tab" aria-selected="true">进行中 3</button>
         <button type="button" role="tab" aria-selected="false">审核中 2</button>
@@ -234,14 +234,6 @@ TabView(selection: $column) {
     </div>
   </div>
 </div>
-```
-
-列名那一行在网页窄屏里也用：
-
-```css
-.dn-board-strip { display: flex; gap: var(--space-4); overflow-x: auto; border-bottom: var(--stroke-line) solid var(--line); scrollbar-width: none; }
-.dn-board-strip > button { flex: none; padding: var(--space-2) 0; border: 0; border-bottom: var(--stroke-control) solid transparent; margin-bottom: calc(-1 * var(--stroke-line)); background: none; color: var(--ink-tertiary); font: var(--weight-medium) var(--type-callout-size)/1.2 var(--font-sans); white-space: nowrap; cursor: pointer; }
-.dn-board-strip > [aria-selected="true"] { border-bottom-color: var(--ink); color: var(--ink); }
 ```
 
 ## 状态

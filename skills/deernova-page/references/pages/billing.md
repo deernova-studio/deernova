@@ -42,10 +42,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 .dn-meter > dt { color: var(--ink-secondary); font: var(--type-callout); }
 .dn-meter > dd { display: contents; }
 .dn-meter-text { color: var(--ink); font: var(--type-callout); font-variant-numeric: tabular-nums; text-align: right; }
-.dn-pay { display: flex; align-items: center; gap: var(--space-3); min-height: calc(var(--row-height) + var(--space-4)); padding: 0 var(--space-3); border: var(--stroke-line) solid var(--line); border-radius: var(--radius-md); }
-.dn-pay > .dn-icon { color: var(--ink-secondary); }
-.dn-pay > span { flex: 1; display: grid; font: var(--type-callout); }
-.dn-pay > span > span { color: var(--ink-tertiary); font: var(--type-footnote); }
+.dn-pay { padding: var(--space-3); border: var(--stroke-line) solid var(--line); border-radius: var(--radius-md); }
 .dn-billing .dn-table .is-number { font-variant-numeric: tabular-nums; }
 .dn-billing-end { padding-top: var(--space-5); border-top: var(--stroke-line) solid var(--line); }
 .dn-billing-end > p { margin: 0; max-width: var(--form-max); color: var(--ink-secondary); font: var(--type-callout); }
@@ -74,7 +71,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
         </section>
         <section aria-label="付款方式">
           <h3>付款方式</h3>
-          <div class="dn-pay"><svg class="dn-icon" aria-hidden="true"><use href="#dn-card"/></svg><span>招商银行储蓄卡，尾号 4242<span>2028年3月到期</span></span><button class="dn-button is-plain is-sm" type="button">更换</button></div>
+          <div class="dn-pay dn-item"><svg class="dn-icon" aria-hidden="true"><use href="#dn-card"/></svg><span class="dn-item-text"><span class="dn-item-title">招商银行储蓄卡，尾号 4242</span><span class="dn-item-detail">2028年3月到期</span></span><button class="dn-button is-plain is-sm dn-item-end" type="button">更换</button></div>
         </section>
         <section aria-label="账单">
           <h3>账单</h3>

@@ -16,6 +16,7 @@ Web 应用的页面骨架：左边是[侧边栏](sidebar.md)，中间是内容�
 - **顶栏**：高 `toolbar-height`，`canvas` 底，不透明，底部一条 1px `line`，吸顶（`z-sticky`）。左边是标题（`toolbar-title-size`、常规字重、`ink`，后面一个小箭头，点开是菜单）；右边是一排[图标按钮](button.md)，间隔 2，打开状态的按钮用 `fill-selected` 底。
 - **内容区**：对话栏宽度不超过 `content-max`，左右至少留 `page-margin` + `space-3`；Composer 左右留 `page-margin`。
 - **侧面板**：左边一条 1px `line`，`canvas` 底，默认占内容区的 40%，可以拖动。顶部是标签头，和顶栏同高、底部同样一条线；标签高 `panel-tab-height`，当前标签 `fill-selected` 底、`ink` 字，其他 `ink-secondary`；最右边是关闭、放大按钮。
+- **内容区里的视图标签**（数据库的「全部」「按状态」，手机上一屏一列的看板列名）也用这一组标签，加 `is-plain`：不占顶栏高度，底部一条线，标签可以带一个小图标，放不下时横向滑动。不要另做一套下划线标签。
 - 窄于 `breakpoint-md`（960）时侧面板改成覆盖在内容上的[抽屉](sheet.md)；窄于 `breakpoint-sm`（760）时侧边栏也收起成抽屉。
 
 ## Web
@@ -69,6 +70,10 @@ Web 应用的页面骨架：左边是[侧边栏](sidebar.md)，中间是内容�
   border-bottom: var(--stroke-line) solid var(--line);
 }
 .dn-panel-tabs [role="tab"] {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: var(--space-1);
   height: var(--panel-tab-height);
   padding: 0 var(--space-3);
   border: 0;
@@ -81,7 +86,9 @@ Web 应用的页面骨架：左边是[侧边栏](sidebar.md)，中间是内容�
 }
 @media (hover: hover) { .dn-panel-tabs [role="tab"]:hover { color: var(--ink); } }
 .dn-panel-tabs [role="tab"][aria-selected="true"] { background: var(--fill-selected); color: var(--ink); }
-.dn-panel-tabs .dn-panel-actions { display: flex; gap: 2px; margin-left: auto; }
+.dn-panel-tabs [role="tab"] > .dn-icon { width: var(--icon-size-sm); height: var(--icon-size-sm); }
+.dn-panel-tabs.is-plain { height: auto; padding: 0 0 var(--space-2); overflow-x: auto; scrollbar-width: none; }
+.dn-panel-tabs .dn-panel-actions { display: flex; align-items: center; gap: 2px; margin-left: auto; }
 .dn-panel-body { flex: 1; min-height: 0; overflow: auto; padding: var(--space-3) var(--space-4); font: var(--type-code); color: var(--ink-secondary); }
 ```
 

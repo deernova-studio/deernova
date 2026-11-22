@@ -48,9 +48,6 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 .dn-wizard-invite > .dn-input { flex: 1; min-width: 0; }
 .dn-people { display: grid; margin: 0; padding: 0; list-style: none; }
 .dn-people > li { display: grid; grid-template-columns: auto minmax(0, 1fr) 128px auto; align-items: center; gap: var(--space-3); min-height: calc(var(--row-height) + var(--space-4)); border-bottom: var(--stroke-line) solid var(--line); }
-.dn-people > li > .dn-avatar { width: var(--button-height-md); height: var(--button-height-md); }
-.dn-people-name { display: grid; min-width: 0; font: var(--type-callout); }
-.dn-people-name > span:last-child { overflow: hidden; color: var(--ink-tertiary); font: var(--type-footnote); text-overflow: ellipsis; }
 .dn-people-pending { color: var(--ink-tertiary); font: var(--type-footnote); }
 .dn-recap { display: grid; gap: var(--space-5); }
 .dn-recap > section { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--space-2) var(--space-4); padding-bottom: var(--space-5); border-bottom: var(--stroke-line) solid var(--line); }
@@ -90,9 +87,9 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
               <p class="dn-field-help" id="ex-wiz-invite-help">对方会收到一封邮件，7 天内有效。</p>
             </div>
             <ul class="dn-people" aria-label="已添加的成员">
-              <li><span class="dn-avatar" aria-hidden="true">林</span><span class="dn-people-name"><span>林一（你）</span><span>lin@deernova.me</span></span><span class="dn-people-pending">所有者</span><span></span></li>
-              <li><span class="dn-avatar" aria-hidden="true">周</span><span class="dn-people-name"><span>周舟</span><span>zhou@deernova.me</span></span><span class="dn-select"><select aria-label="周舟的角色"><option selected>可以编辑</option><option>只能查看</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span><button class="dn-icon-button" type="button" aria-label="移除周舟"><svg class="dn-icon" aria-hidden="true"><use href="#dn-close"/></svg></button></li>
-              <li><span class="dn-avatar" aria-hidden="true">s</span><span class="dn-people-name"><span>shen@studio.cn</span><span>还没有账户，会收到注册邀请</span></span><span class="dn-select"><select aria-label="shen@studio.cn 的角色"><option selected>可以编辑</option><option>只能查看</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span><button class="dn-icon-button" type="button" aria-label="移除 shen@studio.cn"><svg class="dn-icon" aria-hidden="true"><use href="#dn-close"/></svg></button></li>
+              <li><span class="dn-avatar is-lg" aria-hidden="true">林</span><span class="dn-item-text"><span class="dn-item-title">林一（你）</span><span class="dn-item-detail">lin@deernova.me</span></span><span class="dn-people-pending">所有者</span><span></span></li>
+              <li><span class="dn-avatar is-lg" aria-hidden="true">周</span><span class="dn-item-text"><span class="dn-item-title">周舟</span><span class="dn-item-detail">zhou@deernova.me</span></span><span class="dn-select"><select aria-label="周舟的角色"><option selected>可以编辑</option><option>只能查看</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span><button class="dn-icon-button" type="button" aria-label="移除周舟"><svg class="dn-icon" aria-hidden="true"><use href="#dn-close"/></svg></button></li>
+              <li><span class="dn-avatar is-lg" aria-hidden="true">s</span><span class="dn-item-text"><span class="dn-item-title">shen@studio.cn</span><span class="dn-item-detail">还没有账户，会收到注册邀请</span></span><span class="dn-select"><select aria-label="shen@studio.cn 的角色"><option selected>可以编辑</option><option>只能查看</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span><button class="dn-icon-button" type="button" aria-label="移除 shen@studio.cn"><svg class="dn-icon" aria-hidden="true"><use href="#dn-close"/></svg></button></li>
             </ul>
             <fieldset class="dn-choice-group">
               <legend>谁能找到这个项目</legend>
@@ -185,8 +182,8 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
       <div class="dn-wizard-invite"><input class="dn-input" id="ex-mac-wiz-invite" type="email" placeholder="邮箱，多个用逗号隔开"><button class="dn-button" type="button">添加</button></div>
     </div>
     <ul class="dn-people" aria-label="已添加的成员">
-      <li><span class="dn-avatar" aria-hidden="true">林</span><span class="dn-people-name"><span>林一（你）</span><span>lin@deernova.me</span></span><span class="dn-people-pending">所有者</span><span></span></li>
-      <li><span class="dn-avatar" aria-hidden="true">周</span><span class="dn-people-name"><span>周舟</span><span>zhou@deernova.me</span></span><span class="dn-select"><select aria-label="周舟的角色"><option selected>可以编辑</option><option>只能查看</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span><button class="dn-icon-button" type="button" aria-label="移除周舟"><svg class="dn-icon" aria-hidden="true"><use href="#dn-close"/></svg></button></li>
+      <li><span class="dn-avatar is-lg" aria-hidden="true">林</span><span class="dn-item-text"><span class="dn-item-title">林一（你）</span><span class="dn-item-detail">lin@deernova.me</span></span><span class="dn-people-pending">所有者</span><span></span></li>
+      <li><span class="dn-avatar is-lg" aria-hidden="true">周</span><span class="dn-item-text"><span class="dn-item-title">周舟</span><span class="dn-item-detail">zhou@deernova.me</span></span><span class="dn-select"><select aria-label="周舟的角色"><option selected>可以编辑</option><option>只能查看</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span><button class="dn-icon-button" type="button" aria-label="移除周舟"><svg class="dn-icon" aria-hidden="true"><use href="#dn-close"/></svg></button></li>
     </ul>
     <div class="dn-form-actions"><button class="dn-button is-plain" type="button">取消</button><button class="dn-button" type="button">上一步</button><button class="dn-button is-primary" type="button">下一步</button></div>
   </div>

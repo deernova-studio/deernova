@@ -28,7 +28,6 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 
 ```css
 .dn-workspace { display: flex; align-items: center; gap: var(--space-2); min-height: var(--row-height); padding: 0 var(--row-padding-x); border: 0; border-radius: var(--row-radius); background: none; color: var(--ink); font: var(--weight-semibold) var(--type-callout-size)/1.2 var(--font-sans); text-align: left; cursor: pointer; }
-.dn-workspace > .dn-agent-mark { width: 22px; height: 22px; font-size: var(--type-caption-size); }
 .dn-workspace > .dn-icon { width: var(--icon-size-sm); height: var(--icon-size-sm); color: var(--ink-tertiary); }
 .dn-tree, .dn-tree ul { margin: 0; padding: 0; list-style: none; }
 .dn-tree ul { padding-left: var(--space-4); }
@@ -48,7 +47,6 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 .dn-ws-home h2 { margin: 0 0 var(--space-2); color: var(--ink-tertiary); font: var(--weight-medium) var(--type-footnote-size)/var(--type-footnote-line) var(--font-sans); }
 .dn-ws-path { color: var(--ink-tertiary); }
 .dn-ws-home .dn-rows-item > .dn-icon { flex: none; width: var(--icon-size-md); height: var(--icon-size-md); margin-top: calc((var(--type-body-line) - var(--icon-size-md)) / 2); color: var(--ink-secondary); }
-.dn-ws-home .dn-rows-item > .dn-avatar { align-self: center; width: var(--button-height-md); height: var(--button-height-md); }
 ```
 
 工作区首页：侧边栏里是收藏和两组页面树；主区只有最近编辑和提到你的评论：
@@ -56,7 +54,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 ```html
 <div class="dn-app ex-page is-tall">
   <nav class="dn-sidebar" aria-label="侧边栏">
-    <button class="dn-workspace" type="button" aria-haspopup="menu"><span class="dn-agent-mark" aria-hidden="true">鹿</span>鹿野工作室<svg class="dn-icon" aria-hidden="true"><use href="#dn-chevron-down"/></svg></button>
+    <button class="dn-workspace" type="button" aria-haspopup="menu"><span class="dn-mark is-sm" aria-hidden="true">鹿</span>鹿野工作室<svg class="dn-icon" aria-hidden="true"><use href="#dn-chevron-down"/></svg></button>
     <div class="dn-sidebar-section">
       <a class="dn-sidebar-item" href="#"><svg class="dn-icon" aria-hidden="true"><use href="#dn-search"/></svg><span class="dn-sidebar-label">搜索</span><span class="dn-sidebar-count">⌘K</span></a>
       <a class="dn-sidebar-item" href="#" aria-current="page"><svg class="dn-icon" aria-hidden="true"><use href="#dn-home"/></svg><span class="dn-sidebar-label">首页</span></a>
@@ -93,8 +91,8 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
         <section aria-label="提到你的">
           <h2>提到你的</h2>
           <ul class="dn-rows">
-            <li class="dn-rows-item"><span class="dn-avatar" aria-hidden="true">沈</span><a class="dn-rows-text" href="#"><span class="dn-rows-title">沈遥在「发布清单」里提到你</span><span class="dn-rows-detail">灰度比例要不要从 5% 开始？@林一 你定一下。</span></a></li>
-            <li class="dn-rows-item"><span class="dn-avatar" aria-hidden="true">周</span><a class="dn-rows-text" href="#"><span class="dn-rows-title">周舟回复了你的评论</span><span class="dn-rows-detail">附件导入那段我补了截图，再看看。</span></a></li>
+            <li class="dn-rows-item"><span class="dn-avatar is-lg" aria-hidden="true">沈</span><a class="dn-rows-text" href="#"><span class="dn-rows-title">沈遥在「发布清单」里提到你</span><span class="dn-rows-detail">灰度比例要不要从 5% 开始？@林一 你定一下。</span></a></li>
+            <li class="dn-rows-item"><span class="dn-avatar is-lg" aria-hidden="true">周</span><a class="dn-rows-text" href="#"><span class="dn-rows-title">周舟回复了你的评论</span><span class="dn-rows-detail">附件导入那段我补了截图，再看看。</span></a></li>
           </ul>
         </section>
       </div>
