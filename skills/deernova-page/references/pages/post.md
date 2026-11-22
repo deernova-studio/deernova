@@ -25,7 +25,7 @@
 HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机浏览器见本节最后。头像、帖子、操作行和发布框的写法同[图文信息流](feed.md)。
 
 ```css
-.dn-thread-page { max-width: 600px; margin-inline: auto; }
+.dn-thread-page { max-width: var(--content-max); margin-inline: auto; }
 .dn-entry.is-parent { position: relative; border-bottom: 0; }
 .dn-entry.is-parent::before { content: ""; position: absolute; top: calc(var(--space-4) + 44px); bottom: -4px; left: 19px; width: 2px; border-radius: 1px; background: var(--line); }
 .dn-thread-fold { display: flex; align-items: center; gap: var(--space-3); padding: 0 0 var(--space-2); color: var(--link); font: var(--type-callout); text-decoration: none; }

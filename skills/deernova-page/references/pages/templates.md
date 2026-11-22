@@ -24,11 +24,11 @@
 HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机浏览器见本节最后。
 
 ```css
-.dn-templates { display: grid; grid-template-columns: 200px minmax(0, 1fr); flex: 1; min-height: 0; }
+.dn-templates { display: grid; grid-template-columns: var(--sidebar-width-min) minmax(0, 1fr); flex: 1; min-height: 0; }
 .dn-templates-main { min-width: 0; overflow-y: auto; padding: var(--space-6) var(--page-margin) var(--space-10); }
 .dn-templates-main h3 { margin: 0 0 var(--space-3); color: var(--ink-tertiary); font: var(--weight-medium) var(--type-footnote-size)/var(--type-footnote-line) var(--font-sans); }
 .dn-templates-main .dn-gallery { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); margin-bottom: var(--space-8); }
-.dn-mini-doc { display: grid; align-content: start; gap: 5px; height: 100%; padding: var(--space-3) var(--space-4); color: var(--ink-tertiary); font: var(--weight-regular) 9px/1.4 var(--font-sans); }
+.dn-mini-doc { display: grid; align-content: start; gap: var(--space-1); height: 100%; padding: var(--space-3) var(--space-4); color: var(--ink-tertiary); font: var(--weight-regular) calc(var(--type-caption-size) * 0.75)/1.4 var(--font-sans); }
 .dn-mini-doc > strong { margin-bottom: 2px; color: var(--ink); font: var(--weight-semibold) var(--type-caption-size)/1.3 var(--font-serif); }
 .dn-mini-doc > b { margin-top: 3px; color: var(--ink-secondary); font-weight: var(--weight-semibold); }
 .dn-mini-doc > i { display: block; height: 5px; border-radius: var(--radius-full); background: var(--fill-selected); font-style: normal; }

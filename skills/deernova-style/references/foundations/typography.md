@@ -35,7 +35,7 @@ Windows 和 Android 上会落到各自的系统字体，这是预期的，不要
 只用 400、500、600（`weight-regular`、`weight-medium`、`weight-semibold`），不用 700 以上。层次先靠字号和灰度，再考虑字重：
 
 - 600：`display`、`title`、`headline`，以及 AI 回答里的加粗。
-- 500：按钮、标签、表单标签。侧边栏的选中项靠底色区分，不加粗。
+- 500：按钮、标签、表单标签，以及一行里需要先被看到的名字（列表、信息流、表格第一列里的标题和人名）。侧边栏的选中项靠底色区分，不加粗。
 - 400：其余全部，包括侧边栏分组标题（`footnote` + `ink-tertiary`）、会话名、顶栏标题、说明、时间戳。
 - **深色主题减 40**：浅字在深底上显得更粗，深色主题里三档自动变成 360、460、560，浅色和深色看起来一样重。这由变量完成，代码里照常写 `var(--weight-regular)` 或 `font: var(--type-body)`，不要自己写数字。组件变量自带字重时（例如 `--button-font-weight`），写成 `calc(var(--button-font-weight) + var(--weight-shift))`。SF Pro 能渲染中间字重；中文的苹方没有这些档位，保持原来的字重。SwiftUI 只有固定档位，原生端不补偿。
 
@@ -47,7 +47,7 @@ Windows 和 Android 上会落到各自的系统字体，这是预期的，不要
 - **官网和文档的标题用宋体。** 这类页面的大标题、区块标题、文章标题用 `--font-display`：英文是 New York，中文是思源宋体（Noto Serif SC 或 Source Han Serif SC，SIL OFL，可商用）。字重 `weight-semibold`。中文标题在语义停顿处手动换行（`<br>`），不让浏览器从词中间断开；英文标题加 `text-wrap: balance`。
   - 字体自己托管：用 fontTools 把标题里出现的字切成 WOFF2 子集（`pyftsubset 字体.otf --text-file=标题.txt --flavor=woff2`），控制在 200 KB 以内，`@font-face` 里写 `font-display: swap`。国内访问不到 Google Fonts，不要从那里加载。
   - 没加载到时退回苹方，页面照常可读。
-  - 只用在标题上：正文、按钮、表单和整个应用界面都不用宋体，`--type-display` 和 `--type-title` 在应用里仍然是中文落苹方。
+  - 只用在标题上：正文、按钮、表单和整个应用界面都不用宋体，`--type-display` 和 `--type-title` 用 display 字族，应用里的页面标题和弹窗标题中文也是宋体：先用思源宋体（网站里放了只含示例用字的子集），没装时落到系统的宋体。
 - 界面紧凑不等于字小：最小的字是 12（`caption`）。
 
 ## 不要

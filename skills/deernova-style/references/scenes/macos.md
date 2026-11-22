@@ -3,7 +3,7 @@
 Mac 应用分两部分处理：
 
 - **系统的部分**（侧边栏、工具栏、菜单、设置窗口、表单、弹窗）：直接用系统控件和系统尺寸，自带 Liquid Glass。不要盖掉玻璃，也不要硬改成 Web 的尺寸。
-- **自己画的内容区**（对话、卡片、Composer、任务清单）：用**桌面**密度（`desktop`），和 Web 应用一致：正文 15/24、卡片圆角 12、Composer 单行 44、按钮 28。
+- **自己画的内容区**（对话、卡片、Composer、任务清单）：用**桌面**密度（`desktop`），和 Web 应用一致：正文 15/24、卡片圆角 12、Composer 单行 44、按钮 32。
 
 SwiftUI 的通用写法见 [SwiftUI 共用](swiftui.md)。
 
@@ -48,7 +48,7 @@ Apple 没有公布工具栏按钮的点数，大小由系统决定，代码里�
 ## 尺寸
 
 - 系统控件：用系统按钮加 `.controlSize(…)`、系统 `List`，尺寸交给系统。
-- 自己画的内容区：用 `Deernova.*`（macOS 上是桌面密度）：按钮 28（`buttonHeightMd`）、卡片圆角 12、内边距 12 × 16、Composer 单行 44、正文 `.deernovaBody`（15）。
+- 自己画的内容区：用 `Deernova.*`（macOS 上是桌面密度）：按钮 32（`buttonHeightMd`）、卡片圆角 12、内边距 12 × 16、Composer 单行 44、正文 `.deernovaBody`（15）。
 - 图标按钮至少 24×24（`hit-min`）。
 
 ## 交互

@@ -10,13 +10,31 @@ description: Deernova 的页面布局：一种页面由哪些区块组成、按�
 ## 和 deernova-style 的分工
 
 - style 管一个东西长什么样：颜色、字体、尺寸、组件。page 管一页里有哪些东西、怎么排。
-- 先按 style 的总则和场景定好密度，再读这里。page 不定义新的数值和组件。每份页面文件的示例 CSS 只写页面骨架（分栏、栏宽、区块间距），全部引用 style 的变量；项目里换成自己的类名。
+- 先按 style 的总则和场景定好密度，再读这里。page 不定义新的数值和组件；页面里自己的 class 只管这一页的骨架，几页共用的见下面的「几页共用的写法」。每份页面文件的示例 CSS 只写页面骨架（分栏、栏宽、区块间距），全部引用 style 的变量；项目里换成自己的类名。
 - 官网类页面（主页、文档页、博客页）共用[主页](references/pages/home.md)示例里的页眉和页脚：主页的页眉是浮在插画上的玻璃条，文档页和博客页用不带玻璃的那一种。三种页面的标题都用 `--font-display`（中文思源宋体）。
 - 两边说法不一致时，以 style 为准，并告诉用户哪里不一致。
 
+## 几页共用的写法
+
+有些写法在一页里定义、在别的页面的示例里直接用。复制某一页的示例时，下表里的 class 要连同它所在页面的 CSS 一起拿：
+
+| class | 写法在哪一页 | 是什么 |
+| --- | --- | --- |
+| `dn-rows*` | [列表页](references/pages/list.md) | 单栏列表的一行：标题、最多两行备注、行尾的值 |
+| `dn-props` | [详情页](references/pages/detail.md) | 属性表：左边名字、右边值 |
+| `dn-editor*`、`dn-doc`、`dn-save-state` | [文档编辑页](references/pages/editor.md) | 文档的正文栏、标题和正文样式、「已保存」 |
+| `dn-entry*`、`dn-feed-compose` | [图文信息流](references/pages/feed.md) | 一条帖子：头像、作者、正文、操作，以及写帖框 |
+| `dn-site*`、`dn-hero*` | [主页](references/pages/home.md) | 官网的页眉、字标和首屏 |
+| `dn-tile*` | [卡片页](references/pages/cards.md) | 缩略图卡片 |
+| `dn-kpi*` | [数据概览页](references/pages/dashboard.md) | 关键数字 |
+| `dn-article*` | [博客页](references/pages/blog.md) | 长文的标题和正文 |
+| `dn-settings-nav` | [设置页](references/pages/settings.md) | 左边的分类栏 |
+| `dn-agent-state` | [AI 任务页](references/pages/task.md) | 智能体的运行状态 |
+| `dn-ws-path` | [工作区与页面树](references/pages/workspace.md) | 顶栏里的页面路径 |
+
 ## 页面
 
-按页面是做什么的分成七组。每份页面文件先写各端共用的区块，再分「网页」（HTML 和 CSS，包括窄屏和手机浏览器）、「Mac 应用」和「iPhone 应用」（SwiftUI）三节；只在浏览器里打开的页面只有网页一节。三端是同一个设计：区块、设计变量、组件和文案都相同，Mac 和 iPhone 两节只写外壳的不同。iPad 按 Mac 应用的结构、触控的尺寸来做。
+按页面是做什么的分成七组。每份页面文件先写各端共用的区块，再分「网页」（HTML 和 CSS，包括窄屏和手机浏览器）、「Mac 应用」和「iPhone 应用」（SwiftUI）三节；只在浏览器里打开的页面只有网页一节。三端是同一个设计：区块、设计变量、组件和文案都相同，Mac 和 iPhone 两节只写外壳的不同。网页的示例大多只画内容区；放进应用里时，外面的侧边栏和顶栏按 style 的 [Web 应用场景](../deernova-style/references/scenes/web.md) 来，内容区按这里排。iPad 按 Mac 应用的结构、触控的尺寸来做。
 
 ### AI 系统
 

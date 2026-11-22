@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>发布 2.0 看板</title>
+<link rel="stylesheet" href="../../../../skills/deernova-style/assets/tokens.css">
+<style>
+  /* 全局：焦点、滚动条、页面不滚动 */
+  html, body { height: 100%; margin: 0; }
+  body { overflow: hidden; background: var(--canvas); color: var(--ink); font: var(--type-body); -webkit-font-smoothing: antialiased; }
+  :focus-visible { outline: var(--stroke-focus) solid var(--focus-ring); outline-offset: var(--focus-offset); }
+  h1, h2, h3, p, ul { margin: 0; }
+  .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+  @supports selector(::-webkit-scrollbar) {
+    ::-webkit-scrollbar { width: var(--scrollbar-size); height: var(--scrollbar-size); }
+    ::-webkit-scrollbar-track, ::-webkit-scrollbar-corner { background: transparent; }
+    ::-webkit-scrollbar-thumb { border: calc((var(--scrollbar-size) - var(--scrollbar-thumb-size)) / 2) solid transparent; border-radius: var(--radius-full); background: var(--line-control) padding-box; }
+    ::-webkit-scrollbar-thumb:hover, ::-webkit-scrollbar-thumb:active { background-color: var(--ink-tertiary); }
+    ::-webkit-scrollbar-button { display: none; }
+  }
+  @supports not selector(::-webkit-scrollbar) {
+    * { scrollbar-width: thin; scrollbar-color: var(--line-control) transparent; }
+  }
+
+  /* 图标 */
+  .dn-icon { width: var(--icon-size-md); height: var(--icon-size-md); flex: none; fill: none; stroke: currentColor; stroke-width: var(--icon-stroke); stroke-linecap: var(--line-cap); stroke-linejoin: var(--line-join); }
+
+  /* 页面骨架与顶栏 */
+  .dn-app { display: grid; grid-template-columns: minmax(0, 1fr); height: 100dvh; background: var(--canvas); color: var(--ink); }
+  .dn-app-main { display: flex; flex-direction: column; min-width: 0; min-height: 0; }
+  .dn-toolbar { position: sticky; top: 0; z-index: var(--z-sticky); display: flex; align-items: center; gap: var(--space-2); flex: none; height: var(--toolbar-height); padding: 0 var(--space-2) 0 var(--space-3); border-bottom: var(--stroke-line) solid var(--line); background: var(--canvas); }
+  .dn-toolbar-heading { display: flex; min-width: 0; font: inherit; }
+  .dn-toolbar-title { display: inline-flex; align-items: center; gap: var(--space-1); min-width: 0; height: var(--button-height-md); padding: 0 var(--space-2); border: 0; border-radius: var(--button-radius); background: transparent; color: var(--ink); font: var(--weight-regular) var(--toolbar-title-size)/1 var(--font-sans); cursor: pointer; transition: background-color var(--duration-instant) var(--ease-standard); }
+  .dn-toolbar-title span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .dn-toolbar-title .dn-icon { width: var(--icon-size-sm); height: var(--icon-size-sm); color: var(--ink-secondary); }
+  @media (hover: hover) { .dn-toolbar-title:hover { background: var(--fill-hover); } }
+  .dn-toolbar-title:active { background: var(--fill-selected); }
+  .dn-toolbar-actions { display: flex; align-items: center; gap: var(--space-2); margin-left: auto; }
+
+  /* 分段控件 */
+  .dn-segmented { display: inline-flex; flex: none; gap: 2px; padding: var(--segmented-padding); border-radius: var(--segmented-radius); background: var(--fill-selected); }
+  .dn-segmented button { position: relative; height: var(--segmented-height); padding: 0 var(--segmented-padding-x); border: 0; border-radius: calc(var(--segmented-radius) - var(--segmented-padding)); background: transparent; color: var(--ink-secondary); font: var(--weight-medium) var(--segmented-font-size)/1 var(--font-sans); white-space: nowrap; cursor: pointer; transition: background-color var(--duration-instant) var(--ease-standard), color var(--duration-instant) var(--ease-standard); }
+  @media (hover: hover) { .dn-segmented button:hover { color: var(--ink); } }
+  .dn-segmented button[aria-pressed="true"] { background: var(--surface-raised); color: var(--ink); box-shadow: var(--shadow-control); }
+  .dn-segmented button:focus-visible { outline: var(--stroke-focus) solid var(--focus-ring); outline-offset: calc(-1 * var(--stroke-focus)); }
+
+  /* 按钮 */
+  .dn-button { position: relative; isolation: isolate; display: inline-flex; align-items: center; justify-content: center; gap: var(--gap-inline); height: var(--button-height-md); padding: 0 var(--button-padding-x-md); border: 0; border-radius: var(--button-radius); background: none; color: var(--ink); font: calc(var(--button-font-weight) + var(--weight-shift)) var(--button-font-size-md)/1 var(--font-sans); white-space: nowrap; text-decoration: none; cursor: pointer; transition: color var(--duration-instant) var(--ease-standard), opacity var(--duration-instant) var(--ease-standard); }
+  .dn-button:focus-visible { outline: var(--stroke-focus) solid var(--focus-ring); outline-offset: var(--focus-offset); }
+  .dn-button:disabled { opacity: var(--opacity-disabled); cursor: default; }
+  .dn-button.is-primary { color: var(--on-accent); }
+  .dn-button.is-primary::after { background-color: var(--accent); }
+  @media (hover: hover) { .dn-button.is-primary:hover:not(:disabled) { opacity: var(--opacity-solid-hover); } }
+  .dn-button.is-primary:active:not(:disabled) { opacity: var(--opacity-solid-hover); }
+  .dn-button.is-plain { color: var(--ink-secondary); }
+  .dn-button.is-plain::after { background-color: transparent; }
+  @media (hover: hover) { .dn-button.is-plain:hover:not(:disabled) { color: var(--ink); } }
+  .dn-button.is-plain:active:not(:disabled) { color: var(--ink); }
+  .dn-button.is-sm { height: var(--button-height-sm); padding: 0 var(--button-padding-x-sm); border-radius: var(--button-radius-sm); font-size: var(--button-font-size-sm); }
+  .dn-button .dn-icon { width: var(--icon-size-sm); height: var(--icon-size-sm); }
+  .dn-icon-button { position: relative; isolation: isolate; display: inline-grid; place-items: center; flex: none; width: var(--button-height-md); height: var(--button-height-md); padding: 0; border: 0; border-radius: var(--button-radius); background: none; color: var(--ink-secondary); cursor: pointer; transition: color var(--duration-instant) var(--ease-standard); }
+  @media (hover: hover) { .dn-icon-button:hover { color: var(--ink); } }
+  .dn-icon-button:active { color: var(--ink); }
+  .dn-icon-button:focus-visible { outline: var(--stroke-focus) solid var(--focus-ring); outline-offset: var(--focus-offset); }
+  .dn-button::after, .dn-icon-button::after { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; background-color: var(--fill-selected); transition: background-color var(--duration-instant) var(--ease-standard), transform var(--duration-release) var(--ease-release); }
+  .dn-icon-button::after { background-color: transparent; }
+  @media (hover: hover) {
+    .dn-button:hover:not(:disabled)::after { background-image: linear-gradient(var(--fill-hover), var(--fill-hover)); }
+    .dn-button.is-primary:hover::after { background-image: none; }
+    .dn-button.is-plain:hover:not(:disabled)::after, .dn-icon-button:hover::after { background-color: var(--fill-hover); background-image: none; }
+  }
+  .dn-button:active:not(:disabled)::after { background-image: linear-gradient(var(--fill-selected), var(--fill-selected)); }
+  .dn-button.is-primary:active::after { background-image: none; }
+  .dn-button.is-plain:active:not(:disabled)::after, .dn-icon-button:active::after { background-color: var(--fill-selected); background-image: none; }
+  @media (prefers-reduced-motion: no-preference) {
+    :is(.dn-button, .dn-icon-button):active:not(:disabled)::after { transform: scale(var(--press-scale)); transition: background-color var(--duration-instant) var(--ease-standard), transform var(--duration-press) var(--ease-standard); }
+  }
+  .dn-button::before, .dn-icon-button::before { content: ""; position: absolute; top: 50%; left: 50%; width: max(100%, var(--hit-min)); height: max(100%, var(--hit-min)); transform: translate(-50%, -50%); }
+
+  /* Tooltip：只有图标的按钮在悬停和键盘聚焦时显示名称 */
+  .dn-tooltip-anchor { position: relative; display: inline-flex; }
+  .dn-tooltip { box-sizing: border-box; display: flex; align-items: center; width: max-content; max-width: min(var(--tooltip-max-width), 100vw - 2 * var(--space-2)); min-height: var(--tooltip-height); margin: 0; padding: var(--space-1) var(--tooltip-padding-x); border-radius: var(--tooltip-radius); background: var(--accent); color: var(--on-accent); box-shadow: var(--shadow-float); font: var(--weight-regular) var(--tooltip-font-size)/var(--type-caption-line) var(--font-sans); pointer-events: none; }
+  .dn-tooltip-anchor > .dn-tooltip { position: absolute; top: calc(100% + var(--tooltip-offset)); left: 50%; z-index: var(--z-tooltip); translate: -50% 0; opacity: 0; visibility: hidden; transition: opacity var(--duration-instant) var(--ease-exit), visibility 0s linear var(--duration-instant); }
+  @media (hover: hover) { .dn-tooltip-anchor:hover > .dn-tooltip { opacity: 1; visibility: visible; transition: opacity var(--duration-instant) var(--ease-enter) var(--tooltip-delay), visibility 0s linear var(--tooltip-delay); } }
+  .dn-tooltip-anchor:has(:focus-visible) > .dn-tooltip { opacity: 1; visibility: visible; transition: opacity var(--duration-instant) var(--ease-enter), visibility 0s; }
+
+  /* 标签和头像 */
+  .dn-tag { display: inline-flex; align-items: center; gap: var(--space-1); height: var(--tag-height); padding: 0 var(--tag-padding-x); border-radius: var(--tag-radius); background: var(--fill-selected); color: var(--ink-secondary); font: var(--weight-medium) var(--tag-font-size)/1 var(--font-sans); white-space: nowrap; }
+  .dn-tag.is-danger { background: var(--danger-soft); color: var(--danger); }
+  .dn-tag .dn-dot { flex: none; width: 5px; height: 5px; border-radius: var(--radius-full); background: currentColor; }
+  .dn-avatar { display: grid; place-items: center; flex: none; width: var(--button-height-sm); height: var(--button-height-sm); border-radius: var(--radius-full); background: var(--fill-selected); color: var(--ink); font: var(--weight-medium) var(--type-caption-size)/1 var(--font-sans); }
+
+  /* 看板 */
+  .dn-board { display: flex; align-items: flex-start; gap: var(--space-3); flex: 1; min-height: 0; overflow: auto hidden; padding: var(--space-4) var(--page-margin); }
+  .dn-board-col { position: relative; display: flex; flex-direction: column; gap: var(--space-2); flex: none; box-sizing: border-box; width: 240px; max-height: 100%; padding: var(--space-2); border-radius: var(--radius-lg); background: var(--surface-sunken); }
+  .dn-board-head { display: flex; align-items: center; gap: var(--space-2); flex: none; min-height: var(--button-height-sm); padding-left: var(--space-2); font: var(--weight-semibold) var(--type-callout-size)/1.2 var(--font-sans); }
+  .dn-board-count { color: var(--ink-tertiary); font-weight: var(--weight-regular); font-variant-numeric: tabular-nums; }
+  .dn-board-count.is-over { color: var(--warning); }
+  .dn-board-head > .dn-tooltip-anchor { margin-left: auto; }
+  .dn-board-head .dn-icon-button { width: var(--button-height-sm); height: var(--button-height-sm); }
+  .dn-board-cards { display: grid; gap: var(--space-2); min-height: 0; margin: 0; padding: 0; overflow-y: auto; overscroll-behavior: contain; list-style: none; }
+  .dn-board-card { display: grid; gap: var(--space-2); box-sizing: border-box; padding: var(--card-padding-y) var(--card-padding-x); border: var(--stroke-line) solid var(--line); border-radius: var(--radius-md); background: var(--surface); cursor: grab; position: relative; transition: border-color var(--duration-instant) var(--ease-standard); }
+  @media (hover: hover) { .dn-board-card:not(.is-source, .is-lifted):hover { border-color: var(--line-control); } }
+  .dn-board-card > a { color: var(--ink); font: var(--type-body); text-decoration: none; overflow-wrap: anywhere; }
+  .dn-board-card > a::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
+  .dn-board-card > a:focus-visible { outline: none; }
+  .dn-board-card > a:focus-visible::after { outline: var(--stroke-focus) solid var(--focus-ring); outline-offset: var(--focus-offset); }
+  .dn-board-meta { display: flex; align-items: center; gap: var(--space-2); min-height: var(--button-height-sm); color: var(--ink-tertiary); font: var(--type-footnote); font-variant-numeric: tabular-nums; }
+  .dn-board-meta > .dn-avatar { margin-left: auto; }
+  .dn-board-due.is-late { color: var(--danger); }
+  .dn-board-due.is-soon { color: var(--warning); }
+  .dn-board-lifted-title { color: var(--ink); font: var(--type-body); }
+  .dn-board-card.is-source { opacity: 0.4; }
+  .dn-board-card.is-lifted { position: absolute; z-index: var(--z-dropdown); top: 144px; left: calc(var(--space-2) + var(--space-5)); width: calc(240px - 2 * var(--space-2)); box-shadow: var(--shadow-float); cursor: grabbing; pointer-events: none; }
+  .dn-board-drop { height: 2px; margin-block: calc(-1 * var(--space-1)); border-radius: var(--radius-full); background: var(--ink); }
+  .dn-board-more { flex: none; align-self: flex-start; padding: var(--space-1) var(--space-2); border: 0; border-radius: var(--button-radius-sm); background: none; color: var(--ink-secondary); font: var(--type-footnote); text-align: left; cursor: pointer; transition: color var(--duration-instant) var(--ease-standard); }
+  @media (hover: hover) { .dn-board-more:hover { color: var(--ink); } }
+
+  @media (max-width: 760px) {
+    .dn-board { gap: var(--space-2); padding-inline: var(--space-4); scroll-snap-type: x mandatory; }
+    .dn-board-col { width: calc(100vw - var(--space-12)); scroll-snap-align: center; }
+    .dn-board-card.is-lifted { width: calc(100vw - var(--space-12) - 2 * var(--space-2)); }
+  }
+</style>
+</head>
+<body>
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <symbol id="dn-filter" viewBox="0 0 24 24"><path d="M3.5 6H20.5"/><path d="M6.5 12H17.5"/><path d="M9.5 18H14.5"/></symbol>
+  <symbol id="dn-plus" viewBox="0 0 24 24"><path d="M5 12H19"/><path d="M12 5V19"/></symbol>
+  <symbol id="dn-chevron-down" viewBox="0 0 24 24"><path d="M7 9.75l5 4.5 5-4.5"/></symbol>
+</svg>
+
+<div class="dn-app">
+  <div class="dn-app-main">
+    <header class="dn-toolbar">
+      <h1 class="dn-toolbar-heading"><button class="dn-toolbar-title" type="button" aria-haspopup="menu"><span>发布 2.0</span><svg class="dn-icon" aria-hidden="true"><use href="#dn-chevron-down"/></svg></button></h1>
+      <div class="dn-segmented" role="group" aria-label="视图">
+        <button type="button" aria-pressed="false">列表</button>
+        <button type="button" aria-pressed="true">看板</button>
+        <button type="button" aria-pressed="false">日历</button>
+      </div>
+      <div class="dn-toolbar-actions">
+        <button class="dn-button is-plain is-sm" type="button" aria-haspopup="menu"><svg class="dn-icon" aria-hidden="true"><use href="#dn-filter"/></svg>筛选</button>
+        <button class="dn-button is-primary is-sm" type="button" aria-keyshortcuts="N"><svg class="dn-icon" aria-hidden="true"><use href="#dn-plus"/></svg>新建</button>
+      </div>
+    </header>
+
+    <main class="dn-board" aria-label="看板">
+      <section class="dn-board-col" aria-labelledby="col-todo">
+        <h2 class="dn-board-head"><span id="col-todo">待办</span><span class="dn-board-count">6</span><span class="dn-tooltip-anchor"><button class="dn-icon-button" type="button" aria-label="在待办里添加"><svg class="dn-icon" aria-hidden="true"><use href="#dn-plus"/></svg></button><span class="dn-tooltip" aria-hidden="true">添加</span></span></h2>
+        <ul class="dn-board-cards">
+          <li class="dn-board-card"><a href="#">导入旧项目时保留附件</a><div class="dn-board-meta"><span class="dn-board-due">11月28日</span><span class="dn-avatar" role="img" aria-label="周舟">周</span></div></li>
+          <li class="dn-board-card"><a href="#">设置页加「跟随系统」外观</a><div class="dn-board-meta"><span class="dn-board-due">11月30日</span><span class="dn-tag">设计</span><span class="dn-avatar" role="img" aria-label="林一">林</span></div></li>
+          <li class="dn-board-card"><a href="#">离线时的保存提示</a><div class="dn-board-meta"><span class="dn-board-due">12月2日</span><span class="dn-avatar" role="img" aria-label="许诺">许</span></div></li>
+          <li class="dn-board-card"><a href="#">Windows 上的快捷键和菜单文案与 macOS 保持一致</a><div class="dn-board-meta"><span class="dn-board-due">12月3日</span><span class="dn-avatar" role="img" aria-label="陈默">陈</span></div></li>
+          <li class="dn-board-card"><a href="#">邀请链接可以指定角色</a><div class="dn-board-meta"><span class="dn-board-due">12月5日</span><span class="dn-avatar" role="img" aria-label="沈遥">沈</span></div></li>
+          <li class="dn-board-card"><a href="#">写 2.0 的更新记录</a><div class="dn-board-meta"><span class="dn-board-due">12月8日</span><span class="dn-avatar" role="img" aria-label="林一">林</span></div></li>
+        </ul>
+      </section>
+
+      <section class="dn-board-col" aria-labelledby="col-doing">
+        <h2 class="dn-board-head"><span id="col-doing">进行中</span><span class="dn-board-count" aria-label="4 张，上限 4 张">4 / 4</span><span class="dn-tooltip-anchor"><button class="dn-icon-button" type="button" aria-label="在进行中里添加"><svg class="dn-icon" aria-hidden="true"><use href="#dn-plus"/></svg></button><span class="dn-tooltip" aria-hidden="true">添加</span></span></h2>
+        <ul class="dn-board-cards">
+          <li class="dn-board-card"><a href="#">搜索结果按最近编辑排序</a><div class="dn-board-meta"><span class="dn-board-due is-late">昨天到期</span><span class="dn-avatar" role="img" aria-label="沈遥">沈</span></div></li>
+          <li class="dn-board-card is-source"><a href="#" tabindex="-1">分享链接设置有效期</a><div class="dn-board-meta"><span class="dn-board-due is-soon">后天到期</span><span class="dn-avatar" role="img" aria-label="林一">林</span></div></li>
+          <li class="dn-board-card"><a href="#">同步冲突时保留两份</a><div class="dn-board-meta"><span class="dn-board-due">12月1日</span><span class="dn-tag is-danger"><span class="dn-dot" aria-hidden="true"></span>阻塞</span><span class="dn-avatar" role="img" aria-label="周舟">周</span></div></li>
+          <li class="dn-board-card"><a href="#">评论里 @ 成员时发通知</a><div class="dn-board-meta"><span class="dn-board-due">11月30日</span><span class="dn-avatar" role="img" aria-label="陈默">陈</span></div></li>
+        </ul>
+      </section>
+
+      <section class="dn-board-col" aria-labelledby="col-review">
+        <h2 class="dn-board-head"><span id="col-review">审核中</span><span class="dn-board-count">2</span><span class="dn-tooltip-anchor"><button class="dn-icon-button" type="button" aria-label="在审核中里添加"><svg class="dn-icon" aria-hidden="true"><use href="#dn-plus"/></svg></button><span class="dn-tooltip" aria-hidden="true">添加</span></span></h2>
+        <ul class="dn-board-cards">
+          <li class="dn-board-card"><a href="#">新图标换进侧边栏</a><div class="dn-board-meta"><span class="dn-board-due">11月26日</span><span class="dn-tag">设计</span><span class="dn-avatar" role="img" aria-label="沈遥">沈</span></div></li>
+          <li class="dn-board-drop" aria-hidden="true"></li>
+          <li class="dn-board-card"><a href="#">命令面板支持拼音搜索</a><div class="dn-board-meta"><span class="dn-board-due">11月27日</span><span class="dn-avatar" role="img" aria-label="许诺">许</span></div></li>
+        </ul>
+        <div class="dn-board-card is-lifted" aria-hidden="true"><span class="dn-board-lifted-title">分享链接设置有效期</span><div class="dn-board-meta"><span class="dn-board-due is-soon">后天到期</span><span class="dn-avatar">林</span></div></div>
+      </section>
+
+      <section class="dn-board-col" aria-labelledby="col-done">
+        <h2 class="dn-board-head"><span id="col-done">完成</span><span class="dn-board-count">40</span></h2>
+        <ul class="dn-board-cards">
+          <li class="dn-board-card"><a href="#">深色模式下的代码块配色</a><div class="dn-board-meta"><span>今天完成</span><span class="dn-avatar" role="img" aria-label="周舟">周</span></div></li>
+          <li class="dn-board-card"><a href="#">登录页去掉图形验证码</a><div class="dn-board-meta"><span>周五完成</span><span class="dn-avatar" role="img" aria-label="沈遥">沈</span></div></li>
+          <li class="dn-board-card"><a href="#">导出 PDF 时保留目录</a><div class="dn-board-meta"><span>周三完成</span><span class="dn-avatar" role="img" aria-label="陈默">陈</span></div></li>
+        </ul>
+        <button class="dn-board-more" type="button">还有 37 条更早完成的</button>
+      </section>
+    </main>
+  </div>
+</div>
+
+<p class="sr-only" role="status" aria-live="assertive">正在移动「分享链接设置有效期」：放到审核中第 2 张。</p>
+</body>
+</html>

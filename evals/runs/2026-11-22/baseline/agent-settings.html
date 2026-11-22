@@ -1,0 +1,551 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>周报助手 · 智能体配置</title>
+<style>
+  :root{
+    --bg:#F6F6F4;
+    --surface:#FFFFFF;
+    --surface-2:#FAFAF9;
+    --sunken:#F1F1EE;
+    --line:#E7E6E2;
+    --line-strong:#D6D5D0;
+    --text:#1B1B1A;
+    --text-2:#5E5E5A;
+    --text-3:#8F8E89;
+    --accent:#2E5BDB;
+    --accent-soft:#EDF2FE;
+    --accent-ring:rgba(46,91,219,.18);
+    --ok:#1E7F4F;
+    --ok-soft:#E9F5EE;
+    --warn:#A4610B;
+    --warn-soft:#FBF2E4;
+    --radius:10px;
+    --radius-sm:7px;
+    --shadow:0 1px 2px rgba(20,20,18,.04),0 1px 1px rgba(20,20,18,.03);
+    --shadow-lg:0 1px 2px rgba(20,20,18,.05),0 8px 24px -8px rgba(20,20,18,.10);
+    --sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC","Segoe UI",sans-serif;
+    --mono:"SF Mono",ui-monospace,Menlo,Consolas,"Liberation Mono",monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%}
+  body{background:var(--bg);color:var(--text);font:13px/1.5 var(--sans);-webkit-font-smoothing:antialiased;min-width:1180px}
+  button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+  input,textarea{font:inherit;color:inherit}
+  svg.i{width:16px;height:16px;flex:none;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+  svg.i.sm{width:14px;height:14px}
+  svg.i.xs{width:12px;height:12px;stroke-width:2}
+
+  .app{display:flex;flex-direction:column;height:100vh}
+
+  /* ---------- top bar ---------- */
+  .topbar{height:56px;flex:none;display:flex;align-items:center;gap:16px;padding:0 16px 0 20px;background:var(--surface);border-bottom:1px solid var(--line)}
+  .crumbs{display:flex;align-items:center;gap:8px;color:var(--text-2)}
+  .logo{width:24px;height:24px;border-radius:7px;background:var(--text);display:grid;place-items:center;color:#fff}
+  .logo svg{width:14px;height:14px;stroke:#fff}
+  .crumbs a{color:var(--text-2);text-decoration:none}
+  .crumbs .sep{color:var(--line-strong)}
+  .crumbs strong{color:var(--text);font-weight:600}
+  .draft-pill{display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 9px;border-radius:999px;background:var(--sunken);color:var(--text-2);font-size:12px}
+  .draft-pill .dot{width:6px;height:6px;border-radius:50%;background:var(--accent)}
+  .topbar .spacer{flex:1}
+  .changes{display:inline-flex;align-items:center;gap:6px;color:var(--text-2);font-size:12.5px;padding:6px 8px;border-radius:6px}
+  .changes:hover{background:var(--sunken)}
+  .changes b{color:var(--text);font-weight:600}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:32px;padding:0 12px;border-radius:8px;font-weight:500;white-space:nowrap}
+  .btn-secondary{background:var(--surface);border:1px solid var(--line-strong);box-shadow:var(--shadow)}
+  .btn-secondary:hover{background:var(--surface-2)}
+  .btn-primary{background:var(--text);color:#fff;padding:0 16px}
+  .btn-primary:hover{background:#000}
+  .btn-ghost{color:var(--text-2)}
+  .btn-ghost:hover{background:var(--sunken);color:var(--text)}
+  .btn-icon{width:32px;padding:0}
+  .btn-sm{height:28px;padding:0 10px;font-size:12.5px;border-radius:7px}
+  .avatar-me{width:28px;height:28px;border-radius:50%;background:#D9D4C7;color:#4A463C;display:grid;place-items:center;font-size:12px;font-weight:600}
+
+  /* ---------- layout ---------- */
+  .main{flex:1;min-height:0;display:grid;grid-template-columns:216px minmax(0,1fr) 388px}
+
+  /* ---------- section nav ---------- */
+  .secnav{border-right:1px solid var(--line);background:var(--surface-2);padding:18px 12px;display:flex;flex-direction:column;overflow:auto}
+  .agent{display:flex;gap:10px;align-items:center;padding:4px 8px 16px}
+  .agent-mark{width:36px;height:36px;border-radius:10px;background:linear-gradient(180deg,#2B2B29,#151514);display:grid;place-items:center;color:#fff;flex:none;box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}
+  .agent-mark svg{stroke:#fff}
+  .agent-name{font-weight:600;font-size:14px}
+  .agent-meta{font-size:11.5px;color:var(--text-3)}
+  .nav-label{font-size:11.5px;color:var(--text-3);padding:10px 10px 6px;letter-spacing:.02em}
+  .nav a{display:flex;align-items:center;gap:10px;height:34px;padding:0 10px;border-radius:7px;color:var(--text-2);text-decoration:none;position:relative}
+  .nav a:hover{background:var(--sunken);color:var(--text)}
+  .nav a.active{background:var(--surface);color:var(--text);font-weight:500;box-shadow:0 0 0 1px var(--line),var(--shadow)}
+  .nav a .tail{margin-left:auto;display:flex;align-items:center}
+  .mod-dot{width:6px;height:6px;border-radius:50%;background:var(--accent)}
+  .warn-badge{min-width:18px;height:18px;border-radius:9px;background:var(--warn-soft);color:var(--warn);font-size:11px;font-weight:600;display:grid;place-items:center;padding:0 5px}
+  .secnav .foot{margin-top:auto;border-top:1px solid var(--line);padding-top:10px}
+  .legend{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--text-3);padding:8px 10px 0}
+
+  /* ---------- editor ---------- */
+  .editor{overflow:auto;padding:16px 28px 40px}
+  .editor-inner{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+  .card-row{display:flex;align-items:center;gap:14px;padding:14px 16px}
+  .card-ico{width:30px;height:30px;border-radius:8px;background:var(--sunken);display:grid;place-items:center;color:var(--text-2);flex:none}
+  .card-title{font-weight:600;font-size:13.5px;display:flex;align-items:center;gap:8px}
+  .card-sub{color:var(--text-2);font-size:12.5px;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .card-main{min-width:0;flex:1}
+  .edit-link{color:var(--text-2);display:inline-flex;align-items:center;gap:4px;font-size:12.5px;padding:5px 8px;border-radius:6px;flex:none}
+  .edit-link:hover{background:var(--sunken);color:var(--text)}
+  .mod-tag{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:500;color:var(--accent)}
+  .instr-preview{margin:0 16px 14px 60px;padding:10px 12px;border-radius:8px;background:var(--surface-2);border:1px solid var(--line);color:var(--text-2);font-size:12.5px;line-height:22px;max-height:44px;overflow:hidden;position:relative}
+  .instr-preview::after{content:"";position:absolute;left:0;right:0;bottom:0;height:22px;background:linear-gradient(rgba(250,250,249,0),var(--surface-2))}
+  .ref{display:inline-flex;align-items:center;gap:3px;height:20px;padding:0 6px;border-radius:5px;background:var(--surface);border:1px solid var(--line-strong);color:var(--text);font-size:12px;vertical-align:1px;line-height:1}
+  .ref svg{width:11px;height:11px}
+  .ref.rt{background:var(--accent-soft);border-color:#D3DEFB;color:#2348B5}
+
+  /* model card - editing */
+  .card.editing{border-color:#CBD6F5;box-shadow:0 0 0 3px var(--accent-soft),var(--shadow-lg)}
+  .card.editing .card-row{border-bottom:1px solid var(--line);padding:14px 16px 13px}
+  .card.editing .card-ico{background:var(--accent-soft);color:var(--accent)}
+  .editing-tag{font-size:11px;font-weight:500;color:var(--accent);background:var(--accent-soft);height:20px;padding:0 7px;border-radius:5px;display:inline-flex;align-items:center}
+  .form{padding:16px 20px 16px 60px;display:grid;grid-template-columns:1fr 1fr;gap:14px 16px}
+  .field{display:flex;flex-direction:column;gap:6px;min-width:0}
+  .field.full{grid-column:1 / -1}
+  .label{display:flex;align-items:center;gap:6px;font-weight:500;font-size:12.5px}
+  .label .opt{color:var(--text-3);font-weight:400}
+  .label .changed{margin-left:auto;font-weight:400;font-size:11.5px;color:var(--accent);display:inline-flex;align-items:center;gap:5px}
+  .hint{font-size:11.5px;color:var(--text-3);line-height:1.5}
+  .hint code{font-family:var(--mono);font-size:11px;color:var(--text-2);background:var(--sunken);padding:1px 4px;border-radius:4px}
+  .hint s{color:var(--text-3)}
+
+  .seg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .seg-opt{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--line-strong);border-radius:8px;background:var(--surface);text-align:left;position:relative}
+  .seg-opt:hover{border-color:#BDBCB6}
+  .seg-opt .radio{width:16px;height:16px;border-radius:50%;border:1.5px solid var(--line-strong);flex:none;display:grid;place-items:center}
+  .seg-opt.on{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset;background:#FBFCFF}
+  .seg-opt.on .radio{border-color:var(--accent)}
+  .seg-opt.on .radio::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent)}
+  .seg-name{font-weight:500}
+  .seg-path{font-family:var(--mono);font-size:11px;color:var(--text-3)}
+
+  .input{display:flex;align-items:center;gap:8px;height:36px;padding:0 6px 0 11px;border:1px solid var(--line-strong);border-radius:8px;background:var(--surface);transition:border-color .12s,box-shadow .12s}
+  .input:hover{border-color:#BDBCB6}
+  .input:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-ring)}
+  .input input{flex:1;min-width:0;border:0;outline:0;background:transparent;height:100%;padding:0}
+  .input input.mono{font-family:var(--mono);font-size:12.5px;letter-spacing:-.01em}
+  .input .pre{color:var(--text-3);display:flex}
+  .input .mini{height:24px;padding:0 7px;border-radius:5px;color:var(--text-2);font-size:12px;display:inline-flex;align-items:center;gap:4px;flex:none}
+  .input .mini:hover{background:var(--sunken);color:var(--text)}
+  .input .kbd{font-size:11px;color:var(--text-3);border:1px solid var(--line);border-radius:4px;padding:0 4px;height:18px;display:inline-flex;align-items:center;flex:none}
+  .input.changed{border-color:var(--accent)}
+
+  .test{grid-column:1 / -1;display:flex;align-items:center;gap:12px;padding:12px 12px 12px 14px;border-radius:9px;background:var(--surface-2);border:1px solid var(--line)}
+  .test-status{display:flex;align-items:center;gap:8px;flex:1;min-width:0}
+  .ok-ico{width:22px;height:22px;border-radius:50%;background:var(--ok-soft);color:var(--ok);display:grid;place-items:center;flex:none}
+  .test-status b{font-weight:600;color:var(--ok)}
+  .test-status .meta{color:var(--text-3);font-size:12px}
+  .test-status .meta i{font-style:normal;color:var(--line-strong);margin:0 6px}
+
+  .adv{grid-column:1 / -1;display:flex;align-items:center;gap:8px;color:var(--text-2);padding-top:2px}
+  .adv .vals{color:var(--text-3);font-size:12px}
+  .adv:hover{color:var(--text)}
+
+  .form-foot{display:flex;align-items:center;gap:8px;padding:12px 16px;border-top:1px solid var(--line);background:var(--surface-2);border-radius:0 0 var(--radius) var(--radius)}
+  .saved{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--text-3)}
+  .form-foot .spacer{flex:1}
+
+  /* tools */
+  .tools{padding:0 16px 14px 60px;display:flex;flex-direction:column;gap:6px}
+  .tool{display:flex;align-items:center;gap:10px;height:40px;padding:0 10px;border:1px solid var(--line);border-radius:8px}
+  .tool .t-ico{width:22px;height:22px;border-radius:6px;background:var(--sunken);display:grid;place-items:center;color:var(--text-2)}
+  .tool .t-name{font-weight:500}
+  .status{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--text-2)}
+  .status .s-dot{width:6px;height:6px;border-radius:50%;background:var(--ok)}
+  .status.warn{color:var(--warn)}
+  .status.warn .s-dot{background:var(--warn)}
+  .tool .right{margin-left:auto;display:flex;align-items:center;gap:8px}
+  .tool.warn{background:var(--warn-soft);border-color:#F0DEC0}
+  .perm{display:inline-flex;align-items:center;gap:4px;height:24px;padding:0 8px;border-radius:6px;border:1px solid var(--line-strong);background:var(--surface);font-size:12px;color:var(--text-2)}
+
+  .toggle{width:30px;height:18px;border-radius:9px;background:var(--text);position:relative;flex:none}
+  .toggle::after{content:"";position:absolute;top:2px;right:2px;width:14px;height:14px;border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.2)}
+
+  /* ---------- chat ---------- */
+  .chat{border-left:1px solid var(--line);background:var(--surface);display:flex;flex-direction:column;min-height:0}
+  .chat-head{height:52px;flex:none;display:flex;align-items:center;gap:8px;padding:0 10px 0 18px;border-bottom:1px solid var(--line)}
+  .chat-head h3{margin:0;font-size:13.5px;font-weight:600}
+  .chat-head .pill{font-size:11px;height:20px;padding:0 7px;border-radius:5px;background:var(--sunken);color:var(--text-2);display:inline-flex;align-items:center;gap:5px}
+  .chat-head .pill .mod-dot{width:5px;height:5px}
+  .chat-head .spacer{flex:1}
+  .chat-body{flex:1;min-height:0;overflow:auto;padding:16px 18px 8px;display:flex;flex-direction:column;gap:14px}
+  .divider{display:flex;align-items:center;gap:10px;color:var(--text-3);font-size:11.5px}
+  .divider::before,.divider::after{content:"";flex:1;height:1px;background:var(--line)}
+  .msg-user{align-self:flex-end;max-width:82%;background:var(--sunken);padding:8px 12px;border-radius:12px 12px 4px 12px}
+  .msg-bot{display:flex;flex-direction:column;gap:10px}
+  .bot-head{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-3)}
+  .bot-head .mini-mark{width:20px;height:20px;border-radius:6px;background:var(--text);display:grid;place-items:center}
+  .bot-head .mini-mark svg{stroke:#fff;width:11px;height:11px}
+  .bot-head b{color:var(--text);font-weight:600}
+  .steps{border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  .step{display:flex;align-items:center;gap:8px;padding:7px 10px;font-size:12px;color:var(--text-2)}
+  .step + .step{border-top:1px solid var(--line)}
+  .step .chk{color:var(--ok);display:flex}
+  .step .cnt{margin-left:auto;color:var(--text-3)}
+  .bot-text{line-height:1.7}
+  .bot-text h4{margin:0 0 4px;font-size:13px;font-weight:600}
+  .bot-text .grp{color:var(--text-3);font-size:11.5px;margin:8px 0 2px}
+  .bot-text ul{margin:0;padding-left:16px}
+  .bot-text li{margin:1px 0}
+  .notice{display:flex;gap:10px;padding:10px 12px;border-radius:9px;background:var(--warn-soft);border:1px solid #F0DEC0}
+  .notice .n-ico{color:var(--warn);display:flex;padding-top:2px}
+  .notice b{font-weight:600;display:block;margin-bottom:1px}
+  .notice p{margin:0;font-size:12px;color:var(--text-2)}
+  .notice .acts{display:flex;gap:6px;margin-top:8px}
+  .bot-acts{display:flex;gap:2px;color:var(--text-3)}
+  .bot-acts button{width:26px;height:26px;border-radius:6px;display:grid;place-items:center}
+  .bot-acts button:hover{background:var(--sunken);color:var(--text)}
+
+  .composer-wrap{padding:10px 14px 12px;flex:none}
+  .composer{border:1px solid var(--line-strong);border-radius:12px;background:var(--surface);box-shadow:var(--shadow-lg);padding:10px 10px 8px 12px}
+  .composer textarea{width:100%;border:0;outline:0;resize:none;height:38px;background:transparent;line-height:1.5}
+  .composer textarea::placeholder{color:var(--text-3)}
+  .comp-row{display:flex;align-items:center;gap:4px}
+  .comp-row .ib{width:28px;height:28px;border-radius:7px;display:grid;place-items:center;color:var(--text-2)}
+  .comp-row .ib:hover{background:var(--sunken);color:var(--text)}
+  .comp-row .model-chip{font-size:11.5px;color:var(--text-2);display:inline-flex;align-items:center;gap:4px;padding:0 8px;height:24px;border-radius:6px;background:var(--sunken);font-family:var(--mono)}
+  .send{margin-left:auto;width:28px;height:28px;border-radius:8px;background:var(--text);color:#fff;display:grid;place-items:center}
+  .send svg{stroke:#fff}
+  .composer-note{font-size:11px;color:var(--text-3);text-align:center;margin-top:8px}
+
+  ::-webkit-scrollbar{width:10px;height:10px}
+  ::-webkit-scrollbar-thumb{background:#DAD9D4;border-radius:10px;border:3px solid transparent;background-clip:content-box}
+  ::-webkit-scrollbar-track{background:transparent}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3.5l1.9 4.6 4.6 1.9-4.6 1.9L12 16.5l-1.9-4.6L5.5 10l4.6-1.9z"/><path d="M18.5 15.5l.8 1.9 1.9.8-1.9.8-.8 1.9-.8-1.9-1.9-.8 1.9-.8z"/></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24"><path d="M7 3.5h7l4 4v13H7a1.5 1.5 0 0 1-1.5-1.5V5A1.5 1.5 0 0 1 7 3.5z"/><path d="M14 3.5v4h4M9 12h6M9 15.5h6"/></symbol>
+    <symbol id="i-id" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M6 16c.6-1.4 1.7-2 3-2s2.4.6 3 2M14.5 10h3M14.5 13h3"/></symbol>
+    <symbol id="i-text" viewBox="0 0 24 24"><path d="M5 6h14M5 10h14M5 14h9M5 18h6"/></symbol>
+    <symbol id="i-cpu" viewBox="0 0 24 24"><rect x="6.5" y="6.5" width="11" height="11" rx="2"/><path d="M10 10h4v4h-4zM9.5 3v3.5M14.5 3v3.5M9.5 17.5V21M14.5 17.5V21M3 9.5h3.5M3 14.5h3.5M17.5 9.5H21M17.5 14.5H21"/></symbol>
+    <symbol id="i-plug" viewBox="0 0 24 24"><path d="M9 3.5V8M15 3.5V8M7 8h10v3a5 5 0 0 1-10 0z"/><path d="M12 16v4.5"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+    <symbol id="i-history" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.4-5.7L4 8.5"/><path d="M4 4v4.5h4.5M12 8v4l2.5 1.5"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4.5 19.5h15M7.5 16v-4M12 16V7.5M16.5 16v-6"/></symbol>
+    <symbol id="i-chev-r" viewBox="0 0 24 24"><path d="M9.5 6l6 6-6 6"/></symbol>
+    <symbol id="i-chev-d" viewBox="0 0 24 24"><path d="M6 9.5l6 6 6-6"/></symbol>
+    <symbol id="i-chev-u" viewBox="0 0 24 24"><path d="M6 14.5l6-6 6 6"/></symbol>
+    <symbol id="i-pen" viewBox="0 0 24 24"><path d="M4.5 19.5l1-4L15.8 5.2a2 2 0 0 1 2.9 0l.1.1a2 2 0 0 1 0 2.9L8.5 18.5z"/><path d="M14 7l3 3"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="2.8"/></symbol>
+    <symbol id="i-key" viewBox="0 0 24 24"><circle cx="8" cy="15" r="3.5"/><path d="M10.5 12.5L19 4M16 7l2.5 2.5M14 9l2 2"/></symbol>
+    <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></symbol>
+    <symbol id="i-box" viewBox="0 0 24 24"><path d="M12 3.5l7.5 4v9L12 20.5l-7.5-4v-9z"/><path d="M4.5 7.5L12 11.5l7.5-4M12 11.5v9"/></symbol>
+    <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 3.5L5.5 13.5H12l-1 7 7.5-10H12z"/></symbol>
+    <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></symbol>
+    <symbol id="i-note" viewBox="0 0 24 24"><path d="M6 3.5h12v17H6z"/><path d="M9 8h6M9 11.5h6M9 15h3.5"/></symbol>
+    <symbol id="i-cal" viewBox="0 0 24 24"><rect x="4" y="5.5" width="16" height="14.5" rx="2"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3.5" y="5.5" width="17" height="13" rx="2"/><path d="M4 7l8 6 8-6"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 4l9 15.5H3z"/><path d="M12 10v4M12 17h.01"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M19.5 12a7.5 7.5 0 1 1-2.2-5.3L19.5 9"/><path d="M19.5 4.5V9H15"/></symbol>
+    <symbol id="i-more" viewBox="0 0 24 24"><circle cx="6" cy="12" r=".8"/><circle cx="12" cy="12" r=".8"/><circle cx="18" cy="12" r=".8"/></symbol>
+    <symbol id="i-clip" viewBox="0 0 24 24"><path d="M19 11.5l-7 7a4.5 4.5 0 0 1-6.4-6.4l7.6-7.6a3 3 0 0 1 4.2 4.2l-7.4 7.4a1.5 1.5 0 0 1-2.1-2.1l6.7-6.7"/></symbol>
+    <symbol id="i-at" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.5"/><path d="M15.5 12v1.5a2.5 2.5 0 0 0 5 0V12a8.5 8.5 0 1 0-3.3 6.7"/></symbol>
+    <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V5.5M6 11l6-6 6 6"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8.5" y="8.5" width="11" height="11" rx="2"/><path d="M15.5 8.5V6a1.5 1.5 0 0 0-1.5-1.5H6A1.5 1.5 0 0 0 4.5 6v8A1.5 1.5 0 0 0 6 15.5h2.5"/></symbol>
+    <symbol id="i-thumb" viewBox="0 0 24 24"><path d="M8 10.5v9H5.5a1 1 0 0 1-1-1v-7a1 1 0 0 1 1-1zM8 10.5l3.5-7a2 2 0 0 1 2.5 2.2l-.6 3.3h5a2 2 0 0 1 2 2.4l-1.3 6.5a2 2 0 0 1-2 1.6H8"/></symbol>
+    <symbol id="i-diff" viewBox="0 0 24 24"><path d="M6 4.5v10M6 14.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM18 9.5v10M18 4.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM6 4.5h0"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3.5l7 2.5v5.5c0 4.5-3 7.8-7 9-4-1.2-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+  </defs>
+</svg>
+
+<div class="app">
+
+  <!-- Top bar -->
+  <header class="topbar">
+    <div class="crumbs">
+      <div class="logo"><svg class="i"><use href="#i-spark"/></svg></div>
+      <a href="#">智能体</a>
+      <span class="sep">/</span>
+      <strong>周报助手</strong>
+    </div>
+    <span class="draft-pill"><span class="dot"></span>草稿 · 14:32 已自动保存</span>
+    <div class="spacer"></div>
+    <a class="changes" href="#"><svg class="i sm"><use href="#i-diff"/></svg><span><b>3</b> 处改动未发布</span></a>
+    <button class="btn btn-secondary">查看改动</button>
+    <button class="btn btn-primary">发布</button>
+    <button class="btn btn-ghost btn-icon" aria-label="更多"><svg class="i"><use href="#i-more"/></svg></button>
+    <div class="avatar-me">林</div>
+  </header>
+
+  <div class="main">
+
+    <!-- Section nav -->
+    <nav class="secnav">
+      <div class="agent">
+        <div class="agent-mark"><svg class="i"><use href="#i-doc"/></svg></div>
+        <div>
+          <div class="agent-name">周报助手</div>
+          <div class="agent-meta">已发布 v6 · 11月15日</div>
+        </div>
+      </div>
+      <div class="nav-label">配置</div>
+      <div class="nav">
+        <a href="#basic"><svg class="i"><use href="#i-id"/></svg>基本信息</a>
+        <a href="#instr"><svg class="i"><use href="#i-text"/></svg>指令<span class="tail"><span class="mod-dot" title="有未发布改动"></span></span></a>
+        <a href="#model" class="active"><svg class="i"><use href="#i-cpu"/></svg>模型<span class="tail"><span class="mod-dot" title="有未发布改动"></span></span></a>
+        <a href="#tools"><svg class="i"><use href="#i-plug"/></svg>工具和权限<span class="tail"><span class="warn-badge" title="1 项需要处理">1</span></span></a>
+        <a href="#sched"><svg class="i"><use href="#i-clock"/></svg>定时任务</a>
+      </div>
+      <div class="legend"><span class="mod-dot"></span>有未发布改动</div>
+      <div class="foot nav">
+        <a href="#"><svg class="i"><use href="#i-history"/></svg>版本历史</a>
+        <a href="#"><svg class="i"><use href="#i-chart"/></svg>运行记录</a>
+      </div>
+    </nav>
+
+    <!-- Editor -->
+    <main class="editor">
+      <div class="editor-inner">
+
+        <!-- 基本信息 -->
+        <section class="card" id="basic">
+          <div class="card-row">
+            <div class="card-ico"><svg class="i"><use href="#i-id"/></svg></div>
+            <div class="card-main">
+              <div class="card-title">周报助手</div>
+              <div class="card-sub">每周五读你本周的笔记和日程，起草一份结构清楚的周报。</div>
+            </div>
+            <button class="edit-link"><svg class="i sm"><use href="#i-pen"/></svg>编辑</button>
+          </div>
+        </section>
+
+        <!-- 指令 -->
+        <section class="card" id="instr">
+          <div class="card-row">
+            <div class="card-ico"><svg class="i"><use href="#i-text"/></svg></div>
+            <div class="card-main">
+              <div class="card-title">指令 <span class="mod-tag"><span class="mod-dot"></span>已修改</span></div>
+              <div class="card-sub">486 字 · 引用 1 份资料、2 个工具</div>
+            </div>
+            <button class="edit-link"><svg class="i sm"><use href="#i-pen"/></svg>编辑</button>
+          </div>
+          <div class="instr-preview">
+            你是我的周报助手。每周五下午，先用 <span class="ref rt"><svg class="i"><use href="#i-note"/></svg>笔记</span> 读取本周一到周五新建和修改的笔记，再用 <span class="ref rt"><svg class="i"><use href="#i-cal"/></svg>日历</span> 查看本周参加过的会议，按 <span class="ref"><svg class="i"><use href="#i-doc"/></svg>周报模板.docx</span> 的结构整理成「本周完成、进行中、风险与求助、下周计划」四部分。每条控制在一句话内，保留关键数字……
+          </div>
+        </section>
+
+        <!-- 模型（编辑中） -->
+        <section class="card editing" id="model">
+          <div class="card-row">
+            <div class="card-ico"><svg class="i"><use href="#i-cpu"/></svg></div>
+            <div class="card-main">
+              <div class="card-title">模型 <span class="editing-tag">编辑中</span></div>
+              <div class="card-sub">智能体回答和执行任务时调用的模型服务</div>
+            </div>
+            <span class="saved"><svg class="i sm"><use href="#i-check"/></svg>已存入草稿</span>
+            <button class="edit-link">撤销改动</button>
+            <button class="edit-link"><svg class="i sm"><use href="#i-chev-u"/></svg>收起</button>
+          </div>
+
+          <div class="form">
+            <div class="field full">
+              <div class="label">接口格式</div>
+              <div class="seg" role="radiogroup">
+                <button class="seg-opt on" role="radio" aria-checked="true">
+                  <span class="radio"></span>
+                  <span><div class="seg-name">OpenAI 兼容</div><div class="seg-path">/chat/completions</div></span>
+                </button>
+                <button class="seg-opt" role="radio" aria-checked="false">
+                  <span class="radio"></span>
+                  <span><div class="seg-name">Anthropic</div><div class="seg-path">/v1/messages</div></span>
+                </button>
+              </div>
+            </div>
+
+            <div class="field full">
+              <div class="label">地址（Base URL）</div>
+              <div class="input">
+                <span class="pre"><svg class="i sm"><use href="#i-link"/></svg></span>
+                <input class="mono" value="https://api.deepseek.com/v1" spellcheck="false">
+              </div>
+              <div class="hint">填到版本号为止，例如 <code>/v1</code>，不用带 <code>/chat/completions</code>。</div>
+            </div>
+
+            <div class="field">
+              <div class="label">API Key</div>
+              <div class="input">
+                <span class="pre"><svg class="i sm"><use href="#i-key"/></svg></span>
+                <input class="mono" type="password" value="sk-7f3c9a1e5b2d48f0a6c3" spellcheck="false">
+                <button class="mini" aria-label="显示"><svg class="i sm"><use href="#i-eye"/></svg></button>
+              </div>
+              <div class="hint">加密保存，发布后使用者看不到 Key。</div>
+            </div>
+
+            <div class="field">
+              <div class="label">模型名 <span class="changed"><span class="mod-dot"></span>已修改</span></div>
+              <div class="input changed">
+                <span class="pre"><svg class="i sm"><use href="#i-box"/></svg></span>
+                <input id="model-name" class="mono" value="deepseek-chat" spellcheck="false">
+                <button class="mini">选择<svg class="i xs"><use href="#i-chev-d"/></svg></button>
+              </div>
+              <div class="hint">已发布版本：<s>deepseek-reasoner</s></div>
+            </div>
+
+            <div class="test">
+              <div class="test-status">
+                <span class="ok-ico"><svg class="i xs"><use href="#i-check"/></svg></span>
+                <div>
+                  <div><b>连接成功</b><span class="meta"><i>·</i>deepseek-chat 可用<i>·</i>响应 640 ms</span></div>
+                  <div class="meta">14:31 测试 · 改了地址、Key 或模型名后建议重测</div>
+                </div>
+              </div>
+              <button class="btn btn-secondary btn-sm"><svg class="i sm"><use href="#i-bolt"/></svg>测试连接</button>
+            </div>
+
+            <button class="adv">
+              <svg class="i sm"><use href="#i-chev-r"/></svg>
+              <span>高级参数</span>
+              <span class="vals">温度 0.3 · 最大输出 4,096 tokens · 超时 60 秒</span>
+            </button>
+          </div>
+
+        </section>
+
+        <!-- 工具和权限 -->
+        <section class="card" id="tools">
+          <div class="card-row">
+            <div class="card-ico"><svg class="i"><use href="#i-plug"/></svg></div>
+            <div class="card-main">
+              <div class="card-title">工具和权限</div>
+              <div class="card-sub">3 个工具 · 1 个需要重新授权</div>
+            </div>
+            <button class="edit-link"><svg class="i sm"><use href="#i-pen"/></svg>编辑</button>
+          </div>
+          <div class="tools">
+            <div class="tool">
+              <span class="t-ico"><svg class="i sm"><use href="#i-note"/></svg></span>
+              <span class="t-name">笔记</span>
+              <span class="status"><span class="s-dot"></span>已连接</span>
+              <span class="right"><span class="perm">读取 · 允许</span></span>
+            </div>
+            <div class="tool">
+              <span class="t-ico"><svg class="i sm"><use href="#i-cal"/></svg></span>
+              <span class="t-name">日历</span>
+              <span class="status"><span class="s-dot"></span>已连接 · 只读</span>
+              <span class="right"><span class="perm">读取 · 允许</span></span>
+            </div>
+            <div class="tool warn">
+              <span class="t-ico"><svg class="i sm"><use href="#i-mail"/></svg></span>
+              <span class="t-name">邮箱</span>
+              <span class="status warn"><span class="s-dot"></span>授权已过期</span>
+              <span class="right">
+                <span class="perm"><svg class="i xs"><use href="#i-shield"/></svg>发送邮件 · 每次询问<svg class="i xs"><use href="#i-chev-d"/></svg></span>
+                <button class="btn btn-secondary btn-sm">重新授权</button>
+              </span>
+            </div>
+          </div>
+        </section>
+
+        <!-- 定时任务 -->
+        <section class="card" id="sched">
+          <div class="card-row">
+            <div class="card-ico"><svg class="i"><use href="#i-clock"/></svg></div>
+            <div class="card-main">
+              <div class="card-title">定时任务</div>
+              <div class="card-sub">每周五 16:00 起草周报 · 下次运行 11月27日（周五）</div>
+            </div>
+            <span class="toggle" role="switch" aria-checked="true" title="已开启"></span>
+            <button class="edit-link"><svg class="i sm"><use href="#i-pen"/></svg>编辑</button>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <!-- Chat preview -->
+    <aside class="chat">
+      <div class="chat-head">
+        <h3>试用</h3>
+        <span class="pill"><span class="mod-dot"></span>当前草稿</span>
+        <span class="spacer"></span>
+        <button class="btn btn-ghost btn-sm"><svg class="i sm"><use href="#i-refresh"/></svg>重新开始</button>
+      </div>
+
+      <div class="chat-body">
+        <div class="divider">草稿已更新 · 模型切换为 deepseek-chat</div>
+
+        <div class="msg-user">按这周的内容帮我起草周报</div>
+
+        <div class="msg-bot">
+          <div class="bot-head"><span class="mini-mark"><svg class="i"><use href="#i-doc"/></svg></span><b>周报助手</b><span>· 14:33</span></div>
+          <div class="steps">
+            <div class="step"><span class="chk"><svg class="i xs"><use href="#i-check"/></svg></span>读取笔记<span class="cnt">本周 14 篇</span></div>
+            <div class="step"><span class="chk"><svg class="i xs"><use href="#i-check"/></svg></span>查看日历（只读）<span class="cnt">9 场会议</span></div>
+          </div>
+          <div class="bot-text">
+            <h4>周报 · 11月16日 – 11月20日</h4>
+            <div class="grp">本周完成</div>
+            <ul>
+              <li>上线搜索结果页改版，点击率提升 6.2%</li>
+              <li>完成 Q1 路线图评审，确定 3 个重点方向</li>
+            </ul>
+            <div class="grp">进行中</div>
+            <ul>
+              <li>新手引导重写，预计下周三提测</li>
+            </ul>
+            <div class="grp">下周计划</div>
+            <ul>
+              <li>和设计组对齐引导文案；准备月度复盘</li>
+            </ul>
+          </div>
+          <div class="notice">
+            <span class="n-ico"><svg class="i sm"><use href="#i-alert"/></svg></span>
+            <div>
+              <b>没法发送邮件</b>
+              <p>邮箱授权已过期，周报草稿没有发给「产品组」。重新授权后可以再试。</p>
+              <div class="acts">
+                <button class="btn btn-secondary btn-sm">重新授权邮箱</button>
+                <button class="btn btn-ghost btn-sm">稍后</button>
+              </div>
+            </div>
+          </div>
+          <div class="bot-acts">
+            <button aria-label="复制"><svg class="i sm"><use href="#i-copy"/></svg></button>
+            <button aria-label="有帮助"><svg class="i sm"><use href="#i-thumb"/></svg></button>
+            <button aria-label="重新生成"><svg class="i sm"><use href="#i-refresh"/></svg></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="composer-wrap">
+        <div class="composer">
+          <textarea placeholder="用当前草稿试着对话…"></textarea>
+          <div class="comp-row">
+            <button class="ib" aria-label="添加附件"><svg class="i"><use href="#i-clip"/></svg></button>
+            <button class="ib" aria-label="引用资料"><svg class="i"><use href="#i-at"/></svg></button>
+            <span class="model-chip"><svg class="i xs"><use href="#i-cpu"/></svg>deepseek-chat</span>
+            <button class="send" aria-label="发送"><svg class="i sm"><use href="#i-up"/></svg></button>
+          </div>
+        </div>
+        <div class="composer-note">试用对话不会保存，也不会真正发送邮件</div>
+      </div>
+    </aside>
+
+  </div>
+</div>
+
+<script>
+  (function(){
+    var el=document.getElementById('model-name');
+    if(!el) return;
+    el.focus({preventScroll:true});
+    var n=el.value.length;
+    try{el.setSelectionRange(n,n);}catch(e){}
+  })();
+</script>
+</body>
+</html>

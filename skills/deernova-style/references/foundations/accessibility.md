@@ -6,6 +6,14 @@
 - 如果必须靠描边识别控件，该边界不低于 3:1。普通输入框采用标签、底色和输入内容共同标识，不强制添加深色边框。
 - 不要因为用了 token 就假定一定达标，要看它放在哪种纸面上。
 
+## 只给读屏的文字
+
+表格的操作列表头、只有图标的按钮旁边的补充说明，用 `.sr-only` 藏起来，读屏照样能读到：
+
+```css
+.sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+```
+
 ## 点击区域
 
 可见尺寸和点击区域是两回事：可见尺寸按组件的高度 token，点击区域不小于 `hit-min`（桌面档 24，触控档 44）。差的部分用透明的命中区补足，**不加大可见的控件**。

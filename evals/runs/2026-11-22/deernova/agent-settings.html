@@ -1,0 +1,1013 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>周报助手 - 智能体配置</title>
+<link rel="stylesheet" href="../../../../skills/deernova-style/assets/tokens.css">
+<style>
+/* ---------- 全局 ---------- */
+html, body { height: 100%; margin: 0; }
+body { background: var(--canvas); color: var(--ink); font: var(--type-body); -webkit-font-smoothing: antialiased; }
+*, *::before, *::after { box-sizing: border-box; }
+button, input, select, textarea { font: inherit; color: inherit; }
+.sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+[hidden] { display: none !important; }
+
+:focus-visible { outline: var(--stroke-focus) solid var(--focus-ring); outline-offset: var(--focus-offset); }
+:is(input:not([type="checkbox"], [type="radio"], [type="range"], [type="button"], [type="submit"], [type="reset"]), textarea, select, [contenteditable]):focus-visible { outline: none; }
+
+@supports selector(::-webkit-scrollbar) {
+  ::-webkit-scrollbar { width: var(--scrollbar-size); height: var(--scrollbar-size); }
+  ::-webkit-scrollbar-track, ::-webkit-scrollbar-corner { background: transparent; }
+  ::-webkit-scrollbar-thumb { border: calc((var(--scrollbar-size) - var(--scrollbar-thumb-size)) / 2) solid transparent; border-radius: var(--radius-full); background: var(--line-control) padding-box; }
+  ::-webkit-scrollbar-thumb:hover, ::-webkit-scrollbar-thumb:active { background-color: var(--ink-tertiary); }
+  ::-webkit-scrollbar-button { display: none; }
+}
+@supports not selector(::-webkit-scrollbar) {
+  * { scrollbar-width: thin; scrollbar-color: var(--line-control) transparent; }
+}
+
+/* ---------- 图标 ---------- */
+.dn-icon { width: var(--icon-size-md); height: var(--icon-size-md); flex: none; fill: none; stroke: currentColor; stroke-width: var(--icon-stroke); stroke-linecap: var(--line-cap); stroke-linejoin: var(--line-join); }
+dn-loader { display: inline-grid; flex: none; place-items: center; }
+dn-loader > .dn-loader { width: var(--loader-size, var(--icon-size-md)); height: var(--loader-size, var(--icon-size-md)); }
+.dn-button dn-loader { --loader-size: var(--icon-size-sm); }
+
+/* ---------- 按钮 ---------- */
+.dn-button { position: relative; isolation: isolate; display: inline-flex; align-items: center; justify-content: center; gap: var(--gap-inline); height: var(--button-height-md); padding: 0 var(--button-padding-x-md); border: 0; border-radius: var(--button-radius); background: none; color: var(--ink); font: calc(var(--button-font-weight) + var(--weight-shift)) var(--button-font-size-md)/1 var(--font-sans); white-space: nowrap; text-decoration: none; cursor: pointer; transition: color var(--duration-instant) var(--ease-standard), opacity var(--duration-instant) var(--ease-standard); }
+.dn-button:focus-visible { outline: var(--stroke-focus) solid var(--focus-ring); outline-offset: var(--focus-offset); }
+.dn-button:disabled { opacity: var(--opacity-disabled); cursor: default; }
+.dn-button.is-primary { color: var(--on-accent); }
+.dn-button.is-primary::after { background-color: var(--accent); }
+@media (hover: hover) { .dn-button.is-primary:hover:not(:disabled) { opacity: var(--opacity-solid-hover); } }
+.dn-button.is-primary:active:not(:disabled) { opacity: var(--opacity-solid-hover); }
+.dn-button.is-plain { color: var(--ink-secondary); }
+.dn-button.is-plain::after { background-color: transparent; }
+@media (hover: hover) { .dn-button.is-plain:hover:not(:disabled) { color: var(--ink); } }
+.dn-button.is-plain:active:not(:disabled) { color: var(--ink); }
+.dn-button.is-sm { height: var(--button-height-sm); padding: 0 var(--button-padding-x-sm); border-radius: var(--button-radius-sm); font-size: var(--button-font-size-sm); }
+.dn-button .dn-icon { width: var(--icon-size-sm); height: var(--icon-size-sm); }
+.dn-icon-button { position: relative; isolation: isolate; display: inline-grid; place-items: center; flex: none; width: var(--button-height-md); height: var(--button-height-md); padding: 0; border: 0; border-radius: var(--button-radius); background: none; color: var(--ink-secondary); text-decoration: none; cursor: pointer; transition: color var(--duration-instant) var(--ease-standard); }
+@media (hover: hover) { .dn-icon-button:hover { color: var(--ink); } }
+.dn-icon-button:active { color: var(--ink); }
+.dn-icon-button:focus-visible { outline: var(--stroke-focus) solid var(--focus-ring); outline-offset: var(--focus-offset); }
+.dn-button::after, .dn-icon-button::after { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; background-color: var(--fill-selected); transition: background-color var(--duration-instant) var(--ease-standard), transform var(--duration-release) var(--ease-release); }
+.dn-icon-button::after { background-color: transparent; }
+@media (hover: hover) {
+  .dn-button:hover:not(:disabled)::after { background-image: linear-gradient(var(--fill-hover), var(--fill-hover)); }
+  .dn-button.is-primary:hover::after { background-image: none; }
+  .dn-button.is-plain:hover:not(:disabled)::after, .dn-icon-button:hover::after { background-color: var(--fill-hover); background-image: none; }
+}
+.dn-button:active:not(:disabled)::after { background-image: linear-gradient(var(--fill-selected), var(--fill-selected)); }
+.dn-button.is-primary:active::after { background-image: none; }
+.dn-button.is-plain:active:not(:disabled)::after, .dn-icon-button:active::after { background-color: var(--fill-selected); background-image: none; }
+@media (prefers-reduced-motion: no-preference) {
+  :is(.dn-button, .dn-icon-button):active:not(:disabled)::after { transform: scale(var(--press-scale)); transition: background-color var(--duration-instant) var(--ease-standard), transform var(--duration-press) var(--ease-standard); }
+}
+.dn-button::before, .dn-icon-button::before { content: ""; position: absolute; top: 50%; left: 50%; width: max(100%, var(--hit-min)); height: max(100%, var(--hit-min)); transform: translate(-50%, -50%); }
+
+/* ---------- 骨架：顶栏 ---------- */
+.dn-app { display: grid; grid-template-columns: minmax(0, 1fr); height: 100dvh; background: var(--canvas); color: var(--ink); }
+.dn-app-main { display: flex; flex-direction: column; min-width: 0; min-height: 0; }
+.dn-toolbar { position: sticky; top: 0; z-index: var(--z-sticky); display: flex; align-items: center; gap: var(--space-2); flex: none; height: var(--toolbar-height); padding: 0 var(--space-2) 0 var(--space-3); border-bottom: var(--stroke-line) solid var(--line); background: var(--canvas); }
+.dn-toolbar-actions { display: flex; align-items: center; gap: var(--space-2); margin-left: auto; }
+.dn-toolbar .dn-button.is-plain[aria-pressed="true"] { color: var(--ink); }
+.dn-toolbar .dn-button.is-plain[aria-pressed="true"]::after { background-color: var(--fill-selected); }
+
+/* ---------- 标记 ---------- */
+.dn-mark { display: grid; place-items: center; flex: none; width: var(--button-height-md); height: var(--button-height-md); border: var(--stroke-line) solid var(--line); border-radius: var(--radius-sm); background: var(--surface); color: var(--ink); font: var(--weight-semibold) var(--type-headline-size)/1 var(--font-display); }
+.dn-mark > .dn-icon { width: var(--icon-size-md); height: var(--icon-size-md); }
+.dn-mark.is-sm { width: var(--button-height-sm); height: var(--button-height-sm); font-size: var(--type-footnote-size); }
+
+/* ---------- 分类栏（侧边栏项） ---------- */
+.dn-settings-nav { display: flex; flex-direction: column; gap: var(--row-gap); min-height: 0; overflow-y: auto; padding: var(--space-3) var(--space-2); border-right: var(--stroke-line) solid var(--line); }
+.dn-sidebar-item { display: flex; align-items: center; gap: var(--space-2); min-width: 0; min-height: var(--row-height); padding: 0 var(--row-padding-x); border-radius: var(--row-radius); color: var(--ink); font: var(--type-body); text-decoration: none; transition: background-color var(--duration-instant) var(--ease-standard); }
+.dn-sidebar-item .dn-icon { width: var(--icon-size-md); height: var(--icon-size-md); color: var(--ink-secondary); }
+@media (hover: hover) { .dn-sidebar-item:hover { background: var(--fill-hover); } }
+.dn-sidebar-item:active { background: var(--fill-selected); }
+.dn-sidebar-item[aria-current="page"] { background: var(--fill-selected); }
+.dn-sidebar-item:focus-visible { outline: var(--stroke-focus) solid var(--focus-ring); outline-offset: calc(-1 * var(--stroke-focus)); }
+.dn-sidebar-label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.dn-sidebar-count { flex: none; white-space: nowrap; color: var(--ink-tertiary); font: var(--weight-regular) var(--type-caption-size)/1 var(--font-sans); font-variant-numeric: tabular-nums; }
+
+/* ---------- 分组列表 ---------- */
+.dn-list-section { display: grid; gap: 6px; }
+.dn-list-footer { margin: 0; padding: 0 var(--row-padding-x); color: var(--ink-tertiary); font: var(--weight-regular) var(--type-footnote-size)/var(--type-footnote-line) var(--font-sans); }
+.dn-list { margin: 0; padding: 0; overflow: hidden; list-style: none; border-radius: var(--card-radius); background: var(--surface-raised); }
+.dn-list-row { --separator-inset: var(--row-padding-x); position: relative; display: flex; align-items: center; gap: var(--space-3); min-height: var(--row-height); padding: 0 var(--row-padding-x); color: var(--ink); font: var(--type-body); }
+.dn-list-row + .dn-list-row::before { content: ""; position: absolute; top: 0; right: 0; left: var(--separator-inset); border-top: var(--stroke-line) var(--line-style-divider) var(--line); }
+.dn-list-row:has(> .dn-item-text > .dn-item-detail) { padding-block: var(--space-2); }
+.dn-list-row > .dn-item-text { flex: 1; min-width: 9em; }
+.dn-list-row > :is(.dn-avatar, .dn-mark) { flex: none; }
+.dn-list-row.has-lead { --separator-inset: calc(var(--row-padding-x) + var(--button-height-md) + var(--space-3)); }
+.dn-list-row.is-sub { --separator-inset: calc(var(--row-padding-x) + var(--button-height-md) + var(--space-3)); padding-left: var(--separator-inset); }
+label.dn-list-row { cursor: pointer; }
+.dn-list-row > .dn-choice-box { align-self: flex-start; }
+.dn-list-row:has(> .dn-item-text > .dn-item-detail) > .dn-choice-box { margin-top: calc((var(--type-body-line) - var(--check-size)) / 2); }
+.dn-list-control { display: flex; flex: 0 1 300px; align-items: center; justify-content: flex-end; gap: var(--space-2); min-width: 0; margin-left: auto; }
+.dn-list-control > :is(.dn-input, .dn-select, .dn-segmented, .dn-input-group) { flex: 1; min-width: 0; }
+.dn-list-control > .dn-segmented > button { flex: 1; }
+.dn-list-control > :is(.dn-switch, .dn-button, .dn-icon-button) { flex: none; margin-left: 0; }
+.dn-list-reset { width: var(--button-height-sm); height: var(--button-height-sm); margin-block: calc(-1 * var(--space-1)); color: var(--ink-tertiary); vertical-align: middle; }
+.dn-list-reset .dn-icon { width: var(--icon-size-sm); height: var(--icon-size-sm); }
+.dn-switch { position: relative; flex: none; width: var(--switch-width); height: var(--switch-height); margin: 0 0 0 auto; border-radius: var(--radius-full); background: var(--fill-selected); appearance: none; cursor: pointer; transition: background-color var(--duration-base) var(--ease-standard); }
+.dn-switch::after { content: ""; position: absolute; top: 2px; left: 2px; width: calc(var(--switch-height) - 4px); height: calc(var(--switch-height) - 4px); border-radius: var(--radius-full); background: var(--knob); box-shadow: var(--shadow-control); transition: transform var(--duration-base) var(--ease-standard); }
+.dn-switch:checked { background: var(--accent); }
+.dn-switch:checked::after { background: var(--on-accent); transform: translateX(calc(var(--switch-width) - var(--switch-height))); }
+.dn-switch:focus-visible { outline: var(--stroke-focus) solid var(--focus-ring); outline-offset: var(--focus-offset); }
+.dn-switch:disabled { opacity: var(--opacity-disabled); cursor: default; }
+
+/* 名字加一行说明 */
+.dn-item-text { display: grid; gap: 2px; flex: 1; min-width: 0; }
+.dn-item-title { display: flex; align-items: center; gap: var(--space-1); margin: 0; color: var(--ink); font: inherit; text-decoration: none; overflow-wrap: anywhere; }
+.dn-item-detail { margin: 0; color: var(--ink-secondary); font: var(--type-footnote); }
+.dn-item-detail.is-success { color: var(--success); }
+.dn-item-detail.is-warning { color: var(--warning); }
+.dn-item-detail.is-danger { color: var(--danger); }
+.dn-meta { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+
+/* ---------- 输入框与下拉 ---------- */
+.dn-field { display: grid; gap: var(--space-1); min-width: 0; }
+.dn-field-label { color: var(--ink-secondary); font: var(--weight-medium) var(--type-callout-size)/var(--type-callout-line) var(--font-sans); }
+.dn-field-help { margin: 0; color: var(--ink-tertiary); font: var(--weight-regular) var(--type-caption-size)/var(--type-caption-line) var(--font-sans); }
+.dn-input { width: 100%; height: var(--field-height); padding: 0 var(--field-padding-x); border: var(--stroke-line) solid var(--line); border-radius: var(--field-radius); background: var(--surface-sunken); color: var(--ink); font: var(--weight-regular) var(--field-font-size)/1.2 var(--font-sans); transition: background-color var(--duration-instant) var(--ease-standard), box-shadow var(--duration-instant) var(--ease-standard); }
+.dn-input::placeholder { color: var(--ink-tertiary); }
+.dn-input:focus { outline: none; background: var(--surface-raised); box-shadow: var(--shadow-control); }
+.dn-input:disabled { opacity: var(--opacity-disabled); }
+.dn-input[readonly] { color: var(--ink-secondary); }
+.dn-input[readonly]:focus { background: var(--surface-sunken); box-shadow: none; }
+textarea.dn-input { height: auto; min-height: calc(var(--field-font-size) * 1.5 * 3 + var(--field-height) - var(--field-font-size) * 1.5); max-height: calc(var(--field-font-size) * 1.5 * 8 + var(--field-height) - var(--field-font-size) * 1.5); padding: calc((var(--field-height) - var(--field-font-size) * 1.5) / 2 - var(--stroke-line)) var(--field-padding-x); line-height: 1.5; resize: vertical; field-sizing: content; }
+.dn-input-group { display: flex; align-items: center; gap: var(--gap-inline); width: 100%; height: var(--field-height); padding: 0 var(--field-padding-x); border: var(--stroke-line) solid var(--line); border-radius: var(--field-radius); background: var(--surface-sunken); color: var(--ink-tertiary); cursor: text; transition: background-color var(--duration-instant) var(--ease-standard), box-shadow var(--duration-instant) var(--ease-standard); }
+.dn-input-group > input { flex: 1; min-width: 0; height: 100%; padding: 0; border: 0; outline: none; background: transparent; color: var(--ink); font: var(--weight-regular) var(--field-font-size)/1.2 var(--font-sans); }
+.dn-input-group > input:focus { outline: none; box-shadow: none; }
+.dn-input-group:focus-within { background: var(--surface-raised); box-shadow: var(--shadow-control); }
+.dn-input-group:has(> input:disabled) { opacity: var(--opacity-disabled); cursor: default; }
+.dn-input-affix { flex: none; font: var(--weight-regular) var(--field-font-size)/1.2 var(--font-sans); white-space: nowrap; }
+.dn-input-group > input.is-number { text-align: end; font-variant-numeric: tabular-nums; }
+.dn-select { position: relative; display: grid; min-width: 0; }
+.dn-select > select { width: 100%; height: var(--field-height); padding: 0 calc(var(--field-padding-x) + var(--icon-size-sm) + var(--space-1)) 0 var(--field-padding-x); border: var(--stroke-line) solid var(--line); border-radius: var(--field-radius); background: var(--surface-sunken); color: var(--ink); font: var(--weight-regular) var(--field-font-size)/1.2 var(--font-sans); text-align: start; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; appearance: none; cursor: pointer; transition: background-color var(--duration-instant) var(--ease-standard), box-shadow var(--duration-instant) var(--ease-standard); }
+.dn-select > select:focus { outline: none; background: var(--surface-raised); box-shadow: var(--shadow-control); }
+.dn-select > select:disabled { opacity: var(--opacity-disabled); cursor: default; }
+.dn-select > .dn-select-chevron { position: absolute; top: 50%; right: var(--field-padding-x); width: var(--icon-size-sm); height: var(--icon-size-sm); color: var(--ink-tertiary); translate: 0 -50%; pointer-events: none; }
+.is-code, .is-code > input { font-family: var(--font-mono); font-size: var(--type-footnote-size); }
+
+/* ---------- 分段控件 ---------- */
+.dn-segmented { display: inline-flex; gap: 2px; padding: var(--segmented-padding); border-radius: var(--segmented-radius); background: var(--fill-selected); }
+.dn-segmented button { position: relative; height: var(--segmented-height); padding: 0 var(--segmented-padding-x); border: 0; border-radius: calc(var(--segmented-radius) - var(--segmented-padding)); background: transparent; color: var(--ink-secondary); font: var(--weight-medium) var(--segmented-font-size)/1 var(--font-sans); white-space: nowrap; cursor: pointer; transition: background-color var(--duration-instant) var(--ease-standard), color var(--duration-instant) var(--ease-standard); }
+@media (hover: hover) { .dn-segmented button:hover:not(:disabled) { color: var(--ink); } }
+.dn-segmented button[aria-pressed="true"] { background: var(--surface-raised); color: var(--ink); box-shadow: var(--shadow-control); }
+.dn-segmented button:focus-visible { outline: var(--stroke-focus) solid var(--focus-ring); outline-offset: calc(-1 * var(--stroke-focus)); }
+.dn-segmented button:disabled { cursor: default; }
+.dn-segmented:has(button:disabled) { opacity: var(--opacity-disabled); }
+
+/* ---------- 单选 ---------- */
+.dn-choice { display: flex; align-items: flex-start; gap: var(--space-2); min-height: var(--hit-min); color: var(--ink); font: var(--type-body); cursor: pointer; }
+.dn-choice-box { position: relative; display: grid; place-items: center; flex: none; width: var(--check-size); height: var(--check-size); margin-top: calc((var(--type-body-line) - var(--check-size)) / 2); }
+.dn-choice-box > input { appearance: none; width: 100%; height: 100%; margin: 0; border: var(--stroke-control) solid var(--line-control); border-radius: var(--radius-full); background: var(--surface-raised); cursor: pointer; transition: background-color var(--duration-instant) var(--ease-standard), border-color var(--duration-instant) var(--ease-standard); }
+.dn-choice-box > input:checked { border-color: var(--accent); background: var(--accent); box-shadow: inset 0 0 0 calc(var(--check-size) / 4) var(--surface-raised); }
+@media (hover: hover) { :is(.dn-choice, label.dn-list-row):hover .dn-choice-box > input:not(:checked) { border-color: var(--ink-secondary); } }
+.dn-choice-box > input:focus-visible { outline: var(--stroke-focus) solid var(--focus-ring); outline-offset: var(--focus-offset); }
+.dn-choice-text { display: grid; gap: 2px; min-width: 0; }
+.dn-choice-help { color: var(--ink-tertiary); font: var(--weight-regular) var(--type-caption-size)/var(--type-caption-line) var(--font-sans); }
+.dn-choice-group { display: grid; gap: var(--space-2); margin: 0; padding: 0; border: 0; min-width: 0; }
+.dn-choice-group > legend { margin-bottom: var(--space-1); padding: 0; color: var(--ink-secondary); font: var(--weight-medium) var(--type-callout-size)/var(--type-callout-line) var(--font-sans); }
+
+/* ---------- 提及 ---------- */
+.dn-mention { display: inline-flex; align-items: center; gap: 3px; height: var(--mention-height); padding: 0 var(--mention-padding-x); border-radius: var(--mention-radius); background: var(--link-soft); color: var(--link); font: inherit; line-height: 1; white-space: nowrap; vertical-align: baseline; user-select: all; }
+.dn-mention > .dn-icon { width: var(--icon-size-sm); height: var(--icon-size-sm); color: inherit; }
+
+/* ---------- 对话（试用栏） ---------- */
+.dn-thread { display: flex; flex-direction: column; gap: var(--space-4); max-width: var(--content-max); }
+.dn-message-user { align-self: flex-end; max-width: 80%; padding: var(--space-3) var(--space-4); border-radius: var(--radius-lg); background: var(--surface-raised); color: var(--ink); font: var(--weight-regular) var(--message-font-size)/var(--type-body-line) var(--font-sans); }
+.dn-message-assistant { color: var(--ink); font: var(--type-body); }
+.dn-message-assistant p { margin: 0 0 var(--space-3); }
+.dn-message-assistant p:last-of-type { margin-bottom: 0; }
+.dn-message-assistant ul, .dn-message-assistant ol { margin: 0 0 var(--space-3); padding-left: 1.4em; }
+.dn-message-assistant li + li { margin-top: var(--space-1); }
+.dn-message-assistant strong { font-weight: var(--weight-semibold); }
+.dn-message-actions { display: flex; align-items: center; gap: 2px; margin: var(--space-2) 0 0 calc(var(--space-1) * -1); }
+.dn-message-actions .dn-icon-button { width: var(--message-action-size); height: var(--message-action-size); color: var(--ink-tertiary); }
+.dn-message-actions .dn-icon { width: var(--icon-size-sm); height: var(--icon-size-sm); }
+@media (hover: hover) and (pointer: fine) {
+  .dn-message-actions { opacity: 0; transition: opacity var(--duration-instant) var(--ease-standard); }
+  .dn-message-assistant:hover .dn-message-actions, .dn-message-actions:focus-within { opacity: 1; }
+}
+.dn-activity { min-width: 0; interpolate-size: allow-keywords; }
+.dn-activity::details-content { block-size: 0; overflow: clip; transition: block-size var(--duration-base) var(--ease-standard), content-visibility var(--duration-base) allow-discrete; }
+.dn-activity[open]::details-content { block-size: auto; }
+@media (prefers-reduced-motion: reduce) { .dn-activity::details-content { transition: none; } }
+.dn-activity > summary { display: flex; align-items: center; gap: var(--space-1); min-height: var(--button-height-md); color: var(--ink-secondary); font: var(--type-body); list-style: none; cursor: pointer; }
+.dn-activity > summary::-webkit-details-marker { display: none; }
+@media (hover: hover) { .dn-activity > summary:hover { color: var(--ink); } }
+.dn-activity > summary > .dn-icon:last-child { width: var(--icon-size-sm); height: var(--icon-size-sm); transition: transform var(--duration-base) var(--ease-standard); }
+.dn-activity[open] > summary > .dn-icon:last-child { transform: rotate(90deg); }
+.dn-activity > summary > .dn-icon:first-child:not(:last-child) { width: var(--icon-size-md); height: var(--icon-size-md); margin-right: var(--space-1); }
+.dn-activity > .dn-steps { margin: var(--space-1) 0 0 6px; padding-left: var(--space-3); border-left: var(--stroke-line) solid var(--line); }
+.dn-steps { display: flex; flex-direction: column; min-width: 0; margin: 0; padding: 0; }
+.dn-step { display: flex; align-items: center; gap: var(--space-2); min-width: 0; height: var(--button-height-md); padding: 0 6px; border-radius: var(--radius-sm); color: var(--ink-secondary); font: var(--weight-regular) var(--type-callout-size)/1 var(--font-sans); list-style: none; }
+.dn-step .dn-icon { width: var(--icon-size-md); height: var(--icon-size-md); }
+.dn-step-name { color: var(--ink); font-weight: var(--weight-semibold); white-space: nowrap; }
+.dn-step-summary { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: var(--weight-regular) var(--type-caption-size)/1 var(--font-mono); }
+.dn-step.is-success .dn-step-glyph { color: var(--success); }
+.dn-running { display: flex; align-items: center; gap: var(--space-2); min-height: var(--button-height-md); color: var(--ink-secondary); font: var(--type-body); }
+.dn-running > dn-loader { color: var(--brand); }
+.dn-running-time { color: var(--ink-tertiary); font-variant-numeric: tabular-nums; }
+
+.dn-composer { display: flex; flex-wrap: wrap; align-items: flex-end; gap: var(--space-1); min-width: 0; min-height: var(--composer-min-height); padding: calc((var(--composer-min-height) - var(--button-height-md)) / 2 - var(--stroke-line)) var(--space-2); border: var(--stroke-line) solid var(--line); border-radius: var(--composer-radius); background: var(--surface-raised); box-shadow: var(--shadow-float); }
+.dn-composer textarea { flex: 1; min-width: 0; min-height: var(--button-height-md); max-height: calc(var(--type-body-line) * 8 + 4px); padding: calc((var(--button-height-md) - var(--type-body-line)) / 2) var(--space-1); border: 0; outline: none; resize: none; field-sizing: content; background: transparent; color: var(--ink); font: var(--type-body); }
+.dn-composer textarea::placeholder { color: var(--ink-tertiary); }
+.dn-composer textarea:focus { outline: none; box-shadow: none; }
+.dn-send { position: relative; display: grid; place-items: center; flex: none; width: var(--button-height-md); height: var(--button-height-md); padding: 0; border: 0; border-radius: var(--radius-full); isolation: isolate; background: none; color: var(--on-accent); cursor: pointer; }
+.dn-send::after { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; background-color: var(--accent); transition: transform var(--duration-release) var(--ease-release); }
+@media (prefers-reduced-motion: no-preference) { .dn-send:active:not(:disabled)::after { transform: scale(var(--press-scale)); transition: transform var(--duration-press) var(--ease-standard); } }
+.dn-send .dn-icon { width: var(--icon-size-sm); height: var(--icon-size-sm); stroke-width: 2.2; }
+.dn-send:disabled { color: var(--ink-tertiary); cursor: default; }
+.dn-send:disabled::after { background-color: var(--fill-selected); }
+.dn-send:focus-visible { outline: var(--stroke-focus) solid var(--focus-ring); outline-offset: var(--focus-offset); }
+.dn-send::before { content: ""; position: absolute; top: 50%; left: 50%; width: max(100%, var(--hit-min)); height: max(100%, var(--hit-min)); transform: translate(-50%, -50%); }
+
+/* ---------- 弹窗 ---------- */
+.dn-sheet { display: flex; flex-direction: column; width: min(100% - 2 * var(--sheet-margin), var(--sheet-width-md)); max-width: none; max-height: calc(100dvh - 2 * var(--sheet-margin)); padding: 0; overflow: hidden; border: var(--stroke-line) solid var(--line); border-radius: var(--sheet-radius); background: var(--surface-raised); color: var(--ink); box-shadow: var(--shadow-float); transition: opacity var(--duration-slow) var(--ease-enter), transform var(--duration-slow) var(--ease-enter), overlay var(--duration-slow) allow-discrete, display var(--duration-slow) allow-discrete; }
+dialog.dn-sheet:not([open]) { display: none; opacity: 0; transform: scale(0.96); transition-duration: var(--duration-base); transition-timing-function: var(--ease-exit); }
+.dn-sheet.is-sm { width: min(100% - 2 * var(--sheet-margin), var(--sheet-width-sm)); }
+.dn-sheet::backdrop { background: var(--scrim); transition: opacity var(--duration-slow) var(--ease-enter), overlay var(--duration-slow) allow-discrete, display var(--duration-slow) allow-discrete; }
+dialog.dn-sheet:not([open])::backdrop { opacity: 0; transition-duration: var(--duration-base); transition-timing-function: var(--ease-exit); }
+@starting-style { .dn-sheet[open] { opacity: 0; transform: scale(0.96); } .dn-sheet[open]::backdrop { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .dn-sheet, dialog.dn-sheet:not([open]) { transform: none; } @starting-style { .dn-sheet[open] { transform: none; } } }
+:root:has(.dn-sheet:modal) { overflow: hidden; }
+.dn-sheet > form { display: contents; }
+.dn-sheet-head { flex: none; display: flex; align-items: flex-start; gap: var(--space-3); padding: var(--sheet-padding) var(--sheet-padding) 0; }
+.dn-sheet-heading { flex: 1; min-width: 0; }
+.dn-sheet-title { margin: 0; font: var(--type-title); }
+.dn-sheet-description { margin: var(--space-1) 0 0; color: var(--ink-secondary); font: var(--type-callout); }
+.dn-sheet-content { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: var(--space-4) var(--sheet-padding) 0; }
+.dn-sheet-actions { flex: none; display: flex; justify-content: flex-end; gap: var(--gap-stack); padding: var(--space-4) var(--sheet-padding) var(--sheet-padding); }
+.dn-form { display: grid; gap: calc(var(--gap-stack) * 2); width: min(100%, var(--form-max)); }
+.dn-form-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3); }
+.dn-inline-note { display: flex; align-items: flex-start; gap: var(--space-2); margin: 0; color: var(--warning); font: var(--type-callout); }
+.dn-inline-note > .dn-icon { margin-top: calc((var(--type-callout-line) - var(--icon-size-md)) / 2); }
+
+/* ---------- Tooltip ---------- */
+.dn-tooltip { display: flex; align-items: center; width: max-content; max-width: min(var(--tooltip-max-width), 100vw - 2 * var(--space-2)); min-height: var(--tooltip-height); margin: 0; padding: var(--space-1) var(--tooltip-padding-x); border: 0; border-radius: var(--tooltip-radius); background: var(--accent); color: var(--on-accent); box-shadow: var(--shadow-float); font: var(--weight-regular) var(--tooltip-font-size)/var(--type-caption-line) var(--font-sans); overflow-wrap: anywhere; pointer-events: none; transition: opacity var(--duration-instant) var(--ease-enter), overlay var(--duration-instant) allow-discrete, display var(--duration-instant) allow-discrete; }
+.dn-tooltip[popover] { position: fixed; inset: auto; }
+.dn-tooltip[popover]:not(:popover-open) { display: none; opacity: 0; transition-timing-function: var(--ease-exit); }
+@starting-style { .dn-tooltip:popover-open { opacity: 0; } }
+
+/* ---------- 页面：智能体配置 ---------- */
+.dn-builder { display: grid; grid-template-columns: 200px minmax(0, 1fr) minmax(300px, 360px); flex: 1; min-height: 0; }
+.dn-builder.is-solo { grid-template-columns: 200px minmax(0, 1fr); }
+.dn-builder.is-solo > .dn-builder-try { display: none; }
+.dn-builder > .dn-settings-nav .dn-sidebar-count.is-warning { color: var(--warning); }
+.dn-builder-main { display: flex; flex-direction: column; min-width: 0; min-height: 0; overflow-y: auto; padding: var(--space-6) max(var(--space-8), calc((100% - var(--content-max)) / 2)) var(--space-10); }
+.dn-builder-main > section { display: flex; flex-direction: column; flex: 1 0 auto; }
+.dn-builder-main > section > * { flex-shrink: 0; }
+.dn-builder-main h3 { margin: 0 0 var(--space-5); font: var(--type-title); }
+.dn-builder-main h4 { margin: var(--space-8) 0 var(--space-2); font: var(--type-headline); }
+.dn-builder-state { color: var(--ink-tertiary); font: var(--type-footnote); white-space: nowrap; }
+.dn-builder-name { width: 9em; min-width: 0; height: var(--button-height-sm); padding: 0 var(--space-2); border: 0; border-radius: var(--radius-sm); background: none; color: var(--ink); font: var(--weight-semibold) var(--toolbar-title-size)/1.2 var(--font-sans); }
+@media (hover: hover) { .dn-builder-name:hover { background: var(--fill-hover); } }
+.dn-builder-name:focus { outline: none; background: var(--surface-sunken); }
+.dn-builder-summary { margin-bottom: var(--space-4); }
+.dn-prompt { flex: 1 0 auto; min-height: calc(var(--type-body-line) * 12); padding: var(--space-4) var(--space-5); border: var(--stroke-line) solid var(--line); border-radius: var(--radius-lg); background: var(--surface); color: var(--ink); font: var(--type-body); outline: none; }
+.dn-prompt:focus-within { border-color: var(--line-control); box-shadow: var(--shadow-control); }
+.dn-prompt > p { margin: 0 0 var(--space-3); }
+.dn-prompt-foot { display: flex; justify-content: space-between; gap: var(--space-4); margin-top: var(--space-2); color: var(--ink-tertiary); font: var(--type-footnote); font-variant-numeric: tabular-nums; }
+.dn-builder-main section > :is(.dn-list, .dn-list-section) + :is(.dn-list, .dn-list-section) { margin-top: var(--gap-group); }
+.dn-builder-main section > .dn-list + .dn-builder-add { margin-top: var(--space-3); }
+.dn-builder-main section > .dn-list + .dn-list-footer { margin-top: 6px; }
+.dn-builder-add { align-self: flex-start; width: auto; }
+.dn-list-row.is-risky:has(input:checked) .dn-item-detail { color: var(--warning); }
+.dn-list[aria-disabled="true"] { opacity: var(--opacity-disabled); }
+.dn-list[aria-disabled="true"] * { cursor: default; }
+.dn-row-open { all: unset; display: grid; gap: 2px; flex: 1; min-width: 9em; cursor: pointer; border-radius: var(--radius-xs); }
+.dn-row-open:focus-visible { outline: var(--stroke-focus) solid var(--focus-ring); outline-offset: var(--focus-offset); }
+@media (hover: hover) { .dn-row-open:hover .dn-item-title { text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--line-control); } }
+.dn-builder-try { display: flex; flex-direction: column; min-width: 0; min-height: 0; border-left: var(--stroke-line) solid var(--line); }
+.dn-builder-try-head { display: flex; align-items: center; justify-content: space-between; flex: none; height: var(--toolbar-height); padding: 0 var(--space-2) 0 var(--space-4); border-bottom: var(--stroke-line) solid var(--line); color: var(--ink-secondary); font: var(--type-callout); }
+.dn-builder-try > .dn-thread { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: var(--space-4); }
+.dn-builder-try-dock { flex: none; padding: 0 var(--space-4) var(--space-4); }
+@media (max-width: 1100px) {
+  .dn-builder { grid-template-columns: 200px minmax(0, 1fr); }
+  .dn-builder-try { display: none; }
+}
+@media (max-width: 760px) {
+  .dn-builder, .dn-builder.is-solo { grid-template-columns: minmax(0, 1fr); }
+  .dn-builder > .dn-settings-nav { display: none; }
+  .dn-builder-main { padding-inline: var(--page-margin); }
+  .dn-list-row:has(> .dn-list-control) { flex-wrap: wrap; }
+  .dn-list-control { flex-basis: 100%; }
+  .dn-builder-state { display: none; }
+}
+</style>
+</head>
+<body>
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+<symbol id="dn-chevron-left" viewBox="0 0 24 24"><path d="M14.25 7l-4.5 5 4.5 5"/></symbol>
+<symbol id="dn-chevron-down" viewBox="0 0 24 24"><path d="M7 9.75l5 4.5 5-4.5"/></symbol>
+<symbol id="dn-chevron-right" viewBox="0 0 24 24"><path d="M9.75 7l4.5 5-4.5 5"/></symbol>
+<symbol id="dn-document" viewBox="0 0 24 24"><path d="M14 3H6.75A1.75 1.75 0 0 0 5 4.75V19.25A1.75 1.75 0 0 0 6.75 21H17.25A1.75 1.75 0 0 0 19 19.25V8Z"/><path d="M8.5 9H11"/><path d="M8.5 13H15.5"/><path d="M8.5 17H15.5"/></symbol>
+<symbol id="dn-model" viewBox="0 0 24 24"><path d="M13.09 4.12L18.41 7.13Q19.5 7.75 19.5 9L19.5 15Q19.5 16.25 18.41 16.87L13.09 19.88Q12 20.5 10.91 19.88L5.59 16.87Q4.5 16.25 4.5 15L4.5 9Q4.5 7.75 5.59 7.13L10.91 4.12Q12 3.5 13.09 4.12Z"/><path d="M4.75 7.9L12 12L19.25 7.9"/><path d="M12 12V20.25"/></symbol>
+<symbol id="dn-tool" viewBox="0 0 24 24"><path d="M16.85 4.42a5.12 5.12 0 0 0-6.59 6.59l-5.61 5.61a1.95 1.95 0 0 0 2.81 2.81l5.61-5.61a5.12 5.12 0 0 0 6.59-6.59l-2.93 2.93-2.68-.37-.37-2.68z"/></symbol>
+<symbol id="dn-permission" viewBox="0 0 24 24"><path d="M12 3.5L19 6.25V11.5c0 4.2-2.9 7.6-7 9-4.1-1.4-7-4.8-7-9V6.25Z"/><path d="M9 12L11 14L15 10"/></symbol>
+<symbol id="dn-calendar" viewBox="0 0 24 24"><path d="M8 2v3"/><path d="M16 2v3"/><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/></symbol>
+<symbol id="dn-history" viewBox="0 0 24 24"><path d="M4 12A8 8 0 1 0 12 4C9.6 4 7.5 5 6 6.6L4.25 8.5"/><path d="M4 4.5V8.75H8.25"/><path d="M12 8V12L14.75 13.75"/></symbol>
+<symbol id="dn-regenerate" viewBox="0 0 24 24"><path d="M19.5 12a7.5 7.5 0 1 1-2.2-5.3l2.2 2.3"/><path d="M19.5 4.5V9H15"/></symbol>
+<symbol id="dn-send" viewBox="0 0 24 24"><path d="M12 19.5V5"/><path d="M6.5 10.5L12 5l5.5 5.5"/></symbol>
+<symbol id="dn-undo" viewBox="0 0 24 24"><path d="M9 14L4 9L9 4"/><path d="M4 9H14.25a5.25 5.25 0 0 1 0 10.5H11"/></symbol>
+<symbol id="dn-plus" viewBox="0 0 24 24"><path d="M5 12H19"/><path d="M12 5V19"/></symbol>
+<symbol id="dn-more" viewBox="0 0 24 24"><circle cx="5.5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="18.5" cy="12" r="1"/></symbol>
+<symbol id="dn-mail" viewBox="0 0 24 24"><path d="M17 5L21 9V16.75a2.25 2.25 0 0 1 -2.25 2.25H5.25a2.25 2.25 0 0 1 -2.25 -2.25V7.25a2.25 2.25 0 0 1 2.25 -2.25Z"/><path d="M3.96 8.04L12 13.25L20.04 8.04"/></symbol>
+<symbol id="dn-check" viewBox="0 0 24 24"><path d="M19.5 6.5L9.25 16.75L4.5 12"/></symbol>
+<symbol id="dn-copy" viewBox="0 0 24 24"><path d="M17.25 8.25L20.75 11.75V18.5a2.25 2.25 0 0 1 -2.25 2.25H10.5a2.25 2.25 0 0 1 -2.25 -2.25V10.5a2.25 2.25 0 0 1 2.25 -2.25Z"/><path d="M5.5 15.75A2.25 2.25 0 0 1 3.25 13.5V5.5A2.25 2.25 0 0 1 5.5 3.25h8A2.25 2.25 0 0 1 15.75 5.5"/></symbol>
+<symbol id="dn-thinking" viewBox="0 0 24 24"><path d="M12 4.61C12.4 4.61 12.88 4.87 13.19 5.15C13.5 5.43 13.71 5.89 13.86 6.3C14.01 6.71 14.07 7.18 14.1 7.62C14.12 8.06 14.08 8.52 14.02 8.96C13.95 9.4 13.84 9.84 13.71 10.27C13.58 10.69 13.42 11.11 13.24 11.52C13.07 11.93 12.86 12.33 12.66 12.73C12.45 13.13 12.22 13.52 12 13.9C11.78 14.29 11.55 14.68 11.31 15.06C11.07 15.44 10.83 15.81 10.56 16.17C10.29 16.53 10.01 16.88 9.71 17.21C9.4 17.53 9.08 17.85 8.73 18.12C8.38 18.4 8 18.66 7.61 18.86C7.21 19.06 6.78 19.24 6.35 19.32C5.92 19.39 5.41 19.44 5.01 19.31C4.62 19.18 4.15 18.89 3.95 18.55C3.75 18.21 3.74 17.66 3.82 17.25C3.91 16.84 4.2 16.43 4.48 16.09C4.76 15.76 5.14 15.47 5.51 15.23C5.88 14.99 6.29 14.79 6.71 14.63C7.12 14.46 7.56 14.34 7.99 14.24C8.43 14.14 8.87 14.07 9.32 14.02C9.76 13.96 10.21 13.94 10.66 13.92C11.1 13.9 11.55 13.9 12 13.9C12.45 13.9 12.9 13.9 13.34 13.92C13.79 13.94 14.24 13.96 14.68 14.02C15.13 14.07 15.57 14.14 16.01 14.24C16.44 14.34 16.88 14.46 17.29 14.63C17.71 14.79 18.12 14.99 18.49 15.23C18.86 15.47 19.24 15.76 19.52 16.09C19.8 16.43 20.09 16.84 20.18 17.25C20.26 17.66 20.25 18.21 20.05 18.55C19.85 18.89 19.38 19.18 18.99 19.31C18.59 19.44 18.08 19.39 17.65 19.32C17.22 19.24 16.79 19.06 16.39 18.86C16 18.66 15.62 18.4 15.27 18.12C14.92 17.85 14.6 17.53 14.29 17.21C13.99 16.88 13.71 16.53 13.44 16.17C13.17 15.81 12.93 15.44 12.69 15.06C12.45 14.68 12.22 14.29 12 13.9C11.78 13.52 11.55 13.13 11.34 12.73C11.14 12.33 10.93 11.93 10.76 11.52C10.58 11.11 10.42 10.69 10.29 10.27C10.16 9.84 10.05 9.4 9.98 8.96C9.92 8.52 9.88 8.06 9.9 7.62C9.93 7.18 9.99 6.71 10.14 6.3C10.29 5.89 10.5 5.43 10.81 5.15C11.12 4.87 11.6 4.61 12 4.61Z"/></symbol>
+<symbol id="dn-close" viewBox="0 0 24 24"><path d="M17.5 6.5L6.5 17.5"/><path d="M6.5 6.5L17.5 17.5"/></symbol>
+<symbol id="dn-warning" viewBox="0 0 24 24"><path d="M12.79 5.14L20.21 18.11Q21 19.5 19.4 19.5L4.6 19.5Q3 19.5 3.79 18.11L11.21 5.14Q12 3.75 12.79 5.14Z"/><path d="M12 9.5V13.25"/><path d="M12 16.5H12.01"/></symbol>
+</svg>
+
+<div class="dn-app">
+  <div class="dn-app-main">
+    <header class="dn-toolbar">
+      <a class="dn-icon-button" href="#agents" aria-label="返回智能体列表"><svg class="dn-icon" aria-hidden="true"><use href="#dn-chevron-left"/></svg></a>
+      <span class="dn-mark is-sm" aria-hidden="true">周</span>
+      <input class="dn-builder-name" id="agent-name" value="周报助手" aria-label="名字" spellcheck="false">
+      <span class="dn-builder-state" id="draft-state" role="status">草稿，已自动保存</span>
+      <div class="dn-toolbar-actions">
+        <button class="dn-button is-plain is-sm" id="try-toggle" type="button" aria-pressed="true" aria-controls="try-pane">试用</button>
+        <button class="dn-button is-primary is-sm" id="publish-open" type="button">发布</button>
+      </div>
+    </header>
+
+    <div class="dn-builder" id="builder">
+      <nav class="dn-settings-nav" aria-label="配置分类">
+        <a class="dn-sidebar-item" href="#instructions" data-section="instructions"><svg class="dn-icon" aria-hidden="true"><use href="#dn-document"/></svg><span class="dn-sidebar-label">指令</span></a>
+        <a class="dn-sidebar-item" href="#model" data-section="model" aria-current="page"><svg class="dn-icon" aria-hidden="true"><use href="#dn-model"/></svg><span class="dn-sidebar-label">模型</span><span class="dn-sidebar-count" id="nav-model">deepseek-chat</span></a>
+        <a class="dn-sidebar-item" href="#tools" data-section="tools"><svg class="dn-icon" aria-hidden="true"><use href="#dn-tool"/></svg><span class="dn-sidebar-label">工具</span><span class="dn-sidebar-count is-warning">1 个要登录</span></a>
+        <a class="dn-sidebar-item" href="#permissions" data-section="permissions"><svg class="dn-icon" aria-hidden="true"><use href="#dn-permission"/></svg><span class="dn-sidebar-label">权限</span><span class="dn-sidebar-count" id="nav-level">外发前问</span></a>
+        <a class="dn-sidebar-item" href="#schedule" data-section="schedule"><svg class="dn-icon" aria-hidden="true"><use href="#dn-calendar"/></svg><span class="dn-sidebar-label">定时任务</span><span class="dn-sidebar-count">每周五</span></a>
+        <a class="dn-sidebar-item" href="#versions" data-section="versions"><svg class="dn-icon" aria-hidden="true"><use href="#dn-history"/></svg><span class="dn-sidebar-label">版本</span><span class="dn-sidebar-count" id="nav-version">v4</span></a>
+      </nav>
+
+      <div class="dn-builder-main" id="main">
+
+        <!-- 指令 -->
+        <section id="sec-instructions" aria-labelledby="h-instructions" hidden>
+          <h3 id="h-instructions">指令</h3>
+          <div class="dn-field dn-builder-summary"><label class="dn-field-label" for="agent-desc">一句话说明</label><input class="dn-input" id="agent-desc" value="每周五读本周的笔记和日程，起草周报"></div>
+          <div class="dn-prompt" id="prompt" contenteditable="true" role="textbox" aria-multiline="true" aria-label="指令" spellcheck="false">
+            <p>读我本周的 <span class="dn-mention" contenteditable="false"><svg class="dn-icon" aria-hidden="true"><use href="#dn-folder"/></svg>笔记 / 工作</span> 和 <span class="dn-mention" contenteditable="false"><svg class="dn-icon" aria-hidden="true"><use href="#dn-calendar"/></svg>日历：工作</span>，起草一份周报。</p>
+            <p>先写三件最重要的进展，每件一句话，带上数字；再写下周要做的事。不写客套话，不评价自己做得怎样。</p>
+            <p>拿不准的地方标出来问我。写好后用 <span class="dn-mention" contenteditable="false"><svg class="dn-icon" aria-hidden="true"><use href="#dn-tool"/></svg>新建笔记</span> 存进「周报」文件夹，不要发给任何人。</p>
+          </div>
+          <div class="dn-prompt-foot"><span>输入 @ 引用资料和工具</span><span id="prompt-count">0 字</span></div>
+        </section>
+
+        <!-- 模型（正在编辑） -->
+        <section id="sec-model" aria-labelledby="h-model">
+          <h3 id="h-model">模型</h3>
+          <ul class="dn-list">
+            <li class="dn-list-row"><span class="dn-item-text"><label class="dn-item-title" for="follow-team">跟随团队</label><span class="dn-item-detail">团队默认：Anthropic 格式，团队自己的 Key</span></span><span class="dn-list-control"><input class="dn-switch" id="follow-team" type="checkbox" role="switch"></span></li>
+          </ul>
+          <ul class="dn-list" id="model-group">
+            <li class="dn-list-row"><span class="dn-item-text"><span class="dn-item-title" id="fmt-label">接口格式</span><span class="dn-item-detail">大部分服务商兼容 OpenAI 格式</span></span><span class="dn-list-control"><span class="dn-segmented" role="group" aria-labelledby="fmt-label" id="fmt"><button type="button" aria-pressed="true" data-fmt="openai">OpenAI</button><button type="button" aria-pressed="false" data-fmt="anthropic">Anthropic</button></span></span></li>
+            <li class="dn-list-row"><span class="dn-item-text"><label class="dn-item-title" for="base-url">地址</label><span class="dn-item-detail">服务商文档里的 Base URL</span></span><span class="dn-list-control"><input class="dn-input is-code" id="base-url" value="https://api.deepseek.com/v1" spellcheck="false" autocomplete="off"></span></li>
+            <li class="dn-list-row" id="key-row"><span class="dn-item-text"><label class="dn-item-title" for="key-input">API Key</label><span class="dn-item-detail">只存在服务端，保存后只显示后四位</span></span>
+              <span class="dn-list-control" id="key-edit"><span class="dn-input-group is-code"><input id="key-input" type="password" value="sk-7c1d0e5a9b2f" autocomplete="off" spellcheck="false" aria-describedby="key-hint"></span><button class="dn-button is-plain is-sm" id="key-cancel" type="button">取消</button></span>
+              <span class="dn-list-control" id="key-view" hidden><input class="dn-input is-code" id="key-masked" value="sk-••••••••3f9a" aria-label="API Key，已保存" readonly><button class="dn-button is-sm" id="key-change" type="button">更换</button></span>
+            </li>
+            <li class="dn-list-row"><span class="dn-item-text"><label class="dn-item-title" for="model-name">模型</label><span class="dn-item-detail" id="model-detail">回答快，适合起草和总结</span></span><span class="dn-list-control"><span class="dn-select"><select id="model-name"><option value="deepseek-chat" selected>deepseek-chat</option><option value="deepseek-reasoner">deepseek-reasoner</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span></span></li>
+            <li class="dn-list-row"><span class="dn-item-text"><span class="dn-item-title">连接</span><span class="dn-item-detail" id="conn-detail" role="status">换了 Key，还没测试</span></span><span class="dn-list-control"><button class="dn-button is-sm" id="conn-test" type="button">测试连接</button></span></li>
+          </ul>
+          <ul class="dn-list" id="gen-group">
+            <li class="dn-list-row"><span class="dn-item-text"><span class="dn-item-title"><label for="depth">思考深度</label><button class="dn-icon-button dn-list-reset" id="depth-reset" type="button" aria-label="恢复成团队默认"><svg class="dn-icon" aria-hidden="true"><use href="#dn-undo"/></svg></button></span><span class="dn-item-detail" id="depth-detail">单独设置，团队默认是「低」</span></span><span class="dn-list-control"><span class="dn-select"><select id="depth"><option>关</option><option>低</option><option selected>中</option><option>高</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span></span></li>
+            <li class="dn-list-row"><span class="dn-item-text"><label class="dn-item-title" for="max-tokens">回答最长</label><span class="dn-item-detail">团队默认</span></span><span class="dn-list-control"><span class="dn-input-group"><input class="is-number" id="max-tokens" value="4,000" inputmode="numeric"><span class="dn-input-affix">token</span></span></span></li>
+          </ul>
+        </section>
+
+        <!-- 工具 -->
+        <section id="sec-tools" aria-labelledby="h-tools" hidden>
+          <h3 id="h-tools">工具</h3>
+          <ul class="dn-list">
+            <li class="dn-list-row has-lead">
+              <span class="dn-mark" aria-hidden="true"><svg class="dn-icon"><use href="#dn-document"/></svg></span>
+              <span class="dn-item-text"><label class="dn-item-title" for="use-notes">笔记</label><span class="dn-item-detail">已连接，4 个操作</span></span>
+              <input class="dn-switch" id="use-notes" type="checkbox" role="switch" checked>
+            </li>
+            <li class="dn-list-row is-sub"><span class="dn-item-text"><span class="dn-item-title">搜索和读取笔记</span></span><span class="dn-list-control"><span class="dn-select"><select aria-label="搜索和读取笔记的权限"><option selected>跟随整体</option><option>每次询问</option><option>不允许</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span></span></li>
+            <li class="dn-list-row is-sub"><span class="dn-item-text"><span class="dn-item-title">新建笔记</span></span><span class="dn-list-control"><span class="dn-select"><select aria-label="新建笔记的权限"><option selected>跟随整体</option><option>总是允许</option><option>每次询问</option><option>不允许</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span></span></li>
+            <li class="dn-list-row is-sub"><span class="dn-item-text"><span class="dn-item-title">修改笔记</span></span><span class="dn-list-control"><span class="dn-select"><select aria-label="修改笔记的权限"><option selected>跟随整体</option><option>总是允许</option><option>每次询问</option><option>不允许</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span></span></li>
+            <li class="dn-list-row is-sub"><span class="dn-item-text"><span class="dn-item-title">删除笔记</span></span><span class="dn-list-control"><span class="dn-select"><select aria-label="删除笔记的权限" data-op="delete-note"><option>跟随整体</option><option>总是允许</option><option>每次询问</option><option selected>不允许</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span></span></li>
+            <li class="dn-list-row has-lead">
+              <span class="dn-mark" aria-hidden="true"><svg class="dn-icon"><use href="#dn-calendar"/></svg></span>
+              <span class="dn-item-text"><label class="dn-item-title" for="use-cal">日历</label><span class="dn-item-detail">已连接，只读</span></span>
+              <input class="dn-switch" id="use-cal" type="checkbox" role="switch" checked>
+            </li>
+            <li class="dn-list-row has-lead">
+              <span class="dn-mark" aria-hidden="true"><svg class="dn-icon"><use href="#dn-mail"/></svg></span>
+              <span class="dn-item-text"><span class="dn-item-title">邮箱</span><span class="dn-item-detail is-warning">授权已过期，要重新登录</span></span>
+              <button class="dn-button is-sm" type="button">重新登录</button>
+            </li>
+          </ul>
+          <p class="dn-list-footer">连接能做的事在「工具与连接」里设上限，这里只能收得更紧。</p>
+        </section>
+
+        <!-- 权限 -->
+        <section id="sec-permissions" aria-labelledby="h-permissions" hidden>
+          <h3 id="h-permissions">权限</h3>
+          <div class="dn-list" role="radiogroup" aria-labelledby="h-permissions" id="levels">
+            <label class="dn-list-row"><span class="dn-choice-box"><input type="radio" name="level" value="每次都问"></span><span class="dn-item-text"><span class="dn-item-title">每次都问</span><span class="dn-item-detail">新建、修改、发送前都先问你</span></span></label>
+            <label class="dn-list-row"><span class="dn-choice-box"><input type="radio" name="level" value="外发前问" checked></span><span class="dn-item-text"><span class="dn-item-title">只在外发前问</span><span class="dn-item-detail">新建和修改直接做；发送、付费、删除前问你。团队默认</span></span></label>
+            <label class="dn-list-row"><span class="dn-choice-box"><input type="radio" name="level" value="自动"></span><span class="dn-item-text"><span class="dn-item-title">自动</span><span class="dn-item-detail">只在它拿不准、或者要付费时问你</span></span></label>
+            <label class="dn-list-row is-risky"><span class="dn-choice-box"><input type="radio" name="level" value="完全放开"></span><span class="dn-item-text"><span class="dn-item-title">完全放开</span><span class="dn-item-detail">它会直接发邮件、删除笔记，不再问你</span></span></label>
+          </div>
+          <h4>例外</h4>
+          <ul class="dn-list">
+            <li class="dn-list-row"><span class="dn-item-text"><span class="dn-item-title">发送邮件</span><span class="dn-item-detail">邮箱 lin@deernova.me</span></span><span class="dn-list-control"><span class="dn-select"><select aria-label="发送邮件的权限"><option>跟随整体</option><option>总是允许</option><option>每次询问</option><option selected>不允许</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span></span></li>
+            <li class="dn-list-row"><span class="dn-item-text"><span class="dn-item-title">删除笔记</span><span class="dn-item-detail">笔记</span></span><span class="dn-list-control"><span class="dn-select"><select aria-label="删除笔记的权限" data-op="delete-note"><option>跟随整体</option><option>总是允许</option><option>每次询问</option><option selected>不允许</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span></span></li>
+          </ul>
+          <button class="dn-button is-plain is-sm dn-builder-add" type="button"><svg class="dn-icon" aria-hidden="true"><use href="#dn-plus"/></svg>添加例外</button>
+        </section>
+
+        <!-- 定时任务 -->
+        <section id="sec-schedule" aria-labelledby="h-schedule" hidden>
+          <h3 id="h-schedule">定时任务</h3>
+          <ul class="dn-list">
+            <li class="dn-list-row"><button class="dn-row-open" type="button" id="task-open" aria-haspopup="dialog"><span class="dn-item-title">起草周报</span><span class="dn-item-detail" id="task-detail">每周五 16:00，每次新开一个对话</span></button><span class="dn-list-control"><input class="dn-switch" type="checkbox" role="switch" checked aria-label="启用起草周报"></span></li>
+          </ul>
+          <button class="dn-button is-plain is-sm dn-builder-add" type="button"><svg class="dn-icon" aria-hidden="true"><use href="#dn-plus"/></svg>新建定时任务</button>
+          <h4>最近运行</h4>
+          <ul class="dn-list">
+            <li class="dn-list-row"><span class="dn-item-text"><span class="dn-item-title">11月20日 16:00</span><span class="dn-item-detail">起草了周报，问了 1 个问题</span></span><span class="dn-list-control"><a class="dn-button is-plain is-sm" href="#run-1120">查看</a></span></li>
+            <li class="dn-list-row"><span class="dn-item-text"><span class="dn-item-title">11月13日 16:00</span><span class="dn-item-detail">起草了周报</span></span><span class="dn-list-control"><a class="dn-button is-plain is-sm" href="#run-1113">查看</a></span></li>
+            <li class="dn-list-row"><span class="dn-item-text"><span class="dn-item-title">11月6日 16:00</span><span class="dn-item-detail is-warning">没写完：日历连不上</span></span><span class="dn-list-control"><a class="dn-button is-plain is-sm" href="#run-1106">查看</a></span></li>
+          </ul>
+        </section>
+
+        <!-- 版本 -->
+        <section id="sec-versions" aria-labelledby="h-versions" hidden>
+          <h3 id="h-versions">版本</h3>
+          <ul class="dn-list" id="version-list">
+            <li class="dn-list-row"><span class="dn-item-text"><span class="dn-item-title">定时任务改到 16:00</span><span class="dn-item-detail dn-meta"><span>v4</span><span>11月18日</span><span>林一</span></span></span><span class="dn-list-control"><span class="dn-builder-state">已发布</span></span></li>
+            <li class="dn-list-row"><span class="dn-item-text"><span class="dn-item-title">不再把周报发给组里，只存成笔记</span><span class="dn-item-detail dn-meta"><span>v3</span><span>11月2日</span><span>林一</span></span></span><span class="dn-list-control"><button class="dn-button is-plain is-sm" type="button" data-restore="v3">打开成草稿</button></span></li>
+            <li class="dn-list-row"><span class="dn-item-text"><span class="dn-item-title">加上日历</span><span class="dn-item-detail dn-meta"><span>v2</span><span>10月21日</span><span>林一</span></span></span><span class="dn-list-control"><button class="dn-button is-plain is-sm" type="button" data-restore="v2">打开成草稿</button></span></li>
+            <li class="dn-list-row"><span class="dn-item-text"><span class="dn-item-title">第一版</span><span class="dn-item-detail dn-meta"><span>v1</span><span>10月9日</span><span>林一</span></span></span><span class="dn-list-control"><button class="dn-button is-plain is-sm" type="button" data-restore="v1">打开成草稿</button></span></li>
+          </ul>
+        </section>
+      </div>
+
+      <section class="dn-builder-try" id="try-pane" aria-label="试用">
+        <div class="dn-builder-try-head">试用草稿<button class="dn-icon-button" id="try-clear" type="button" aria-label="清空试用对话"><svg class="dn-icon" aria-hidden="true"><use href="#dn-regenerate"/></svg></button></div>
+        <div class="dn-thread" id="thread" role="log" aria-label="试用对话">
+          <div class="dn-message-user">按这周的内容起草</div>
+          <details class="dn-activity">
+            <summary><svg class="dn-icon" aria-hidden="true"><use href="#dn-tool"/></svg>读了 14 篇笔记和 9 个日程<svg class="dn-icon" aria-hidden="true"><use href="#dn-chevron-right"/></svg></summary>
+            <ul class="dn-steps">
+              <li class="dn-step is-success"><svg class="dn-icon dn-step-glyph" aria-hidden="true"><use href="#dn-check"/></svg><span class="dn-step-name">搜索笔记</span><span class="dn-step-summary">笔记 / 工作，11月16日起</span></li>
+              <li class="dn-step is-success"><svg class="dn-icon dn-step-glyph" aria-hidden="true"><use href="#dn-check"/></svg><span class="dn-step-name">读取日程</span><span class="dn-step-summary">日历：工作，本周</span></li>
+            </ul>
+          </details>
+          <div class="dn-message-assistant">
+            <p><strong>本周进展</strong></p>
+            <ol>
+              <li>设置页交互稿周三评审通过，已交给开发，下周一排期。</li>
+              <li>支付超时从 1.2% 降到 0.3%，周四上线后没有新的报错。</li>
+              <li>和客服组对了 6 个高频问题，帮助中心的「退款」一节已重写。</li>
+            </ol>
+            <p><strong>下周</strong></p>
+            <ul>
+              <li>跟进设置页开发，周三前出验收清单。</li>
+              <li>整理 11 月的 8 场用户访谈，挑 3 条进下个版本。</li>
+            </ul>
+            <p>「帮助中心改版」的截止日期我拿不准，是 11月27日 还是 12月4日？</p>
+            <div class="dn-message-actions">
+              <button class="dn-icon-button" type="button" aria-label="复制"><svg class="dn-icon" aria-hidden="true"><use href="#dn-copy"/></svg></button>
+              <button class="dn-icon-button" type="button" aria-label="重新生成"><svg class="dn-icon" aria-hidden="true"><use href="#dn-regenerate"/></svg></button>
+            </div>
+          </div>
+        </div>
+        <div class="dn-builder-try-dock">
+          <form class="dn-composer" id="composer">
+            <textarea rows="1" id="try-input" aria-label="试用消息" placeholder="问一句试试"></textarea>
+            <button class="dn-send" id="try-send" type="submit" aria-label="发送" disabled><svg class="dn-icon" aria-hidden="true"><use href="#dn-send"/></svg></button>
+          </form>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<!-- 发布 -->
+<dialog class="dn-sheet is-sm" id="publish-sheet" aria-labelledby="publish-title" aria-describedby="publish-desc">
+  <form method="dialog">
+    <div class="dn-sheet-head"><div class="dn-sheet-heading"><h3 class="dn-sheet-title" id="publish-title">发布 v5</h3><p class="dn-sheet-description" id="publish-desc">发布后，所有用周报助手的人都按这一版来。</p></div></div>
+    <div class="dn-sheet-content">
+      <div class="dn-form">
+        <p class="dn-inline-note" id="publish-warn"><svg class="dn-icon" aria-hidden="true"><use href="#dn-warning"/></svg>模型连接还没测试，发布后可能连不上。</p>
+        <div class="dn-field"><label class="dn-field-label" for="publish-note">这一版改了什么</label><textarea class="dn-input" id="publish-note" rows="2" placeholder="换成 DeepSeek 的接口"></textarea></div>
+      </div>
+    </div>
+    <div class="dn-sheet-actions"><button class="dn-button" value="cancel" type="submit">取消</button><button class="dn-button is-primary" value="publish" type="submit">发布</button></div>
+  </form>
+</dialog>
+
+<!-- 定时任务 -->
+<dialog class="dn-sheet" id="task-sheet" aria-labelledby="task-title" aria-describedby="task-next">
+  <form method="dialog">
+    <div class="dn-sheet-head"><div class="dn-sheet-heading"><h3 class="dn-sheet-title" id="task-title">起草周报</h3><p class="dn-sheet-description" id="task-next">下次运行：11月27日 周五 16:00</p></div></div>
+    <div class="dn-sheet-content">
+      <div class="dn-form">
+        <div class="dn-field"><label class="dn-field-label" for="task-name">名字</label><input class="dn-input" id="task-name" value="起草周报"></div>
+        <div class="dn-form-pair">
+          <div class="dn-field"><label class="dn-field-label" for="task-day">哪几天</label><span class="dn-select"><select id="task-day"><option>每天</option><option>工作日</option><option selected>每周五</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span></div>
+          <div class="dn-field"><label class="dn-field-label" for="task-time">几点</label><input class="dn-input" id="task-time" value="16:00" inputmode="numeric"></div>
+        </div>
+        <div class="dn-field"><label class="dn-field-label" for="task-prompt">发给它的话</label><textarea class="dn-input" id="task-prompt" rows="2">按这周的笔记和日程起草周报。</textarea></div>
+        <fieldset class="dn-choice-group">
+          <legend>结果</legend>
+          <label class="dn-choice"><span class="dn-choice-box"><input type="radio" name="task-dest" value="new" checked></span><span class="dn-choice-text"><span>每次新开一个对话</span></span></label>
+          <label class="dn-choice"><span class="dn-choice-box"><input type="radio" name="task-dest" value="continue"></span><span class="dn-choice-text"><span>接着上次的对话</span><span class="dn-choice-help">它能看到之前几次的结果</span></span></label>
+        </fieldset>
+      </div>
+    </div>
+    <div class="dn-sheet-actions"><button class="dn-button" value="cancel" type="submit">取消</button><button class="dn-button is-primary" value="save" type="submit">保存</button></div>
+  </form>
+</dialog>
+
+<div class="dn-tooltip" id="tooltip" popover="manual" aria-hidden="true"></div>
+
+<script type="module">
+// Deernova loaders: a pen stroke that travels along a mathematical curve on the same 24×24 grid as the icons.
+// The stroke is one color (currentColor) and tapers toward its tail; the faint full curve sits behind it.
+// When a loader stops it settles into its rest frame, which for `thinking` is exactly the thinking icon.
+
+const TAU = Math.PI * 2;
+const SAMPLES = 720;
+const STROKE = 1.75;
+const TRACK_OPACITY = 0.16;
+const TAPER = 0.6; // the tail ends at 40% of the head's width
+
+// Raw curves; each is fitted to the 24 grid by fit() below, so only the shape matters here.
+// Open curves (spiral, rows, loops) are run with `there()`, which goes out and comes back, so every curve is a loop.
+// `count` is how many points the static track is drawn through; detailed curves need more than the default 48.
+const there = t => (1 - Math.cos(t * TAU)) / 2; // 0 → 1 → 0, slowing at both ends
+const rose = petals => t => {
+  const theta = t * Math.PI;
+  const c = Math.cos(petals * theta);
+  const r = Math.sign(c) * Math.abs(c) ** 0.6;
+  return [r * Math.cos(theta - Math.PI / 2), r * Math.sin(theta - Math.PI / 2)];
+};
+const SHAPES = {
+  // A three-petal rose, r = cos 3θ, with fuller petals (|cos 3θ|^0.6) and one petal pointing up.
+  thinking: { extent: 16.5, at: rose(3) },
+  // The same rose with five petals: thinking that goes on longer.
+  'deep-thinking': { extent: 17, count: 80, at: rose(5) },
+  // An Archimedean spiral, two turns out from the centre and back in.
+  searching: { extent: 16.5, count: 96, at: t => {
+    const s = there(t);
+    const a = s * 2 * TAU;
+    const r = 0.12 + s;
+    return [r * Math.cos(a - Math.PI / 2), r * Math.sin(a - Math.PI / 2)];
+  } },
+  // Three lines read left to right and back, like eyes going down a page.
+  reading: { extent: 16.5, count: 72, at: t => {
+    const s = there(t);
+    return [Math.cos(s * 3 * Math.PI), 1.2 * (s + Math.sin(6 * Math.PI * s) / (6 * Math.PI))];
+  } },
+  // Three joined cursive loops (a trochoid), written and then rewound.
+  writing: { extent: 17, count: 96, at: t => {
+    const u = (there(t) * 2 - 1) * 3 * Math.PI;
+    return [0.28 * u - Math.sin(u), -Math.cos(u)];
+  } },
+  // A 1:2 Lissajous figure, the ∞ of work going back and forth.
+  working: { extent: 17, at: t => [Math.sin(t * TAU), Math.sin(2 * t * TAU) / 2] },
+  // A circle, for ordinary loading.
+  spinner: { extent: 17.5, at: t => [Math.cos(t * TAU - Math.PI / 2), Math.sin(t * TAU - Math.PI / 2)] }
+};
+
+// How each loader moves. duration: one lap in ms. trail: share of the curve the stroke covers.
+const LOADERS = {
+  thinking: { shape: 'thinking', duration: 5200, trail: 0.32, taper: true, rest: 'curve' },
+  'deep-thinking': { shape: 'deep-thinking', duration: 7600, trail: 0.24, taper: true, rest: 'curve' },
+  searching: { shape: 'searching', duration: 3600, trail: 0.22, taper: true, rest: 'curve' },
+  reading: { shape: 'reading', duration: 3200, trail: 0.2, taper: true, rest: 'curve' },
+  writing: { shape: 'writing', duration: 3600, trail: 0.2, taper: true, rest: 'curve' },
+  working: { shape: 'working', duration: 3000, trail: 0.3, taper: true, rest: 'curve' },
+  spinner: { shape: 'spinner', duration: 900, trail: 0.26, taper: false, rest: 'none', reducedDuration: 2400 }
+};
+
+const fitted = new Map();
+function fit(name) {
+  if (fitted.has(name)) return fitted.get(name);
+  const shape = SHAPES[name];
+  if (!shape) throw Error(`Unknown Deernova loader shape: ${name}`);
+  const raw = Array.from({ length: SAMPLES }, (_, i) => shape.at(i / SAMPLES));
+  const xs = raw.map(p => p[0]);
+  const ys = raw.map(p => p[1]);
+  const [minX, maxX, minY, maxY] = [Math.min(...xs), Math.max(...xs), Math.min(...ys), Math.max(...ys)];
+  const scale = shape.extent / Math.max(maxX - minX, maxY - minY);
+  const points = raw.map(([x, y]) => [12 + (x - (minX + maxX) / 2) * scale, 12 + (y - (minY + maxY) / 2) * scale]);
+  points.push(points[0]);
+  // Cumulative length, so the stroke moves at an even speed along the curve.
+  const lengths = [0];
+  for (let i = 1; i < points.length; i++) lengths.push(lengths[i - 1] + Math.hypot(points[i][0] - points[i - 1][0], points[i][1] - points[i - 1][1]));
+  const result = { points, lengths, total: lengths.at(-1) };
+  fitted.set(name, result);
+  return result;
+}
+
+// The point at a share s (0–1, wrapping) of the curve's length.
+function pointAt(curve, s) {
+  const target = (((s % 1) + 1) % 1) * curve.total;
+  let low = 0;
+  let high = curve.lengths.length - 1;
+  while (high - low > 1) {
+    const mid = (low + high) >> 1;
+    if (curve.lengths[mid] < target) low = mid; else high = mid;
+  }
+  const span = curve.lengths[high] - curve.lengths[low] || 1;
+  const k = (target - curve.lengths[low]) / span;
+  const [a, b] = [curve.points[low], curve.points[high]];
+  return [a[0] + (b[0] - a[0]) * k, a[1] + (b[1] - a[1]) * k];
+}
+
+const num = value => Number(value.toFixed(2));
+function polyline(curve, from, to) {
+  const steps = Math.max(2, Math.ceil((to - from) * SAMPLES / 2));
+  let d = '';
+  for (let i = 0; i <= steps; i++) {
+    const [x, y] = pointAt(curve, from + (to - from) * i / steps);
+    d += `${i ? 'L' : 'M'}${num(x)} ${num(y)}`;
+  }
+  return d;
+}
+
+// The whole curve as a smooth closed path (Catmull-Rom through evenly spaced points).
+function curvePath(name, count) {
+  const shape = LOADERS[name]?.shape ?? name;
+  const curve = fit(shape);
+  count ??= SHAPES[shape].count ?? 48;
+  const p = Array.from({ length: count }, (_, i) => pointAt(curve, i / count));
+  let d = `M${num(p[0][0])} ${num(p[0][1])}`;
+  for (let i = 0; i < count; i++) {
+    const [p0, p1, p2, p3] = [p[(i - 1 + count) % count], p[i], p[(i + 1) % count], p[(i + 2) % count]];
+    d += `C${num(p1[0] + (p2[0] - p0[0]) / 6)} ${num(p1[1] + (p2[1] - p0[1]) / 6)} ${num(p2[0] - (p3[0] - p1[0]) / 6)} ${num(p2[1] - (p3[1] - p1[1]) / 6)} ${num(p2[0])} ${num(p2[1])}`;
+  }
+  return `${d}Z`;
+}
+
+// The moving stroke at one moment, as tapered pieces from head to tail: [{ d, width }].
+// `head` counts laps (1.25 = a quarter into the second lap); `trail` is the share of the curve covered;
+// `taper` (0–1) scales how much the tail thins, so a settling stroke can even out into the icon.
+function strokeAt(name, head, trail = LOADERS[name].trail, taper = 1) {
+  const config = LOADERS[name];
+  const curve = fit(config.shape);
+  const count = config.taper ? 12 : 1;
+  return Array.from({ length: count }, (_, i) => ({
+    d: polyline(curve, head - trail * (i + 1) / count, head - trail * i / count + 0.002),
+    width: num(config.taper ? STROKE * (1 - TAPER * taper * i / count) : STROKE)
+  }));
+}
+
+const SVG = 'http://www.w3.org/2000/svg';
+const reducedMotion = () => typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// Draws a loader into `target` and starts it. Returns { svg, stop(), destroy() }.
+// stop() lets the stroke close up and settle into the rest frame (the icon); destroy() removes it.
+function createLoader(target, name = 'thinking', { className = 'dn-icon dn-loader', onRest } = {}) {
+  const config = LOADERS[name];
+  if (!config) throw Error(`Unknown Deernova loader: ${name}`);
+  const svg = document.createElementNS(SVG, 'svg');
+  for (const [key, value] of Object.entries({ class: className, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'aria-hidden': 'true', 'data-loader': name })) svg.setAttribute(key, value);
+  const track = document.createElementNS(SVG, 'path');
+  track.setAttribute('d', curvePath(config.shape));
+  track.setAttribute('stroke-width', STROKE);
+  track.setAttribute('stroke-opacity', TRACK_OPACITY);
+  svg.append(track);
+  const pieces = strokeAt(name, 0).map(({ width }) => {
+    const piece = document.createElementNS(SVG, 'path');
+    piece.setAttribute('stroke-width', width);
+    svg.append(piece);
+    return piece;
+  });
+  target.append(svg);
+
+  let frame = 0;
+  let start = 0;
+  let settling = null;
+  let resting = false;
+  const reduce = reducedMotion();
+
+  function rest() {
+    resting = true;
+    cancelAnimationFrame(frame);
+    for (const piece of pieces) piece.removeAttribute('d');
+    if (config.rest === 'curve') track.setAttribute('stroke-opacity', 1);
+    else svg.style.visibility = 'hidden';
+    onRest?.();
+  }
+
+  function draw(now) {
+    if (!start) start = now;
+    const duration = reduce && config.reducedDuration ? config.reducedDuration : config.duration;
+    const head = (now - start) / duration;
+    let trail = config.trail;
+    let taper = 1;
+    if (settling) {
+      // Grow the stroke to the whole curve and even out its width over 240ms, then hand over to the rest frame.
+      const k = Math.min(1, (now - settling.at) / 240);
+      const eased = 1 - (1 - k) ** 3;
+      trail = settling.from + (1 - settling.from) * eased;
+      taper = 1 - eased;
+      if (k === 1) return rest();
+    }
+    strokeAt(name, head, trail, taper).forEach(({ d, width }, i) => {
+      pieces[i].setAttribute('d', d);
+      pieces[i].setAttribute('stroke-width', width);
+    });
+    frame = requestAnimationFrame(draw);
+  }
+
+  // Under reduced motion the curves hold still in their rest frame; the plain spinner only slows down.
+  if (reduce && config.rest === 'curve') rest();
+  else frame = requestAnimationFrame(draw);
+
+  return {
+    svg,
+    stop({ settle = true } = {}) {
+      if (resting) return;
+      if (!settle || reduce || config.rest !== 'curve') return rest();
+      settling = { at: performance.now(), from: config.trail };
+    },
+    destroy() {
+      cancelAnimationFrame(frame);
+      svg.remove();
+    }
+  };
+}
+
+// <dn-loader name="thinking"></dn-loader>; add the `done` attribute to settle it.
+function defineLoaderElement(tag = 'dn-loader') {
+  if (typeof customElements === 'undefined' || customElements.get(tag)) return;
+  customElements.define(tag, class extends HTMLElement {
+    static observedAttributes = ['done'];
+    connectedCallback() {
+      if (!this.loader) this.loader = createLoader(this, this.getAttribute('name') || 'thinking');
+      if (this.hasAttribute('done')) this.loader.stop({ settle: false });
+    }
+    disconnectedCallback() {
+      this.loader?.destroy();
+      this.loader = null;
+    }
+    attributeChangedCallback(name, before, after) {
+      if (name === 'done' && after !== null) this.loader?.stop();
+    }
+  });
+}
+
+defineLoaderElement();
+</script>
+<script>
+(() => {
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+
+  /* 分类切换 */
+  const sections = ['instructions', 'model', 'tools', 'permissions', 'schedule', 'versions'];
+  function show(name) {
+    if (!sections.includes(name)) return;
+    sections.forEach(s => { $('#sec-' + s).hidden = s !== name; });
+    $$('.dn-settings-nav .dn-sidebar-item').forEach(a => {
+      if (a.dataset.section === name) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
+    });
+    $('#main').scrollTop = 0;
+  }
+  $$('.dn-settings-nav .dn-sidebar-item').forEach(a => a.addEventListener('click', e => {
+    e.preventDefault(); show(a.dataset.section); history.replaceState(null, '', '#' + a.dataset.section);
+  }));
+  const fromHash = () => { const h = location.hash.slice(1); if (sections.includes(h)) show(h); };
+  addEventListener('hashchange', fromHash);
+  fromHash();
+
+  /* 草稿自动保存 */
+  const state = $('#draft-state');
+  const publishBtn = $('#publish-open');
+  let saveTimer;
+  function dirty() {
+    publishBtn.disabled = false;
+    state.textContent = '正在保存…';
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(() => { state.textContent = '草稿，已自动保存'; }, 600);
+  }
+  $('#main').addEventListener('input', e => { if (!e.target.closest('dialog')) dirty(); });
+  $('#main').addEventListener('change', e => { if (!e.target.closest('dialog')) dirty(); });
+  $('#agent-name').addEventListener('input', dirty);
+
+  /* 试用开关 */
+  const tryToggle = $('#try-toggle');
+  tryToggle.addEventListener('click', () => {
+    const on = tryToggle.getAttribute('aria-pressed') !== 'true';
+    tryToggle.setAttribute('aria-pressed', String(on));
+    $('#builder').classList.toggle('is-solo', !on);
+  });
+
+  /* 指令字数 */
+  const prompt = $('#prompt');
+  const count = () => { $('#prompt-count').textContent = prompt.textContent.replace(/\s/g, '').length + ' 字'; };
+  prompt.addEventListener('input', count); count();
+
+  /* 跟随团队 */
+  const follow = $('#follow-team');
+  follow.addEventListener('change', () => {
+    const group = $('#model-group');
+    group.setAttribute('aria-disabled', String(follow.checked));
+    $$('input, select, button', group).forEach(el => { el.disabled = follow.checked; });
+    $('#nav-model').textContent = follow.checked ? '团队默认' : $('#model-name').value;
+  });
+
+  /* 接口格式 */
+  $$('#fmt button').forEach(b => b.addEventListener('click', () => {
+    $$('#fmt button').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+    markUntested('换了接口格式，还没测试');
+    dirty();
+  }));
+
+  /* 连接状态 */
+  const conn = $('#conn-detail');
+  let tested = false;
+  function markUntested(text) {
+    tested = false;
+    conn.className = 'dn-item-detail';
+    conn.textContent = text;
+  }
+  $('#base-url').addEventListener('input', () => markUntested('换了地址，还没测试'));
+
+  /* API Key：填完只显示后四位 */
+  const keyInput = $('#key-input');
+  const keyEdit = $('#key-edit');
+  const keyView = $('#key-view');
+  const masked = $('#key-masked');
+  let savedMask = masked.value;
+  function closeKey(save) {
+    if (save && keyInput.value.trim().length >= 8) {
+      savedMask = 'sk-••••••••' + keyInput.value.trim().slice(-4);
+      markUntested('换了 Key，还没测试');
+      dirty();
+    }
+    masked.value = savedMask;
+    keyInput.value = '';
+    keyEdit.hidden = true; keyView.hidden = false;
+  }
+  $('#key-change').addEventListener('click', () => {
+    keyView.hidden = true; keyEdit.hidden = false; keyInput.focus();
+  });
+  $('#key-cancel').addEventListener('mousedown', e => e.preventDefault());
+  $('#key-cancel').addEventListener('click', () => closeKey(false));
+  keyInput.addEventListener('keydown', e => { if (e.key === 'Enter') closeKey(true); if (e.key === 'Escape') closeKey(false); });
+  // 切到别的窗口时不算离开输入框；只有焦点留在页面里、换到别处时才保存
+  keyInput.addEventListener('blur', () => { setTimeout(() => { if (document.hasFocus() && document.activeElement !== keyInput && !keyEdit.hidden) closeKey(true); }, 0); });
+  // 打开页面时停在正在更换的 Key 上
+  requestAnimationFrame(() => { if (!$('#sec-model').hidden) { keyInput.focus(); keyInput.setSelectionRange(keyInput.value.length, keyInput.value.length); } });
+
+  /* 测试连接 */
+  const testBtn = $('#conn-test');
+  testBtn.addEventListener('click', () => {
+    const label = testBtn.textContent;
+    const width = testBtn.offsetWidth;
+    testBtn.style.width = width + 'px';
+    testBtn.disabled = true;
+    testBtn.setAttribute('aria-busy', 'true');
+    testBtn.innerHTML = '<dn-loader name="spinner"></dn-loader><span class="sr-only">正在测试</span>';
+    setTimeout(() => {
+      testBtn.textContent = label;
+      testBtn.disabled = false; testBtn.removeAttribute('aria-busy'); testBtn.style.width = '';
+      const url = $('#base-url').value.trim();
+      if (!/^https?:\/\/\S+$/.test(url)) {
+        conn.className = 'dn-item-detail is-warning'; conn.textContent = '地址打不开'; tested = false;
+      } else {
+        conn.className = 'dn-item-detail is-success'; conn.textContent = '已连接，找到 2 个模型，刚刚'; tested = true;
+      }
+    }, 900);
+  });
+
+  /* 模型说明 */
+  const modelHelp = { 'deepseek-chat': '回答快，适合起草和总结', 'deepseek-reasoner': '慢一些，推理更仔细，适合要算数的周报' };
+  $('#model-name').addEventListener('change', e => {
+    $('#model-detail').textContent = modelHelp[e.target.value];
+    $('#nav-model').textContent = e.target.value;
+  });
+
+  /* 思考深度：恢复团队默认 */
+  const depth = $('#depth'), depthReset = $('#depth-reset'), depthDetail = $('#depth-detail');
+  function syncDepth() {
+    const isDefault = depth.value === '低';
+    depthReset.hidden = isDefault;
+    depthDetail.textContent = isDefault ? '团队默认' : '单独设置，团队默认是「低」';
+  }
+  depth.addEventListener('change', syncDepth);
+  depthReset.addEventListener('click', () => { depth.value = '低'; syncDepth(); dirty(); depth.focus(); });
+
+  /* 整体权限 */
+  $$('#levels input').forEach(r => r.addEventListener('change', () => { $('#nav-level').textContent = r.value; }));
+
+  /* 同一个操作的权限在「工具」和「权限」两处保持一致 */
+  $$('select[data-op]').forEach(s => s.addEventListener('change', () => {
+    $$(`select[data-op="${s.dataset.op}"]`).forEach(o => { if (o !== s) o.value = s.value; });
+  }));
+
+  /* 定时任务弹窗 */
+  const taskSheet = $('#task-sheet');
+  $('#task-open').addEventListener('click', () => taskSheet.showModal());
+  taskSheet.addEventListener('close', () => {
+    if (taskSheet.returnValue !== 'save') return;
+    const dest = $('input[name="task-dest"]:checked', taskSheet).value === 'new' ? '每次新开一个对话' : '接着上次的对话';
+    $('#task-detail').textContent = `${$('#task-day').value} ${$('#task-time').value}，${dest}`;
+    $('#task-open .dn-item-title').textContent = $('#task-name').value || '起草周报';
+    dirty();
+  });
+
+  /* 版本 */
+  $$('[data-restore]').forEach(b => b.addEventListener('click', () => {
+    state.textContent = `草稿，基于 ${b.dataset.restore}，已自动保存`;
+    publishBtn.disabled = false;
+  }));
+
+  /* 发布 */
+  const publishSheet = $('#publish-sheet');
+  let version = 4;
+  publishBtn.addEventListener('click', () => {
+    $('#publish-title').textContent = `发布 v${version + 1}`;
+    $('#publish-warn').hidden = tested;
+    publishSheet.showModal();
+  });
+  publishSheet.addEventListener('close', () => {
+    if (publishSheet.returnValue !== 'publish') return;
+    version += 1;
+    const note = $('#publish-note').value.trim() || '未写说明';
+    const list = $('#version-list');
+    const first = list.firstElementChild;
+    const ctl = $('.dn-list-control', first);
+    ctl.innerHTML = `<button class="dn-button is-plain is-sm" type="button">打开成草稿</button>`;
+    const li = document.createElement('li');
+    li.className = 'dn-list-row';
+    li.innerHTML = `<span class="dn-item-text"><span class="dn-item-title"></span><span class="dn-item-detail dn-meta"><span>v${version}</span><span>刚刚</span><span>林一</span></span></span><span class="dn-list-control"><span class="dn-builder-state">已发布</span></span>`;
+    $('.dn-item-title', li).textContent = note;
+    list.prepend(li);
+    $('#nav-version').textContent = 'v' + version;
+    $('#publish-note').value = '';
+    state.textContent = '已发布，刚刚';
+    publishBtn.disabled = true;
+  });
+
+  /* 试用对话 */
+  const thread = $('#thread'), input = $('#try-input'), send = $('#try-send');
+  input.addEventListener('input', () => { send.disabled = !input.value.trim(); });
+  input.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); if (!send.disabled) $('#composer').requestSubmit(); } });
+  const nearBottom = () => thread.scrollHeight - thread.scrollTop - thread.clientHeight < 48;
+  $('#composer').addEventListener('submit', e => {
+    e.preventDefault();
+    const text = input.value.trim(); if (!text) return;
+    const user = document.createElement('div'); user.className = 'dn-message-user'; user.textContent = text;
+    const run = document.createElement('div'); run.className = 'dn-running'; run.setAttribute('role', 'status');
+    run.innerHTML = '<dn-loader name="thinking"></dn-loader>正在思考<span class="dn-running-time">1 秒</span>';
+    thread.append(user, run);
+    input.value = ''; send.disabled = true;
+    thread.scrollTop = thread.scrollHeight;
+    setTimeout(() => { $('dn-loader', run).setAttribute('done', ''); }, 1400);
+    setTimeout(() => {
+      const stick = nearBottom();
+      const done = document.createElement('details'); done.className = 'dn-activity';
+      done.innerHTML = '<summary><svg class="dn-icon" aria-hidden="true"><use href="#dn-thinking"/></svg>已思考 2 秒<svg class="dn-icon" aria-hidden="true"><use href="#dn-chevron-right"/></svg></summary>';
+      const msg = document.createElement('div'); msg.className = 'dn-message-assistant';
+      msg.innerHTML = '<p>按现在的草稿，我会先读本周的笔记和日程，再写三件进展和下周计划，写好存进「周报」文件夹，不发给任何人。</p>';
+      run.replaceWith(done, msg);
+      if (stick) thread.scrollTop = thread.scrollHeight;
+    }, 1700);
+  });
+  $('#try-clear').addEventListener('click', () => { thread.replaceChildren(); input.focus(); });
+
+  /* Tooltip：只有图标的按钮，悬停或键盘聚焦时显示名称 */
+  const tip = $('#tooltip');
+  let tipTimer, lastHide = 0;
+  function openTip(el) {
+    const name = el.getAttribute('aria-label'); if (!name || !tip.showPopover) return;
+    clearTimeout(tipTimer);
+    const delay = performance.now() - lastHide < 300 ? 0 : 500;
+    tipTimer = setTimeout(() => {
+      tip.textContent = name;
+      tip.showPopover();
+      const r = el.getBoundingClientRect(), t = tip.getBoundingClientRect();
+      let left = r.left + r.width / 2 - t.width / 2;
+      left = Math.max(8, Math.min(left, innerWidth - t.width - 8));
+      tip.style.left = left + 'px'; tip.style.top = (r.bottom + 8) + 'px';
+    }, delay);
+  }
+  function closeTip() { clearTimeout(tipTimer); if (tip.matches(':popover-open')) { tip.hidePopover(); lastHide = performance.now(); } }
+  document.addEventListener('pointerover', e => { const el = e.target.closest('.dn-icon-button[aria-label]'); if (el && e.pointerType !== 'touch') openTip(el); });
+  document.addEventListener('pointerout', e => { if (e.target.closest('.dn-icon-button[aria-label]')) closeTip(); });
+  document.addEventListener('focusin', e => { const el = e.target.closest('.dn-icon-button[aria-label]'); if (el && el.matches(':focus-visible')) openTip(el); });
+  document.addEventListener('focusout', closeTip);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeTip(); });
+})();
+</script>
+</body>
+</html>

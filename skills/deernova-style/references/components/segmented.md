@@ -1,6 +1,6 @@
 # 分段控件
 
-在同一份数据的 2–4 种视图或范围之间切换。
+在同一份数据的 2–4 种视图或范围之间切换；设置里 2–4 个短的、互斥的选项（主题：浅色、深色、跟随系统）也用它。
 
 **需要提供**：选项列表（每项 2–4 个字，或者一个图标）和绑定的选中值。
 
@@ -9,7 +9,7 @@
 <!-- tokens:segmented -->
 | Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
-| `segmented-height` | 24 | 28 | 28 | 选项块的高度；外层再加上下各 segmented-padding。 |
+| `segmented-height` | 28 | 28 | 28 | 选项块的高度；外层再加上下各 segmented-padding。 |
 | `segmented-padding` | 2 | 2 | 2 | 底槽内边距。 |
 | `segmented-padding-x` | 12 | 16 | 16 | 选项块左右内边距。 |
 | `segmented-font-size` | 13 | 14 | 14 | 选项字号。 |

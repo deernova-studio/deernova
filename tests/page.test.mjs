@@ -103,3 +103,30 @@ test('the page table groups every page under a category heading', async () => {
   assert.ok(groups.length >= 2, 'pages are grouped with ### headings');
   for (const group of groups) assert.match(group, /\]\(references\/pages\/[\w-]+\.md\)/, `group ${group.split('\n')[0]} lists pages`);
 });
+
+test('page examples only borrow classes from pages the skill lists as shared', async () => {
+  const skill = await readFile('skills/deernova-page/SKILL.md', 'utf8');
+  const sharedSection = skill.split('## 几页共用的写法')[1]?.split('\n## ')[0] ?? '';
+  const shared = new Set([...sharedSection.matchAll(/references\/pages\/([\w-]+)\.md/g)].map(match => match[1]));
+  const classesIn = (text, fence) => new Set([...text.matchAll(new RegExp('```' + fence + '\\n([\\s\\S]*?)```', 'g'))]
+    .flatMap(([, block]) => fence === 'css' ? [...block.matchAll(/\.(dn-[a-z0-9-]+)/g)].map(m => m[1])
+      : [...block.matchAll(/class="([^"]+)"/g)].flatMap(m => m[1].split(/\s+/)).filter(name => name.startsWith('dn-'))));
+  const styleClasses = new Set();
+  for (const name of await readdir('skills/deernova-style/references', { recursive: true })) {
+    if (name.endsWith('.md')) for (const c of classesIn(await readFile(join('skills/deernova-style/references', name), 'utf8'), 'css')) styleClasses.add(c);
+  }
+  const pages = new Map();
+  for (const name of (await readdir(PAGES_DIR)).filter(file => file.endsWith('.md'))) {
+    const text = await readFile(join(PAGES_DIR, name), 'utf8');
+    pages.set(name.replace('.md', ''), { css: classesIn(text, 'css'), html: classesIn(text, 'html') });
+  }
+  const loose = [];
+  for (const [page, { css, html }] of pages) {
+    for (const name of html) {
+      if (styleClasses.has(name) || css.has(name) || name === 'dn-choice-label') continue;
+      const owners = [...pages].filter(([, other]) => other.css.has(name)).map(([owner]) => owner);
+      if (!owners.some(owner => shared.has(owner))) loose.push(`${page}: ${name} (${owners.join(', ') || 'no CSS anywhere'})`);
+    }
+  }
+  assert.deepEqual(loose, [], 'classes borrowed from pages that are not listed under 几页共用的写法');
+});

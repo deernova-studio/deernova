@@ -9,7 +9,7 @@
 | 顶栏 | 返回、标记和名字（直接点了改）、草稿状态（「草稿，已自动保存」）、试用开关、「发布」 | 是 |
 | 分类 | 左边一列：指令、模型、资料、工具、权限、定时任务、版本；每项行尾一个短状态：「2 个」「每周五」「1 个要重新登录」 | 是 |
 | 指令 | 一个占满高度的编辑区，像写一页文档；输入 @ 引用资料和工具，被引用的写成[提及](../../../deernova-style/references/components/mention.md)；上面是一句话说明（显示在智能体列表里） | 是 |
-| 模型 | 接口格式（OpenAI 或 Anthropic）、地址、API Key、模型名，加「测试连接」；再往下是思考深度这类生成设置。团队设过默认的，打开「跟随团队」就不用填 | 是 |
+| 模型 | 接口格式（OpenAI 或 Anthropic）、地址、API Key、模型名（可以输入，也可以从服务商的列表里选，选项后面写快慢和用途），加「测试连接」；再往下是思考深度这类生成设置。团队设过默认的，打开「跟随团队」就不用填 | 是 |
 | 资料 | 它能读的文件夹、笔记本、日历和数据源，每个一行：名字、条数、只读还是能写 | 否 |
 | 工具 | 每个连接一行：名字、状态（已连接、要重新登录）、开关；展开是这个连接里的每个操作 | 是 |
 | 权限 | 先选一档整体权限，再列例外：某个操作单独「总是允许」「每次询问」或「不允许」 | 是 |
@@ -25,6 +25,7 @@
 - **定时写成任务，不写进指令。** 「每周五 16:00 起草周报」是一个定时任务：名字、时间、发给它的那句话、结果是新开对话还是接着上次。指令只写它要做什么。
 - **权限先选一档，再列例外。** 整体权限四档，从紧到松：每次都问、只在外发前问、自动、完全放开。大部分人只需要选一档；个别操作和整体不同时，写在例外里。不让人给十几个操作一个一个选。
 - **会发送、付费、删除的操作，只有「完全放开」不问。** 选「完全放开」时，这一档的说明换成 `warning` 色，写清后果：「它会直接发邮件、删除笔记，不再问你」。
+- **中间一栏宽 `content-max`。** 指令要写长段落，比纯设置页的 `form-max` 宽一档；同一个智能体的其他分类沿用这个宽度，切换分类时内容不左右跳。
 - **设置排成一行一行。** 每一类是几个分组卡片，卡片里一行一项：左边名字和一句说明，右边控件。单选组、整行的大输入框不散着铺在页面上。
 - **每个值都写来自哪里。** 团队有默认值的项，跟随团队时说明里写「团队默认」；单独改过的，名字旁边一个恢复按钮，说明写「单独设置，团队默认是“低”」。连接的权限是上限，这里只能收得更紧，见[工具与连接](connections.md)。
 - **草稿自动保存，发布才生效。** 草稿只有改的人能用；「发布」时写一句改了什么，进版本，可以回到任何一版。离开页面不问「是否保存」。
@@ -35,8 +36,8 @@
 HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机浏览器见本节最后。
 
 ```css
-.dn-builder { display: grid; grid-template-columns: 200px minmax(0, 1fr) minmax(300px, 360px); flex: 1; min-height: 0; }
-.dn-builder.is-solo { grid-template-columns: 200px minmax(0, 1fr); }
+.dn-builder { display: grid; grid-template-columns: var(--sidebar-width-min) minmax(0, 1fr) minmax(300px, 360px); flex: 1; min-height: 0; }
+.dn-builder.is-solo { grid-template-columns: var(--sidebar-width-min) minmax(0, 1fr); }
 .dn-builder > .dn-settings-nav .dn-sidebar-count.is-warning { color: var(--warning); }
 .dn-builder-main { display: flex; flex-direction: column; min-width: 0; min-height: 0; overflow-y: auto; padding: var(--space-6) max(var(--space-8), calc((100% - var(--content-max)) / 2)) var(--space-10); }
 .dn-builder-main > * { flex-shrink: 0; }
@@ -44,7 +45,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 .dn-builder-main > h4 { margin: var(--space-8) 0 var(--space-2); font: var(--type-headline); }
 .dn-builder-lede { margin: 0 0 var(--space-5); color: var(--ink-secondary); font: var(--type-callout); }
 .dn-builder-state { color: var(--ink-tertiary); font: var(--type-footnote); white-space: nowrap; }
-.dn-builder-name { width: 9em; min-width: 0; height: var(--button-height-sm); padding: 0 var(--space-2); border: 0; border-radius: var(--radius-sm); background: none; color: var(--ink); font: var(--weight-semibold) var(--toolbar-title-size)/1.2 var(--font-sans); }
+.dn-builder-name { width: 9em; min-width: 0; height: var(--button-height-sm); padding: 0 var(--space-2); border: 0; border-radius: var(--radius-sm); background: none; color: var(--ink); font: var(--weight-regular) var(--toolbar-title-size)/1.2 var(--font-sans); }
 @media (hover: hover) { .dn-builder-name:hover { background: var(--fill-hover); } }
 .dn-builder-name:focus { outline: none; background: var(--surface-sunken); }
 .dn-builder-summary { margin-bottom: var(--space-4); }
@@ -62,8 +63,8 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 .dn-builder-try-head { display: flex; align-items: center; justify-content: space-between; height: var(--toolbar-height); padding: 0 var(--space-4); border-bottom: var(--stroke-line) solid var(--line); color: var(--ink-secondary); font: var(--type-callout); }
 .dn-builder-try > .dn-thread { flex: 1; min-height: 0; overflow-y: auto; padding: var(--space-4); }
 .dn-builder-try-dock { padding: 0 var(--space-4) var(--space-4); }
-@media (max-width: 1100px) {
-  .dn-builder { grid-template-columns: 200px minmax(0, 1fr); }
+@media (max-width: 1280px) {
+  .dn-builder { grid-template-columns: var(--sidebar-width-min) minmax(0, 1fr); }
   .dn-builder-try { display: none; }
 }
 @media (max-width: 760px) {
@@ -101,7 +102,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
         <h3>指令</h3>
         <p class="dn-builder-lede">写它要做什么、按什么格式交、什么时候停下来问你。</p>
         <div class="dn-field dn-builder-summary"><label class="dn-field-label" for="ex-ag-desc">一句话说明</label><input class="dn-input" id="ex-ag-desc" value="读本周的笔记和日程，起草周报"></div>
-        <div class="dn-prompt" role="textbox" aria-multiline="true" aria-label="指令">
+        <div class="dn-prompt" role="textbox" contenteditable="true" aria-multiline="true" aria-label="指令">
           <p>读我本周的 <span class="dn-mention"><svg class="dn-icon" aria-hidden="true"><use href="#dn-folder"/></svg>笔记 / 工作</span> 和 <span class="dn-mention"><svg class="dn-icon" aria-hidden="true"><use href="#dn-calendar"/></svg>日历：工作</span>，起草一份周报。</p>
           <p>先写三件最重要的进展，每件一句话，带上数字；再写下周要做的事。不写客套话，不评价自己做得怎样。</p>
           <p>拿不准的地方标出来问我。写好后用 <span class="dn-mention"><svg class="dn-icon" aria-hidden="true"><use href="#dn-tool"/></svg>新建笔记</span> 存进「周报」文件夹，不要发给任何人。</p>
@@ -156,7 +157,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
           <li class="dn-list-row"><span class="dn-item-text"><span class="dn-item-title">接口格式</span><span class="dn-item-detail">大部分服务商兼容 OpenAI 格式</span></span><span class="dn-list-control"><span class="dn-segmented" role="group" aria-label="接口格式"><button type="button" aria-pressed="true">OpenAI</button><button type="button" aria-pressed="false">Anthropic</button></span></span></li>
           <li class="dn-list-row"><span class="dn-item-text"><span class="dn-item-title">地址</span><span class="dn-item-detail">服务商文档里的 Base URL</span></span><span class="dn-list-control"><input class="dn-input is-code" value="https://api.deepseek.com/v1" aria-label="地址"></span></li>
           <li class="dn-list-row"><span class="dn-item-text"><span class="dn-item-title">API Key</span><span class="dn-item-detail">只存在服务端，保存后只显示后四位</span></span><span class="dn-list-control"><input class="dn-input is-code" value="sk-••••••••3f9a" aria-label="API Key" readonly><button class="dn-button is-sm" type="button">更换</button></span></li>
-          <li class="dn-list-row"><span class="dn-item-text"><span class="dn-item-title">模型</span><span class="dn-item-detail">列表来自服务商，也可以直接输入</span></span><span class="dn-list-control"><span class="dn-select"><select aria-label="模型"><option selected>deepseek-chat</option><option>deepseek-reasoner</option></select><svg class="dn-icon dn-select-chevron" aria-hidden="true"><use href="#dn-chevron-down"/></svg></span></span></li>
+          <li class="dn-list-row"><span class="dn-item-text"><span class="dn-item-title">模型</span><span class="dn-item-detail">列表来自服务商，也可以直接输入</span></span><span class="dn-list-control"><input class="dn-input is-code" list="ex-ag-models" value="deepseek-chat" aria-label="模型"><datalist id="ex-ag-models"><option value="deepseek-chat">对话，快</option><option value="deepseek-reasoner">推理，慢一些，适合复杂的任务</option></datalist></span></li>
           <li class="dn-list-row"><span class="dn-item-text"><span class="dn-item-title">连接</span><span class="dn-item-detail is-success">已连接，找到 2 个模型，2 分钟前</span></span><span class="dn-list-control"><button class="dn-button is-sm" type="button">测试连接</button></span></li>
         </ul>
         <ul class="dn-list">
@@ -262,8 +263,8 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 
 ### 窄屏和手机浏览器
 
-- 窄于 1100px：试用栏收起，顶栏的「试用」打开全屏的试用对话，顶上「回到配置」。
-- 窄于 `breakpoint-md`：分类变成第一页，一行一类，行尾写当前状态；点进去是这一类，顶栏出现返回。
+- 窄于 `breakpoint-lg`（1280）：试用栏收起，顶栏的「试用」打开全屏的试用对话，顶上「回到配置」。
+- 窄于 `breakpoint-sm`：分类变成第一页，一行一类，行尾写当前状态；点进去是这一类，顶栏出现返回。两页之间的切换要脚本，示例 CSS 只在这个宽度把分类栏收起。
 - 例外和工具操作的权限下拉换到名字下面一行，占满宽度。
 
 ## Mac 应用
@@ -421,4 +422,4 @@ Form {
 - 工具默认全部「总是允许」，用户不知道它能替自己发邮件。
 - 看不出一个值是团队默认还是单独改过的。
 - 试用要先发布、或者要跳到另一个页面。
-- 模型下拉里只写内部型号，不写快慢和适合做什么。
+- 模型名只给一个下拉、不能输入；或者选项里只有型号，不说快慢和适合做什么。

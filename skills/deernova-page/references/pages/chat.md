@@ -13,7 +13,7 @@
 | 输入框 | 固定在内容区底部，和对话栏同宽；附件、@、/ 命令和模型都在输入框里；发送和停止在同一个位置 | 是 |
 | 预览面板 | 回答生成文件、页面或图片时，右边打开预览；对话栏变窄，不跳到新页面 | 有产物时 |
 
-- **对话栏居中，宽不超过 `content-max`。** 输入框和对话栏左右对齐；用户消息的右边、回答的左边，都和输入框的边对齐。
+- **对话栏居中，宽不超过 `content-max`。** 输入框和对话栏用同一个居中的栏；按 style 的布局，消息比输入框左右各多缩进 `space-3`，回答的文字不会贴着输入框的边。
 - **建议要具体。** 写这个产品真正做得好的三四件事（「总结一份文件」），不写「你可以问我任何问题」；发出第一条消息后建议消失。回答后的追问建议最多三条，没有好的就不放。
 - **跟随到底，但让位给用户。** 生成时自动滚到最新的内容；用户往上翻，就停止跟随，右下角出现「回到底部」；回到底部后恢复跟随。
 - **回答直接说事。** 不寒暄，不复述问题，不用 emoji 当小标题；复制、重新生成、反馈这些操作悬停在回答上时才出现。
@@ -30,10 +30,11 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 .dn-chat-main { display: flex; flex-direction: column; min-width: 0; min-height: 0; }
 .dn-chat-scroll { flex: 1; min-height: 0; overflow-y: auto; scrollbar-gutter: stable both-edges; padding: var(--space-6) 0; }
 .dn-chat-dock { padding-bottom: var(--space-4); }
+.dn-chat-scroll .dn-thread { padding-inline: calc(var(--page-margin) + var(--space-3)); }
 .dn-chat .dn-preview { width: min(48vw, 560px); }
 @media (max-width: 960px) {
   .dn-chat { grid-template-columns: minmax(0, 1fr); }
-  .dn-chat .dn-preview { position: fixed; inset: var(--space-8) 0 0; z-index: var(--z-overlay); width: auto; border-left: 0; border-radius: var(--sheet-radius) var(--sheet-radius) 0 0; }
+  .dn-chat .dn-preview { position: fixed; inset: 0 0 0 auto; z-index: var(--z-overlay); width: min(100%, var(--sheet-width-md)); box-shadow: var(--shadow-float); }
 }
 ```
 
@@ -127,7 +128,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 
 ### 窄屏和手机浏览器
 
-- 窄于 `breakpoint-md`：预览面板变成从底部升起的整屏[弹窗](../../../deernova-style/references/components/sheet.md)，关掉后回到原来的位置。
+- 窄于 `breakpoint-md`：预览面板变成从右边滑出的[抽屉](../../../deernova-style/references/components/sheet.md)，盖在对话上，关掉后回到原来的位置。
 - 窄于 `breakpoint-sm`：侧边栏收成抽屉，顶栏左边一个按钮打开它；输入框贴底，避开安全区和键盘。
 - 用户消息的气泡最宽占八成，回答占满对话栏。
 

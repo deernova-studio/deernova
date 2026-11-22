@@ -29,7 +29,6 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 .dn-agents .dn-table-bar > .dn-input-group { width: min(100%, 320px); }
 .dn-agents .dn-table td { height: calc(var(--table-row-height) + var(--space-5)); }
 .dn-agents .dn-table-cell { gap: var(--space-3); max-width: 440px; }
-.dn-rows-item > .dn-mark { align-self: center; }
 .dn-agent-running { display: inline-flex; align-items: center; gap: var(--space-1); color: var(--ink-secondary); white-space: nowrap; }
 .dn-agent-running > dn-loader { --loader-size: var(--icon-size-sm); color: var(--brand); }
 .dn-agents tr.is-off :is(.dn-mark, .dn-item-text) { opacity: 0.5; }

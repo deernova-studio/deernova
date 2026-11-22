@@ -44,8 +44,8 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 .dn-msg { display: flex; align-items: flex-end; gap: var(--space-2); max-width: min(75%, 520px); }
 .dn-msg.is-mine { align-self: flex-end; flex-direction: row-reverse; }
 .dn-msg:not(.is-mine) + .dn-msg.is-mine, .dn-msg.is-mine + .dn-msg:not(.is-mine), .dn-dm-status + .dn-msg { margin-top: var(--space-3); }
-.dn-msg > .dn-entry-avatar { width: 28px; height: 28px; font-size: var(--type-caption-size); }
-.dn-msg > .is-spacer { flex: none; width: 28px; }
+.dn-msg > .dn-entry-avatar { width: var(--button-height-sm); height: var(--button-height-sm); font-size: var(--type-caption-size); }
+.dn-msg > .is-spacer { flex: none; width: var(--button-height-sm); }
 .dn-bubble { padding: var(--space-2) var(--space-3); border-radius: var(--radius-lg); background: var(--surface-raised); color: var(--ink); font: var(--type-body); }
 .dn-msg.is-mine .dn-bubble { background: var(--fill-selected); }
 .dn-bubble .dn-entry-link { margin-top: var(--space-2); background: var(--canvas); }

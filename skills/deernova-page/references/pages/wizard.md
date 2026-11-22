@@ -27,7 +27,7 @@
 HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机浏览器见本节最后。
 
 ```css
-.dn-wizard { display: grid; grid-template-columns: 200px minmax(0, 1fr); flex: 1; min-height: 0; }
+.dn-wizard { display: grid; grid-template-columns: var(--sidebar-width-min) minmax(0, 1fr); flex: 1; min-height: 0; }
 .dn-wizard-steps { display: flex; flex-direction: column; gap: var(--row-gap); margin: 0; padding: var(--space-6) var(--space-3); border-right: var(--stroke-line) solid var(--line); list-style: none; }
 .dn-wizard-steps > li > :is(a, span) { display: flex; align-items: center; gap: var(--space-2); min-height: var(--row-height); padding: 0 var(--row-padding-x); border-radius: var(--row-radius); color: var(--ink-tertiary); font: var(--type-callout); text-decoration: none; }
 .dn-wizard-steps > .is-done > a { color: var(--ink-secondary); }

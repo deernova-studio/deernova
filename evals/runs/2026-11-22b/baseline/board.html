@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1280">
+<title>发布 2.0 · 看板</title>
+<style>
+  :root{
+    --app:#FAFAFB;
+    --surface:#FFFFFF;
+    --col:#F2F3F5;
+    --line:#E4E5E9;
+    --line-strong:#D5D7DD;
+    --ink:#17181C;
+    --ink-2:#50545C;
+    --ink-3:#868B94;
+    --ink-4:#B4B8BF;
+    --accent:#3D5FD9;
+    --accent-ink:#2D49B3;
+    --accent-bg:#EEF2FD;
+    --accent-line:#B9C7F4;
+    --red:#CF3B3B;
+    --red-bg:#FCEDED;
+    --red-line:#F2C9C9;
+    --amber:#A3620A;
+    --amber-bg:#FDF3E1;
+    --amber-line:#F0D6A6;
+    --green:#2C8C61;
+    --green-bg:#E8F5EE;
+    --radius:10px;
+    --shadow-card:0 1px 0 rgba(20,22,28,.04), 0 1px 2px rgba(20,22,28,.06);
+    --shadow-lift:0 2px 4px rgba(20,22,28,.06), 0 12px 24px -6px rgba(20,22,28,.18), 0 28px 48px -12px rgba(20,22,28,.22);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--app)}
+  body{
+    width:1280px;height:800px;overflow:hidden;
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans CJK SC","Segoe UI",sans-serif;
+    font-size:13px;line-height:1.45;color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    display:grid;grid-template-columns:56px 1fr;
+  }
+  svg.i{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;flex:none}
+  svg.i.sm{width:14px;height:14px}
+  button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+
+  /* ---------- Rail ---------- */
+  .rail{
+    background:var(--surface);border-right:1px solid var(--line);
+    display:flex;flex-direction:column;align-items:center;padding:12px 0;gap:4px;
+  }
+  .logo{width:30px;height:30px;border-radius:8px;background:var(--ink);color:#fff;display:grid;place-items:center;margin-bottom:14px}
+  .rail-btn{width:36px;height:36px;border-radius:8px;display:grid;place-items:center;color:var(--ink-3)}
+  .rail-btn.on{background:var(--col);color:var(--ink)}
+  .rail-spacer{flex:1}
+  .me{width:30px;height:30px;border-radius:50%;background:#E6E0F5;color:#5B4597;font-size:12px;font-weight:600;display:grid;place-items:center}
+
+  /* ---------- Main ---------- */
+  main{display:flex;flex-direction:column;min-width:0}
+  .topbar{
+    height:56px;flex:none;background:var(--surface);border-bottom:1px solid var(--line);
+    display:flex;align-items:center;padding:0 20px;gap:16px;
+  }
+  .crumb{display:flex;align-items:center;gap:8px;min-width:0}
+  .crumb .muted{color:var(--ink-3)}
+  .crumb .sep{color:var(--ink-4)}
+  .proj-ico{width:22px;height:22px;border-radius:6px;background:linear-gradient(135deg,#5B7BEA,#3D5FD9);display:grid;place-items:center;color:#fff;font-size:11px;font-weight:700}
+  .crumb h1{font-size:15px;font-weight:600;letter-spacing:.01em}
+  .star{color:#E0A526}
+
+  .seg{
+    display:flex;background:var(--col);border-radius:8px;padding:3px;gap:2px;margin-left:8px;
+  }
+  .seg button{display:flex;align-items:center;gap:6px;height:28px;padding:0 12px;border-radius:6px;color:var(--ink-2);font-weight:500}
+  .seg button.on{background:var(--surface);color:var(--ink);box-shadow:0 1px 2px rgba(20,22,28,.08),0 0 0 1px rgba(20,22,28,.04)}
+
+  .grow{flex:1}
+  .search{
+    width:220px;height:32px;border:1px solid var(--line);border-radius:8px;background:var(--app);
+    display:flex;align-items:center;gap:8px;padding:0 10px;color:var(--ink-3);
+  }
+  .search span{flex:1}
+  kbd{font-family:inherit;font-size:11px;color:var(--ink-3);border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;padding:0 5px;background:var(--surface)}
+  .btn{
+    height:32px;display:inline-flex;align-items:center;gap:6px;padding:0 12px;border-radius:8px;
+    border:1px solid var(--line-strong);background:var(--surface);font-weight:500;color:var(--ink);
+  }
+  .btn .count{background:var(--accent);color:#fff;font-size:11px;line-height:16px;min-width:16px;padding:0 4px;border-radius:8px;text-align:center}
+  .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:0 1px 2px rgba(45,73,179,.35), inset 0 1px 0 rgba(255,255,255,.14)}
+  .btn.primary .div{width:1px;align-self:stretch;margin:7px 2px;background:rgba(255,255,255,.3)}
+  .avatars{display:flex}
+  .avatars .av{margin-left:-6px;box-shadow:0 0 0 2px var(--surface)}
+  .avatars .av:first-child{margin-left:0}
+
+  .toolbar{
+    height:48px;flex:none;display:flex;align-items:center;gap:20px;padding:0 20px;
+    border-bottom:1px solid var(--line);background:var(--surface);
+  }
+  .stat{display:flex;align-items:center;gap:8px;color:var(--ink-2)}
+  .stat b{color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums}
+  .bar{width:96px;height:6px;border-radius:3px;background:var(--col);overflow:hidden}
+  .bar i{display:block;height:100%;width:77%;background:var(--green);border-radius:3px}
+  .vsep{width:1px;height:16px;background:var(--line)}
+  .pill{display:inline-flex;align-items:center;gap:5px;height:22px;padding:0 8px;border-radius:11px;font-size:12px;font-weight:500}
+  .pill.red{background:var(--red-bg);color:var(--red)}
+  .pill.amber{background:var(--amber-bg);color:var(--amber)}
+  .ghost{height:28px;display:inline-flex;align-items:center;gap:6px;padding:0 8px;border-radius:6px;color:var(--ink-2)}
+  .ghost b{color:var(--ink);font-weight:500}
+
+  /* ---------- Board ---------- */
+  .board{
+    flex:1;min-height:0;padding:16px 20px;
+    display:grid;grid-template-columns:repeat(4,1fr);gap:12px;
+  }
+  .col{
+    background:var(--col);border-radius:12px;display:flex;flex-direction:column;min-height:0;
+    border:1px solid transparent;position:relative;
+  }
+  .col-head{height:44px;flex:none;display:flex;align-items:center;gap:8px;padding:0 10px 0 14px}
+  .dot{width:8px;height:8px;border-radius:50%}
+  .col-head h2{font-size:13px;font-weight:600}
+  .num{font-size:12px;color:var(--ink-3);font-variant-numeric:tabular-nums;font-weight:500}
+  .col-head .grow{flex:1}
+  .icon-btn{width:26px;height:26px;border-radius:6px;display:grid;place-items:center;color:var(--ink-3)}
+  .wip{display:inline-flex;align-items:center;gap:4px;height:20px;padding:0 7px;border-radius:10px;background:var(--amber-bg);color:var(--amber);font-size:11.5px;font-weight:600;font-variant-numeric:tabular-nums;border:1px solid var(--amber-line)}
+  .col.limit{border-color:var(--amber-line)}
+  .col.limit .col-head{border-bottom:1px solid var(--amber-line);background:linear-gradient(#FFF9EE,#FFF9EE);border-radius:12px 12px 0 0}
+  .list{flex:1;min-height:0;padding:8px;display:flex;flex-direction:column;gap:8px;overflow:hidden}
+  .col.limit .list{padding-top:10px}
+
+  .add{height:34px;flex:none;display:flex;align-items:center;gap:6px;padding:0 8px;border-radius:8px;color:var(--ink-3)}
+
+  /* drop target */
+  .col.drop{background:var(--accent-bg);border:1.5px dashed var(--accent-line)}
+  .col.drop .col-head h2{color:var(--accent-ink)}
+  .drop-hint{font-size:11.5px;color:var(--accent-ink);font-weight:500;display:inline-flex;align-items:center;gap:4px}
+
+  /* ---------- Card ---------- */
+  .card{
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:10px 12px 10px;box-shadow:var(--shadow-card);flex:none;position:relative;
+  }
+  .card-top{display:flex;align-items:center;gap:6px;margin-bottom:6px}
+  .id{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;font-size:11px;color:var(--ink-3);letter-spacing:.02em}
+  .tag{font-size:11px;font-weight:500;height:18px;line-height:18px;padding:0 6px;border-radius:4px;background:var(--col);color:var(--ink-2)}
+  .tag.fe{background:#EAF1FE;color:#2E5BC4}
+  .tag.be{background:#EFEAFB;color:#6142B5}
+  .tag.ds{background:#FBEAF3;color:#B23A79}
+  .tag.ops{background:#E7F4EF;color:#2A7D59}
+  .tag.qa{background:#FBF1E4;color:#9A5B12}
+  .card-top .grow{flex:1}
+  .prio{display:flex;gap:2px;align-items:flex-end;height:12px}
+  .prio i{width:3px;border-radius:1px;background:var(--line-strong)}
+  .prio i:nth-child(1){height:5px}.prio i:nth-child(2){height:8px}.prio i:nth-child(3){height:11px}
+  .prio.h i{background:var(--ink-2)}
+  .prio.m i:nth-child(-n+2){background:var(--ink-2)}
+  .prio.l i:nth-child(1){background:var(--ink-2)}
+  .title{font-size:13.5px;font-weight:500;line-height:1.45;color:var(--ink);margin-bottom:10px}
+  .card-foot{display:flex;align-items:center;gap:10px;color:var(--ink-3);font-size:12px}
+  .meta{display:inline-flex;align-items:center;gap:4px;font-variant-numeric:tabular-nums}
+  .card-foot .grow{flex:1}
+  .date-late{display:inline-flex;align-items:center;gap:4px;height:20px;padding:0 6px;border-radius:5px;background:var(--red-bg);color:var(--red);font-weight:500}
+  .date-soon{color:var(--amber);font-weight:500}
+
+  .av{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:600;flex:none}
+  .a1{background:#E1EAFD;color:#2E57B8}
+  .a2{background:#FCE4E4;color:#B53A3A}
+  .a3{background:#E3F3EA;color:#2A7A52}
+  .a4{background:#FDEFD9;color:#9A5A0F}
+  .a5{background:#ECE5F8;color:#5D429C}
+  .a6{background:#E2F2F5;color:#1F6F7E}
+  .a7{background:#F5E6F0;color:#9A3A72}
+  .av.more{background:var(--col);color:var(--ink-2);font-size:10.5px}
+
+  /* blocked */
+  .card.blocked{border-color:var(--red-line)}
+  .card.blocked::before{content:"";position:absolute;left:-1px;top:10px;bottom:10px;width:3px;border-radius:0 3px 3px 0;background:var(--red)}
+  .blocker{
+    display:flex;align-items:flex-start;gap:6px;margin:-2px 0 10px;padding:6px 8px;border-radius:6px;
+    background:var(--red-bg);color:#8E2B2B;font-size:12px;line-height:1.4;
+  }
+  .blocker svg{color:var(--red);margin-top:1px}
+  .blocker b{font-weight:600;color:var(--red)}
+
+  /* done */
+  .card.done .title{color:var(--ink-2)}
+  .check{width:16px;height:16px;border-radius:50%;background:var(--green);display:grid;place-items:center;color:#fff;flex:none}
+  .check svg{width:10px;height:10px;stroke-width:2.4}
+  .done-when{color:var(--ink-3)}
+  .more-done{
+    flex:none;height:36px;border-radius:8px;border:1px dashed var(--line-strong);display:flex;align-items:center;justify-content:center;gap:6px;
+    color:var(--ink-2);font-weight:500;background:rgba(255,255,255,.5)
+  }
+  .more-done .num{color:var(--ink-3)}
+
+  /* drag states */
+  .ghost-slot{
+    flex:none;height:96px;border-radius:var(--radius);border:1.5px dashed var(--line-strong);
+    background:repeating-linear-gradient(-45deg,rgba(20,22,28,.025) 0 6px,transparent 6px 12px);
+  }
+  .landing{
+    flex:none;height:96px;border-radius:var(--radius);position:relative;
+    background:rgba(61,95,217,.10);border:1.5px solid var(--accent);
+    box-shadow:inset 0 0 0 3px rgba(255,255,255,.55);
+  }
+  .dragging{
+    position:absolute;left:0;right:0;top:0;z-index:20;
+    transform:translate(-14px,-12px) rotate(-2deg);transform-origin:30% 30%;
+    box-shadow:var(--shadow-lift);border-color:var(--accent-line);
+  }
+  .cursor{position:absolute;z-index:30;left:118px;top:10px;width:20px;height:24px;filter:drop-shadow(0 1px 1.5px rgba(0,0,0,.3))}
+  .drag-tip{
+    position:absolute;z-index:31;left:126px;top:-30px;white-space:nowrap;
+    background:var(--ink);color:#fff;font-size:11.5px;font-weight:500;padding:4px 8px;border-radius:6px;
+    display:flex;align-items:center;gap:5px;box-shadow:0 4px 12px rgba(0,0,0,.18)
+  }
+  .drag-tip .from{color:#B9BDC6}
+  .col.drop .list{overflow:visible}
+  .col.drop{z-index:5}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-board" viewBox="0 0 16 16"><rect x="2" y="2.5" width="3.5" height="11" rx="1"/><rect x="6.25" y="2.5" width="3.5" height="7" rx="1"/><rect x="10.5" y="2.5" width="3.5" height="9" rx="1"/></symbol>
+    <symbol id="i-list" viewBox="0 0 16 16"><path d="M5.5 4h8M5.5 8h8M5.5 12h8"/><circle cx="2.5" cy="4" r=".6"/><circle cx="2.5" cy="8" r=".6"/><circle cx="2.5" cy="12" r=".6"/></symbol>
+    <symbol id="i-cal" viewBox="0 0 16 16"><rect x="2" y="3" width="12" height="11" rx="2"/><path d="M2 6.5h12M5.5 1.75v2.5M10.5 1.75v2.5"/></symbol>
+    <symbol id="i-filter" viewBox="0 0 16 16"><path d="M2.5 3.5h11M4.5 8h7M6.5 12.5h3"/></symbol>
+    <symbol id="i-search" viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.5"/><path d="M10.5 10.5 13.5 13.5"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 16 16"><path d="M8 3v10M3 8h10"/></symbol>
+    <symbol id="i-down" viewBox="0 0 16 16"><path d="m4.5 6.5 3.5 3.5 3.5-3.5"/></symbol>
+    <symbol id="i-more" viewBox="0 0 16 16"><circle cx="3.5" cy="8" r=".9" fill="currentColor" stroke="none"/><circle cx="8" cy="8" r=".9" fill="currentColor" stroke="none"/><circle cx="12.5" cy="8" r=".9" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-home" viewBox="0 0 16 16"><path d="M2.5 7 8 2.5 13.5 7v6a1 1 0 0 1-1 1h-9a1 1 0 0 1-1-1z"/><path d="M6.5 14V10h3v4"/></symbol>
+    <symbol id="i-inbox" viewBox="0 0 16 16"><path d="M2 9.5 3.6 3.6a1 1 0 0 1 1-.8h6.8a1 1 0 0 1 1 .8L14 9.5V13a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/><path d="M2 9.5h3.5l1 1.5h3l1-1.5H14"/></symbol>
+    <symbol id="i-folder" viewBox="0 0 16 16"><path d="M2 4.5a1 1 0 0 1 1-1h3.2l1.5 1.5H13a1 1 0 0 1 1 1V12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 16 16"><path d="M2.5 13.5h11M4.5 11V7.5M8 11V4M11.5 11V9"/></symbol>
+    <symbol id="i-gear" viewBox="0 0 16 16"><circle cx="8" cy="8" r="2"/><path d="M8 1.75v1.5M8 12.75v1.5M14.25 8h-1.5M3.25 8h-1.5M12.4 3.6l-1.06 1.06M4.66 11.34 3.6 12.4M12.4 12.4l-1.06-1.06M4.66 4.66 3.6 3.6"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 16 16"><circle cx="8" cy="8" r="5.75"/><path d="M8 5v3.2l2 1.3"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 16 16"><circle cx="8" cy="8" r="5.75"/><path d="M8 5v3.5M8 10.9v.1"/></symbol>
+    <symbol id="i-ban" viewBox="0 0 16 16"><circle cx="8" cy="8" r="5.75"/><path d="m3.95 3.95 8.1 8.1"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 16 16"><path d="M2.5 4a1 1 0 0 1 1-1h9a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1H7l-3 2.5V11h-.5a1 1 0 0 1-1-1z"/></symbol>
+    <symbol id="i-sub" viewBox="0 0 16 16"><rect x="2.5" y="2.5" width="11" height="11" rx="2.5"/><path d="m5.5 8 1.75 1.75L10.5 6.5"/></symbol>
+    <symbol id="i-check" viewBox="0 0 16 16"><path d="m3.5 8.5 3 3 6-7"/></symbol>
+    <symbol id="i-clip" viewBox="0 0 16 16"><path d="m13 7.5-5.2 5.2a3 3 0 0 1-4.3-4.3l5.6-5.6a2 2 0 0 1 2.9 2.9l-5.5 5.5a1 1 0 0 1-1.5-1.5l5-5"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 16 16"><rect x="3" y="7" width="10" height="7" rx="1.5"/><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2"/></symbol>
+    <symbol id="i-star" viewBox="0 0 16 16"><path d="m8 2 1.8 3.8 4.2.5-3.1 2.9.8 4.1L8 11.3l-3.7 2 .8-4.1L2 6.3l4.2-.5z"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 16 16"><path d="M3 8h10M9.5 4.5 13 8l-3.5 3.5"/></symbol>
+    <symbol id="i-sort" viewBox="0 0 16 16"><path d="M5 3v10M2.75 10.75 5 13l2.25-2.25M11 13V3M8.75 5.25 11 3l2.25 2.25"/></symbol>
+    <symbol id="i-group" viewBox="0 0 16 16"><rect x="2.5" y="2.5" width="11" height="4" rx="1"/><rect x="2.5" y="9.5" width="11" height="4" rx="1"/></symbol>
+  </defs>
+</svg>
+
+<!-- ============ Rail ============ -->
+<nav class="rail" aria-label="主导航">
+  <div class="logo"><svg class="i" viewBox="0 0 16 16" style="stroke-width:2"><path d="M3 11.5 8 3l5 8.5z"/></svg></div>
+  <button class="rail-btn" title="首页"><svg class="i"><use href="#i-home"/></svg></button>
+  <button class="rail-btn" title="收件箱"><svg class="i"><use href="#i-inbox"/></svg></button>
+  <button class="rail-btn on" title="项目"><svg class="i"><use href="#i-folder"/></svg></button>
+  <button class="rail-btn" title="报表"><svg class="i"><use href="#i-chart"/></svg></button>
+  <div class="rail-spacer"></div>
+  <button class="rail-btn" title="设置"><svg class="i"><use href="#i-gear"/></svg></button>
+  <div class="me" title="我">许</div>
+</nav>
+
+<main>
+  <!-- ============ Top bar ============ -->
+  <header class="topbar">
+    <div class="crumb">
+      <span class="muted">产品研发</span>
+      <span class="sep">/</span>
+      <div class="proj-ico">2.0</div>
+      <h1>发布 2.0</h1>
+      <svg class="i sm star" style="fill:currentColor;stroke:none"><use href="#i-star"/></svg>
+    </div>
+
+    <div class="seg" role="tablist" aria-label="视图">
+      <button role="tab"><svg class="i sm"><use href="#i-list"/></svg>列表</button>
+      <button role="tab" class="on" aria-selected="true"><svg class="i sm"><use href="#i-board"/></svg>看板</button>
+      <button role="tab"><svg class="i sm"><use href="#i-cal"/></svg>日历</button>
+    </div>
+
+    <div class="grow"></div>
+
+    <div class="search"><svg class="i sm"><use href="#i-search"/></svg><span>搜索卡片</span><kbd>⌘K</kbd></div>
+    <button class="btn"><svg class="i sm"><use href="#i-filter"/></svg>筛选<span class="count">2</span></button>
+    <div class="avatars">
+      <div class="av a1">林</div><div class="av a2">王</div><div class="av a3">陈</div><div class="av a5">赵</div><div class="av more">+4</div>
+    </div>
+    <button class="btn primary"><svg class="i sm" style="stroke-width:2"><use href="#i-plus"/></svg>新建<span class="div"></span><svg class="i sm"><use href="#i-down"/></svg></button>
+  </header>
+
+  <!-- ============ Toolbar ============ -->
+  <div class="toolbar">
+    <div class="stat"><span>进度</span><div class="bar"><i></i></div><b>40 / 52</b></div>
+    <div class="vsep"></div>
+    <div class="stat"><svg class="i sm"><use href="#i-cal"/></svg>计划发布 <b>12月15日</b><span style="color:var(--ink-3)">· 还剩 23 天</span></div>
+    <div class="vsep"></div>
+    <span class="pill red"><svg class="i sm"><use href="#i-clock"/></svg>1 项逾期</span>
+    <span class="pill red" style="background:#fff;border:1px solid var(--red-line)"><svg class="i sm"><use href="#i-ban"/></svg>1 项阻塞</span>
+    <div class="grow" style="flex:1"></div>
+    <button class="ghost"><svg class="i sm"><use href="#i-group"/></svg>分组：<b>状态</b></button>
+    <button class="ghost"><svg class="i sm"><use href="#i-sort"/></svg>排序：<b>截止日期</b></button>
+  </div>
+
+  <!-- ============ Board ============ -->
+  <section class="board">
+
+    <!-- 待办 -->
+    <div class="col">
+      <div class="col-head">
+        <span class="dot" style="background:#A0A5AE"></span>
+        <h2>待办</h2><span class="num">5</span>
+        <span class="grow"></span>
+        <button class="icon-btn"><svg class="i sm"><use href="#i-plus"/></svg></button>
+        <button class="icon-btn"><svg class="i sm"><use href="#i-more"/></svg></button>
+      </div>
+      <div class="list">
+        <article class="card">
+          <div class="card-top"><span class="id">REL-142</span><span class="tag ops">运营</span><span class="grow"></span><span class="prio m"><i></i><i></i><i></i></span></div>
+          <div class="title">撰写 2.0 版本发布说明与更新日志</div>
+          <div class="card-foot"><span class="meta"><svg class="i sm"><use href="#i-cal"/></svg>12月2日</span><span class="meta"><svg class="i sm"><use href="#i-chat"/></svg>3</span><span class="grow"></span><div class="av a1">林</div></div>
+        </article>
+        <article class="card">
+          <div class="card-top"><span class="id">REL-139</span><span class="tag ds">设计</span><span class="grow"></span><span class="prio h"><i></i><i></i><i></i></span></div>
+          <div class="title">新版引导页插画定稿</div>
+          <div class="card-foot"><span class="meta"><svg class="i sm"><use href="#i-cal"/></svg>12月4日</span><span class="meta"><svg class="i sm"><use href="#i-clip"/></svg>6</span><span class="grow"></span><div class="av a7">周</div></div>
+        </article>
+        <article class="card">
+          <div class="card-top"><span class="id">REL-145</span><span class="tag be">后端</span><span class="grow"></span><span class="prio l"><i></i><i></i><i></i></span></div>
+          <div class="title">灰度用户名单导出脚本</div>
+          <div class="card-foot"><span class="meta"><svg class="i sm"><use href="#i-cal"/></svg>12月5日</span><span class="meta"><svg class="i sm"><use href="#i-sub"/></svg>0/3</span><span class="grow"></span><div class="av a3">陈</div></div>
+        </article>
+        <article class="card">
+          <div class="card-top"><span class="id">REL-147</span><span class="tag ops">运营</span><span class="grow"></span><span class="prio l"><i></i><i></i><i></i></span></div>
+          <div class="title">客服知识库同步新功能问答</div>
+          <div class="card-foot"><span class="meta"><svg class="i sm"><use href="#i-cal"/></svg>12月8日</span><span class="grow"></span><div class="av a6">何</div></div>
+        </article>
+        <article class="card">
+          <div class="card-top"><span class="id">REL-150</span><span class="tag qa">测试</span><span class="grow"></span><span class="prio m"><i></i><i></i><i></i></span></div>
+          <div class="title">回归测试用例补齐</div>
+          <div class="card-foot"><span class="meta"><svg class="i sm"><use href="#i-cal"/></svg>12月10日</span><span class="grow"></span><div class="av a4">孙</div></div>
+        </article>
+        <button class="add"><svg class="i sm"><use href="#i-plus"/></svg>添加卡片</button>
+      </div>
+    </div>
+
+    <!-- 进行中 (WIP limit 4) -->
+    <div class="col limit">
+      <div class="col-head">
+        <span class="dot" style="background:#3D5FD9"></span>
+        <h2>进行中</h2>
+        <span class="wip" title="在制品上限 4 张"><svg class="i sm" style="width:12px;height:12px"><use href="#i-lock"/></svg>4 / 4</span>
+        <span class="grow"></span>
+        <span style="font-size:11.5px;color:var(--amber);font-weight:500">已达上限</span>
+        <button class="icon-btn"><svg class="i sm"><use href="#i-more"/></svg></button>
+      </div>
+      <div class="list">
+        <div class="ghost-slot" aria-label="卡片原位置"></div>
+
+        <article class="card">
+          <div class="card-top"><span class="id">REL-118</span><span class="tag be">后端</span><span class="grow"></span><span class="prio h"><i></i><i></i><i></i></span></div>
+          <div class="title">旧版用户数据迁移至新存储</div>
+          <div class="card-foot"><span class="date-late"><svg class="i sm"><use href="#i-clock"/></svg>11月20日 · 逾期 2 天</span><span class="grow"></span><div class="av a2">王</div></div>
+        </article>
+
+        <article class="card blocked">
+          <div class="card-top"><span class="id">REL-125</span><span class="tag be">后端</span><span class="grow"></span><span class="prio h"><i></i><i></i><i></i></span></div>
+          <div class="title">接入新版支付网关</div>
+          <div class="blocker"><svg class="i sm"><use href="#i-ban"/></svg><span><b>被阻塞</b> · 等待商户号审批</span></div>
+          <div class="card-foot"><span class="meta"><svg class="i sm"><use href="#i-cal"/></svg>12月1日</span><span class="meta"><svg class="i sm"><use href="#i-chat"/></svg>7</span><span class="grow"></span><div class="av a4">孙</div></div>
+        </article>
+
+        <article class="card">
+          <div class="card-top"><span class="id">REL-130</span><span class="tag fe">前端</span><span class="grow"></span><span class="prio m"><i></i><i></i><i></i></span></div>
+          <div class="title">推送通知权限弹窗改版</div>
+          <div class="card-foot"><span class="meta"><svg class="i sm"><use href="#i-cal"/></svg>11月30日</span><span class="meta"><svg class="i sm"><use href="#i-sub"/></svg>2/5</span><span class="grow"></span><div class="av a1">李</div></div>
+        </article>
+      </div>
+    </div>
+
+    <!-- 审核中 (drop target) -->
+    <div class="col drop">
+      <div class="col-head">
+        <span class="dot" style="background:#8A5CD6"></span>
+        <h2>审核中</h2><span class="num">3</span>
+        <span class="grow"></span>
+        <span class="drop-hint"><svg class="i sm"><use href="#i-arrow"/></svg>松开以放入</span>
+      </div>
+      <div class="list">
+        <article class="card">
+          <div class="card-top"><span class="id">REL-110</span><span class="tag fe">前端</span><span class="grow"></span><span class="prio m"><i></i><i></i><i></i></span></div>
+          <div class="title">登录页首屏性能优化</div>
+          <div class="card-foot"><span class="meta date-soon"><svg class="i sm"><use href="#i-cal"/></svg>11月25日</span><span class="meta"><svg class="i sm"><use href="#i-chat"/></svg>2</span><span class="grow"></span><div class="av a3">陈</div></div>
+        </article>
+
+        <!-- landing slot + dragged card -->
+        <div class="landing">
+          <article class="card dragging" aria-label="正在拖动：设置页暗色模式适配">
+            <div class="card-top"><span class="id">REL-121</span><span class="tag fe">前端</span><span class="grow"></span><span class="prio m"><i></i><i></i><i></i></span></div>
+            <div class="title">设置页暗色模式适配</div>
+            <div class="card-foot"><span class="meta"><svg class="i sm"><use href="#i-cal"/></svg>11月28日</span><span class="meta"><svg class="i sm"><use href="#i-sub"/></svg>4/4</span><span class="meta"><svg class="i sm"><use href="#i-chat"/></svg>5</span><span class="grow"></span><div class="av a5">赵</div></div>
+          </article>
+          <svg class="cursor" viewBox="0 0 20 24" aria-hidden="true">
+            <path d="M2 1.5v17.2l4.3-4.1 2.9 6.6 3-1.3-2.9-6.5h6z" fill="#111" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/>
+          </svg>
+          <div class="drag-tip"><span class="from">进行中</span><svg class="i sm" style="width:12px;height:12px"><use href="#i-arrow"/></svg>审核中</div>
+        </div>
+
+        <article class="card">
+          <div class="card-top"><span class="id">REL-115</span><span class="tag ops">运营</span><span class="grow"></span><span class="prio l"><i></i><i></i><i></i></span></div>
+          <div class="title">新版埋点方案评审</div>
+          <div class="card-foot"><span class="meta"><svg class="i sm"><use href="#i-cal"/></svg>11月27日</span><span class="grow"></span><div class="av a7">周</div></div>
+        </article>
+
+        <article class="card">
+          <div class="card-top"><span class="id">REL-112</span><span class="tag qa">测试</span><span class="grow"></span><span class="prio h"><i></i><i></i><i></i></span></div>
+          <div class="title">安卓端启动崩溃修复验证</div>
+          <div class="card-foot"><span class="meta date-soon"><svg class="i sm"><use href="#i-cal"/></svg>11月24日</span><span class="meta"><svg class="i sm"><use href="#i-chat"/></svg>4</span><span class="grow"></span><div class="av a1">林</div></div>
+        </article>
+      </div>
+    </div>
+
+    <!-- 完成 -->
+    <div class="col">
+      <div class="col-head">
+        <span class="dot" style="background:var(--green)"></span>
+        <h2>完成</h2><span class="num">40</span>
+        <span class="grow"></span>
+        <button class="icon-btn"><svg class="i sm"><use href="#i-more"/></svg></button>
+      </div>
+      <div class="list">
+        <article class="card done">
+          <div class="card-top"><span class="check"><svg class="i"><use href="#i-check"/></svg></span><span class="id">REL-109</span><span class="tag fe">前端</span></div>
+          <div class="title">首页信息流卡片重构</div>
+          <div class="card-foot"><span class="done-when">11月21日完成</span><span class="grow"></span><div class="av a5">赵</div></div>
+        </article>
+        <article class="card done">
+          <div class="card-top"><span class="check"><svg class="i"><use href="#i-check"/></svg></span><span class="id">REL-104</span><span class="tag be">后端</span></div>
+          <div class="title">账号注销流程合规改造</div>
+          <div class="card-foot"><span class="done-when">11月20日完成</span><span class="grow"></span><div class="av a2">王</div></div>
+        </article>
+        <article class="card done">
+          <div class="card-top"><span class="check"><svg class="i"><use href="#i-check"/></svg></span><span class="id">REL-101</span><span class="tag ds">设计</span></div>
+          <div class="title">2.0 视觉规范与图标库</div>
+          <div class="card-foot"><span class="done-when">11月18日完成</span><span class="grow"></span><div class="av a7">周</div></div>
+        </article>
+        <article class="card done">
+          <div class="card-top"><span class="check"><svg class="i"><use href="#i-check"/></svg></span><span class="id">REL-097</span><span class="tag qa">测试</span></div>
+          <div class="title">自动化测试接入流水线</div>
+          <div class="card-foot"><span class="done-when">11月17日完成</span><span class="grow"></span><div class="av a4">孙</div></div>
+        </article>
+        <button class="more-done">展开其余已完成<span class="num">36 张</span><svg class="i sm"><use href="#i-down"/></svg></button>
+      </div>
+    </div>
+
+  </section>
+</main>
+</body>
+</html>

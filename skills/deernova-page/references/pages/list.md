@@ -19,7 +19,7 @@
 - 列表在内容区里居中，宽不超过 `wide-max`；一行一条，行之间一条细线，不放进卡片。
 - 点一行打开详情页，或者就地完成（勾选任务、切换状态）；勾选框、行尾操作不触发打开。
 - 行比列表加详情里的更舒展：主文字一行，下面是灰色的所属（项目、客户）或备注，行尾是时间或金额。
-- **所有东西对齐第一行。** 勾选框、状态图标、行尾的时间和操作都和主文字的第一行对齐，不在整行里垂直居中；第二行的备注变长时，它们留在原地。代表整条的头像或标记例外，和整块文字垂直居中。备注最多两行，多出的用省略号。
+- **所有东西对齐第一行。** 这里的行备注最多两行，加上标题算长内容，按 style 布局规则的第 5 条： 勾选框、状态图标、行尾的时间和操作都和主文字的第一行对齐，不在整行里垂直居中；第二行的备注变长时，它们留在原地。代表整条的头像或标记例外，和整块文字垂直居中。备注最多两行，多出的用省略号。
 
 **列表加详情**
 
@@ -44,12 +44,13 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 .dn-rows-bar > :last-child { margin-left: auto; }
 .dn-rows { margin: 0; padding: 0; list-style: none; }
 .dn-rows-group { margin: var(--space-5) 0 0; padding: 0 var(--row-padding-x) var(--space-2); border-bottom: var(--stroke-line) solid var(--line); color: var(--ink-tertiary); font: var(--type-footnote); }
+.dn-rows-item > :is(.dn-avatar, .dn-mark) { align-self: center; }
 .dn-rows-item { display: flex; align-items: flex-start; gap: var(--space-3); padding: var(--space-2) var(--row-padding-x); border-bottom: var(--stroke-line) solid var(--line); color: var(--ink); text-decoration: none; }
 @media (hover: hover) { .dn-rows-item:hover { background: var(--fill-hover); } }
 .dn-rows-text { display: grid; flex: 1; min-width: 0; color: inherit; text-decoration: none; }
 .dn-rows-title { overflow: hidden; font: var(--type-body); text-overflow: ellipsis; white-space: nowrap; }
-.dn-rows-detail { display: -webkit-box; overflow: hidden; color: var(--ink-tertiary); font: var(--type-footnote); -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
-.dn-rows-meta { flex: none; color: var(--ink-secondary); font: var(--weight-regular) var(--type-callout-size)/var(--type-body-line) var(--font-sans); font-variant-numeric: tabular-nums; }
+.dn-rows-detail { display: -webkit-box; overflow: hidden; color: var(--ink-secondary); font: var(--type-footnote); -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+.dn-rows-meta { flex: none; color: var(--ink-tertiary); font: var(--weight-regular) var(--type-callout-size)/var(--type-body-line) var(--font-sans); font-variant-numeric: tabular-nums; }
 .dn-rows-actions { flex: none; margin-block: calc((var(--type-body-line) - var(--button-height-md)) / 2); opacity: 0; transition: opacity var(--duration-instant) var(--ease-standard); }
 .dn-rows-item:is(:hover, :focus-within) .dn-rows-actions { opacity: 1; }
 .dn-split { display: grid; grid-template-columns: var(--pane-width) minmax(0, 1fr); flex: 1; min-height: 0; }
@@ -72,7 +73,8 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 .dn-filter-end { margin-left: auto; }
 @media (max-width: 960px) {
   .dn-split { grid-template-columns: minmax(0, 1fr); }
-  .dn-split:has(.dn-split-row[aria-current="true"]) .dn-split-list { display: none; }
+  .dn-split:not(.is-detail-open) .dn-split-detail { display: none; }
+  .dn-split.is-detail-open .dn-split-list { display: none; }
 }
 ```
 
@@ -167,7 +169,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 
 ### 窄屏和手机浏览器
 
-- 窄于 `breakpoint-md`：列表和详情变成两页。点一行进入详情，顶栏左边出现返回；返回后列表停在原来的位置。
+- 窄于 `breakpoint-md`：列表和详情变成两页，一次只显示一栏。默认显示列表；点一行后给 `.dn-split` 加 `is-detail-open` 显示详情，顶栏左边出现返回，返回时去掉，列表停在原来的位置。这一步要脚本切换，CSS 只负责显示哪一栏。
 - 窄于 `breakpoint-sm`：筛选收进一个「筛选」按钮，按钮上显示已生效的数量；搜索留在列表顶部。
 - 行里的次要值不换行，空间不够时先截断主文字。
 

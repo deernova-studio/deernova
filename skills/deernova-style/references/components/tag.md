@@ -40,7 +40,7 @@
 .dn-tag.is-warning { background: var(--warning-soft); color: var(--warning); }
 .dn-tag.is-danger { background: var(--danger-soft); color: var(--danger); }
 .dn-tag.is-info { background: var(--info-soft); color: var(--info); }
-.dn-dot { flex: none; width: 5px; height: 5px; border-radius: var(--radius-full); background: currentColor; }
+.dn-tag > .dn-dot { flex: none; width: 5px; height: 5px; border-radius: var(--radius-full); background: currentColor; }
 ```
 
 ```html

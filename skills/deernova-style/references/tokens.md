@@ -2,7 +2,7 @@
 
 由 `assets/tokens.json` 生成（在 deernova 仓库里运行 `npm run tokens`），不要手改。同一份数据还生成了 `assets/tokens.css`（CSS 变量）、`assets/tailwind.css`（Tailwind v4 主题）和 `assets/DeernovaTokens.swift`（SwiftUI）。CSS 变量名和这里的 token 名一致，例如 `var(--ink)`、`var(--button-height-md)`。
 
-每个 token 的值只取决于两件事：**主题**（浅色 / 深色）和**密度**（紧凑 / 常规 / 触控 / 舒展）。token 名字里不出现平台，平台差异全部放在值里。
+每个 token 的值只取决于两件事：**主题**（浅色 / 深色）和**密度**（桌面 / 触控 / 舒展）。token 名字里不出现平台，平台差异全部放在值里。
 
 ## 场景与密度
 
@@ -17,7 +17,7 @@
 
 | 密度 | 说明 |
 | --- | --- |
-| 桌面（`desktop`） | 指针操作。tokens.css 的默认值：正文 15/24，控件 28，侧边栏行 32。macOS 的侧边栏、工具栏、菜单用系统控件和系统尺寸，自己画的内容区用这一档。 |
+| 桌面（`desktop`） | 指针操作。tokens.css 的默认值：正文 15/24，控件 32，列表和侧边栏行 36。macOS 的侧边栏、工具栏、菜单用系统控件和系统尺寸，自己画的内容区用这一档。 |
 | 触控（`touch`） | 手指操作。正文 17pt，按钮看起来 36pt，点击区域至少 44pt。 |
 | 舒展（`comfortable`） | 以阅读为主。字号和留白更大，控件只用于少量导航。 |
 
@@ -128,8 +128,8 @@
 | Token | 浅色 | 深色 | 用途 |
 | --- | --- | --- | --- |
 | `weight-regular` | `400` | `360` | 正文、说明、输入的文字。 |
-| `weight-medium` | `500` | `460` | 按钮、标签、侧边栏选中项、表单标签。 |
-| `weight-semibold` | `600` | `560` | 标题、区块标题、列表行标题。不用 700 以上。 |
+| `weight-medium` | `500` | `460` | 按钮、标签、表单标签，以及列表、信息流、表格第一列里需要先被看到的名字。 |
+| `weight-semibold` | `600` | `560` | 标题、区块标题、卡片标题。不用 700 以上。 |
 
 ### 字号角色
 
@@ -138,7 +138,7 @@
 | 角色 | 字族 | 字重 | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | SwiftUI（macOS / iOS） | 用途 |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | `display` | display | 600 | 26 / 32 | 30 / 36 | 44 / 52 | `.system(size: 26, weight: .semibold, design: .serif)` / `.system(.largeTitle, design: .serif).weight(.semibold)` | 空状态、引导页、页面的大标题（衬线）。每屏最多一个。 |
-| `title` | display | 600 | 18 / 24 | 20 / 25 | 24 / 32 | `.system(size: 18, weight: .semibold, design: .serif)` / `.system(.title3, design: .serif).weight(.semibold)` | 文章标题、弹窗标题（衬线）。 |
+| `title` | display | 600 | 20 / 28 | 20 / 25 | 24 / 32 | `.system(size: 18, weight: .semibold, design: .serif)` / `.system(.title3, design: .serif).weight(.semibold)` | 文章标题、弹窗标题（衬线）。 |
 | `headline` | sans | 600 | 15 / 22 | 17 / 22 | 16 / 24 | `.system(size: 15, weight: .semibold)` / `.headline` | 区块标题、卡片标题、横幅标题、列表行标题。 |
 | `body` | sans | 400 | 15 / 24 | 17 / 23 | 15 / 24 | `.system(size: 15)` / `.body` | 界面正文、AI 回答、用户消息、列表、表单。 |
 | `prose` | serif | 400 | 16 / 26 | 17 / 26 | 17 / 28 | `.system(size: 16, design: .serif)` / `.system(.body, design: .serif)` | 文章、文档这类长文阅读（衬线）。AI 回答不用它。 |
@@ -272,7 +272,7 @@
 | Token | 值 | 用途 |
 | --- | --- | --- |
 | `content-max` | `680px` | 对话栏和长文阅读栏的最大宽度。 |
-| `form-max` | `560px` | 表单页、设置页内容栏的最大宽度。 |
+| `form-max` | `640px` | 表单页、设置页内容栏的最大宽度。 |
 | `wide-max` | `1120px` | 表格、看板和官网内容的最大宽度。 |
 | `breakpoint-sm` | `760px` | 窄屏：侧边栏收起，多栏变单栏。 |
 | `breakpoint-md` | `960px` | 中等宽度：目录和次要栏收起。 |
@@ -300,9 +300,9 @@
 
 | Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
-| `button-height-sm` | 24 | 30 | 32 | 小按钮的可见高度：列表行、卡片角落里的行内操作。 |
-| `button-height-md` | 28 | 36 | 36 | 默认按钮、图标按钮、发送按钮、步骤行的高度。 |
-| `button-height-lg` | 32 | 46 | 44 | 大按钮：空状态、引导页；触屏上用作整页唯一的通栏主按钮。 |
+| `button-height-sm` | 28 | 30 | 32 | 小按钮的可见高度：列表行、卡片角落里的行内操作。 |
+| `button-height-md` | 32 | 36 | 36 | 默认按钮、图标按钮、发送按钮、步骤行的高度。 |
+| `button-height-lg` | 36 | 46 | 44 | 大按钮：空状态、引导页；触屏上用作整页唯一的通栏主按钮。 |
 | `button-padding-x-sm` | 8 | 12 | 14 | 小按钮左右内边距。上下内边距永远是 0。 |
 | `button-padding-x-md` | 12 | 16 | 18 | 默认按钮左右内边距。 |
 | `button-padding-x-lg` | 16 | 20 | 24 | 大按钮左右内边距。 |
@@ -336,7 +336,7 @@
 
 | Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
-| `segmented-height` | 24 | 28 | 28 | 选项块的高度；外层再加上下各 segmented-padding。 |
+| `segmented-height` | 28 | 28 | 28 | 选项块的高度；外层再加上下各 segmented-padding。 |
 | `segmented-padding` | 2 | 2 | 2 | 底槽内边距。 |
 | `segmented-padding-x` | 12 | 16 | 16 | 选项块左右内边距。 |
 | `segmented-font-size` | 13 | 14 | 14 | 选项字号。 |
@@ -348,7 +348,7 @@
 
 | Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
-| `field-height` | 28 | 44 | 40 | 单行输入框和下拉选择的高度。 |
+| `field-height` | 32 | 44 | 40 | 单行输入框和下拉选择的高度。 |
 | `field-padding-x` | 10 | 12 | 14 | 输入框左右内边距。 |
 | `field-font-size` | 14 | 17 | 15 | 输入文字字号。触控档不小于 16，避免浏览器放大页面。 |
 | `field-radius` | 6 | 8 | 8 | 输入框圆角。 |
@@ -388,7 +388,7 @@
 
 | Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
-| `row-height` | 32 | 44 | 40 | 侧边栏项、列表行的最小高度。 |
+| `row-height` | 36 | 44 | 40 | 侧边栏项、列表行的最小高度。 |
 | `row-padding-x` | 10 | 16 | 12 | 行的左右内边距；分隔线从这里开始。 |
 | `row-radius` | 8 | 10 | 8 | 悬停和选中底色的圆角。 |
 | `row-gap` | 2 | 0 | 2 | 侧边栏项之间的间隔。触屏上的列表用分隔线，不留间隔。 |
@@ -606,7 +606,7 @@
 
 | Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
 | --- | --- | --- | --- | --- |
-| `table-row-height` | 36 | 44 | 40 | 表格每一行（包括表头）的高度。 |
+| `table-row-height` | 40 | 44 | 40 | 表格每一行（包括表头）的高度。 |
 | `table-cell-padding-x` | 12 | 16 | 12 | 单元格左右内边距。 |
 
 ### 命令面板

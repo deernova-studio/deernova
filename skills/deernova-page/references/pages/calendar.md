@@ -28,7 +28,7 @@
 HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机浏览器见本节最后。
 
 ```css
-.dn-cal-page { display: grid; grid-template-columns: 216px minmax(0, 1fr); flex: 1; min-height: 0; }
+.dn-cal-page { display: grid; grid-template-columns: var(--sidebar-width-min) minmax(0, 1fr); flex: 1; min-height: 0; }
 .dn-cal-aside { display: flex; flex-direction: column; gap: var(--space-5); min-height: 0; overflow-y: auto; padding: var(--space-3) var(--space-3) var(--space-4); border-right: var(--stroke-line) solid var(--line); }
 .dn-minical { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); row-gap: 2px; text-align: center; font: var(--type-caption); font-variant-numeric: tabular-nums; }
 .dn-minical > span { padding-bottom: var(--space-1); color: var(--ink-tertiary); }
@@ -38,7 +38,8 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 .dn-minical > .is-week { border-radius: 0; background: var(--fill-selected); }
 .dn-minical > .is-week:nth-child(7n + 1) { border-radius: var(--radius-full) 0 0 var(--radius-full); }
 .dn-minical > .is-week:nth-child(7n) { border-radius: 0 var(--radius-full) var(--radius-full) 0; }
-.dn-minical > .is-today { color: var(--on-accent); background: radial-gradient(circle closest-side, var(--accent) 11px, transparent 12px), var(--fill-selected); font-weight: var(--weight-semibold); }
+.dn-minical > .is-today { position: relative; z-index: 0; color: var(--on-accent); font-weight: var(--weight-semibold); }
+.dn-minical > .is-today::before { content: ""; position: absolute; inset: 1px calc(50% - 11px); z-index: -1; border-radius: var(--radius-full); background: var(--accent); }
 .dn-cal { display: flex; flex-direction: column; flex: 1; min-width: 0; min-height: 0; }
 .dn-cal-head, .dn-cal-allday, .dn-cal-grid { display: grid; grid-template-columns: 52px repeat(7, minmax(0, 1fr)); }
 .dn-cal.is-5 :is(.dn-cal-head, .dn-cal-allday, .dn-cal-grid) { grid-template-columns: 52px repeat(5, minmax(0, 1fr)); }

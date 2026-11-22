@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>设置</title>
+<link rel="stylesheet" href="../../../../skills/deernova-style/assets/tokens.css">
+<style>
+/* ---------- 全局 ---------- */
+[hidden]:not(.dn-tooltip) { display: none !important; }
+html, body { height: 100%; }
+body { margin: 0; background: var(--canvas); color: var(--ink); font: var(--type-body); -webkit-font-smoothing: antialiased; }
+:focus-visible { outline: var(--stroke-focus) solid var(--focus-ring); outline-offset: var(--focus-offset); }
+:is(input:not([type="checkbox"], [type="radio"], [type="range"], [type="button"], [type="submit"], [type="reset"]), textarea, select, [contenteditable]):focus-visible { outline: none; }
+@supports selector(::-webkit-scrollbar) {
+  ::-webkit-scrollbar { width: var(--scrollbar-size); height: var(--scrollbar-size); }
+  ::-webkit-scrollbar-track, ::-webkit-scrollbar-corner { background: transparent; }
+  ::-webkit-scrollbar-thumb { border: calc((var(--scrollbar-size) - var(--scrollbar-thumb-size)) / 2) solid transparent; border-radius: var(--radius-full); background: var(--line-control) padding-box; }
+  ::-webkit-scrollbar-thumb:hover, ::-webkit-scrollbar-thumb:active { background-color: var(--ink-tertiary); }
+  ::-webkit-scrollbar-button { display: none; }
+}
+@supports not selector(::-webkit-scrollbar) {
+  * { scrollbar-width: thin; scrollbar-color: var(--line-control) transparent; }
+}
+.dn-icon { width: var(--icon-size-md); height: var(--icon-size-md); flex: none; fill: none; stroke: currentColor; stroke-width: var(--icon-stroke); stroke-linecap: var(--line-cap); stroke-linejoin: var(--line-join); }
+
+/* ---------- 页面骨架：顶栏 ---------- */
+.dn-app { display: grid; grid-template-columns: minmax(0, 1fr); height: 100dvh; background: var(--canvas); color: var(--ink); }
+.dn-app-main { display: flex; flex-direction: column; min-width: 0; min-height: 0; }
+.dn-toolbar {
+  position: sticky; top: 0; z-index: var(--z-sticky);
+  display: flex; align-items: center; gap: var(--space-1);
+  box-sizing: border-box; height: var(--toolbar-height);
+  padding: 0 var(--space-2);
+  border-bottom: var(--stroke-line) solid var(--line);
+  background: var(--canvas);
+}
+.dn-toolbar-title {
+  display: inline-flex; align-items: center; gap: var(--space-1);
+  min-width: 0; height: var(--button-height-md); margin: 0; padding: 0 var(--space-2);
+  color: var(--ink); font: var(--weight-regular) var(--toolbar-title-size)/1 var(--font-sans);
+}
+.dn-toolbar-title span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* ---------- 按钮 ---------- */
+.dn-button {
+  position: relative; isolation: isolate;
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--gap-inline);
+  height: var(--button-height-md); padding: 0 var(--button-padding-x-md);
+  border: 0; border-radius: var(--button-radius); background: none; color: var(--ink);
+  font: calc(var(--button-font-weight) + var(--weight-shift)) var(--button-font-size-md)/1 var(--font-sans);
+  white-space: nowrap; text-decoration: none; cursor: pointer;
+  transition: color var(--duration-instant) var(--ease-standard), opacity var(--duration-instant) var(--ease-standard);
+}
+.dn-button:focus-visible { outline: var(--stroke-focus) solid var(--focus-ring); outline-offset: var(--focus-offset); }
+.dn-button:disabled { opacity: var(--opacity-disabled); cursor: default; }
+.dn-button.is-primary { color: var(--on-accent); }
+.dn-button.is-primary::after { background-color: var(--accent); }
+@media (hover: hover) { .dn-button.is-primary:hover:not(:disabled) { opacity: var(--opacity-solid-hover); } }
+.dn-button.is-primary:active:not(:disabled) { opacity: var(--opacity-solid-hover); }
+.dn-button.is-plain { color: var(--ink-secondary); }
+.dn-button.is-plain::after { background-color: transparent; }
+@media (hover: hover) { .dn-button.is-plain:hover:not(:disabled) { color: var(--ink); } }
+.dn-button.is-plain:active:not(:disabled) { color: var(--ink); }
+.dn-button.is-danger { color: var(--danger); }
+.dn-button.is-danger::after { background-color: var(--danger-soft); }
+.dn-button.is-primary.is-danger { color: var(--on-accent); }
+.dn-button.is-primary.is-danger::after { background-color: var(--danger); }
+.dn-button.is-sm { height: var(--button-height-sm); padding: 0 var(--button-padding-x-sm); border-radius: var(--button-radius-sm); font-size: var(--button-font-size-sm); }
+
+.dn-icon-button {
+  position: relative; isolation: isolate;
+  display: inline-grid; place-items: center; flex: none;
+  width: var(--button-height-md); height: var(--button-height-md); padding: 0;
+  border: 0; border-radius: var(--button-radius); background: none; color: var(--ink-secondary);
+  cursor: pointer; transition: color var(--duration-instant) var(--ease-standard);
+}
+@media (hover: hover) { .dn-icon-button:hover { color: var(--ink); } }
+.dn-icon-button:active { color: var(--ink); }
+.dn-icon-button:focus-visible { outline: var(--stroke-focus) solid var(--focus-ring); outline-offset: var(--focus-offset); }
+
+.dn-button::after, .dn-icon-button::after {
+  content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit;
+  background-color: var(--fill-selected);
+  transition: background-color var(--duration-instant) var(--ease-standard), transform var(--duration-release) var(--ease-release);
+}
+.dn-icon-button::after { background-color: transparent; }
+@media (hover: hover) {
+  .dn-button:hover:not(:disabled)::after { background-image: linear-gradient(var(--fill-hover), var(--fill-hover)); }
+  .dn-button.is-primary:hover::after, .dn-button.is-primary.is-danger:hover::after { background-image: none; }
+  .dn-button.is-plain:hover:not(:disabled)::after, .dn-icon-button:hover::after { background-color: var(--fill-hover); background-image: none; }
+}
+.dn-button:active:not(:disabled)::after { background-image: linear-gradient(var(--fill-selected), var(--fill-selected)); }
+.dn-button.is-primary:active::after { background-image: none; }
+.dn-button.is-plain:active:not(:disabled)::after, .dn-icon-button:active::after { background-color: var(--fill-selected); background-image: none; }
+@media (prefers-reduced-motion: no-preference) {
+  :is(.dn-button, .dn-icon-button):active:not(:disabled)::after {
+    transform: scale(var(--press-scale));
+    transition: background-color var(--duration-instant) var(--ease-standard), transform var(--duration-press) var(--ease-standard);
+  }
+}
+.dn-button::before, .dn-icon-button::before {
+  content: ""; position: absolute; top: 50%; left: 50%;
+  width: max(100%, var(--hit-min)); height: max(100%, var(--hit-min));
+  transform: translate(-50%, -50%);
+}
+
+/* ---------- Tooltip ---------- */
+.dn-tooltip-anchor { position: relative; display: inline-flex; }
+.dn-tooltip {
+  box-sizing: border-box; display: flex; align-items: center;
+  width: max-content; max-width: min(var(--tooltip-max-width), 100vw - 2 * var(--space-2));
+  min-height: var(--tooltip-height); margin: 0; padding: var(--space-1) var(--tooltip-padding-x);
+  border-radius: var(--tooltip-radius); background: var(--accent); color: var(--on-accent);
+  box-shadow: var(--shadow-float);
+  font: var(--weight-regular) var(--tooltip-font-size)/var(--type-caption-line) var(--font-sans);
+  pointer-events: none;
+  transition: opacity var(--duration-instant) var(--ease-enter), display var(--duration-instant) allow-discrete;
+}
+.dn-tooltip[hidden] { display: none; opacity: 0; transition-timing-function: var(--ease-exit); }
+@starting-style { .dn-tooltip:not([hidden]) { opacity: 0; } }
+.dn-tooltip-anchor > .dn-tooltip { position: absolute; top: calc(100% + var(--tooltip-offset)); left: 0; z-index: var(--z-tooltip); }
+@media (pointer: coarse) { .dn-tooltip { display: none !important; } }
+
+/* ---------- 文本框 ---------- */
+.dn-field { display: grid; gap: var(--space-1); min-width: 0; }
+.dn-field-label { color: var(--ink-secondary); font: var(--weight-medium) var(--type-callout-size)/var(--type-callout-line) var(--font-sans); }
+.dn-input {
+  box-sizing: border-box; width: 100%; height: var(--field-height); padding: 0 var(--field-padding-x);
+  border: var(--stroke-line) solid var(--line); border-radius: var(--field-radius);
+  background: var(--surface-sunken); color: var(--ink);
+  font: var(--weight-regular) var(--field-font-size)/1.2 var(--font-sans);
+  transition: background-color var(--duration-instant) var(--ease-standard), box-shadow var(--duration-instant) var(--ease-standard);
+}
+.dn-input::placeholder { color: var(--ink-tertiary); }
+.dn-input:focus { outline: none; background: var(--surface-raised); box-shadow: var(--shadow-control); }
+.dn-input[aria-invalid="true"], .dn-input[aria-invalid="true"]:focus { background: var(--danger-soft); }
+
+/* ---------- 名字加一行说明 ---------- */
+.dn-item-text { display: grid; gap: 2px; flex: 1; min-width: 0; }
+.dn-item-title { margin: 0; color: var(--ink); font: inherit; overflow-wrap: anywhere; }
+.dn-item-detail { margin: 0; color: var(--ink-secondary); font: var(--type-footnote); }
+.dn-item-detail.is-danger { color: var(--danger); }
+
+/* ---------- 分类栏（侧边栏项） ---------- */
+.dn-sidebar-item {
+  display: flex; align-items: center; gap: var(--space-2);
+  min-width: 0; min-height: var(--row-height); padding: 0 var(--row-padding-x);
+  border-radius: var(--row-radius); color: var(--ink); font: var(--type-body); text-decoration: none;
+  transition: background-color var(--duration-instant) var(--ease-standard);
+}
+.dn-sidebar-item .dn-icon { width: var(--icon-size-md); height: var(--icon-size-md); color: var(--ink-secondary); }
+@media (hover: hover) { .dn-sidebar-item:hover { background: var(--fill-hover); } }
+.dn-sidebar-item:active { background: var(--fill-selected); }
+.dn-sidebar-item[aria-current="page"] { background: var(--fill-selected); }
+.dn-sidebar-item[aria-current="page"] .dn-icon { color: var(--ink); }
+.dn-sidebar-item:focus-visible { outline: var(--stroke-focus) solid var(--focus-ring); outline-offset: calc(-1 * var(--stroke-focus)); }
+.dn-sidebar-label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* ---------- 分组列表 ---------- */
+.dn-list-section { display: grid; gap: 6px; }
+.dn-list-footer { margin: 0; padding: 0 var(--row-padding-x); color: var(--ink-tertiary); font: var(--weight-regular) var(--type-footnote-size)/var(--type-footnote-line) var(--font-sans); }
+.dn-list { margin: 0; padding: 0; overflow: hidden; list-style: none; border-radius: var(--card-radius); background: var(--surface-raised); }
+.dn-list-row {
+  --separator-inset: var(--row-padding-x);
+  position: relative; display: flex; align-items: center; gap: var(--space-3);
+  box-sizing: border-box; min-height: var(--row-height); padding: 0 var(--row-padding-x);
+  color: var(--ink); font: var(--type-body);
+}
+.dn-list-row + .dn-list-row::before {
+  content: ""; position: absolute; top: 0; right: 0; left: var(--separator-inset);
+  border-top: var(--stroke-line) var(--line-style-divider) var(--line);
+}
+.dn-list-row:has(> .dn-item-text > .dn-item-detail:not([hidden])) { padding-block: var(--space-2); }
+.dn-list-row > .dn-item-text { flex: 1; min-width: 9em; }
+.dn-list-value { margin-left: auto; min-width: 0; overflow: hidden; color: var(--ink-secondary); text-overflow: ellipsis; white-space: nowrap; }
+.dn-list-row .dn-chevron { width: var(--icon-size-sm); height: var(--icon-size-sm); margin-left: auto; color: var(--ink-tertiary); }
+.dn-list-value + .dn-chevron { margin-left: 0; }
+.dn-list-control { display: flex; flex: 0 1 300px; align-items: center; justify-content: flex-end; gap: var(--space-2); min-width: 0; margin-left: auto; }
+.dn-list-control > .dn-input { flex: 1; min-width: 0; }
+.dn-list-control > :is(.dn-switch, .dn-button) { flex: none; margin-left: 0; }
+.dn-list-row > .dn-button { margin-left: auto; }
+@media (pointer: coarse) { .dn-list-row:has(> .dn-list-control > .dn-input) { padding-block: var(--space-2); } }
+/* 整行可点的行：链接盖住整行 */
+.dn-list-link { flex: none; color: inherit; text-decoration: none; }
+.dn-list-link::after { content: ""; position: absolute; inset: 0; }
+.dn-list-link:focus-visible { outline: none; }
+.dn-list-row.is-link { cursor: pointer; transition: background-color var(--duration-instant) var(--ease-standard); }
+@media (hover: hover) { .dn-list-row.is-link:hover { background: var(--fill-hover); } }
+.dn-list-row.is-link:active { background: var(--fill-selected); }
+.dn-list-row.is-link:has(.dn-list-link:focus-visible) { outline: var(--stroke-focus) solid var(--focus-ring); outline-offset: calc(-1 * var(--stroke-focus)); }
+
+/* ---------- 开关 ---------- */
+.dn-switch {
+  position: relative; flex: none;
+  width: var(--switch-width); height: var(--switch-height); margin: 0 0 0 auto;
+  border-radius: var(--radius-full); background: var(--fill-selected);
+  appearance: none; cursor: pointer;
+  transition: background-color var(--duration-base) var(--ease-standard);
+}
+.dn-switch::after {
+  content: ""; position: absolute; top: 2px; left: 2px;
+  width: calc(var(--switch-height) - 4px); height: calc(var(--switch-height) - 4px);
+  border-radius: var(--radius-full); background: var(--knob); box-shadow: var(--shadow-control);
+  transition: transform var(--duration-base) var(--ease-standard);
+}
+.dn-switch:checked { background: var(--accent); }
+.dn-switch:checked::after { background: var(--on-accent); transform: translateX(calc(var(--switch-width) - var(--switch-height))); }
+.dn-switch:focus-visible { outline: var(--stroke-focus) solid var(--focus-ring); outline-offset: var(--focus-offset); }
+@media (prefers-reduced-motion: reduce) { .dn-switch, .dn-switch::after { transition: none; } }
+
+/* ---------- 弹窗 ---------- */
+.dn-sheet {
+  box-sizing: border-box; display: flex; flex-direction: column;
+  width: min(100% - 2 * var(--sheet-margin), var(--sheet-width-md)); max-width: none;
+  max-height: calc(100dvh - 2 * var(--sheet-margin)); padding: 0; overflow: hidden;
+  border: var(--stroke-line) solid var(--line); border-radius: var(--sheet-radius);
+  background: var(--surface-raised); color: var(--ink); box-shadow: var(--shadow-float);
+  transition: opacity var(--duration-slow) var(--ease-enter), transform var(--duration-slow) var(--ease-enter), overlay var(--duration-slow) allow-discrete, display var(--duration-slow) allow-discrete;
+}
+dialog.dn-sheet:not([open]) { display: none; opacity: 0; transform: scale(0.96); transition-duration: var(--duration-base); transition-timing-function: var(--ease-exit); }
+.dn-sheet.is-sm { width: min(100% - 2 * var(--sheet-margin), var(--sheet-width-sm)); }
+.dn-sheet::backdrop { background: var(--scrim); transition: opacity var(--duration-slow) var(--ease-enter), overlay var(--duration-slow) allow-discrete, display var(--duration-slow) allow-discrete; }
+dialog.dn-sheet:not([open])::backdrop { opacity: 0; transition-duration: var(--duration-base); transition-timing-function: var(--ease-exit); }
+@starting-style {
+  .dn-sheet[open] { opacity: 0; transform: scale(0.96); }
+  .dn-sheet[open]::backdrop { opacity: 0; }
+}
+:root:has(.dn-sheet:modal) { overflow: hidden; }
+.dn-sheet > form { display: contents; }
+.dn-sheet-grabber { flex: none; width: var(--sheet-grabber-width); height: var(--sheet-grabber-height); margin: var(--space-2) auto 0; border-radius: var(--radius-full); background: var(--line-control); }
+.dn-sheet-head { flex: none; display: flex; align-items: flex-start; gap: var(--space-3); padding: var(--sheet-padding) var(--sheet-padding) 0; }
+.dn-sheet-heading { flex: 1; min-width: 0; }
+.dn-sheet-title { margin: 0; font: var(--type-title); }
+.dn-sheet-description { margin: var(--space-1) 0 0; color: var(--ink-secondary); font: var(--type-callout); }
+.dn-sheet-content { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: var(--space-4) var(--sheet-padding) 0; }
+.dn-sheet-actions { flex: none; display: flex; justify-content: flex-end; gap: var(--gap-stack); padding: var(--space-4) var(--sheet-padding) var(--sheet-padding); }
+@media (pointer: coarse) {
+  .dn-sheet { transition-timing-function: var(--ease-drawer); }
+  .dn-sheet[open] { margin: auto auto calc(var(--sheet-margin) + env(safe-area-inset-bottom)); }
+  dialog.dn-sheet:not([open]) { opacity: 1; transform: translateY(calc(100% + var(--sheet-margin) + env(safe-area-inset-bottom))); transition-timing-function: var(--ease-drawer); }
+  @starting-style { .dn-sheet[open] { opacity: 1; transform: translateY(calc(100% + var(--sheet-margin) + env(safe-area-inset-bottom))); } }
+  .dn-sheet-actions { flex-direction: column-reverse; gap: var(--space-1); }
+  .dn-sheet-actions .dn-button { width: 100%; height: var(--button-height-lg); }
+}
+@media (pointer: fine) { .dn-sheet-grabber { display: none; } }
+@media (prefers-reduced-motion: reduce) {
+  dialog.dn-sheet:not([open]) { opacity: 0; transform: none; }
+  @starting-style { .dn-sheet[open] { opacity: 0; transform: none; } }
+}
+
+/* ---------- 设置页 ---------- */
+.dn-settings { display: grid; grid-template-columns: 220px minmax(0, 1fr); flex: 1; min-height: 0; }
+.dn-settings-nav { display: flex; flex-direction: column; gap: var(--row-gap); min-height: 0; overflow-y: auto; padding: var(--space-3) var(--space-2); border-right: var(--stroke-line) solid var(--line); }
+.dn-settings-main { min-width: 0; min-height: 0; overflow-y: auto; padding: var(--space-6) max(var(--page-margin), calc((100% - var(--form-max)) / 2)) var(--space-12); }
+.dn-settings-main > .dn-list-section + .dn-list-section { margin-top: var(--gap-group); }
+.dn-settings-main h2 { margin: 0 0 var(--space-5); font: var(--type-title); }
+@media (max-width: 960px) {
+  .dn-settings { grid-template-columns: minmax(0, 1fr); }
+  .dn-settings-nav { border-right: 0; }
+  .dn-settings[data-view="main"] > .dn-settings-nav { display: none; }
+  .dn-settings[data-view="nav"] > .dn-settings-main { display: none; }
+}
+</style>
+</head>
+<body>
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <symbol id="dn-back" viewBox="0 0 24 24"><path d="M11.5 18.5L5 12L11.5 5.5"/><path d="M19 12H5.5"/></symbol>
+  <symbol id="dn-chevron-right" viewBox="0 0 24 24"><path d="M9.75 7l4.5 5-4.5 5"/></symbol>
+  <symbol id="dn-user" viewBox="0 0 24 24"><path d="M8.25 7.75a3.75 3.75 0 1 0 7.5 0a3.75 3.75 0 1 0 -7.5 0"/><path d="M4.75 20.25C4.75 16.6 7.9 14.25 12 14.25S19.25 16.6 19.25 20.25"/></symbol>
+  <symbol id="dn-bell" viewBox="0 0 24 24"><path d="M6.75 9.25a5.25 5.25 0 0 1 10.5 0V13.5L19.25 16.75H4.75L6.75 13.5Z"/><path d="M10.25 20a2 2 0 0 0 3.5 0"/></symbol>
+  <symbol id="dn-options" viewBox="0 0 24 24"><path d="M4 7H12.75"/><path d="M17.75 7H20"/><path d="M4 17H6.25"/><path d="M11.25 17H20"/><path d="M12.75 7a2.5 2.5 0 1 0 5 0a2.5 2.5 0 1 0 -5 0"/><path d="M6.25 17a2.5 2.5 0 1 0 5 0a2.5 2.5 0 1 0 -5 0"/></symbol>
+  <symbol id="dn-permission" viewBox="0 0 24 24"><path d="M12 3.5L19 6.25V11.5c0 4.2-2.9 7.6-7 9-4.1-1.4-7-4.8-7-9V6.25Z"/><path d="M9 12L11 14L15 10"/></symbol>
+</svg>
+
+<div class="dn-app">
+  <div class="dn-app-main">
+    <header class="dn-toolbar">
+      <span class="dn-tooltip-anchor">
+        <button class="dn-icon-button" id="back" type="button" aria-label="返回笔记"><svg class="dn-icon" aria-hidden="true"><use href="#dn-back"/></svg></button>
+        <span class="dn-tooltip" id="back-tip" aria-hidden="true" hidden>返回笔记</span>
+      </span>
+      <h1 class="dn-toolbar-title"><span>设置</span></h1>
+    </header>
+
+    <div class="dn-settings" id="settings" data-view="main">
+      <nav class="dn-settings-nav" aria-label="设置分类">
+        <a class="dn-sidebar-item" href="#account" id="nav-account" aria-current="page"><svg class="dn-icon" aria-hidden="true"><use href="#dn-user"/></svg><span class="dn-sidebar-label">账户</span></a>
+        <a class="dn-sidebar-item" href="#notifications"><svg class="dn-icon" aria-hidden="true"><use href="#dn-bell"/></svg><span class="dn-sidebar-label">通知</span></a>
+        <a class="dn-sidebar-item" href="#appearance"><svg class="dn-icon" aria-hidden="true"><use href="#dn-options"/></svg><span class="dn-sidebar-label">外观</span></a>
+        <a class="dn-sidebar-item" href="#privacy"><svg class="dn-icon" aria-hidden="true"><use href="#dn-permission"/></svg><span class="dn-sidebar-label">隐私</span></a>
+      </nav>
+
+      <main class="dn-settings-main" id="account" aria-labelledby="account-title">
+        <h2 id="account-title">账户</h2>
+
+        <section class="dn-list-section" aria-label="个人资料与订阅">
+          <ul class="dn-list">
+            <li class="dn-list-row">
+              <span class="dn-item-text">
+                <label class="dn-item-title" for="name">名字</label>
+                <span class="dn-item-detail is-danger" id="name-msg" hidden></span>
+              </span>
+              <span class="dn-list-control">
+                <input class="dn-input" id="name" value="林一" autocomplete="name" aria-describedby="name-msg">
+              </span>
+            </li>
+            <li class="dn-list-row">
+              <span class="dn-item-text">
+                <label class="dn-item-title" for="email">邮箱</label>
+                <span class="dn-item-detail" id="email-msg" hidden></span>
+              </span>
+              <span class="dn-list-control">
+                <input class="dn-input" id="email" type="email" value="lin.yi@icloud.com" autocomplete="email" spellcheck="false" aria-describedby="email-msg">
+              </span>
+            </li>
+            <li class="dn-list-row is-link">
+              <a class="dn-list-link" href="#billing">订阅</a>
+              <span class="dn-list-value">个人版，按年</span>
+              <svg class="dn-icon dn-chevron" aria-hidden="true"><use href="#dn-chevron-right"/></svg>
+            </li>
+          </ul>
+        </section>
+
+        <section class="dn-list-section" aria-label="同步">
+          <ul class="dn-list">
+            <li class="dn-list-row">
+              <span class="dn-item-text">
+                <label class="dn-item-title" for="sync">iCloud 同步</label>
+                <span class="dn-item-detail is-danger" id="sync-msg" hidden></span>
+              </span>
+              <span class="dn-list-control">
+                <button class="dn-button is-sm" id="sync-retry" type="button" hidden>重试</button>
+                <input class="dn-switch" id="sync" type="checkbox" role="switch" checked aria-describedby="sync-footer sync-msg">
+              </span>
+            </li>
+          </ul>
+          <p class="dn-list-footer" id="sync-footer">关闭后，新笔记只保存在这台设备上。</p>
+        </section>
+
+        <section class="dn-list-section" aria-label="退出与删除">
+          <ul class="dn-list">
+            <li class="dn-list-row"><span id="signout-label">退出登录</span><button class="dn-button is-sm" id="signout" type="button" aria-describedby="signout-label">退出</button></li>
+            <li class="dn-list-row"><span id="delete-label">删除账户</span><button class="dn-button is-danger is-sm" id="delete-open" type="button" aria-haspopup="dialog" aria-describedby="delete-label">删除…</button></li>
+          </ul>
+        </section>
+      </main>
+    </div>
+  </div>
+</div>
+
+<dialog class="dn-sheet is-sm" id="delete-sheet" role="alertdialog" aria-modal="true" aria-labelledby="delete-title" aria-describedby="delete-desc">
+  <form method="dialog" id="delete-form">
+    <div class="dn-sheet-grabber" aria-hidden="true"></div>
+    <div class="dn-sheet-head">
+      <div class="dn-sheet-heading">
+        <h3 class="dn-sheet-title" id="delete-title">删除“林一”的账户？</h3>
+        <p class="dn-sheet-description" id="delete-desc">所有笔记、附件和订阅会一起删除，在所有设备上都无法恢复。</p>
+      </div>
+    </div>
+    <div class="dn-sheet-content">
+      <div class="dn-field">
+        <label class="dn-field-label" for="delete-confirm">输入 <span id="delete-email">lin.yi@icloud.com</span> 以确认</label>
+        <input class="dn-input" id="delete-confirm" type="email" autocomplete="off" spellcheck="false" placeholder="lin.yi@icloud.com" autofocus>
+      </div>
+    </div>
+    <div class="dn-sheet-actions">
+      <button class="dn-button is-plain" type="submit" value="cancel" formnovalidate>取消</button>
+      <button class="dn-button is-primary is-danger" type="submit" value="delete" id="delete-submit" disabled>删除账户</button>
+    </div>
+  </form>
+</dialog>
+
+<script>
+(() => {
+  const narrow = window.matchMedia('(max-width: 960px)');
+  const settings = document.getElementById('settings');
+  const back = document.getElementById('back');
+  const tip = document.getElementById('back-tip');
+
+  /* 保存：改了就生效；断网时失败 */
+  const save = () => new Promise((resolve, reject) => {
+    setTimeout(() => (navigator.onLine ? resolve() : reject(new Error('offline'))), 150);
+  });
+  const showMsg = (el, text, isError) => {
+    el.textContent = text || '';
+    el.hidden = !text;
+    el.classList.toggle('is-danger', !!isError);
+  };
+
+  /* 名字：失焦保存 */
+  const name = document.getElementById('name');
+  const nameMsg = document.getElementById('name-msg');
+  let savedName = name.value;
+  name.addEventListener('input', () => {
+    if (name.getAttribute('aria-invalid') === 'true' && name.value.trim()) { name.removeAttribute('aria-invalid'); showMsg(nameMsg, ''); }
+  });
+  const saveName = () => {
+    const value = name.value.trim();
+    if (!value) { name.setAttribute('aria-invalid', 'true'); showMsg(nameMsg, '名字至少需要 1 个字。', true); return; }
+    if (value === savedName) return;
+    save().then(() => { savedName = value; showMsg(nameMsg, ''); document.getElementById('delete-title').textContent = '删除“' + value + '”的账户？'; })
+          .catch(() => showMsg(nameMsg, '没有保存，网络断开了，恢复后会自动重试。', true));
+  };
+  name.addEventListener('blur', saveName);
+  window.addEventListener('online', saveName);
+
+  /* 邮箱：失焦校验，新邮箱确认后生效 */
+  const email = document.getElementById('email');
+  const emailMsg = document.getElementById('email-msg');
+  let savedEmail = email.value;
+  const validEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+  email.addEventListener('input', () => {
+    if (email.getAttribute('aria-invalid') === 'true' && validEmail(email.value.trim())) { email.removeAttribute('aria-invalid'); showMsg(emailMsg, ''); }
+  });
+  email.addEventListener('blur', () => {
+    const value = email.value.trim();
+    if (value === savedEmail) { email.removeAttribute('aria-invalid'); showMsg(emailMsg, ''); return; }
+    if (!validEmail(value)) { email.setAttribute('aria-invalid', 'true'); showMsg(emailMsg, '邮箱需要有 @ 和域名，例如 name@example.com', true); return; }
+    save().then(() => showMsg(emailMsg, '已发送确认邮件，新邮箱确认后生效。', false))
+          .catch(() => showMsg(emailMsg, '没有保存，网络断开了。', true));
+  });
+
+  /* iCloud 同步：切换立即生效；失败时回到原来的值，给「重试」 */
+  const sync = document.getElementById('sync');
+  const syncMsg = document.getElementById('sync-msg');
+  const syncRetry = document.getElementById('sync-retry');
+  const applySync = (target) => {
+    sync.checked = target;
+    save().then(() => { showMsg(syncMsg, ''); syncRetry.hidden = true; })
+          .catch(() => { sync.checked = !target; showMsg(syncMsg, '没有保存，网络断开了', true); syncRetry.hidden = false; syncRetry.dataset.target = String(target); });
+  };
+  sync.addEventListener('change', () => applySync(sync.checked));
+  syncRetry.addEventListener('click', () => applySync(syncRetry.dataset.target === 'true'));
+
+  /* 退出登录 */
+  document.getElementById('signout').addEventListener('click', () => { window.location.hash = 'signed-out'; });
+
+  /* 删除账户：弹窗里输入邮箱才能删除 */
+  const sheet = document.getElementById('delete-sheet');
+  const confirmInput = document.getElementById('delete-confirm');
+  const submit = document.getElementById('delete-submit');
+  document.getElementById('delete-open').addEventListener('click', () => {
+    document.getElementById('delete-email').textContent = savedEmail;
+    confirmInput.placeholder = savedEmail;
+    confirmInput.value = '';
+    submit.disabled = true;
+    sheet.showModal();
+  });
+  confirmInput.addEventListener('input', () => {
+    submit.disabled = confirmInput.value.trim().toLowerCase() !== savedEmail.toLowerCase();
+  });
+  /* 危险确认：回车不直接删除 */
+  confirmInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') e.preventDefault(); });
+
+  /* 窄屏：分类栏是第一页，进入分类后顶栏的返回回到分类 */
+  const syncBack = () => {
+    const toNav = narrow.matches && settings.dataset.view === 'main';
+    const label = toNav ? '返回设置分类' : '返回笔记';
+    back.setAttribute('aria-label', label);
+    tip.textContent = label;
+  };
+  back.addEventListener('click', () => {
+    if (narrow.matches && settings.dataset.view === 'main') { settings.dataset.view = 'nav'; document.getElementById('nav-account').focus(); }
+    else { window.location.hash = 'notes'; }
+    syncBack();
+  });
+  document.getElementById('nav-account').addEventListener('click', (e) => {
+    e.preventDefault();
+    settings.dataset.view = 'main';
+    syncBack();
+  });
+  narrow.addEventListener('change', () => { if (!narrow.matches) settings.dataset.view = 'main'; syncBack(); });
+  syncBack();
+
+  /* Tooltip：指针停留 500ms 后显示，键盘聚焦时立即显示 */
+  let timer;
+  const delay = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--tooltip-delay'), 10) || 500;
+  const showTip = () => { tip.hidden = false; };
+  const hideTip = () => { clearTimeout(timer); tip.hidden = true; };
+  back.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse' || e.pointerType === 'pen') { clearTimeout(timer); timer = setTimeout(showTip, delay); } });
+  back.addEventListener('pointerleave', hideTip);
+  back.addEventListener('pointerdown', hideTip);
+  back.addEventListener('focus', () => { if (back.matches(':focus-visible')) showTip(); });
+  back.addEventListener('blur', hideTip);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') hideTip(); });
+})();
+</script>
+</body>
+</html>

@@ -35,16 +35,17 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 .dn-filters { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
 .dn-filter { display: inline-flex; align-items: center; gap: var(--space-1); height: var(--button-height-sm); padding: 0 var(--space-1) 0 var(--space-3); border: var(--stroke-line) solid var(--line); border-radius: var(--radius-full); background: var(--surface); color: var(--ink-secondary); font: var(--type-footnote); }
 .dn-filter > b { color: var(--ink); font-weight: var(--weight-medium); }
-.dn-filter > .dn-icon-button { width: 20px; height: 20px; }
+.dn-filter > .dn-icon-button { width: calc(var(--button-height-sm) - var(--space-2)); height: calc(var(--button-height-sm) - var(--space-2)); }
 .dn-db .dn-table-cell { gap: var(--space-2); }
 .dn-db td.is-empty { color: transparent; }
+.dn-db tr:hover td.is-empty, .dn-db td.is-empty:focus-within { color: var(--ink-tertiary); }
 .dn-db td.is-active { box-shadow: inset 0 0 0 var(--stroke-line) var(--ink); }
 .dn-db-add > td { color: var(--ink-tertiary); }
 .dn-db-add button { display: inline-flex; align-items: center; gap: var(--space-1); padding: 0; border: 0; background: none; color: inherit; font: var(--type-callout); cursor: pointer; }
 .dn-db-sum > td { color: var(--ink-tertiary); font: var(--type-footnote); font-variant-numeric: tabular-nums; }
 .dn-db-split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, 36%); flex: 1; min-height: 0; }
 .dn-db-split > .dn-app-content { min-width: 0; }
-.dn-peek { display: flex; flex-direction: column; gap: var(--space-4); min-height: 0; overflow-y: auto; padding: var(--space-3) var(--space-6) var(--space-8); border-left: var(--stroke-line) solid var(--line); background: var(--surface); box-shadow: var(--shadow-float); }
+.dn-peek { display: flex; flex-direction: column; gap: var(--space-4); min-height: 0; overflow-y: auto; padding: var(--space-3) var(--space-6) var(--space-8); border-left: var(--stroke-line) solid var(--line); background: var(--surface); }
 .dn-peek-bar { display: flex; gap: var(--space-1); margin-inline: calc(-1 * var(--space-3)); }
 .dn-peek-bar > :last-child { margin-left: auto; }
 .dn-peek h2 { margin: 0; font: var(--type-title); }
@@ -52,7 +53,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 .dn-peek p { margin: 0; font: var(--type-body); }
 @media (max-width: 960px) {
   .dn-db-split { grid-template-columns: minmax(0, 1fr); }
-  .dn-peek { position: fixed; inset: 0; z-index: var(--z-overlay); border-left: 0; }
+  .dn-peek { position: fixed; inset: 0; z-index: var(--z-overlay); border-left: 0; box-shadow: var(--shadow-float); }
 }
 ```
 
@@ -70,7 +71,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
         <h2 class="dn-db-title">需求池</h2>
         <p class="dn-db-lede">所有提过的需求，排期在评审会上定。</p>
         <div class="dn-panel-tabs is-plain" role="tablist" aria-label="视图">
-            <button type="button" role="tab" aria-selected="true"><svg class="dn-icon" aria-hidden="true"><use href="#dn-table"/></svg>全部</button>
+            <button type="button" role="tab" aria-selected="true" id="ex-db-view-tab" aria-controls="ex-db-view-tab-panel"><svg class="dn-icon" aria-hidden="true"><use href="#dn-table"/></svg>全部</button>
             <button type="button" role="tab" aria-selected="false"><svg class="dn-icon" aria-hidden="true"><use href="#dn-board"/></svg>按状态</button>
             <button type="button" role="tab" aria-selected="false"><svg class="dn-icon" aria-hidden="true"><use href="#dn-calendar"/></svg>排期</button>
             <button class="dn-icon-button" type="button" aria-label="新建视图"><svg class="dn-icon" aria-hidden="true"><use href="#dn-plus"/></svg></button>
@@ -86,13 +87,13 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
           <span class="dn-filter">版本 是 <b>2.0</b><button class="dn-icon-button" type="button" aria-label="移除这条筛选"><svg class="dn-icon" aria-hidden="true"><use href="#dn-close"/></svg></button></span>
           <button class="dn-button is-plain is-sm" type="button"><svg class="dn-icon" aria-hidden="true"><use href="#dn-plus"/></svg>筛选</button>
         </div>
-        <div class="dn-table-wrap">
+        <div role="tabpanel" id="ex-db-view-tab-panel" aria-labelledby="ex-db-view-tab" class="dn-table-wrap">
           <table class="dn-table">
-            <thead><tr><th scope="col">名称</th><th scope="col">状态</th><th scope="col">负责人</th><th scope="col">截止</th><th class="is-number" scope="col">估时（天）</th></tr></thead>
+            <thead><tr><th scope="col">名称</th><th scope="col">状态</th><th scope="col">负责人</th><th class="is-number" scope="col">截止</th><th class="is-number" scope="col">估时（天）</th></tr></thead>
             <tbody>
-              <tr><td class="is-primary"><a href="#">导入时保留附件</a></td><td><span class="dn-tag">进行中</span></td><td><span class="dn-table-cell"><span class="dn-avatar is-sm" aria-hidden="true">周</span>周舟</span></td><td>11月28日</td><td class="is-number">5</td></tr>
-              <tr><td class="is-primary"><a href="#">分享链接设置有效期</a></td><td><span class="dn-tag">进行中</span></td><td><span class="dn-table-cell"><span class="dn-avatar is-sm" aria-hidden="true">林</span>林一</span></td><td class="is-active">11月21日</td><td class="is-number">3</td></tr>
-              <tr><td class="is-primary"><a href="#">同步冲突时保留两份</a></td><td><span class="dn-tag is-danger">阻塞</span></td><td><span class="dn-table-cell"><span class="dn-avatar is-sm" aria-hidden="true">周</span>周舟</span></td><td>12月2日</td><td class="is-number">8</td></tr>
+              <tr><td class="is-primary"><a href="#">导入时保留附件</a></td><td><span class="dn-tag">进行中</span></td><td><span class="dn-table-cell"><span class="dn-avatar is-sm" aria-hidden="true">周</span>周舟</span></td><td class="is-number">11月28日</td><td class="is-number">5</td></tr>
+              <tr><td class="is-primary"><a href="#">分享链接设置有效期</a></td><td><span class="dn-tag">进行中</span></td><td><span class="dn-table-cell"><span class="dn-avatar is-sm" aria-hidden="true">林</span>林一</span></td><td class="is-number is-active">11月21日</td><td class="is-number">3</td></tr>
+              <tr><td class="is-primary"><a href="#">同步冲突时保留两份</a></td><td><span class="dn-tag is-danger"><span class="dn-dot"></span>阻塞</span></td><td><span class="dn-table-cell"><span class="dn-avatar is-sm" aria-hidden="true">周</span>周舟</span></td><td class="is-number">12月2日</td><td class="is-number">8</td></tr>
               <tr><td class="is-primary"><a href="#">命令面板支持拼音</a></td><td><span class="dn-tag">待评审</span></td><td class="is-empty">添加</td><td class="is-empty">添加</td><td class="is-number">2</td></tr>
               <tr class="dn-db-add"><td colspan="5"><button type="button"><svg class="dn-icon" aria-hidden="true"><use href="#dn-plus"/></svg>新建</button></td></tr>
               <tr class="dn-db-sum"><td>4 条</td><td></td><td></td><td></td><td class="is-number">合计 18</td></tr>
@@ -120,7 +121,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
               <tbody>
                 <tr><td class="is-primary"><a href="#">导入时保留附件</a></td><td><span class="dn-tag">进行中</span></td></tr>
                 <tr aria-selected="true"><td class="is-primary"><a href="#">分享链接设置有效期</a></td><td><span class="dn-tag">进行中</span></td></tr>
-                <tr><td class="is-primary"><a href="#">同步冲突时保留两份</a></td><td><span class="dn-tag is-danger">阻塞</span></td></tr>
+                <tr><td class="is-primary"><a href="#">同步冲突时保留两份</a></td><td><span class="dn-tag is-danger"><span class="dn-dot"></span>阻塞</span></td></tr>
                 <tr><td class="is-primary"><a href="#">命令面板支持拼音</a></td><td><span class="dn-tag">待评审</span></td></tr>
               </tbody>
             </table>
@@ -185,11 +186,11 @@ Table(rows, selection: $selection, sortOrder: $sortOrder, columnCustomization: $
     <div class="ex-mac-bar"><div class="ex-lights" aria-hidden="true"><i></i><i></i><i></i></div><span class="ex-mac-title">需求池</span><div class="dn-segmented" role="group" aria-label="视图"><button type="button" aria-pressed="true">全部</button><button type="button" aria-pressed="false">按状态</button><button type="button" aria-pressed="false">排期</button></div></div>
     <div class="ex-mac-body">
       <div class="dn-db"><table class="dn-table">
-        <thead><tr><th scope="col">名称</th><th scope="col">状态</th><th scope="col">截止</th></tr></thead>
+        <thead><tr><th scope="col">名称</th><th scope="col">状态</th><th class="is-number" scope="col">截止</th></tr></thead>
         <tbody>
-          <tr><td class="is-primary"><a href="#">导入时保留附件</a></td><td><span class="dn-tag">进行中</span></td><td>11月28日</td></tr>
-          <tr aria-selected="true"><td class="is-primary"><a href="#">分享链接设置有效期</a></td><td><span class="dn-tag">进行中</span></td><td>11月21日</td></tr>
-          <tr><td class="is-primary"><a href="#">同步冲突时保留两份</a></td><td><span class="dn-tag is-danger">阻塞</span></td><td>12月2日</td></tr>
+          <tr><td class="is-primary"><a href="#">导入时保留附件</a></td><td><span class="dn-tag">进行中</span></td><td class="is-number">11月28日</td></tr>
+          <tr aria-selected="true"><td class="is-primary"><a href="#">分享链接设置有效期</a></td><td><span class="dn-tag">进行中</span></td><td class="is-number">11月21日</td></tr>
+          <tr><td class="is-primary"><a href="#">同步冲突时保留两份</a></td><td><span class="dn-tag is-danger"><span class="dn-dot"></span>阻塞</span></td><td class="is-number">12月2日</td></tr>
         </tbody>
       </table></div>
     </div>

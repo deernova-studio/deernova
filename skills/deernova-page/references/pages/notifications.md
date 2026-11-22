@@ -24,7 +24,7 @@
 HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机浏览器见本节最后。头像和帖子操作行的写法同[图文信息流](feed.md)。
 
 ```css
-.dn-notifs { max-width: 600px; margin-inline: auto; }
+.dn-notifs { max-width: var(--content-max); margin-inline: auto; }
 .dn-notifs-group { margin: var(--space-5) 0 0; padding-bottom: var(--space-2); border-bottom: var(--stroke-line) solid var(--line); color: var(--ink-tertiary); font: var(--type-footnote); }
 .dn-notif { position: relative; display: grid; grid-template-columns: var(--icon-size-md) minmax(0, 1fr) auto; gap: var(--space-3); padding: var(--space-3) 0; border-bottom: var(--stroke-line) solid var(--line); color: var(--ink); text-decoration: none; }
 .dn-notif.is-unread::before { content: ""; position: absolute; top: calc(var(--space-3) + (var(--type-body-line) - var(--badge-dot-size)) / 2); left: calc(var(--space-4) * -1); width: var(--badge-dot-size); height: var(--badge-dot-size); border-radius: var(--radius-full); background: var(--ink); }

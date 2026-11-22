@@ -38,7 +38,6 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 .dn-members .dn-table td { height: calc(var(--table-row-height) + var(--space-4)); }
 .dn-members .dn-table-cell { gap: var(--space-3); }
 .dn-members .dn-select { width: 128px; }
-.dn-members .dn-select > select { height: var(--button-height-sm); }
 .dn-members .is-soon { color: var(--warning); }
 .dn-roles td:not(:first-child), .dn-roles th:not(:first-child) { width: 88px; text-align: center; }
 .dn-roles th[scope="row"] { font-weight: var(--weight-regular); }

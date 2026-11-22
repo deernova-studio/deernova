@@ -1,6 +1,6 @@
 # Deernova
 
-Deernova 的设计仓库。现在有两个包：`@deernova/style`（设计语言）和 `@deernova/icons`（图标）；`@deernova/page`（页面布局）在搭建中，还没发布；以后加入动画。
+Deernova 的设计仓库。现在有三个包：`@deernova/style`（设计语言）、`@deernova/page`（页面布局）和 `@deernova/icons`（图标）；以后加入动画。
 
 `@deernova/style` 是 Deernova 的设计语言，写成一个给 AI agent 读的 skill。agent 在你的项目里写界面时参考它，用项目现有的技术栈实现 Deernova 的风格。它不是组件库：不会往项目里加任何依赖、样式文件或业务代码。
 
@@ -15,10 +15,11 @@ Deernova 的设计仓库。现在有两个包：`@deernova/style`（设计语言
 | `apps/website/` | 官网。首页传达风格；`guide.html` 是规范页：色卡、字阶、活的组件样例和尺寸表都从 skill 生成，可以切换场景查看 |
 | `art/milu/` | 首页麋鹿的原始插画和离线烘焙脚本，生成首页用的散步帧，不参与构建 |
 | `packages/style/` | npm 包 `@deernova/style`：把 skill 装进其他仓库的命令行工具 |
-| `packages/page/` | npm 包 `@deernova/page`：用同一个安装命令装 page skill，暂不发布 |
+| `packages/page/` | npm 包 `@deernova/page`：用同一个安装命令装 page skill，要和 `@deernova/style` 0.5.0 以上一起用 |
 | `scripts/` | 生成 token 文件、构建网站和 npm 包、发布 |
 | `tests/` | skill 结构、token 同步、对比度、构建边界、开发热更新、安装器和动画 |
 | `reviews/` | 当前验收结果、截图，以及单独保留的历史记录 |
+| `evals/` | 效果验证：同一段需求用和不用 Deernova 各做一遍，截图和规则检查放在 `runs/` 下；`node evals/render.mjs <run>` 截图，`node scripts/lint-ui.mjs <html>` 查规则 |
 | `archive/Paperlight/` | 最初的设计稿资料，只做留档，不参与构建；现行规范和它的异同见 [ARCHITECTURE.md](ARCHITECTURE.md) |
 
 ## 在项目里使用
@@ -41,7 +42,13 @@ npx @deernova/style@latest update --global --agent claude    # 更新全局安�
 npx @deernova/style@latest doctor --global --agent claude    # 检查全局安装
 ```
 
-然后直接告诉 agent：「参考 deernova-style，给这个应用做一个设置页。」
+page skill 的命令一样，把包名换成 `@deernova/page`，两个都装上：
+
+```sh
+npx @deernova/page@latest install --agent claude    # 写入 .claude/skills/deernova-page/
+```
+
+然后直接告诉 agent：「参考 deernova-style 和 deernova-page，给这个应用做一个设置页。」
 
 - `--agent agents|codex|claude` 选择写入 `.agents/skills`、`.codex/skills` 或 `.claude/skills`；`--repo <path>` 指定其他仓库；`--dir <skills-parent>` 写到自定义目录；`--global` 装到用户目录（默认 `$CODEX_HOME/skills`）。`--repo`、`--dir`、`--global` 只能选一个。
 - 更新是手动执行的。安装后的文件被改过时，CLI 拒绝覆盖；加 `--force` 会先备份再替换。

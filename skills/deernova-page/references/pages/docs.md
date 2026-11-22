@@ -8,9 +8,9 @@
 
 | 区块 | 放什么 | 必须 |
 | --- | --- | --- |
-| 页眉 | 字标、搜索（⌘K）、版本切换（有多个版本时）、外观切换。写法同[主页](home.md)的页眉 | 是 |
+| 页眉 | 字标、搜索（⌘K）、版本切换（有多个版本时）；外观切换可以放，默认跟随系统时可以省略。写法同[主页](home.md)的页眉 | 是 |
 | 左侧目录 | 整套文档的结构，最多两层，当前页用 `fill-selected` 标出。宽 `sidebar-width`，吸顶，自己滚动 | 是 |
-| 标题区 | 所在分组（一行小字，可以点回去）、宋体标题（`--font-display`）、一句话说明这一页解决什么 | 是 |
+| 标题区 | 宋体标题（`--font-display`）和一句话说明这一页解决什么。所在分组只在左侧目录里标出，不在标题上方再写一行小字 | 是 |
 | 正文 | 宽不超过 `content-max`。二级标题分节，代码块带复制，提示用[横幅](../../../deernova-style/references/components/banner.md) | 是 |
 | 本页目录 | 本页的二级和三级标题，跟随滚动标出当前一节。少于三个二级标题时不放 | 否 |
 | 页尾 | 上一篇和下一篇，写出标题；可以加最后更新日期 | 是 |
@@ -30,15 +30,13 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 .dn-docs-nav { position: sticky; top: var(--toolbar-height); display: flex; flex-direction: column; gap: var(--row-gap); max-height: calc(100dvh - var(--toolbar-height)); overflow-y: auto; padding: var(--space-6) 0; }
 .dn-docs-nav .dn-sidebar-heading { cursor: default; }
 .dn-docs-main { min-width: 0; max-width: var(--content-max); padding: var(--space-8) 0 var(--space-12); }
-.dn-docs-section { margin: 0 0 var(--space-2); color: var(--ink-tertiary); font: var(--type-footnote); }
-.dn-docs-section a { color: inherit; text-decoration: none; }
 .dn-docs-main h1 { margin: 0 0 var(--space-3); font: var(--weight-semibold) var(--type-display-size)/var(--type-display-line) var(--font-display); letter-spacing: var(--type-display-tracking); text-wrap: balance; }
 .dn-docs-lede { margin: 0 0 var(--space-8); color: var(--ink-secondary); font: var(--type-body); }
 .dn-docs-main h2 { margin: var(--space-10) 0 var(--space-3); font: var(--weight-semibold) var(--type-title-size)/var(--type-title-line) var(--font-display); }
 .dn-docs-main p { margin: 0 0 var(--space-4); font: var(--type-body); }
 .dn-docs-main :is(h1, h2) + .dn-code { margin-top: var(--space-4); }
 .dn-docs-toc { position: sticky; top: var(--toolbar-height); display: grid; gap: var(--space-2); padding: var(--space-8) 0; font: var(--type-footnote); }
-.dn-docs-toc p { margin: 0; color: var(--ink); font-weight: var(--weight-medium); }
+.dn-docs-toc p { margin: 0; color: var(--ink); }
 .dn-docs-toc a { padding-left: var(--space-3); border-left: var(--stroke-line) solid var(--line); color: var(--ink-tertiary); text-decoration: none; }
 .dn-docs-toc a[aria-current="true"] { border-left-color: var(--ink); color: var(--ink); }
 @media (hover: hover) { .dn-docs-toc a:hover { color: var(--ink); } }
@@ -71,7 +69,6 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
       <a class="dn-sidebar-item" href="#"><span class="dn-sidebar-label">命令行</span></a>
     </nav>
     <article class="dn-docs-main">
-      <p class="dn-docs-section"><a href="#">开始</a></p>
       <h1>同步与备份</h1>
       <p class="dn-docs-lede">在多台设备之间保持笔记一致，并保留每一次修改。</p>
       <h2 id="ex-turn-on">打开同步</h2>
@@ -112,8 +109,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
         <header class="dn-site-header"><a class="dn-site-mark" href="#">deernova<span>.</span></a><nav class="dn-site-nav" aria-label="主导航"><a href="#">GitHub</a></nav><button class="dn-icon-button" type="button" aria-label="搜索文档"><svg class="dn-icon" aria-hidden="true"><use href="#dn-search"/></svg></button><button class="dn-icon-button" type="button" aria-label="文档目录"><svg class="dn-icon" aria-hidden="true"><use href="#dn-sidebar"/></svg></button></header>
         <div class="dn-docs">
           <article class="dn-docs-main">
-            <p class="dn-docs-section"><a href="#">开始</a></p>
-            <h1>同步与备份</h1>
+                  <h1>同步与备份</h1>
             <p class="dn-docs-lede">在多台设备之间保持笔记一致，并保留每一次修改。</p>
             <details class="dn-activity"><summary>本页内容<svg class="dn-icon" aria-hidden="true"><use href="#dn-chevron-right"/></svg></summary></details>
             <h2>打开同步</h2>

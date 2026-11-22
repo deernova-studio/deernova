@@ -33,7 +33,7 @@
 什么时候用开关、复选框还是单选，见[选择控件](choice.md)。开关用原生的 `<input type="checkbox" role="switch">`，保留键盘和读屏支持。
 
 ```css
-.dn-list-section { display: grid; gap: 6px; }
+.dn-list-section { display: grid; gap: var(--space-2); }
 .dn-list-section + .dn-list-section { margin-top: var(--gap-group); }
 .dn-list-header, .dn-list-footer { margin: 0; padding: 0 var(--row-padding-x); font: var(--weight-regular) var(--type-footnote-size)/var(--type-footnote-line) var(--font-sans); }
 .dn-list-header { color: var(--ink-secondary); }
@@ -51,7 +51,7 @@
   font: var(--type-body);
 }
 .dn-list-row.has-icon { --separator-inset: calc(var(--row-padding-x) + var(--row-icon-size) + var(--space-3)); }
-.dn-list-row + .dn-list-row::before {
+.dn-list-row + .dn-list-row::before, .dn-list > li + li > .dn-list-row::before {
   content: "";
   position: absolute;
   top: 0;

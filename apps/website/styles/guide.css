@@ -110,6 +110,10 @@ body.guide-page { background: var(--surface); font: var(--type-body); }
 .specimen .dn-app-demo { height: 280px; border: var(--stroke-line) solid var(--line); border-radius: var(--radius-md); overflow: hidden; }
 .specimen .dn-app-demo .dn-panel { width: min(320px, 42%); }
 .specimen .dn-list-section { max-width: 420px; }
+.specimen :is(.ex-page, .ex-mac, .ex-device) .dn-list-section { max-width: none; }
+/* Native mockups use the system switch: success track, white knob. */
+.specimen :is(.ex-mac, .ex-phone) .dn-switch:checked { background: var(--success); }
+.specimen :is(.ex-mac, .ex-phone) .dn-switch:checked::after { background: var(--knob); }
 .specimen .dn-card-grid { max-width: 760px; }
 .specimen .dn-item { max-width: 560px; }
 .specimen .dn-state-list { display: grid; gap: var(--row-gap); width: min(100%, 260px); }

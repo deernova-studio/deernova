@@ -1,6 +1,6 @@
 # 卡片
 
-卡片把一条内容的摘要装进一个可以点开的块里，用于网格和看板。
+卡片把一条内容的摘要装进一个可以点开的块里，用于网格。看板里的卡片是紧凑的一种（标题用正文字重、圆角更小），写法见 page 的看板页。
 
 **需要提供**：标题、一行元信息（时间、分类、状态[标签](tag.md)，最多 3 项），点击后打开详情。标题说不清内容时才加摘要。
 
@@ -66,7 +66,7 @@
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 }
-.dn-card-meta { display: flex; align-items: center; gap: 6px; margin-top: 2px; color: var(--ink-tertiary); font: var(--weight-regular) var(--type-caption-size)/var(--type-caption-line) var(--font-sans); font-variant-numeric: tabular-nums; }
+.dn-card-meta { display: flex; align-items: center; gap: var(--space-2); margin-top: 2px; color: var(--ink-tertiary); font: var(--weight-regular) var(--type-caption-size)/var(--type-caption-line) var(--font-sans); font-variant-numeric: tabular-nums; }
 ```
 
 ```html

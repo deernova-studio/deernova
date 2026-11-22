@@ -9,8 +9,8 @@
 | 顶栏 | 项目名、视图切换（列表、看板、日历）、筛选、新建 | 是 |
 | 筛选条 | 已经生效的筛选写成一行可移除的条件：「负责人：林一 ×」「标签：设计 ×」，加「清除」 | 有筛选时 |
 | 列 | 一列一个状态，三到六列，固定宽度，横向排开；列不等高 | 是 |
-| 列头 | 状态名和数量；设了上限的列写「3 / 4」；行尾「添加」 | 是 |
-| 卡片 | 标题；下面一行最多三样：截止日期、一个标签、负责人头像 | 是 |
+| 列头 | 状态名（`headline` 半粗，它是这一列的标题，不是侧边栏那种分组标题）和数量；设了上限的列写「3 / 4」；行尾「添加」 | 是 |
+| 卡片 | 紧凑版的[卡片](../../../deernova-style/references/components/card.md)：标题用正文字重，圆角 `radius-md`，列的圆角是它加上列的内边距；下面一行最多三样：截止日期、一个标签、负责人头像。选中用 `fill-selected` 底 | 是 |
 | 完成列的折叠 | 完成列只显示最近 7 天，更早的折成「还有 38 条更早完成的」 | 完成的多时 |
 | 泳道 | 按负责人或优先级横着分组，每组一行完整的列 | 否 |
 
@@ -18,7 +18,7 @@
 - **卡片只放决定要不要拖它的信息。** 标题、什么时候到期、谁在做。描述、子任务、评论数进详情页；卡片上多一个图标，整板就多几十个图标。
 - **列头不配颜色。** 列靠位置和名字区分。卡片也不按状态涂色：它在哪一列就是什么状态。
 - **只有要人注意的才有颜色。** 过期的截止日期用 `danger` 文字，三天内到期用 `warning`，其余是灰字。「阻塞」用 `danger` 标签；普通标签用无色的 `dn-tag`。
-- **拖的时候只画一条线。** 卡片拿起来抬高一层（`shadow-float`），原位置留一个变淡的影子，要放下的位置出现一条 2px 的墨色线。不高亮整列，不摇晃卡片。
+- **卡片平放，拖的时候只画一条线。** 卡片和其他卡片一样没有阴影；拿起来时才抬高一层（`shadow-float`），原位置留一个变淡的影子，要放下的位置出现一条 2px 的墨色线。不高亮整列，不摇晃卡片。
 - **超出上限的列只改数字的颜色。** 「进行中 5 / 4」的数字变成 `warning`，卡片照常能拖进去；不弹窗拦着。
 - **拖到完成要能撤销。** 放下后底部出一条[轻提示](../../../deernova-style/references/components/banner.md)「已移到完成」加「撤销」。
 
@@ -28,22 +28,23 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 
 ```css
 .dn-board { display: flex; align-items: flex-start; gap: var(--space-3); flex: 1; min-height: 0; overflow: auto hidden; padding: var(--space-4) var(--page-margin); }
-.dn-board-col { display: flex; flex-direction: column; gap: var(--space-2); flex: none; width: 240px; max-height: 100%; padding: var(--space-2); border-radius: var(--radius-lg); background: var(--surface-sunken); }
-.dn-board-head { display: flex; align-items: center; gap: var(--space-2); min-height: var(--button-height-sm); padding-left: var(--space-2); font: var(--weight-semibold) var(--type-callout-size)/1.2 var(--font-sans); }
+.dn-board-col { display: flex; flex-direction: column; gap: var(--space-2); flex: none; width: 240px; max-height: 100%; padding: var(--space-2); border-radius: calc(var(--radius-md) + var(--space-2)); background: var(--surface-sunken); }
+.dn-board-head { display: flex; align-items: center; gap: var(--space-2); min-height: var(--button-height-sm); padding-left: var(--space-2); font: var(--type-headline); }
 .dn-board-count { color: var(--ink-tertiary); font-weight: var(--weight-regular); font-variant-numeric: tabular-nums; }
 .dn-board-count.is-over { color: var(--warning); }
 .dn-board-head > .dn-icon-button { margin-left: auto; }
 .dn-board-cards { display: grid; gap: var(--space-2); min-height: 0; margin: 0; padding: 0; overflow-y: auto; list-style: none; }
-.dn-board-card { display: grid; gap: var(--space-2); padding: var(--space-3); border: var(--stroke-line) solid var(--line); border-radius: var(--radius-md); background: var(--surface); box-shadow: var(--shadow-control); cursor: grab; position: relative; }
+.dn-board-card { display: grid; gap: var(--space-2); padding: var(--space-3); border: var(--stroke-line) solid var(--line); border-radius: var(--radius-md); background: var(--surface); cursor: grab; position: relative; }
 .dn-board-card > a { color: var(--ink); font: var(--type-body); text-decoration: none; }
 .dn-board-card > a::after { content: ""; position: absolute; inset: 0; }
 .dn-board-meta { display: flex; align-items: center; gap: var(--space-2); min-height: var(--button-height-sm); color: var(--ink-tertiary); font: var(--type-footnote); font-variant-numeric: tabular-nums; }
 .dn-board-meta > .dn-avatar { margin-left: auto; }
 .dn-board-due.is-late { color: var(--danger); }
 .dn-board-due.is-soon { color: var(--warning); }
-.dn-board-card.is-source { opacity: 0.4; box-shadow: none; }
+.dn-board-card.is-source { opacity: 0.4; }
 .dn-board-card.is-lifted { box-shadow: var(--shadow-float); cursor: grabbing; }
-.dn-board-card[aria-selected="true"] { border-color: var(--ink); }
+.dn-board-card[aria-selected="true"] { background: var(--fill-selected); }
+@media (hover: hover) { .dn-board-card:hover { border-color: var(--line-control); } }
 .dn-board-drop { height: 2px; margin-block: calc(-1 * var(--space-1)); border-radius: var(--radius-full); background: var(--ink); }
 .dn-board-inspect { margin: 0 0 var(--space-4); font: var(--type-headline); }
 .dn-board-more { padding: var(--space-1) var(--space-2); border: 0; background: none; color: var(--ink-secondary); font: var(--type-footnote); text-align: left; cursor: pointer; }
@@ -81,7 +82,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
         <ul class="dn-board-cards">
           <li class="dn-board-card"><a href="#">搜索结果按最近编辑排序</a><div class="dn-board-meta"><span class="dn-board-due is-late">昨天到期</span><span class="dn-avatar" role="img" aria-label="沈遥">沈</span></div></li>
           <li class="dn-board-card is-source" aria-grabbed="true"><a href="#">分享链接设置有效期</a><div class="dn-board-meta"><span class="dn-board-due is-soon">后天</span><span class="dn-avatar" role="img" aria-label="林一">林</span></div></li>
-          <li class="dn-board-card"><a href="#">同步冲突时保留两份</a><div class="dn-board-meta"><span class="dn-tag is-danger">阻塞</span><span class="dn-avatar" role="img" aria-label="周舟">周</span></div></li>
+          <li class="dn-board-card"><a href="#">同步冲突时保留两份</a><div class="dn-board-meta"><span class="dn-tag is-danger"><span class="dn-dot"></span>阻塞</span><span class="dn-avatar" role="img" aria-label="周舟">周</span></div></li>
         </ul>
       </section>
       <section class="dn-board-col" aria-label="审核中">
@@ -222,15 +223,17 @@ TabView(selection: $column) {
       <div class="ex-ios-nav"><button class="dn-icon-button" type="button" aria-label="返回"><svg class="dn-icon" aria-hidden="true"><use href="#dn-back"/></svg></button><span class="ex-ios-nav-title">发布 2.0</span><button class="dn-icon-button" type="button" aria-label="新建"><svg class="dn-icon" aria-hidden="true"><use href="#dn-plus"/></svg></button></div>
       <div class="dn-panel-tabs is-plain" role="tablist" aria-label="列">
         <button type="button" role="tab" aria-selected="false">待办 6</button>
-        <button type="button" role="tab" aria-selected="true">进行中 3</button>
+        <button type="button" role="tab" aria-selected="true" id="ex-board-col-tab" aria-controls="ex-board-col-tab-panel">进行中 3</button>
         <button type="button" role="tab" aria-selected="false">审核中 2</button>
         <button type="button" role="tab" aria-selected="false">完成</button>
       </div>
+      <div role="tabpanel" id="ex-board-col-tab-panel" aria-labelledby="ex-board-col-tab">
       <ul class="dn-board-cards">
         <li class="dn-board-card"><a href="#">搜索结果按最近编辑排序</a><div class="dn-board-meta"><span class="dn-board-due is-late">昨天到期</span><span class="dn-avatar" role="img" aria-label="沈遥">沈</span></div></li>
         <li class="dn-board-card"><a href="#">分享链接设置有效期</a><div class="dn-board-meta"><span class="dn-board-due is-soon">后天</span><span class="dn-avatar" role="img" aria-label="林一">林</span></div></li>
-        <li class="dn-board-card"><a href="#">同步冲突时保留两份</a><div class="dn-board-meta"><span class="dn-tag is-danger">阻塞</span><span class="dn-avatar" role="img" aria-label="周舟">周</span></div></li>
+        <li class="dn-board-card"><a href="#">同步冲突时保留两份</a><div class="dn-board-meta"><span class="dn-tag is-danger"><span class="dn-dot"></span>阻塞</span><span class="dn-avatar" role="img" aria-label="周舟">周</span></div></li>
       </ul>
+      </div>
     </div>
   </div>
 </div>

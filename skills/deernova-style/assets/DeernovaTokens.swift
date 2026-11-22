@@ -187,7 +187,7 @@ public enum Deernova {
     /// 对话栏和长文阅读栏的最大宽度。
     public static let contentMax: CGFloat = 680
     /// 表单页、设置页内容栏的最大宽度。
-    public static let formMax: CGFloat = 560
+    public static let formMax: CGFloat = 640
     /// 表格、看板和官网内容的最大宽度。
     public static let wideMax: CGFloat = 1120
     /// 文件附件条的最大宽度，文件名放不下时中间省略。
@@ -242,9 +242,9 @@ public enum Deernova {
     public static let paneWidth: CGFloat = 320
     public static let toolbarHeight: CGFloat = 44
     public static let gridGutter: CGFloat = 24
-    public static let buttonHeightSm: CGFloat = 24
-    public static let buttonHeightMd: CGFloat = 28
-    public static let buttonHeightLg: CGFloat = 32
+    public static let buttonHeightSm: CGFloat = 28
+    public static let buttonHeightMd: CGFloat = 32
+    public static let buttonHeightLg: CGFloat = 36
     public static let buttonPaddingXSm: CGFloat = 8
     public static let buttonPaddingXMd: CGFloat = 12
     public static let buttonPaddingXLg: CGFloat = 16
@@ -257,12 +257,12 @@ public enum Deernova {
     public static let toolbarTitleSize: CGFloat = 15
     public static let panelTabHeight: CGFloat = 28
     public static let glassButtonSize: CGFloat = 34
-    public static let segmentedHeight: CGFloat = 24
+    public static let segmentedHeight: CGFloat = 28
     public static let segmentedPadding: CGFloat = 2
     public static let segmentedPaddingX: CGFloat = 12
     public static let segmentedFontSize: CGFloat = 13
     public static let segmentedRadius: CGFloat = 6
-    public static let fieldHeight: CGFloat = 28
+    public static let fieldHeight: CGFloat = 32
     public static let fieldPaddingX: CGFloat = 10
     public static let fieldFontSize: CGFloat = 14
     public static let fieldRadius: CGFloat = 6
@@ -273,7 +273,7 @@ public enum Deernova {
     public static let mentionHeight: CGFloat = 20
     public static let mentionPaddingX: CGFloat = 4
     public static let mentionRadius: CGFloat = 4
-    public static let rowHeight: CGFloat = 32
+    public static let rowHeight: CGFloat = 36
     public static let rowPaddingX: CGFloat = 10
     public static let rowRadius: CGFloat = 8
     public static let rowGap: CGFloat = 2
@@ -322,7 +322,7 @@ public enum Deernova {
     public static let badgeSize: CGFloat = 16
     public static let checkSize: CGFloat = 16
     public static let sliderThumbSize: CGFloat = 16
-    public static let tableRowHeight: CGFloat = 36
+    public static let tableRowHeight: CGFloat = 40
     public static let tableCellPaddingX: CGFloat = 12
     public static let commandInputHeight: CGFloat = 48
     public static let skeletonLineHeight: CGFloat = 12

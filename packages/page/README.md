@@ -2,7 +2,7 @@
 
 Install the Deernova page layout skill into an existing repository. It says which blocks a page has, in what order, what to leave out, and how the page changes on narrow screens. Colors, type, sizes and components come from [@deernova/style](../style/README.md); install both.
 
-Not published yet. The commands match `@deernova/style`:
+Needs `@deernova/style` 0.5.0 or later, because the page examples use its 0.5.0 sizes and components. The commands match `@deernova/style`:
 
 ```sh
 npx @deernova/page@latest install --agent claude   # writes .claude/skills/deernova-page/

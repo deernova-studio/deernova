@@ -6,14 +6,14 @@
 
 | 区块 | 放什么 | 必须 |
 | --- | --- | --- |
-| 导航 | 首页、搜索、通知、私信、收藏、个人主页；「发布」放在导航最下面 | 是 |
+| 导航 | 首页、搜索、通知、私信、收藏、个人主页；「发布」放在导航最下面；宽屏上信息流顶部已有写帖框时，导航里不再放「发布」 | 是 |
 | 顶栏 | 「首页」，和信息流的来源：为你推荐、关注 | 是 |
 | 发布框 | 信息流最上面一行：头像和「写点什么」，点进去展开；发布后自己的帖子出现在第一条 | 是 |
 | 新内容提示 | 有新帖时，顶部浮出「12 条新内容」，点一下才把新帖放进来，回到顶部 | 是 |
 | 帖子 | 头像、名字、账号、时间；正文；图片或链接卡片；操作行：回复、转发、喜欢、收藏、分享，带计数 | 是 |
 | 侧栏 | 宽屏时信息流右边：搜索、正在讨论的话题、可能认识的人 | 否 |
 
-- **一栏居中，宽不超过 600。** 正文一行 30 来个字，比普通内容栏窄，扫读更快；帖子之间一条细线，不放进卡片。
+- **一栏居中，宽不超过 `content-max`。** 正文一行 40 来个字，和对话、文档的内容栏一样宽；帖子之间一条细线，不放进卡片。
 - **不自动插入新帖。** 用户在读的时候，新内容只变成顶部的提示；点了才插进来。刷新、返回、切换标签后回到原来读到的那一条。
 - **头像是唯一的大块图形。** 名字用 `weight-medium` 的 `ink`，账号和时间用 `ink-tertiary`，分开放，用间距隔开，不用「·」串起来。
 - **能点的东西用靛青。** 正文里的 @ 某人、# 话题、链接用 `link`；其余文字都是墨色。
@@ -27,7 +27,7 @@
 HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机浏览器见本节最后。
 
 ```css
-.dn-feed-page { display: grid; grid-template-columns: minmax(0, 600px) 280px; justify-content: center; align-items: start; gap: var(--space-8); }
+.dn-feed-page { display: grid; grid-template-columns: minmax(0, var(--content-max)) 280px; justify-content: center; align-items: start; gap: var(--space-8); }
 .dn-feed { position: relative; min-width: 0; }
 .dn-feed-new { position: sticky; top: var(--space-3); z-index: 1; display: flex; justify-content: center; padding: var(--space-3) 0 0; pointer-events: none; }
 .dn-feed-new > .dn-button { box-shadow: var(--shadow-float); pointer-events: auto; }
@@ -35,7 +35,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 .dn-feed-compose > input { min-width: 0; padding: 0; border: 0; background: transparent; color: var(--ink); font: var(--type-body); outline: none; }
 .dn-feed-compose > input::placeholder { color: var(--ink-tertiary); }
 .dn-entry { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--space-3); padding: var(--space-4) 0 var(--space-2); border-bottom: var(--stroke-line) solid var(--line); }
-.dn-entry-avatar { display: grid; place-items: center; width: 40px; height: 40px; border-radius: var(--radius-full); background: var(--fill-selected); color: var(--ink); font: var(--weight-medium) var(--type-callout-size)/1 var(--font-sans); }
+.dn-entry-avatar { display: grid; place-items: center; width: var(--button-height-md); height: var(--button-height-md); border-radius: var(--radius-full); background: var(--fill-selected); color: var(--ink); font: var(--weight-medium) var(--type-callout-size)/1 var(--font-sans); }
 .dn-entry-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 var(--space-2); }
 .dn-entry-name { color: var(--ink); font: var(--weight-medium) var(--type-body-size)/var(--type-body-line) var(--font-sans); }
 .dn-entry-meta { color: var(--ink-tertiary); font: var(--type-callout); font-variant-numeric: tabular-nums; }
@@ -58,8 +58,8 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 .dn-trends a { display: grid; color: var(--link); font: var(--weight-medium) var(--type-callout-size)/var(--type-callout-line) var(--font-sans); text-decoration: none; }
 .dn-trends a > span { color: var(--ink-tertiary); font: var(--type-footnote); }
 .dn-feed-foot { display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-3); color: var(--ink-tertiary); font: var(--type-footnote); }
-@media (max-width: 1100px) {
-  .dn-feed-page { grid-template-columns: minmax(0, 600px); }
+@media (max-width: 1280px) {
+  .dn-feed-page { grid-template-columns: minmax(0, var(--content-max)); }
   .dn-feed-aside { display: none; }
 }
 ```
@@ -149,14 +149,14 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 ### 窄屏和手机浏览器
 
 - 侧栏去掉；导航变成底部一排图标：首页、搜索、通知、私信、我；「发布」是右下角的圆形按钮。
-- 信息流占满宽度，左右留 `page-margin`；头像缩到 36。
+- 信息流占满宽度，左右留 `page-margin`；头像大小不变（`is-lg` 那一档，触屏上自动变大）。
 - 顶栏向下滚动时收起，向上滚一点就回来。
 
 ## Mac 应用
 
 原生 macOS 应用，用 SwiftUI 和系统控件。和网页是同一个设计：区块、设计变量、组件和文案都相同，下面只写外壳的不同：窗口、材质、导航方式、系统控件和输入方式。尺寸见 style 的 [macOS](../../../deernova-style/references/scenes/macos.md)。
 
-- 两栏：系统侧边栏是导航，右边是信息流；信息流宽度跟着窗口，但帖子内容不超过 600，居中。
+- 两栏：系统侧边栏是导航，右边是信息流；信息流宽度跟着窗口，但帖子内容不超过 `content-max`，居中。
 - 「为你推荐 / 关注」用工具栏中间的分段控件；⌘N 发布，⌘R 载入新内容。
 - 键盘能刷：J、K 上下一条，L 喜欢，R 回复；当前这一条用 `fill-selected` 标出。
 
@@ -165,7 +165,7 @@ NavigationSplitView {
     List(selection: $section) { ForEach(Section.allCases) { Label($0.title, systemImage: $0.symbol) } }
 } detail: {
     ScrollViewReader { proxy in
-        List(feed.posts) { PostRow(post: $0).frame(maxWidth: 600) }
+        List(feed.posts) { PostRow(post: $0).frame(maxWidth: Deernova.contentMax) }
             .listStyle(.plain)
             .overlay(alignment: .top) { if feed.newCount > 0 { NewPostsButton(count: feed.newCount) { feed.insertNew(); proxy.scrollTo(feed.posts.first?.id) } } }
     }

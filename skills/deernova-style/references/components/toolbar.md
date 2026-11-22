@@ -17,12 +17,14 @@ Web 应用的页面骨架：左边是[侧边栏](sidebar.md)，中间是内容�
 - **内容区**：对话栏宽度不超过 `content-max`，左右至少留 `page-margin` + `space-3`；Composer 左右留 `page-margin`。
 - **侧面板**：左边一条 1px `line`，`canvas` 底，默认占内容区的 40%，可以拖动。顶部是标签头，和顶栏同高、底部同样一条线；标签高 `panel-tab-height`，当前标签 `fill-selected` 底、`ink` 字，其他 `ink-secondary`；最右边是关闭、放大按钮。
 - **内容区里的视图标签**（数据库的「全部」「按状态」，手机上一屏一列的看板列名）也用这一组标签，加 `is-plain`：不占顶栏高度，底部一条线，标签可以带一个小图标，放不下时横向滑动。不要另做一套下划线标签。
+- 标签切换的那块内容加 `role="tabpanel"`，用 `aria-labelledby` 指回当前标签，当前标签用 `aria-controls` 指向它。
 - 窄于 `breakpoint-md`（960）时侧面板改成覆盖在内容上的[抽屉](sheet.md)；窄于 `breakpoint-sm`（760）时侧边栏也收起成抽屉。
 
 ## Web
 
 ```css
 .dn-app { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; height: 100dvh; background: var(--canvas); color: var(--ink); }
+.dn-app > .dn-app-main:only-child { grid-column: 1 / -1; }
 .dn-app-main { display: flex; flex-direction: column; min-width: 0; min-height: 0; }
 .dn-app-content { flex: 1; min-height: 0; overflow: auto; scrollbar-gutter: stable both-edges; padding: var(--space-6) calc(var(--page-margin) + var(--space-3)); }
 
@@ -54,8 +56,8 @@ Web 应用的页面骨架：左边是[侧边栏](sidebar.md)，中间是内容�
 }
 .dn-toolbar-title span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .dn-toolbar-title .dn-icon { width: var(--icon-size-sm); height: var(--icon-size-sm); color: var(--ink-secondary); }
-@media (hover: hover) { .dn-toolbar-title:hover { background: var(--fill-hover); } }
-.dn-toolbar-title:active { background: var(--fill-selected); }
+@media (hover: hover) { button.dn-toolbar-title:hover { background: var(--fill-hover); } }
+button.dn-toolbar-title:active { background: var(--fill-selected); }
 .dn-toolbar-actions { display: flex; align-items: center; gap: 2px; margin-left: auto; }
 .dn-toolbar .dn-icon-button[aria-pressed="true"], .dn-panel-tabs .dn-icon-button[aria-pressed="true"] { color: var(--ink); }
 .dn-toolbar .dn-icon-button[aria-pressed="true"]::after, .dn-panel-tabs .dn-icon-button[aria-pressed="true"]::after { background-color: var(--fill-selected); }
@@ -108,14 +110,14 @@ Web 应用的页面骨架：左边是[侧边栏](sidebar.md)，中间是内容�
   </div>
   <aside class="dn-panel" aria-label="侧面板">
     <div class="dn-panel-tabs" role="tablist">
-      <button type="button" role="tab" aria-selected="true">终端</button>
+      <button type="button" role="tab" aria-selected="true" id="ex-panel-term-tab" aria-controls="ex-panel-term-tab-panel">终端</button>
       <button type="button" role="tab" aria-selected="false">预览</button>
       <div class="dn-panel-actions">
         <button class="dn-icon-button" type="button" aria-label="新建标签"><svg class="dn-icon" aria-hidden="true"><use href="#dn-plus"/></svg></button>
         <button class="dn-icon-button" type="button" aria-label="关闭面板"><svg class="dn-icon" aria-hidden="true"><use href="#dn-close"/></svg></button>
       </div>
     </div>
-    <div class="dn-panel-body">$ npm run dev<br>ready in 412 ms</div>
+    <div role="tabpanel" id="ex-panel-term-tab-panel" aria-labelledby="ex-panel-term-tab" class="dn-panel-body">$ npm run dev<br>ready in 412 ms</div>
   </aside>
 </div>
 ```

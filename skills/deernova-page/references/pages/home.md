@@ -8,7 +8,7 @@
 
 | 区块 | 放什么 | 必须 |
 | --- | --- | --- |
-| 页眉 | 左边字标（点了回主页），右边 3–4 个链接和外观切换。悬浮在首屏上的玻璃条，不是贴边的一条线 | 是 |
+| 页眉 | 左边字标（点了回主页），右边 3–4 个链接；外观切换可以放，默认跟随系统时可以省略。悬浮在首屏上的玻璃条，不是贴边的一条线 | 是 |
 | 首屏 | 左边：宋体大标题（最多两行）、一句话（最多两行）、一个主按钮和一个无底色按钮。右边：这个产品最有特点的画面，出血到页面右边和顶部 | 是 |
 | 产品画面 | 首屏下面一张真实的界面截图，比正文宽，底部被下一节截断 | 是 |
 | 功能 | 最多三节，每节一个标题、一段话（最多三行）、一张图 | 否 |
@@ -41,7 +41,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 @media (hover: hover) { .dn-site-nav a:hover { color: var(--ink); } }
 .dn-hero { container-type: inline-size; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); min-height: min(100svh, 760px); }
 .dn-hero-copy { display: grid; align-content: center; justify-items: start; gap: var(--space-6); padding: var(--space-16) var(--space-6) var(--space-12) calc(var(--page-margin) + var(--space-5)); }
-.dn-hero-title { margin: 0; font: var(--weight-semibold) clamp(32px, 4cqi, 56px)/1.2 var(--font-display); letter-spacing: -0.01em; text-wrap: balance; }
+.dn-hero-title { margin: 0; font: var(--weight-semibold) clamp(var(--type-display-size), 4cqi, calc(var(--type-display-size) * 1.3))/1.2 var(--font-display); letter-spacing: -0.01em; text-wrap: balance; }
 .dn-hero-lede { max-width: 24em; margin: 0; color: var(--ink-secondary); font: var(--type-prose); }
 .dn-hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); margin-top: var(--space-2); }
 .dn-hero-art { margin: 0; overflow: hidden; background: var(--canvas); }

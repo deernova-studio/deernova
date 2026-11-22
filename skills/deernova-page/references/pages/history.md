@@ -26,6 +26,8 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 .dn-history { display: grid; grid-template-columns: minmax(0, 1fr) 260px; flex: 1; min-height: 0; }
 .dn-history > .dn-editor-scroll { background: var(--surface-sunken); }
 .dn-history .dn-doc { padding: var(--space-8) var(--space-10); border: var(--stroke-line) solid var(--line); border-radius: var(--radius-md); background: var(--canvas); }
+.dn-history-toggle { display: inline-flex; align-items: center; gap: var(--space-2); color: var(--ink-secondary); font: var(--type-callout); white-space: nowrap; }
+.dn-history-toggle > .dn-switch { margin: 0; }
 .dn-doc ins { background: var(--success-soft); color: var(--ink); text-decoration: underline; text-decoration-color: var(--success); text-underline-offset: 3px; }
 .dn-doc del { color: var(--danger); text-decoration: line-through; }
 .dn-versions { display: flex; flex-direction: column; gap: var(--row-gap); min-height: 0; overflow-y: auto; margin: 0; padding: var(--space-3) var(--space-2) var(--space-6); border-left: var(--stroke-line) solid var(--line); list-style: none; }
@@ -52,7 +54,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
       <button class="dn-icon-button" type="button" aria-label="关闭版本历史"><svg class="dn-icon" aria-hidden="true"><use href="#dn-close"/></svg></button>
       <h2 class="dn-toolbar-title"><span>正在看 11月18日 14:02 的版本</span></h2>
       <div class="dn-toolbar-actions">
-        <label class="dn-row"><input class="dn-switch" type="checkbox" role="switch" checked aria-label="标出改动">标出改动</label>
+        <label class="dn-history-toggle"><input class="dn-switch" type="checkbox" role="switch" checked>标出改动</label>
         <button class="dn-button is-primary is-sm" type="button">恢复这个版本</button>
       </div>
     </header>

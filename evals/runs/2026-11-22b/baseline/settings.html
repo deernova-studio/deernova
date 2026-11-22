@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>设置 · 账户</title>
+<style>
+  :root {
+    --bg: #f6f5f2;
+    --surface: #ffffff;
+    --sidebar: #efede8;
+    --ink: #1c1b19;
+    --ink-2: #57544e;
+    --ink-3: #8c8880;
+    --line: #e6e3dc;
+    --line-strong: #d6d2c9;
+    --accent: #2f6b4f;
+    --accent-soft: #e5efe9;
+    --danger: #b3261e;
+    --danger-soft: #fbeceb;
+    --warn-bg: #fbf4e4;
+    --warn-ink: #7a5a12;
+    --radius: 12px;
+    --font: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", "Segoe UI", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    font-family: var(--font);
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--ink);
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+  }
+  button, input { font: inherit; color: inherit; }
+
+  .app { display: grid; grid-template-columns: 248px 1fr; height: 100vh; min-height: 640px; }
+
+  /* Sidebar */
+  .sidebar {
+    background: var(--sidebar);
+    border-right: 1px solid var(--line);
+    display: flex; flex-direction: column;
+    padding: 20px 14px;
+  }
+  .back {
+    display: inline-flex; align-items: center; gap: 6px;
+    color: var(--ink-2); text-decoration: none; font-size: 13px;
+    padding: 6px 8px; border-radius: 8px; width: fit-content;
+  }
+  .back:hover { background: rgba(0,0,0,.05); color: var(--ink); }
+  .sidebar h1 { font-size: 20px; font-weight: 600; margin: 18px 10px 14px; letter-spacing: .02em; }
+  .nav { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
+  .nav a {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 10px; border-radius: 8px;
+    color: var(--ink-2); text-decoration: none; font-size: 14px;
+  }
+  .nav a:hover { background: rgba(0,0,0,.045); color: var(--ink); }
+  .nav a[aria-current="page"] { background: var(--surface); color: var(--ink); font-weight: 600; box-shadow: 0 1px 2px rgba(0,0,0,.06), 0 0 0 1px var(--line); }
+  .nav svg { width: 18px; height: 18px; flex: none; stroke: currentColor; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+  .sidebar-foot { margin-top: auto; padding: 0 10px; font-size: 12px; color: var(--ink-3); }
+
+  /* Main */
+  .main { overflow-y: auto; }
+  .content { max-width: 720px; margin: 0 auto; padding: 44px 40px 56px; }
+  .page-head h2 { font-size: 26px; font-weight: 600; margin: 0; letter-spacing: .01em; }
+  .page-head p { margin: 6px 0 0; color: var(--ink-2); }
+
+  .section { margin-top: 28px; }
+  .section-title { font-size: 12px; font-weight: 600; color: var(--ink-3); letter-spacing: .08em; margin: 0 4px 8px; }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
+  .row { display: flex; align-items: center; gap: 16px; padding: 14px 18px; min-height: 60px; }
+  .row + .row { border-top: 1px solid var(--line); }
+  .row-main { flex: 1; min-width: 0; }
+  .row-label { font-weight: 500; }
+  .row-desc { color: var(--ink-3); font-size: 13px; margin-top: 2px; }
+  .row-value { color: var(--ink-2); }
+
+  /* Profile */
+  .profile { display: flex; align-items: center; gap: 16px; padding: 18px; }
+  .avatar {
+    width: 56px; height: 56px; border-radius: 50%; flex: none;
+    background: linear-gradient(140deg, #3c7a5c, #24543d);
+    color: #fff; display: grid; place-items: center; font-size: 22px; font-weight: 600;
+  }
+  .profile-name { font-size: 17px; font-weight: 600; }
+  .profile-meta { color: var(--ink-3); font-size: 13px; }
+
+  .field-label { width: 96px; flex: none; color: var(--ink-2); }
+  .input {
+    flex: 1; height: 36px; padding: 0 12px;
+    border: 1px solid var(--line-strong); border-radius: 8px; background: #fff;
+    outline: none; transition: border-color .15s, box-shadow .15s;
+  }
+  .input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+  .email { flex: 1; display: flex; align-items: center; gap: 8px; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 12px; padding: 1px 8px; border-radius: 999px;
+    background: var(--accent-soft); color: var(--accent); font-weight: 500; white-space: nowrap; flex: none;
+  }
+  .badge svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* Buttons */
+  .btn {
+    height: 34px; padding: 0 14px; border-radius: 8px; cursor: pointer;
+    border: 1px solid var(--line-strong); background: #fff; font-size: 13px; font-weight: 500;
+    white-space: nowrap; transition: background .15s, border-color .15s;
+  }
+  .btn:hover { background: #f7f6f3; border-color: #c9c4b9; }
+  .btn:focus-visible, .switch:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .btn-primary { background: var(--ink); border-color: var(--ink); color: #fff; }
+  .btn-primary:hover { background: #33312d; border-color: #33312d; }
+  .btn-danger { color: var(--danger); border-color: #ebc7c4; }
+  .btn-danger:hover { background: var(--danger-soft); border-color: #e2aaa6; }
+  .btn-danger-solid { background: var(--danger); border-color: var(--danger); color: #fff; }
+  .btn-danger-solid:hover { background: #9a1f18; border-color: #9a1f18; }
+  .btn-danger-solid:disabled { opacity: .4; cursor: not-allowed; }
+
+  /* Plan */
+  .plan { display: flex; align-items: center; gap: 16px; padding: 18px; }
+  .plan-icon {
+    width: 40px; height: 40px; border-radius: 10px; flex: none;
+    background: var(--accent-soft); color: var(--accent); display: grid; place-items: center;
+  }
+  .plan-icon svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+  .plan-name { font-weight: 600; display: flex; align-items: center; gap: 8px; }
+  .plan-tag { font-size: 11px; font-weight: 600; padding: 1px 7px; border-radius: 5px; background: var(--ink); color: #fff; letter-spacing: .04em; }
+  .plan-actions { display: flex; gap: 8px; }
+
+  /* Switch */
+  .switch {
+    position: relative; width: 44px; height: 26px; flex: none; border-radius: 999px;
+    background: #cfcbc2; border: 0; cursor: pointer; padding: 0; transition: background .2s;
+  }
+  .switch::after {
+    content: ""; position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 50%;
+    background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.25); transition: transform .2s;
+  }
+  .switch[aria-checked="true"] { background: var(--accent); }
+  .switch[aria-checked="true"]::after { transform: translateX(18px); }
+
+  .sync-status { display: inline-flex; align-items: center; gap: 6px; color: var(--ink-3); font-size: 13px; margin-top: 2px; }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: #3f9d6c; }
+  .dot.off { background: #b9b4aa; }
+  .notice {
+    display: none; gap: 10px; align-items: flex-start;
+    margin: 0 18px 16px; padding: 10px 12px; border-radius: 8px;
+    background: var(--warn-bg); color: var(--warn-ink); font-size: 13px;
+  }
+  .notice.show { display: flex; }
+  .notice svg { width: 16px; height: 16px; flex: none; margin-top: 2px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+  .danger-card { border-color: #efd3d0; }
+  .danger-card .row-label { color: var(--danger); }
+
+  /* Dialog */
+  .overlay {
+    position: fixed; inset: 0; background: rgba(28,27,25,.38);
+    display: none; align-items: center; justify-content: center; z-index: 10;
+  }
+  .overlay.show { display: flex; animation: fade .15s ease-out; }
+  .dialog {
+    width: 420px; background: #fff; border-radius: 14px; padding: 24px;
+    box-shadow: 0 20px 60px rgba(0,0,0,.2), 0 0 0 1px rgba(0,0,0,.05);
+    animation: pop .18s ease-out;
+  }
+  .dialog h3 { margin: 0; font-size: 17px; }
+  .dialog p { margin: 8px 0 16px; color: var(--ink-2); }
+  .dialog .input { width: 100%; }
+  .dialog .hint { font-size: 12px; color: var(--ink-3); margin: 6px 0 0; }
+  .dialog-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 20px; }
+  @keyframes fade { from { opacity: 0; } }
+  @keyframes pop { from { opacity: 0; transform: translateY(6px) scale(.98); } }
+
+  .toast {
+    position: fixed; left: 50%; bottom: 28px; transform: translate(-50%, 12px);
+    background: var(--ink); color: #fff; padding: 9px 16px; border-radius: 10px; font-size: 13px;
+    opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s; z-index: 20;
+  }
+  .toast.show { opacity: 1; transform: translate(-50%, 0); }
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <a class="back" href="#">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      返回笔记
+    </a>
+    <h1>设置</h1>
+    <ul class="nav">
+      <li><a href="#" aria-current="page">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-3.6 4.5-5.5 8-5.5s6.5 1.9 8 5.5"/></svg>账户</a></li>
+      <li><a href="#">
+        <svg viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 1112 0v5l1.5 2h-15z"/><path d="M10 20.5a2 2 0 004 0"/></svg>通知</a></li>
+      <li><a href="#">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5v17" /><path d="M12 3.5a8.5 8.5 0 010 17z" fill="currentColor" stroke="none"/></svg>外观</a></li>
+      <li><a href="#">
+        <svg viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5V8a4 4 0 018 0v2.5"/></svg>隐私</a></li>
+    </ul>
+    <div class="sidebar-foot">版本 3.4.1</div>
+  </aside>
+
+  <main class="main">
+    <div class="content">
+      <header class="page-head">
+        <h2>账户</h2>
+        <p>管理你的个人资料、订阅方案和笔记同步方式。</p>
+      </header>
+
+      <section class="section" aria-labelledby="s-profile">
+        <h3 class="section-title" id="s-profile">个人资料</h3>
+        <div class="card">
+          <div class="profile">
+            <div class="avatar" aria-hidden="true">林</div>
+            <div class="row-main">
+              <div class="profile-name" id="displayName">林知夏</div>
+              <div class="profile-meta">2023 年 6 月加入 · 共 1,284 条笔记</div>
+            </div>
+            <button class="btn" type="button">更换头像</button>
+          </div>
+          <div class="row">
+            <label class="field-label" for="name">名字</label>
+            <input class="input" id="name" value="林知夏" maxlength="32">
+          </div>
+          <div class="row">
+            <span class="field-label">邮箱</span>
+            <div class="email">
+              <span class="row-value">zhixia.lin@example.com</span>
+              <span class="badge"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>已验证</span>
+            </div>
+            <button class="btn" type="button">更改邮箱</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="s-plan">
+        <h3 class="section-title" id="s-plan">订阅方案</h3>
+        <div class="card">
+          <div class="plan">
+            <div class="plan-icon"><svg viewBox="0 0 24 24"><path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.4 6.7 19.4l1.2-6L3.4 9.3l6-.7z"/></svg></div>
+            <div class="row-main">
+              <div class="plan-name">专业版 · 年付 <span class="plan-tag">PRO</span></div>
+              <div class="row-desc">¥98 / 年 · 将于 2027 年 3 月 14 日自动续费 · 已用 2.3 GB / 50 GB 存储</div>
+            </div>
+            <div class="plan-actions">
+              <button class="btn" type="button">管理订阅</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="s-sync">
+        <h3 class="section-title" id="s-sync">同步</h3>
+        <div class="card">
+          <div class="row">
+            <div class="row-main">
+              <div class="row-label" id="sync-label">iCloud 同步</div>
+              <div class="row-desc" id="sync-desc">在你的所有设备间同步笔记。关闭后，新笔记只会保存在这台设备上。</div>
+              <div class="sync-status" id="syncStatus"><span class="dot"></span><span>已同步 · 2 分钟前</span></div>
+            </div>
+            <button class="switch" id="syncSwitch" role="switch" aria-checked="true" aria-labelledby="sync-label" aria-describedby="sync-desc"></button>
+          </div>
+          <div class="notice" id="syncNotice" role="status">
+            <svg viewBox="0 0 24 24"><path d="M12 3.5l9.5 16.5h-19z"/><path d="M12 10v4.5"/><path d="M12 17.3v.2"/></svg>
+            <span>iCloud 同步已关闭。之后新建的笔记只存在这台设备上，其他设备看不到；已同步的笔记不受影响。</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="s-session">
+        <h3 class="section-title" id="s-session">登录与账户</h3>
+        <div class="card">
+          <div class="row">
+            <div class="row-main">
+              <div class="row-label">退出登录</div>
+              <div class="row-desc">在这台设备上退出。本地笔记会保留，重新登录后继续同步。</div>
+            </div>
+            <button class="btn" type="button" id="signOut">退出登录</button>
+          </div>
+        </div>
+        <div class="card danger-card" style="margin-top:12px">
+          <div class="row">
+            <div class="row-main">
+              <div class="row-label">删除账户</div>
+              <div class="row-desc">永久删除账户及云端的全部笔记、附件和订阅记录，此操作无法撤销。</div>
+            </div>
+            <button class="btn btn-danger" type="button" id="deleteBtn">删除账户…</button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>
+
+<div class="overlay" id="overlay" aria-hidden="true">
+  <div class="dialog" role="alertdialog" aria-modal="true" aria-labelledby="dlg-title" aria-describedby="dlg-desc">
+    <h3 id="dlg-title">删除账户？</h3>
+    <p id="dlg-desc">你的 1,284 条笔记和所有附件将从云端永久删除，剩余订阅时长不会退款。删除后无法恢复。</p>
+    <label for="confirmInput" style="font-size:13px;color:var(--ink-2)">请输入你的邮箱以确认</label>
+    <input class="input" id="confirmInput" placeholder="zhixia.lin@example.com" autocomplete="off" style="margin-top:6px">
+    <p class="hint">建议先在「隐私」中导出笔记备份。</p>
+    <div class="dialog-actions">
+      <button class="btn" type="button" id="cancelBtn">取消</button>
+      <button class="btn btn-danger-solid" type="button" id="confirmBtn" disabled>永久删除</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+  const $ = (id) => document.getElementById(id);
+  const toast = (msg) => {
+    const t = $('toast'); t.textContent = msg; t.classList.add('show');
+    clearTimeout(toast.timer); toast.timer = setTimeout(() => t.classList.remove('show'), 2200);
+  };
+
+  // Name sync to profile header
+  $('name').addEventListener('input', (e) => {
+    const v = e.target.value.trim() || '未命名';
+    $('displayName').textContent = v;
+    document.querySelector('.avatar').textContent = v.charAt(0);
+  });
+  $('name').addEventListener('change', () => toast('名字已保存'));
+
+  // iCloud switch
+  $('syncSwitch').addEventListener('click', (e) => {
+    const on = e.currentTarget.getAttribute('aria-checked') !== 'true';
+    e.currentTarget.setAttribute('aria-checked', String(on));
+    $('syncNotice').classList.toggle('show', !on);
+    $('syncStatus').innerHTML = on
+      ? '<span class="dot"></span><span>已同步 · 刚刚</span>'
+      : '<span class="dot off"></span><span>仅保存在本机</span>';
+    toast(on ? 'iCloud 同步已开启' : 'iCloud 同步已关闭');
+  });
+
+  $('signOut').addEventListener('click', () => toast('已退出登录（演示）'));
+
+  // Delete dialog
+  const overlay = $('overlay');
+  const open = () => { overlay.classList.add('show'); overlay.setAttribute('aria-hidden', 'false'); $('confirmInput').value = ''; $('confirmBtn').disabled = true; setTimeout(() => $('confirmInput').focus(), 50); };
+  const close = () => { overlay.classList.remove('show'); overlay.setAttribute('aria-hidden', 'true'); $('deleteBtn').focus(); };
+  $('deleteBtn').addEventListener('click', open);
+  $('cancelBtn').addEventListener('click', close);
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && overlay.classList.contains('show')) close(); });
+  $('confirmInput').addEventListener('input', (e) => {
+    $('confirmBtn').disabled = e.target.value.trim() !== 'zhixia.lin@example.com';
+  });
+  $('confirmBtn').addEventListener('click', () => { close(); toast('删除请求已提交（演示）'); });
+</script>
+</body>
+</html>

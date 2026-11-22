@@ -10,7 +10,7 @@
 | 常用入口 | 搜索（⌘K）、首页、收件箱（提到你的、分配给你的） | 是 |
 | 收藏 | 用户自己钉住的几页，平铺，不展开子页面 | 有收藏时 |
 | 页面树 | 「团队空间」和「私人」两组；每页一行，有子页面的行首一个展开箭头，子页面缩进一级 | 是 |
-| 行尾操作 | 悬停或选中时出现：更多（重命名、移动、复制链接、删除）、在这一页里新建子页面 | 是 |
+| 行尾操作 | 悬停或选中时出现：更多（重命名、移动、复制链接、删除）、在这一页里新建子页面；样子见 Mac 一节的示例 | 是 |
 | 侧栏底部 | 模板、回收站、设置 | 是 |
 | 工作区首页 | 最近编辑的页面、提到你的评论；不放欢迎语和使用技巧 | 是 |
 
@@ -34,17 +34,17 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 .dn-tree-row { display: flex; align-items: center; gap: 2px; min-height: var(--row-height); padding: 0 var(--space-1); border-radius: var(--row-radius); }
 @media (hover: hover) { .dn-tree-row:hover { background: var(--fill-hover); } }
 .dn-tree-row[aria-current="page"] { background: var(--fill-selected); }
-.dn-tree-toggle { display: grid; place-items: center; flex: none; width: 20px; height: 20px; padding: 0; border: 0; border-radius: var(--radius-xs); background: none; color: var(--ink-tertiary); cursor: pointer; }
+.dn-tree-toggle { display: grid; place-items: center; flex: none; width: calc(var(--row-height) - var(--space-4)); height: calc(var(--row-height) - var(--space-4)); padding: 0; border: 0; border-radius: var(--radius-xs); background: none; color: var(--ink-tertiary); cursor: pointer; }
 .dn-tree-toggle > .dn-icon { width: var(--icon-size-sm); height: var(--icon-size-sm); transition: rotate var(--duration-base) var(--ease-standard); }
 .dn-tree-toggle[aria-expanded="false"] > .dn-icon { rotate: -90deg; }
 .dn-tree-row > a { display: flex; align-items: center; gap: var(--space-2); flex: 1; min-width: 0; color: var(--ink); font: var(--type-callout); text-decoration: none; }
 .dn-tree-row > a > .dn-icon { flex: none; width: var(--icon-size-md); height: var(--icon-size-md); color: var(--ink-secondary); }
 .dn-tree-row > a > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .dn-tree-actions { display: none; flex: none; }
-.dn-tree-actions > .dn-icon-button { width: 22px; height: 22px; }
+.dn-tree-actions > .dn-icon-button { width: calc(var(--row-height) - var(--space-4)); height: calc(var(--row-height) - var(--space-4)); }
 .dn-tree-row:is(:hover, :focus-within, [aria-current="page"]) > .dn-tree-actions { display: flex; }
 .dn-ws-home { display: grid; align-content: start; gap: var(--space-8); width: 100%; max-width: var(--content-max); margin-inline: auto; padding-top: var(--space-6); }
-.dn-ws-home h2 { margin: 0 0 var(--space-2); color: var(--ink-tertiary); font: var(--weight-medium) var(--type-footnote-size)/var(--type-footnote-line) var(--font-sans); }
+.dn-ws-home h2 { margin: 0 0 var(--space-2); color: var(--ink-tertiary); font: var(--weight-regular) var(--type-footnote-size)/var(--type-footnote-line) var(--font-sans); }
 .dn-ws-path { color: var(--ink-tertiary); }
 .dn-ws-home .dn-rows-item > .dn-icon { flex: none; width: var(--icon-size-md); height: var(--icon-size-md); margin-top: calc((var(--type-body-line) - var(--icon-size-md)) / 2); color: var(--ink-secondary); }
 ```

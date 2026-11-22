@@ -177,7 +177,7 @@ async function replaceInstallation({ base, dest }, installed, manifest, force) {
 
     const keepBackup = backup && (!installed.clean || force);
     if (backup && !keepBackup) await rm(backup, { recursive: true });
-    console.log(`Installed Deernova v${manifest.version}: ${dest}`);
+    console.log(`Installed ${manifest.package ?? "Deernova"} v${manifest.version}: ${dest}`);
     if (keepBackup) console.log(`Backup: ${backup}`);
   } finally {
     await rm(temp, { recursive: true, force: true });

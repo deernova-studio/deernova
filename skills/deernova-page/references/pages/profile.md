@@ -24,9 +24,9 @@
 HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机浏览器见本节最后。头像和帖子的写法同[图文信息流](feed.md)。
 
 ```css
-.dn-profile { max-width: 600px; margin-inline: auto; }
+.dn-profile { max-width: var(--content-max); margin-inline: auto; }
 .dn-profile-head { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: var(--space-4); align-items: start; padding: var(--space-4) 0; }
-.dn-profile-avatar { display: grid; place-items: center; width: 72px; height: 72px; border-radius: var(--radius-full); background: var(--fill-selected); color: var(--ink); font: var(--weight-semibold) var(--type-title-size)/1 var(--font-sans); }
+.dn-profile-avatar { display: grid; place-items: center; width: calc(var(--button-height-md) * 2); height: calc(var(--button-height-md) * 2); border-radius: var(--radius-full); background: var(--fill-selected); color: var(--ink); font: var(--weight-semibold) var(--type-title-size)/1 var(--font-sans); }
 .dn-profile-name { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); margin: 0; font: var(--type-title); }
 .dn-profile-handle { margin: 0; color: var(--ink-tertiary); font: var(--type-callout); }
 .dn-profile-actions { display: flex; gap: var(--gap-stack); }
@@ -79,10 +79,11 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
           <p class="dn-profile-mutual">林一、周舟也关注了她</p>
         </div>
         <div class="dn-panel-tabs" role="tablist" aria-label="内容">
-          <button type="button" role="tab" aria-selected="true">帖子</button>
+          <button type="button" role="tab" aria-selected="true" id="ex-profile-posts-tab" aria-controls="ex-profile-posts-tab-panel">帖子</button>
           <button type="button" role="tab" aria-selected="false">回复</button>
           <button type="button" role="tab" aria-selected="false">视频</button>
         </div>
+        <div role="tabpanel" id="ex-profile-posts-tab-panel" aria-labelledby="ex-profile-posts-tab">
         <article class="dn-entry">
           <span class="dn-entry-avatar" aria-hidden="true">沈</span>
           <div>
@@ -98,6 +99,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
             </div>
           </div>
         </article>
+        </div>
       </div>
     </div>
   </div>
@@ -124,10 +126,10 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
         <div class="dn-panel-tabs" role="tablist" aria-label="内容">
           <button type="button" role="tab" aria-selected="false">帖子</button>
           <button type="button" role="tab" aria-selected="false">回复</button>
-          <button type="button" role="tab" aria-selected="true">视频</button>
+          <button type="button" role="tab" aria-selected="true" id="ex-profile-video-tab" aria-controls="ex-profile-video-tab-panel">视频</button>
           <button type="button" role="tab" aria-selected="false">喜欢</button>
         </div>
-        <div class="dn-video-grid">
+        <div role="tabpanel" id="ex-profile-video-tab-panel" aria-labelledby="ex-profile-video-tab" class="dn-video-grid">
           <a class="dn-video-tile" href="#"><img src="assets/examples/halftone-dark.png" alt="雪原上的麋鹿" style="object-position: 30% 20%"><span><svg class="dn-icon" aria-hidden="true"><use href="#dn-play"/></svg>8.6 万</span></a>
           <a class="dn-video-tile" href="#"><img src="assets/examples/halftone-light.png" alt="茶田里的小路" style="object-position: 60% 40%"><span><svg class="dn-icon" aria-hidden="true"><use href="#dn-play"/></svg>1.2 万</span></a>
           <a class="dn-video-tile" href="#"><img src="assets/examples/halftone-dark.png" alt="清晨的树林" style="object-position: 90% 70%"><span><svg class="dn-icon" aria-hidden="true"><use href="#dn-play"/></svg>3,402</span></a>
@@ -140,7 +142,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 
 ### 窄屏和手机浏览器
 
-- 头像缩到 56，主操作移到简介下面一行，「关注」占满宽度，「私信」和「更多」在它右边。
+- 头像仍是 `is-xl` 那一档（触屏上自动变大），主操作移到简介下面一行，「关注」占满宽度，「私信」和「更多」在它右边。
 - 分栏在向下滚动时贴住顶部；视频网格仍然三列。
 
 ## Mac 应用

@@ -81,7 +81,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
               <tbody>
                 <tr><td>2026年11月3日</td><td class="is-primary">增加 2 个席位</td><td class="is-number">¥120</td><td>已支付</td><td class="is-actions"><span class="dn-table-cell"><button class="dn-button is-plain is-sm" type="button"><svg class="dn-icon" aria-hidden="true"><use href="#dn-download"/></svg>发票</button></span></td></tr>
                 <tr><td>2026年1月4日</td><td class="is-primary">团队版，2026 年</td><td class="is-number">¥2,880</td><td>已支付</td><td class="is-actions"><span class="dn-table-cell"><button class="dn-button is-plain is-sm" type="button"><svg class="dn-icon" aria-hidden="true"><use href="#dn-download"/></svg>发票</button></span></td></tr>
-                <tr><td>2026年1月1日</td><td class="is-primary">团队版，2026 年</td><td class="is-number">¥2,880</td><td><span class="dn-tag is-danger">失败：余额不足</span></td><td class="is-actions"></td></tr>
+                <tr><td>2026年1月1日</td><td class="is-primary">团队版，2026 年</td><td class="is-number">¥2,880</td><td><span class="dn-tag is-danger"><span class="dn-dot"></span>失败：余额不足</span></td><td class="is-actions"></td></tr>
                 <tr><td>2025年1月1日</td><td class="is-primary">团队版，2025 年</td><td class="is-number">¥2,880</td><td>已支付</td><td class="is-actions"><span class="dn-table-cell"><button class="dn-button is-plain is-sm" type="button"><svg class="dn-icon" aria-hidden="true"><use href="#dn-download"/></svg>发票</button></span></td></tr>
               </tbody>
             </table>

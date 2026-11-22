@@ -118,7 +118,7 @@ dn-loader.dn-agent-state { --loader-size: var(--icon-size-md); color: var(--bran
             <pre class="dn-approval-code">npm install --save-dev stylelint</pre>
             <div class="dn-approval-actions">
               <button class="dn-button is-plain" type="button">拒绝</button>
-              <button class="dn-button" type="button">总是允许</button>
+              <button class="dn-button" type="button">总是允许 <span class="dn-approval-scope">本项目</span></button>
               <button class="dn-button is-primary" type="button">允许一次</button>
             </div>
           </div>
@@ -132,12 +132,12 @@ dn-loader.dn-agent-state { --loader-size: var(--icon-size-md); color: var(--bran
       </div>
       <section class="dn-agent-work" aria-label="工作区">
         <div class="dn-panel-tabs" role="tablist">
-          <button type="button" role="tab" aria-selected="true">改动 2</button>
+          <button type="button" role="tab" aria-selected="true" id="ex-task-changes-tab" aria-controls="ex-task-changes-tab-panel">改动 2</button>
           <button type="button" role="tab" aria-selected="false">预览</button>
           <button type="button" role="tab" aria-selected="false">终端</button>
           <div class="dn-panel-actions"><button class="dn-button is-plain is-sm" type="button"><svg class="dn-icon" aria-hidden="true"><use href="#dn-undo"/></svg>全部撤销</button></div>
         </div>
-        <div class="dn-agent-work-body">
+        <div role="tabpanel" id="ex-task-changes-tab-panel" aria-labelledby="ex-task-changes-tab" class="dn-agent-work-body">
           <ul class="dn-changes">
             <li class="dn-change" aria-current="true"><svg class="dn-icon" aria-hidden="true"><use href="#dn-file"/></svg><span class="dn-change-path">src/settings/settings.css</span><span class="dn-approval-total"><span class="dn-diff-add">+18</span><span class="dn-diff-del">−12</span></span></li>
             <li class="dn-change"><svg class="dn-icon" aria-hidden="true"><use href="#dn-file"/></svg><span class="dn-change-path">src/styles/tokens.css</span><span class="dn-approval-total"><span class="dn-diff-add">+4</span></span></li>
@@ -305,7 +305,7 @@ NavigationStack {
       <div class="dn-approval" role="group" aria-labelledby="ex-ios-ap">
         <div class="dn-approval-head"><svg class="dn-icon" aria-hidden="true"><use href="#dn-terminal"/></svg><h3 class="dn-approval-title" id="ex-ios-ap">运行命令</h3><span class="dn-approval-status">等待你确认</span></div>
         <pre class="dn-approval-code">npm install --save-dev stylelint</pre>
-        <div class="dn-approval-actions ex-stack-actions"><button class="dn-button is-plain" type="button">拒绝</button><button class="dn-button" type="button">总是允许</button><button class="dn-button is-primary" type="button">允许一次</button></div>
+        <div class="dn-approval-actions ex-stack-actions"><button class="dn-button is-plain" type="button">拒绝</button><button class="dn-button" type="button">总是允许 <span class="dn-approval-scope">本项目</span></button><button class="dn-button is-primary" type="button">允许一次</button></div>
       </div>
     </div>
   </div>
