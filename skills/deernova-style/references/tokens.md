@@ -30,6 +30,7 @@
 | `gray-100` | `#ffffff` |
 | `gray-98` | `#fafafa` |
 | `gray-96` | `#f5f5f5` |
+| `gray-95` | `#f2f2f2` |
 | `gray-93` | `#ededed` |
 | `gray-92` | `#ebebeb` |
 | `gray-91` | `#e8e8e8` |
@@ -77,7 +78,7 @@
 
 | Token | 浅色 | 深色 | 用途 |
 | --- | --- | --- | --- |
-| `canvas` | `gray-96` `#f5f5f5` | `gray-9` `#171717` | 窗口底色、Web 应用的内容区、分组列表的底色。最底层的纸面。 |
+| `canvas` | `gray-95` `#f2f2f2` | `gray-9` `#171717` | 窗口底色、Web 应用的内容区、分组列表的底色。最底层的纸面。 |
 | `surface` | `gray-98` `#fafafa` | `gray-11` `#1c1c1c` | 卡片、侧边栏（比内容区亮一层）。 |
 | `surface-raised` | `gray-100` `#ffffff` | `gray-15` `#252525` | 输入框、Composer、用户消息气泡、分组列表、弹出层。最亮的纸面。 |
 | `surface-sunken` | `gray-92` `#ebebeb` | `gray-7` `#111111` | 代码块、展开的步骤详情。凹下去的纸面。 |
@@ -94,7 +95,7 @@
 | `brand-soft` | `vermilion-91` `#fae6df` | `vermilion-17` `#3a221b` | 朱砂的浅底，少用：AI 正在写的那一段的标记底。上面的文字用 brand 或 ink。 |
 | `link` | `indigo-40` `#2d5aa0` | `indigo-74` `#8db0ea` | 靛青，像校对的蓝笔：可以点过去的东西。链接文字、引用（产物、文件、@ 提及）、键盘焦点环。不用于按钮填充和选中行。 |
 | `link-soft` | `indigo-93` `#e2e9f5` | `indigo-17` `#1d2739` | 引用小块的浅底：正文里的产物、文件、@ 提及。上面的文字用 link。 |
-| `success` | `teal-27` `#1f6b66` | `teal-59` `#6cc3b4` | 成功、已完成、已同步、开关打开。作为文字用在纸面和 success-soft 上。 |
+| `success` | `teal-27` `#1f6b66` | `teal-59` `#6cc3b4` | 成功、已完成、已同步。作为文字用在纸面和 success-soft 上。网页的开关不用它（见 switch），原生开关沿用系统圆钮时用它做轨道色。 |
 | `success-soft` | `teal-90` `#ddeeec` | `teal-15` `#183230` | 成功状态的浅底（标签、横幅）。 |
 | `warning` | `amber-29` `#8a5a0b` | `amber-61` `#e2b054` | 需要注意但不阻断：额度将用完、网络较慢。 |
 | `warning-soft` | `amber-89` `#f5ead3` | `amber-16` `#3a2e17` | 警告状态的浅底。 |
@@ -104,14 +105,14 @@
 | `info-soft` | `blue-92` `#e1ebf3` | `blue-17` `#1d2c3a` | 提示状态的浅底。 |
 | `fill-hover` | `#0000000a` | `#ffffff0f` | 悬停底色，叠在任何纸面上（列表行、文字按钮、侧边栏项）。 |
 | `fill-selected` | `#00000017` | `#ffffff26` | 选中底色：侧边栏当前项、分段控件底槽、次按钮、中性标签底。比悬停明显，一眼能看出当前在哪。 |
-| `knob` | `gray-100` `#ffffff` | `gray-100` `#ffffff` | 开关的圆钮，两套主题都是白色，与系统一致。 |
+| `knob` | `gray-100` `#ffffff` | `gray-100` `#ffffff` | 开关关闭时的圆钮，两套主题都是白色。打开时网页的圆钮换成 on-accent，和墨色轨道配对。 |
 | `scrim` | `#00000052` | `#00000080` | 弹窗背后压暗内容的遮罩。 |
 | `glass-fill` | `#ffffffa6` | `#2a2a2aa6` | 仅官网与文档的页眉：用 backdrop-filter 近似玻璃。Web 应用不用玻璃；App 里用系统玻璃。 |
 | `glass-stroke` | `#ffffffcc` | `#ffffff24` | 仅官网与文档的页眉：玻璃边缘的高光描边。 |
 
 ## 字体
 
-字号按角色组织，每个角色在三种密度下各有一组字号和行高。界面文字和 AI 回答都用无衬线；衬线只给 display、title 和文章类长文 prose。iOS 用文本样式，让动态字体生效。
+字号按角色组织，每个角色在三种密度下各有一组字号和行高。界面文字和 AI 回答都用无衬线；衬线只给 display、title 和文章类长文 prose；display 和 title 用 display 字族，中文落到思源宋体，所以应用里的页面标题也是衬线，这是 Deernova 在应用里最主要的个性。iOS 用文本样式，让动态字体生效。
 
 | 字族 | CSS 变量 | 字体栈 |
 | --- | --- | --- |
@@ -136,8 +137,8 @@
 
 | 角色 | 字族 | 字重 | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | SwiftUI（macOS / iOS） | 用途 |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `display` | serif | 600 | 26 / 32 | 30 / 36 | 44 / 52 | `.system(size: 26, weight: .semibold, design: .serif)` / `.system(.largeTitle, design: .serif).weight(.semibold)` | 空状态、引导页、页面的大标题（衬线）。每屏最多一个。 |
-| `title` | serif | 600 | 18 / 24 | 20 / 25 | 24 / 32 | `.system(size: 18, weight: .semibold, design: .serif)` / `.system(.title3, design: .serif).weight(.semibold)` | 文章标题、弹窗标题（衬线）。 |
+| `display` | display | 600 | 26 / 32 | 30 / 36 | 44 / 52 | `.system(size: 26, weight: .semibold, design: .serif)` / `.system(.largeTitle, design: .serif).weight(.semibold)` | 空状态、引导页、页面的大标题（衬线）。每屏最多一个。 |
+| `title` | display | 600 | 18 / 24 | 20 / 25 | 24 / 32 | `.system(size: 18, weight: .semibold, design: .serif)` / `.system(.title3, design: .serif).weight(.semibold)` | 文章标题、弹窗标题（衬线）。 |
 | `headline` | sans | 600 | 15 / 22 | 17 / 22 | 16 / 24 | `.system(size: 15, weight: .semibold)` / `.headline` | 区块标题、卡片标题、横幅标题、列表行标题。 |
 | `body` | sans | 400 | 15 / 24 | 17 / 23 | 15 / 24 | `.system(size: 15)` / `.body` | 界面正文、AI 回答、用户消息、列表、表单。 |
 | `prose` | serif | 400 | 16 / 26 | 17 / 26 | 17 / 28 | `.system(size: 16, design: .serif)` / `.system(.body, design: .serif)` | 文章、文档这类长文阅读（衬线）。AI 回答不用它。 |

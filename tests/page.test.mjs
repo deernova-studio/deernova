@@ -82,8 +82,10 @@ test('page example CSS only uses variables that deernova-style defines', async (
 test('the display serif subset covers every Chinese character the website examples use', async () => {
   const covered = new Set(await readFile('apps/website/assets/fonts/noto-serif-sc-600.txt', 'utf8'));
   await stat('apps/website/assets/fonts/noto-serif-sc-600.woff2');
+  const styleDocs = (await readdir('skills/deernova-style/references', { recursive: true }))
+    .filter(name => name.endsWith('.md')).map(name => join('skills/deernova-style/references', name));
   const sources = [...((await exists(PAGES_DIR)) ? (await readdir(PAGES_DIR)).filter(name => name.endsWith('.md')).map(name => join(PAGES_DIR, name)) : []),
-    'skills/deernova-style/references/examples.md'];
+    ...styleDocs];
   const cjk = /[　-〿㐀-䶿一-鿿＀-￯]/gu;
   for (const file of sources) {
     const text = await readFile(file, 'utf8');

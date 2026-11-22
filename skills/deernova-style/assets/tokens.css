@@ -9,7 +9,7 @@
 :root,
 [data-theme="light"] {
   color-scheme: light;
-  --canvas: #f5f5f5;
+  --canvas: #f2f2f2;
   --surface: #fafafa;
   --surface-raised: #ffffff;
   --surface-sunken: #ebebeb;
@@ -47,8 +47,8 @@
   --weight-medium: 500;
   --weight-semibold: 600;
   --weight-shift: 0;
-  --type-display: var(--weight-semibold) var(--type-display-size)/var(--type-display-line) var(--font-serif);
-  --type-title: var(--weight-semibold) var(--type-title-size)/var(--type-title-line) var(--font-serif);
+  --type-display: var(--weight-semibold) var(--type-display-size)/var(--type-display-line) var(--font-display);
+  --type-title: var(--weight-semibold) var(--type-title-size)/var(--type-title-line) var(--font-display);
   --type-headline: var(--weight-semibold) var(--type-headline-size)/var(--type-headline-line) var(--font-sans);
   --type-body: var(--weight-regular) var(--type-body-size)/var(--type-body-line) var(--font-sans);
   --type-prose: var(--weight-regular) var(--type-prose-size)/var(--type-prose-line) var(--font-serif);
@@ -99,8 +99,8 @@
     --weight-medium: 460;
     --weight-semibold: 560;
     --weight-shift: -40;
-    --type-display: var(--weight-semibold) var(--type-display-size)/var(--type-display-line) var(--font-serif);
-    --type-title: var(--weight-semibold) var(--type-title-size)/var(--type-title-line) var(--font-serif);
+    --type-display: var(--weight-semibold) var(--type-display-size)/var(--type-display-line) var(--font-display);
+    --type-title: var(--weight-semibold) var(--type-title-size)/var(--type-title-line) var(--font-display);
     --type-headline: var(--weight-semibold) var(--type-headline-size)/var(--type-headline-line) var(--font-sans);
     --type-body: var(--weight-regular) var(--type-body-size)/var(--type-body-line) var(--font-sans);
     --type-prose: var(--weight-regular) var(--type-prose-size)/var(--type-prose-line) var(--font-serif);
@@ -151,8 +151,8 @@
   --weight-medium: 460;
   --weight-semibold: 560;
   --weight-shift: -40;
-  --type-display: var(--weight-semibold) var(--type-display-size)/var(--type-display-line) var(--font-serif);
-  --type-title: var(--weight-semibold) var(--type-title-size)/var(--type-title-line) var(--font-serif);
+  --type-display: var(--weight-semibold) var(--type-display-size)/var(--type-display-line) var(--font-display);
+  --type-title: var(--weight-semibold) var(--type-title-size)/var(--type-title-line) var(--font-display);
   --type-headline: var(--weight-semibold) var(--type-headline-size)/var(--type-headline-line) var(--font-sans);
   --type-body: var(--weight-regular) var(--type-body-size)/var(--type-body-line) var(--font-sans);
   --type-prose: var(--weight-regular) var(--type-prose-size)/var(--type-prose-line) var(--font-serif);
@@ -247,10 +247,10 @@
 [data-density="desktop"] {
   --type-display-size: 26px;
   --type-display-line: 32px;
-  --type-display: var(--weight-semibold) var(--type-display-size)/var(--type-display-line) var(--font-serif);
+  --type-display: var(--weight-semibold) var(--type-display-size)/var(--type-display-line) var(--font-display);
   --type-title-size: 18px;
   --type-title-line: 24px;
-  --type-title: var(--weight-semibold) var(--type-title-size)/var(--type-title-line) var(--font-serif);
+  --type-title: var(--weight-semibold) var(--type-title-size)/var(--type-title-line) var(--font-display);
   --type-headline-size: 15px;
   --type-headline-line: 22px;
   --type-headline: var(--weight-semibold) var(--type-headline-size)/var(--type-headline-line) var(--font-sans);
@@ -378,10 +378,10 @@
   :root:not([data-density]) {
     --type-display-size: 30px;
     --type-display-line: 36px;
-    --type-display: var(--weight-semibold) var(--type-display-size)/var(--type-display-line) var(--font-serif);
+    --type-display: var(--weight-semibold) var(--type-display-size)/var(--type-display-line) var(--font-display);
     --type-title-size: 20px;
     --type-title-line: 25px;
-    --type-title: var(--weight-semibold) var(--type-title-size)/var(--type-title-line) var(--font-serif);
+    --type-title: var(--weight-semibold) var(--type-title-size)/var(--type-title-line) var(--font-display);
     --type-headline-size: 17px;
     --type-headline-line: 22px;
     --type-headline: var(--weight-semibold) var(--type-headline-size)/var(--type-headline-line) var(--font-sans);
@@ -509,10 +509,10 @@
 [data-density="touch"] {
   --type-display-size: 30px;
   --type-display-line: 36px;
-  --type-display: var(--weight-semibold) var(--type-display-size)/var(--type-display-line) var(--font-serif);
+  --type-display: var(--weight-semibold) var(--type-display-size)/var(--type-display-line) var(--font-display);
   --type-title-size: 20px;
   --type-title-line: 25px;
-  --type-title: var(--weight-semibold) var(--type-title-size)/var(--type-title-line) var(--font-serif);
+  --type-title: var(--weight-semibold) var(--type-title-size)/var(--type-title-line) var(--font-display);
   --type-headline-size: 17px;
   --type-headline-line: 22px;
   --type-headline: var(--weight-semibold) var(--type-headline-size)/var(--type-headline-line) var(--font-sans);
@@ -639,10 +639,10 @@
 [data-density="comfortable"] {
   --type-display-size: 44px;
   --type-display-line: 52px;
-  --type-display: var(--weight-semibold) var(--type-display-size)/var(--type-display-line) var(--font-serif);
+  --type-display: var(--weight-semibold) var(--type-display-size)/var(--type-display-line) var(--font-display);
   --type-title-size: 24px;
   --type-title-line: 32px;
-  --type-title: var(--weight-semibold) var(--type-title-size)/var(--type-title-line) var(--font-serif);
+  --type-title: var(--weight-semibold) var(--type-title-size)/var(--type-title-line) var(--font-display);
   --type-headline-size: 16px;
   --type-headline-line: 24px;
   --type-headline: var(--weight-semibold) var(--type-headline-size)/var(--type-headline-line) var(--font-sans);

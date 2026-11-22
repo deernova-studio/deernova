@@ -23,7 +23,7 @@
 - 会话名：`callout` 字号、`ink`，不带图标，末尾截断，悬停时显示完整名称。
 - 悬停 `fill-hover`；选中 `fill-selected`，字重不变。选中块不用黑色填满，保持安静。
 - 底部：头像、账号名（`callout`）、设置齿轮，上方一条 1px `line`。
-- **头像和标记**全站共用这里的两个：人用圆形的 `dn-avatar`（名字的一个字，`fill-selected` 底），智能体、工作区、连接这类东西用方形带框的 `dn-mark`（一个字或一个线性图标）。尺寸只有三档：默认 `button-height-sm`；配两行文字时用 `is-lg`（`button-height-md`）；挤在一行文字里时用 `is-sm`。页面里不要另改尺寸。几个人叠在一起（谁在看、谁点了喜欢）用 `dn-avatar-stack`，最多三个，多了最后一个写「+2」。
+- **头像和标记**全站共用这里的两个：人用圆形的 `dn-avatar`（名字的一个字，`fill-selected` 底），智能体、工作区、连接这类东西用方形带框的 `dn-mark`（一个衬线字或一个线性图标；字用 display 字族，和人的头像一眼分开）。尺寸只有三档：默认 `button-height-sm`；配两行文字时用 `is-lg`（`button-height-md`）；挤在一行文字里时用 `is-sm`。页面里不要另改尺寸。几个人叠在一起（谁在看、谁点了喜欢）用 `dn-avatar-stack`，最多三个，多了最后一个写「+2」。
 - 计数和快捷键放在右侧，`caption` 字号、`ink-tertiary`，用等宽数字。
 
 ## Web
@@ -95,7 +95,7 @@
 .dn-avatar { display: grid; place-items: center; flex: none; width: var(--button-height-sm); height: var(--button-height-sm); border-radius: var(--radius-full); background: var(--fill-selected); color: var(--ink); font: var(--weight-medium) var(--type-caption-size)/1 var(--font-sans); }
 .dn-avatar.is-sm { width: var(--icon-size-lg); height: var(--icon-size-lg); font-size: var(--type-caption-size); }
 .dn-avatar.is-lg { width: var(--button-height-md); height: var(--button-height-md); font-size: var(--type-footnote-size); }
-.dn-mark { display: grid; place-items: center; flex: none; width: var(--button-height-md); height: var(--button-height-md); border: var(--stroke-line) solid var(--line); border-radius: var(--radius-sm); background: var(--surface); color: var(--ink); font: var(--weight-semibold) var(--type-callout-size)/1 var(--font-sans); }
+.dn-mark { display: grid; place-items: center; flex: none; width: var(--button-height-md); height: var(--button-height-md); border: var(--stroke-line) solid var(--line); border-radius: var(--radius-sm); background: var(--surface); color: var(--ink); font: var(--weight-semibold) var(--type-headline-size)/1 var(--font-display); }
 .dn-mark > .dn-icon { width: var(--icon-size-md); height: var(--icon-size-md); }
 .dn-mark.is-sm { width: var(--button-height-sm); height: var(--button-height-sm); font-size: var(--type-footnote-size); }
 .dn-avatar-stack { display: flex; align-items: center; }

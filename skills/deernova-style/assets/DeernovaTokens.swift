@@ -36,7 +36,7 @@ extension Color {
 /// 语义颜色。accent 命名为 brandAccent，避开系统的 accentColor。
 public enum DeernovaColor {
     /// 窗口底色、Web 应用的内容区、分组列表的底色。最底层的纸面。
-    public static let canvas = Color(deernovaLight: 0xF5F5F5, 1, dark: 0x171717, 1)
+    public static let canvas = Color(deernovaLight: 0xF2F2F2, 1, dark: 0x171717, 1)
     /// 卡片、侧边栏（比内容区亮一层）。
     public static let surface = Color(deernovaLight: 0xFAFAFA, 1, dark: 0x1C1C1C, 1)
     /// 输入框、Composer、用户消息气泡、分组列表、弹出层。最亮的纸面。
@@ -67,7 +67,7 @@ public enum DeernovaColor {
     public static let link = Color(deernovaLight: 0x2D5AA0, 1, dark: 0x8DB0EA, 1)
     /// 引用小块的浅底：正文里的产物、文件、@ 提及。上面的文字用 link。
     public static let linkSoft = Color(deernovaLight: 0xE2E9F5, 1, dark: 0x1D2739, 1)
-    /// 成功、已完成、已同步、开关打开。作为文字用在纸面和 success-soft 上。
+    /// 成功、已完成、已同步。作为文字用在纸面和 success-soft 上。网页的开关不用它（见 switch），原生开关沿用系统圆钮时用它做轨道色。
     public static let success = Color(deernovaLight: 0x1F6B66, 1, dark: 0x6CC3B4, 1)
     /// 成功状态的浅底（标签、横幅）。
     public static let successSoft = Color(deernovaLight: 0xDDEEEC, 1, dark: 0x183230, 1)
@@ -87,7 +87,7 @@ public enum DeernovaColor {
     public static let fillHover = Color(deernovaLight: 0x000000, 0.039, dark: 0xFFFFFF, 0.059)
     /// 选中底色：侧边栏当前项、分段控件底槽、次按钮、中性标签底。比悬停明显，一眼能看出当前在哪。
     public static let fillSelected = Color(deernovaLight: 0x000000, 0.09, dark: 0xFFFFFF, 0.149)
-    /// 开关的圆钮，两套主题都是白色，与系统一致。
+    /// 开关关闭时的圆钮，两套主题都是白色。打开时网页的圆钮换成 on-accent，和墨色轨道配对。
     public static let knob = Color(deernovaLight: 0xFFFFFF, 1, dark: 0xFFFFFF, 1)
     /// 弹窗背后压暗内容的遮罩。
     public static let scrim = Color(deernovaLight: 0x000000, 0.322, dark: 0x000000, 0.502)

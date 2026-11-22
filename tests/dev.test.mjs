@@ -81,7 +81,7 @@ test('Vite serves source files and sends updates over its live connection', asyn
         assert.match(html, /\/@vite\/client/);
         assert.doesNotMatch(html, /\{\{\w+\}\}/);
         tokensUrl = html.match(/href="([^"]+\/tokens\.css)"/)[1];
-        assert.match(await get(tokensUrl, cssHeaders), /--canvas:\s*#f5f5f5/);
+        assert.match(await get(tokensUrl, cssHeaders), /--canvas:\s*#f2f2f2/);
         for (const [, target] of html.matchAll(/(?:src|href)="([^"#]+)/g)) {
           if (/^(https?:|mailto:)/.test(target)) continue;
           await get(target, target.endsWith('.css') ? cssHeaders : undefined);

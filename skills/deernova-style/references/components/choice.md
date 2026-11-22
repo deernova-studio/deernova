@@ -30,7 +30,7 @@
 
 - **复选框**：边长 `check-size`，圆角 `radius-xs`，未选中是 `stroke-control` 宽的 `line-control` 描边（保证 3:1）、`surface-raised` 底；选中是 `accent` 底、`on-accent` 对勾；部分选中（父项下有的子项选了）是 `accent` 底、一条横线。
 - **单选**：直径 `check-size` 的圆，未选中和复选框一样；选中是 `accent` 底，中间一个 `surface-raised` 的圆点。
-- **开关**：尺寸和写法见 [分组列表](list.md)；打开是 `success`，关闭是 `fill-selected`。
+- **开关**：尺寸和写法见 [分组列表](list.md)；网页里打开是墨色轨道加 `on-accent` 圆钮，关闭是 `fill-selected`；原生开关沿用系统圆钮，轨道用 `success`。
 - **滑块**：轨道高 `slider-track-height`、`radius-full`，已选部分 `accent`，未选部分 `fill-selected`；圆钮直径 `slider-thumb-size`，`surface-raised` 底加 `shadow-control`。当前值放在滑块右侧，`callout`、等宽数字，带单位。
 
 ## 排列和对齐
@@ -136,4 +136,4 @@
 - 单选组没有默认值，又允许用户不选（需要「不选」时加一个「无」选项）。
 - 只有控件能点，标签不能点；控件和标签不对齐。
 - 滑块不显示当前值；用滑块输入需要精确的数字。
-- 用彩色区分选中状态（开关的 `success` 除外）。
+- 用彩色区分选中状态（原生开关的 `success` 轨道除外）。

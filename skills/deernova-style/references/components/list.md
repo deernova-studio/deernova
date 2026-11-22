@@ -21,7 +21,7 @@
 - 图标放在边长 `row-icon-size` 的方块里，`accent-soft` 底、`ink` 图标、`radius-sm`。整个列表统一用灰色，不要每行一个颜色。
 - 分隔线 `stroke-line`、`line` 色，从文字起点开始。
 - 页头 `footnote` 字号、`ink-secondary`；页脚 `footnote` 字号、`ink-tertiary`，写清楚这个设置会带来什么后果。
-- 开关打开时用 `success`。不要用黑白色调的开关：深色主题下白色轨道会把白色圆钮吞掉。
+- 开关打开时是墨色轨道（`accent`），圆钮换成 `on-accent`：浅色主题黑底白钮，深色主题浅底黑钮，两套主题都看得清。开关是页面里最常出现的控件，用彩色会让它比内容更抢眼。原生应用用系统开关，圆钮固定是白色，轨道沿用 `success`。
 - **设置行**：一行一项，左边是名字和一句说明（[`dn-item-text`](../foundations/layout.md)），右边是控件（开关、下拉、短输入框、按钮），放在 `dn-list-control` 里，最宽 300px。说明只写后果或当前来源，不复述名字。
 - **恢复继承**：值来自团队或上一级默认、又被单独改过时，名字后面一个恢复按钮（`dn-list-reset`），说明写「单独设置，默认是“低”」；跟随默认时说明写「默认」，没有恢复按钮。
 - **单选行**：一组互斥的选项排成一组列表（`div.dn-list` 加 `role="radiogroup"`，每行是一个 `label.dn-list-row`），每行左边是单选圆，和第一行文字对齐；不把单选组散着铺在页面上。
@@ -103,7 +103,8 @@ label.dn-list-row { cursor: pointer; }
   box-shadow: var(--shadow-control);
   transition: transform var(--duration-base) var(--ease-standard);
 }
-.dn-switch:checked { background: var(--success); }
+.dn-switch:checked { background: var(--accent); }
+.dn-switch:checked::after { background: var(--on-accent); }
 .dn-switch:checked::after { transform: translateX(calc(var(--switch-width) - var(--switch-height))); }
 .dn-switch:focus-visible { outline: var(--stroke-focus) solid var(--focus-ring); outline-offset: var(--focus-offset); }
 ```

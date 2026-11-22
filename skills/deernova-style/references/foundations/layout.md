@@ -42,7 +42,7 @@
 3. **不同字号的文字并排：按基线对齐。** 标题旁边的计数、单位、时间（例如 18 号标题旁边 13 号的「128 条」）用 `align-items: baseline`；按中线对齐时小字看起来会往上飘。
 4. **两行条目（标题加一行说明）：前导按大小选，尾部整行居中。** 设置项、列表行、横幅里，不带底的小图标（`icon-size-md`）对齐第一行，和标题的中线对齐，写法同第 5 条；小图标放在两行字中间会悬空，看不出属于哪一行。头像和带框的标记用 `button-height-md`，和两行字差不多高，在整行里居中，看起来是一个整体；不要用 `button-height-sm` 及以下的头像或标记配两行字，它比文字矮一截，也会悬在两行中间。尾部的开关、箭头、按钮在整行里居中。同一个列表里，所有行的前导用同一种。
 
-**名字加一行说明只有一种写法。** 列表行、设置行、表格里的名字、成员和工具，都用 `dn-item-text`：标题跟着所在位置的字号（列表行是 `body`，表格里是 `callout`），说明是 `footnote`、`ink-tertiary`。说明要表达状态时，只用 `is-success`、`is-warning`、`is-danger` 三种颜色。页面里不要另写一套名字加说明的样式。
+**名字加一行说明只有一种写法。** 列表行、设置行、表格里的名字、成员和工具，都用 `dn-item-text`：标题跟着所在位置的字号（列表行是 `body`，表格里是 `callout`），说明是 `footnote`、`ink-secondary`；`ink-tertiary` 留给时间、计数这类更次要的字。说明要表达状态时，只用 `is-success`、`is-warning`、`is-danger` 三种颜色。页面里不要另写一套名字加说明的样式。
 5. **长内容（三行以上，或者高度不固定）：对齐第一行。** 消息、任务说明、多行横幅里，前导的图标、头像、复选框和第一行文字的中线对齐，不跟着整块内容居中。写法是 `align-items: flex-start`，图标的上外边距等于（行高 − 图标高）÷ 2。尾部只有一个短按钮时可以在整块里居中（横幅）；内容很长时，尾部操作也对齐第一行，或者放到内容下方。
 6. **标签和控件左右并排：中线对齐。** 设置项、筛选条里的标签和控件中线对齐；控件是多行文本框时，标签对齐它的第一行。
 7. **表格：** 单行的单元格垂直居中；有单元格会折行时，整行改成顶部对齐。
@@ -100,7 +100,7 @@
 .dn-item-text { display: grid; gap: 2px; flex: 1; min-width: 0; }
 .dn-item-title { margin: 0; color: var(--ink); font: inherit; text-decoration: none; overflow-wrap: anywhere; }
 a.dn-item-title:hover { text-decoration: underline; text-underline-offset: 3px; }
-.dn-item-detail { margin: 0; color: var(--ink-tertiary); font: var(--type-footnote); }
+.dn-item-detail { margin: 0; color: var(--ink-secondary); font: var(--type-footnote); }
 .dn-item-detail.is-success { color: var(--success); }
 .dn-item-detail.is-warning { color: var(--warning); }
 .dn-item-detail.is-danger { color: var(--danger); }

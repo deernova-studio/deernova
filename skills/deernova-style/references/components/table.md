@@ -15,7 +15,7 @@
 
 - 表格直接放在内容区上，不加外框和底色；表头和每一行之间是 1px `line` 分隔线，最后一行下面也有一条。宽度不超过 `wide-max`。
 - 行高 `table-row-height`，单元格左右内边距 `table-cell-padding-x`；文字 `callout`、`ink`，单行截断，悬停显示完整内容。
-- 表头：`caption` 字号、`weight-medium`、`ink-secondary`，吸顶（滚动时固定在顶部），底部的分隔线换成 `line-control`。
+- 表头：`caption` 字号、`weight-medium`、`ink-secondary`，吸顶（滚动时固定在顶部），下面的分隔线和其他行一样是 `line`，不加重。
 - 斑马纹不用；靠分隔线和对齐让人扫读。
 
 ## 对齐
@@ -54,7 +54,7 @@
 .dn-table-wrap { max-width: var(--wide-max); overflow-x: auto; overscroll-behavior-x: contain; }
 .dn-table { width: 100%; border-collapse: collapse; color: var(--ink); font: var(--weight-regular) var(--type-callout-size)/1.3 var(--font-sans); }
 .dn-table th, .dn-table td { height: var(--table-row-height); padding: 0 var(--table-cell-padding-x); border-bottom: var(--stroke-line) solid var(--line); text-align: start; vertical-align: middle; white-space: nowrap; }
-.dn-table thead th { position: sticky; top: 0; z-index: 1; border-bottom-color: var(--line-control); background: var(--canvas); color: var(--ink-secondary); font: var(--weight-medium) var(--type-caption-size)/1 var(--font-sans); }
+.dn-table thead th { position: sticky; top: 0; z-index: 1; background: var(--canvas); color: var(--ink-secondary); font: var(--weight-medium) var(--type-caption-size)/1 var(--font-sans); }
 .dn-table td { color: var(--ink-secondary); }
 .dn-table td.is-primary { color: var(--ink); }
 .dn-table :is(th, td).is-number { text-align: end; font-variant-numeric: tabular-nums; }

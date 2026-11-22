@@ -1,6 +1,6 @@
 """Cut the Chinese display serif down to the characters the website's examples use.
 
-The website shows official-site titles in Noto Serif SC (the Google build of Source Han Serif, SIL OFL 1.1).
+The website shows titles (display and title roles, in the page and style guides) in Noto Serif SC (the Google build of Source Han Serif, SIL OFL 1.1).
 The full font is about 12 MB, so the site ships a WOFF2 subset of the CJK characters that appear in the
 live examples. Latin stays in the system serif (New York), which comes first in --font-display.
 
@@ -19,7 +19,7 @@ import sys
 from fontTools import subset
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-SOURCES = [*sorted((ROOT / 'skills/deernova-page/references/pages').glob('*.md')), ROOT / 'skills/deernova-style/references/examples.md']
+SOURCES = [*sorted((ROOT / 'skills/deernova-page/references/pages').glob('*.md')), *sorted((ROOT / 'skills/deernova-style/references').rglob('*.md'))]
 OUT = ROOT / 'apps/website/assets/fonts/noto-serif-sc-600'
 CJK = re.compile(r'[　-〿㐀-䶿一-鿿＀-￯]')
 
