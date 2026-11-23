@@ -84,10 +84,11 @@
 
 .masthead-float {
   --header-inset: clamp(48px, 10vw, 192px);
+  --header-max: 560px;
   position: fixed;
   top: max(var(--space-8), calc(env(safe-area-inset-top) + var(--space-3)));
-  left: max(var(--header-inset), calc((100vw - 1120px) / 2), env(safe-area-inset-left));
-  right: max(var(--header-inset), calc((100vw - 1120px) / 2), env(safe-area-inset-right));
+  left: max(var(--header-inset), calc((100vw - var(--header-max)) / 2), env(safe-area-inset-left));
+  right: max(var(--header-inset), calc((100vw - var(--header-max)) / 2), env(safe-area-inset-right));
   display: flex;
   height: 64px;
   padding: 0 var(--space-4) 0 var(--space-6);
@@ -138,8 +139,8 @@
   top: calc(100% + var(--stroke-line) + var(--menu-offset));
   left: calc(var(--stroke-line) * -1);
   z-index: var(--z-dropdown);
-  /* The whole header is the trigger, so the menu takes half of it from the left edge. */
-  width: min(100%, max(50%, var(--menu-max-width)));
+  /* The whole header is the trigger, so the menu spans it edge to edge, borders included. */
+  width: calc(100% + var(--stroke-line) * 2);
   max-height: min(24rem, calc(100dvh - 128px));
   overflow-y: auto;
   overscroll-behavior: contain;
@@ -151,7 +152,7 @@
   border-radius: var(--menu-radius);
   color: var(--ink);
   box-shadow: var(--shadow-float);
-  transform-origin: top left;
+  transform-origin: top center;
   transition: opacity var(--duration-base) var(--ease-enter), transform var(--duration-base) var(--ease-enter), display var(--duration-base) allow-discrete;
 }
 /* Closing fades and shrinks back toward the header, a step faster than opening (skill: foundations/motion.md). */
@@ -179,6 +180,20 @@
   color: var(--ink-secondary);
   font: var(--weight-regular) var(--type-caption-size)/1 var(--font-sans);
 }
+/* What it is (App or Skill) and where it runs, as neutral tags (skill: components/tag.md) right before the arrow. */
+.product-tags { display: flex; flex: none; gap: var(--space-1); }
+.product-tag {
+  display: inline-flex;
+  align-items: center;
+  height: var(--tag-height);
+  padding: 0 var(--tag-padding-x);
+  border-radius: var(--tag-radius);
+  background: var(--fill-selected);
+  color: var(--ink-secondary);
+  font: var(--weight-medium) var(--tag-font-size)/1 var(--font-sans);
+}
+/* On a phone the name and tags say enough; the description would only show a few characters. */
+@media (max-width: 480px) { .product-description { display: none; } }
 @media (hover: hover) { .product-option:hover { background: var(--fill-hover); } }
 .product-option:active { background: var(--fill-selected); }
 .product-option:focus { outline: none; }
