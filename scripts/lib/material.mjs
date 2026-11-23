@@ -49,7 +49,7 @@ export async function renderMaterialGuide(root) {
   const logos = await readLogoFiles(root);
   const [iconVersion, logoVersion] = await Promise.all([version(root, 'icons'), version(root, 'logos')]);
   const nav = ['<a class="toc-top" href="#overview">总览</a>',
-    '<p class="toc-group">素材</p><ol><li><a href="#package-icons">图标</a></li><li><a href="#package-loaders">加载动效</a></li><li><a href="#package-logos">Logo</a></li><li><a href="#package-logos-ai">AI logo</a></li><li><a href="#package-logos-app">应用 logo</a></li></ol>'];
+    '<p class="toc-group">图标与动效</p><ol><li><a href="#package-icons">图标</a></li><li><a href="#package-loaders">加载动效</a></li></ol><p class="toc-group">Logo</p><ol><li><a href="#package-logos">安装和使用</a></li><li><a href="#package-logos-ai">AI logo</a></li><li><a href="#package-logos-app">应用 logo</a></li></ol>'];
   const packages = [
     ['图标', '@deernova/icons', iconVersion, `${icons.length} 个线性图标，24×24 网格、1.75 描边，颜色跟随文字。`, '#package-icons'],
     ['加载动效', '@deernova/icons/loaders', iconVersion, 'AI 正在思考、搜索、读取、写入时的加载动效，和图标同一个包。', '#package-loaders'],

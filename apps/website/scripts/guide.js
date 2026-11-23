@@ -47,7 +47,11 @@ function followScroll() {
     frame = 0;
     const line = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0;
     let current = targets[0];
-    for (const entry of targets) if (entry[1].getBoundingClientRect().top <= line + 1) current = entry;
+    // A heading's own scroll-margin adds to the page's scroll-padding when it is jumped to, so it counts as reached there.
+    for (const entry of targets) {
+      const margin = parseFloat(getComputedStyle(entry[1]).scrollMarginTop) || 0;
+      if (entry[1].getBoundingClientRect().top <= line + margin + 1) current = entry;
+    }
     // At the very bottom the last short section never reaches the line; mark it anyway.
     if (innerHeight + scrollY >= document.documentElement.scrollHeight - 2) current = targets[targets.length - 1];
     for (const [link] of targets) {
