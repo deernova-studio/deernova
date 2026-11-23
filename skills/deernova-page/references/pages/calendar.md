@@ -30,7 +30,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 ```css
 .dn-cal-page { display: grid; grid-template-columns: var(--sidebar-width-min) minmax(0, 1fr); flex: 1; min-height: 0; }
 .dn-cal-aside { display: flex; flex-direction: column; gap: var(--space-5); min-height: 0; overflow-y: auto; padding: var(--space-3) var(--space-3) var(--space-4); border-right: var(--stroke-line) solid var(--line); }
-.dn-minical { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); row-gap: 2px; text-align: center; font: var(--type-caption); font-variant-numeric: tabular-nums; }
+.dn-minical { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); row-gap: 2px; text-align: center; font: var(--type-caption); font-variant-numeric: proportional-nums; }
 .dn-minical > span { padding-bottom: var(--space-1); color: var(--ink-tertiary); }
 .dn-minical > button { height: 24px; border: 0; border-radius: var(--radius-full); background: none; color: var(--ink); font: inherit; cursor: pointer; }
 .dn-minical > button:hover { background: var(--fill-hover); }
@@ -46,7 +46,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 .dn-cal.is-1 :is(.dn-cal-head, .dn-cal-allday, .dn-cal-grid) { grid-template-columns: 44px minmax(0, 1fr); }
 .dn-cal-head { border-bottom: var(--stroke-line) solid var(--line); }
 .dn-cal-day { display: flex; align-items: center; gap: var(--space-1); min-width: 0; padding: var(--space-2); color: var(--ink-secondary); font: var(--type-footnote); white-space: nowrap; }
-.dn-cal-day > b { display: grid; place-items: center; min-width: 26px; height: 26px; border-radius: var(--radius-full); color: var(--ink); font: var(--weight-semibold) var(--type-headline-size)/1 var(--font-sans); font-variant-numeric: tabular-nums; }
+.dn-cal-day > b { display: grid; place-items: center; min-width: 26px; height: 26px; border-radius: var(--radius-full); color: var(--ink); font: var(--weight-semibold) var(--type-headline-size)/1 var(--font-sans); font-variant-numeric: proportional-nums; }
 .dn-cal-day.is-today > b { background: var(--accent); color: var(--on-accent); }
 .dn-cal-day.is-weekend { color: var(--ink-tertiary); }
 .dn-cal-allday { align-items: center; min-height: 30px; padding-block: 3px; border-bottom: var(--stroke-line) solid var(--line); }
@@ -83,12 +83,12 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
   <div class="dn-app-main">
     <header class="dn-toolbar">
       <h2 class="dn-toolbar-title"><span>2026年11月</span></h2>
-      <button class="dn-button is-sm" type="button">今天</button>
+      <button class="dn-button" type="button">今天</button>
       <button class="dn-icon-button" type="button" aria-label="上一周"><svg class="dn-icon" aria-hidden="true"><use href="#dn-chevron-left"/></svg></button>
       <button class="dn-icon-button" type="button" aria-label="下一周"><svg class="dn-icon" aria-hidden="true"><use href="#dn-chevron-right"/></svg></button>
       <div class="dn-toolbar-actions">
         <div class="dn-segmented" role="group" aria-label="视图"><button type="button" aria-pressed="false">日</button><button type="button" aria-pressed="true">周</button><button type="button" aria-pressed="false">月</button></div>
-        <button class="dn-button is-primary is-sm" type="button"><svg class="dn-icon" aria-hidden="true"><use href="#dn-plus"/></svg>新建</button>
+        <button class="dn-button is-primary" type="button"><svg class="dn-icon" aria-hidden="true"><use href="#dn-plus"/></svg>新建</button>
       </div>
     </header>
     <div class="dn-cal-page">

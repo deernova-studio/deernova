@@ -63,14 +63,15 @@
   font: var(--weight-regular) var(--message-font-size)/var(--type-body-line) var(--font-sans);
 }
 .dn-message-assistant { color: var(--ink); font: var(--type-body); }
-.dn-message-assistant p { margin: 0 0 var(--space-3); }
-.dn-message-assistant p:last-of-type { margin-bottom: 0; }
-.dn-message-assistant ul, .dn-message-assistant ol { margin: 0 0 var(--space-3); padding-left: 1.4em; }
-.dn-message-assistant li + li { margin-top: var(--space-1); }
+.dn-message-assistant p:not([class]) { margin: 0 0 var(--space-3); }
+.dn-message-assistant p:not([class]):last-of-type { margin-bottom: 0; }
+/* Prose the model wrote has no class; component parts inside the reply (sources, follow-ups, citations) keep their own styles */
+.dn-message-assistant :is(ul, ol):not([class]) { margin: 0 0 var(--space-3); padding-left: 1.4em; }
+.dn-message-assistant :is(ul, ol):not([class]) > li + li { margin-top: var(--space-1); }
 .dn-message-assistant strong { font-weight: var(--weight-semibold); }
 .dn-message-assistant code { padding: 1px 5px; border-radius: var(--radius-xs); background: var(--fill-selected); font: 0.9em/1 var(--font-mono); }
-.dn-message-assistant a { color: var(--link); text-decoration: underline 1px color-mix(in srgb, var(--link) 40%, transparent); text-underline-offset: 3px; }
-@media (hover: hover) { .dn-message-assistant a:hover { text-decoration-color: var(--link); } }
+.dn-message-assistant a:not([class]) { color: var(--link); text-decoration: underline 1px color-mix(in srgb, var(--link) 40%, transparent); text-underline-offset: 3px; }
+@media (hover: hover) { .dn-message-assistant a:not([class]):hover { text-decoration-color: var(--link); } }
 .dn-message-actions { display: flex; align-items: center; gap: 2px; margin: var(--space-2) 0 0 calc(var(--space-1) * -1); }
 .dn-message-actions .dn-icon-button { width: var(--message-action-size); height: var(--message-action-size); color: var(--ink-tertiary); }
 .dn-message-actions .dn-icon { width: var(--icon-size-sm); height: var(--icon-size-sm); }
@@ -80,7 +81,7 @@
 }
 .dn-message-actions .dn-icon-button[aria-pressed="true"] { color: var(--ink); }
 .dn-branch { display: inline-flex; align-items: center; gap: 2px; margin-right: var(--space-1); color: var(--ink-tertiary); font: var(--weight-regular) var(--type-caption-size)/1 var(--font-sans); font-variant-numeric: tabular-nums; }
-.dn-cite { display: inline-grid; place-items: center; min-width: var(--cite-height); height: var(--cite-height); margin: 0 1px; padding: 0 3px; border-radius: var(--radius-xs); background: var(--link-soft); color: var(--link); font: var(--weight-regular) var(--type-caption-size)/1 var(--font-sans); font-variant-numeric: tabular-nums; text-decoration: none; vertical-align: 0.1em; }
+.dn-cite { display: inline-grid; place-items: center; min-width: var(--cite-height); height: var(--cite-height); margin: 0 1px; padding: 0 3px; border-radius: var(--radius-xs); background: var(--link-soft); color: var(--link); font: var(--weight-regular) var(--type-caption-size)/1 var(--font-sans); font-variant-numeric: proportional-nums; text-decoration: none; vertical-align: 0.1em; }
 @media (hover: hover) { .dn-cite:hover { background-image: linear-gradient(var(--fill-hover), var(--fill-hover)); } }
 .dn-sources { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-1) var(--space-3); margin: var(--space-3) 0 0; padding: 0; list-style: none; color: var(--ink-secondary); font: var(--type-callout); }
 .dn-sources > li { display: inline-flex; align-items: center; gap: var(--gap-inline); min-width: 0; }

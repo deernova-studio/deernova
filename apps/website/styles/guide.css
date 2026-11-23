@@ -124,6 +124,8 @@ body.guide-page { background: var(--surface); font: var(--type-body); }
 .specimen .dn-centered { min-height: 240px; border: var(--stroke-line) solid var(--line); border-radius: var(--radius-md); }
 .specimen .ex-page .dn-centered { min-height: 100%; border: 0; border-radius: 0; }
 /* Page-level examples in 总则: a fixed frame standing in for a whole window */
+/* Each frame stands in for a viewport, so position: fixed inside a page example stays in its frame */
+.specimen :is(.ex-page, .ex-mac, .ex-device) { contain: layout; }
 .specimen .ex-page { min-width: 720px; height: 440px; overflow: hidden; border: var(--stroke-line) solid var(--line); border-radius: var(--radius-md); }
 :where(.specimen .ex-page) :where(h2, p, ol) { margin: 0; }
 .specimen .dn-app.ex-page > .dn-app-main:only-child { grid-column: 1 / -1; }

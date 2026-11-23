@@ -64,7 +64,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
           <button type="button" aria-pressed="false">我的</button>
           <button type="button" aria-pressed="false">共享</button>
         </div>
-        <button class="dn-button is-plain is-sm" type="button">最近修改<svg class="dn-icon" aria-hidden="true"><use href="#dn-chevron-down"/></svg></button>
+        <button class="dn-button is-plain" type="button">最近修改<svg class="dn-icon" aria-hidden="true"><use href="#dn-chevron-down"/></svg></button>
       </div>
       <div class="dn-gallery">
         <a class="dn-tile" href="#"><div class="dn-tile-preview"><p class="dn-tile-excerpt"><strong>首页改版：第二轮反馈</strong>导航层级是这轮反馈最集中的地方：七位受访者里有五位没找到「归档」。</p></div><div class="dn-tile-text"><span class="dn-tile-title">首页改版：第二轮反馈</span><span class="dn-tile-meta">今天 14:03</span></div></a>

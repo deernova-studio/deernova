@@ -43,7 +43,7 @@ Windows 和 Android 上会落到各自的系统字体，这是预期的，不要
 
 - 界面文字行高约为字号的 1.4–1.6 倍；正文 15/24，中文读起来不挤。
 - 只有 `display` 收紧字距（`--type-display-tracking`），其余保持默认。
-- 需要上下对齐的数字（计数、价格、时间）用等宽数字：`font-variant-numeric: tabular-nums` 或 `.monospacedDigit()`。
+- 需要上下对齐的数字（计数、价格、时间）用等宽数字：`font-variant-numeric: tabular-nums` 或 `.monospacedDigit()`。只有一个数字、自己居中在圆形或胶囊里的（今天的日期、步骤序号、引用角标）用比例数字 `proportional-nums`：等宽数字里的「1」左边空一截，放进圆里会往右偏一两像素。
 - **官网和文档的标题用宋体。** 这类页面的大标题、区块标题、文章标题用 `--font-display`：英文是 New York，中文是思源宋体（Noto Serif SC 或 Source Han Serif SC，SIL OFL，可商用）。字重 `weight-semibold`。中文标题在语义停顿处手动换行（`<br>`），不让浏览器从词中间断开；英文标题加 `text-wrap: balance`。
   - 字体自己托管：用 fontTools 把标题里出现的字切成 WOFF2 子集（`pyftsubset 字体.otf --text-file=标题.txt --flavor=woff2`），控制在 200 KB 以内，`@font-face` 里写 `font-display: swap`。国内访问不到 Google Fonts，不要从那里加载。
   - 没加载到时退回苹方，页面照常可读。

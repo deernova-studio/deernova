@@ -24,7 +24,7 @@
 HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机浏览器见本节最后。
 
 ```css
-.dn-usage { display: grid; gap: var(--space-8); max-width: var(--wide-max); }
+.dn-usage { display: grid; gap: var(--space-8); max-width: var(--wide-max); margin-inline: auto; }
 .dn-usage-section { display: grid; gap: var(--space-3); min-width: 0; }
 .dn-usage-section > h3 { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-3); margin: 0; font: var(--type-headline); }
 .dn-quota { display: grid; gap: var(--space-2); max-width: var(--form-max); }
@@ -56,7 +56,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
       <h2 class="dn-toolbar-title"><span>用量</span></h2>
       <div class="dn-toolbar-actions">
         <div class="dn-segmented" role="group" aria-label="时间范围"><button type="button" aria-pressed="true">本月</button><button type="button" aria-pressed="false">上月</button><button type="button" aria-pressed="false">近 90 天</button></div>
-        <button class="dn-button is-sm" type="button"><svg class="dn-icon" aria-hidden="true"><use href="#dn-download"/></svg>导出</button>
+        <button class="dn-button" type="button"><svg class="dn-icon" aria-hidden="true"><use href="#dn-download"/></svg>导出</button>
       </div>
     </header>
     <div class="dn-app-content">

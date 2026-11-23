@@ -76,10 +76,10 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
             <button type="button" role="tab" aria-selected="false"><svg class="dn-icon" aria-hidden="true"><use href="#dn-calendar"/></svg>排期</button>
             <button class="dn-icon-button" type="button" aria-label="新建视图"><svg class="dn-icon" aria-hidden="true"><use href="#dn-plus"/></svg></button>
           <div class="dn-panel-actions">
-            <span class="dn-db-unsaved">只对你生效</span><button class="dn-button is-plain is-sm" type="button">保存给所有人</button>
+            <span class="dn-db-unsaved">只对你生效</span><button class="dn-button is-plain" type="button">保存给所有人</button>
             <button class="dn-icon-button" type="button" aria-label="排序"><svg class="dn-icon" aria-hidden="true"><use href="#dn-arrow-down"/></svg></button>
             <button class="dn-icon-button" type="button" aria-label="搜索"><svg class="dn-icon" aria-hidden="true"><use href="#dn-search"/></svg></button>
-            <button class="dn-button is-primary is-sm" type="button"><svg class="dn-icon" aria-hidden="true"><use href="#dn-plus"/></svg>新建</button>
+            <button class="dn-button is-primary" type="button"><svg class="dn-icon" aria-hidden="true"><use href="#dn-plus"/></svg>新建</button>
           </div>
         </div>
         <div class="dn-filters">

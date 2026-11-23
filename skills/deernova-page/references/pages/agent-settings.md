@@ -84,8 +84,8 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
       <input class="dn-builder-name" value="周报助手" aria-label="名字">
       <span class="dn-builder-state">草稿，已自动保存</span>
       <div class="dn-toolbar-actions">
-        <button class="dn-button is-plain is-sm" type="button" aria-pressed="true">试用</button>
-        <button class="dn-button is-primary is-sm" type="button">发布</button>
+        <button class="dn-button is-plain" type="button" aria-pressed="true">试用</button>
+        <button class="dn-button is-primary" type="button">发布</button>
       </div>
     </header>
     <div class="dn-builder">
@@ -133,8 +133,8 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
       <input class="dn-builder-name" value="周报助手" aria-label="名字">
       <span class="dn-builder-state">草稿，已自动保存</span>
       <div class="dn-toolbar-actions">
-        <button class="dn-button is-plain is-sm" type="button" aria-pressed="false">试用</button>
-        <button class="dn-button is-primary is-sm" type="button">发布</button>
+        <button class="dn-button is-plain" type="button" aria-pressed="false">试用</button>
+        <button class="dn-button is-primary" type="button">发布</button>
       </div>
     </header>
     <div class="dn-builder is-solo">
@@ -156,7 +156,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
         <ul class="dn-list">
           <li class="dn-list-row"><span class="dn-item-text"><span class="dn-item-title">接口格式</span><span class="dn-item-detail">大部分服务商兼容 OpenAI 格式</span></span><span class="dn-list-control"><span class="dn-segmented" role="group" aria-label="接口格式"><button type="button" aria-pressed="true">OpenAI</button><button type="button" aria-pressed="false">Anthropic</button></span></span></li>
           <li class="dn-list-row"><span class="dn-item-text"><span class="dn-item-title">地址</span><span class="dn-item-detail">服务商文档里的 Base URL</span></span><span class="dn-list-control"><input class="dn-input is-code" value="https://api.deepseek.com/v1" aria-label="地址"></span></li>
-          <li class="dn-list-row"><span class="dn-item-text"><span class="dn-item-title">API Key</span><span class="dn-item-detail">只存在服务端，保存后只显示后四位</span></span><span class="dn-list-control"><input class="dn-input is-code" value="sk-••••••••3f9a" aria-label="API Key" readonly><button class="dn-button is-sm" type="button">更换</button></span></li>
+          <li class="dn-list-row"><span class="dn-item-text"><span class="dn-item-title">API Key</span><span class="dn-item-detail">只存在服务端，保存后只显示后四位</span></span><span class="dn-list-control"><input class="dn-input is-code" value="sk-••••••••3f9a" aria-label="API Key" readonly><button class="dn-button" type="button">更换</button></span></li>
           <li class="dn-list-row"><span class="dn-item-text"><span class="dn-item-title">模型</span><span class="dn-item-detail">列表来自服务商，也可以直接输入</span></span><span class="dn-list-control"><input class="dn-input is-code" list="ex-ag-models" value="deepseek-chat" aria-label="模型"><datalist id="ex-ag-models"><option value="deepseek-chat">对话，快</option><option value="deepseek-reasoner">推理，慢一些，适合复杂的任务</option></datalist></span></li>
           <li class="dn-list-row"><span class="dn-item-text"><span class="dn-item-title">连接</span><span class="dn-item-detail is-success">已连接，找到 2 个模型，2 分钟前</span></span><span class="dn-list-control"><button class="dn-button is-sm" type="button">测试连接</button></span></li>
         </ul>

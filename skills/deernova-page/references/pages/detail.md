@@ -48,7 +48,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 <div class="dn-app ex-page is-tall">
   <div class="dn-app-main">
     <header class="dn-toolbar">
-      <button class="dn-button is-plain is-sm" type="button"><svg class="dn-icon" aria-hidden="true"><use href="#dn-chevron-left"/></svg>全部任务</button>
+      <button class="dn-button is-plain" type="button"><svg class="dn-icon" aria-hidden="true"><use href="#dn-chevron-left"/></svg>全部任务</button>
       <div class="dn-toolbar-actions">
         <button class="dn-icon-button" type="button" aria-label="分享"><svg class="dn-icon" aria-hidden="true"><use href="#dn-share"/></svg></button>
         <button class="dn-icon-button" type="button" aria-label="更多"><svg class="dn-icon" aria-hidden="true"><use href="#dn-more"/></svg></button>

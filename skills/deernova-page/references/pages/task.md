@@ -93,10 +93,10 @@ dn-loader.dn-agent-state { --loader-size: var(--icon-size-md); color: var(--bran
 <div class="dn-app ex-page is-tall">
   <div class="dn-app-main">
     <header class="dn-toolbar">
-      <button class="dn-button is-plain is-sm" type="button"><svg class="dn-icon" aria-hidden="true"><use href="#dn-chevron-left"/></svg>任务</button>
+      <button class="dn-button is-plain" type="button"><svg class="dn-icon" aria-hidden="true"><use href="#dn-chevron-left"/></svg>任务</button>
       <h2 class="dn-toolbar-title"><span>给设置页加深色主题</span></h2>
       <span class="dn-agent-progress">第 3 步，共 4 步，已用 2 分 14 秒</span>
-      <div class="dn-toolbar-actions"><button class="dn-button is-sm" type="button"><svg class="dn-icon" aria-hidden="true"><use href="#dn-stop"/></svg>停止</button></div>
+      <div class="dn-toolbar-actions"><button class="dn-button" type="button"><svg class="dn-icon" aria-hidden="true"><use href="#dn-stop"/></svg>停止</button></div>
     </header>
     <div class="dn-agent">
       <div class="dn-agent-log">
@@ -135,7 +135,7 @@ dn-loader.dn-agent-state { --loader-size: var(--icon-size-md); color: var(--bran
           <button type="button" role="tab" aria-selected="true" id="ex-task-changes-tab" aria-controls="ex-task-changes-tab-panel">改动 2</button>
           <button type="button" role="tab" aria-selected="false">预览</button>
           <button type="button" role="tab" aria-selected="false">终端</button>
-          <div class="dn-panel-actions"><button class="dn-button is-plain is-sm" type="button"><svg class="dn-icon" aria-hidden="true"><use href="#dn-undo"/></svg>全部撤销</button></div>
+          <div class="dn-panel-actions"><button class="dn-button is-plain" type="button"><svg class="dn-icon" aria-hidden="true"><use href="#dn-undo"/></svg>全部撤销</button></div>
         </div>
         <div role="tabpanel" id="ex-task-changes-tab-panel" aria-labelledby="ex-task-changes-tab" class="dn-agent-work-body">
           <ul class="dn-changes">

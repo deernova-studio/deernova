@@ -64,8 +64,8 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
       <h2 class="dn-toolbar-title"><span>发布 2.0</span></h2>
       <div class="dn-segmented" role="group" aria-label="视图"><button type="button" aria-pressed="false">列表</button><button type="button" aria-pressed="true">看板</button><button type="button" aria-pressed="false">日历</button></div>
       <div class="dn-toolbar-actions">
-        <button class="dn-button is-plain is-sm" type="button"><svg class="dn-icon" aria-hidden="true"><use href="#dn-filter"/></svg>筛选</button>
-        <button class="dn-button is-primary is-sm" type="button"><svg class="dn-icon" aria-hidden="true"><use href="#dn-plus"/></svg>新建</button>
+        <button class="dn-button is-plain" type="button"><svg class="dn-icon" aria-hidden="true"><use href="#dn-filter"/></svg>筛选</button>
+        <button class="dn-button is-primary" type="button"><svg class="dn-icon" aria-hidden="true"><use href="#dn-plus"/></svg>新建</button>
       </div>
     </header>
     <div class="dn-board">

@@ -46,7 +46,11 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 .dn-rows-group { margin: var(--space-5) 0 0; padding: 0 var(--row-padding-x) var(--space-2); border-bottom: var(--stroke-line) solid var(--line); color: var(--ink-tertiary); font: var(--type-footnote); }
 .dn-rows-item > :is(.dn-avatar, .dn-mark) { align-self: center; }
 .dn-rows-item { display: flex; align-items: flex-start; gap: var(--space-3); padding: var(--space-2) var(--row-padding-x); border-bottom: var(--stroke-line) solid var(--line); color: var(--ink); text-decoration: none; }
-@media (hover: hover) { .dn-rows-item:hover { background: var(--fill-hover); } }
+/* Same as table rows: a row-radius fill, and the lines above and below it step aside */
+@media (hover: hover) {
+  .dn-rows-item:hover { border-bottom-color: transparent; border-radius: var(--row-radius); background: var(--fill-hover); }
+  .dn-rows-item:has(+ .dn-rows-item:hover) { border-bottom-color: transparent; }
+}
 .dn-rows-text { display: grid; flex: 1; min-width: 0; color: inherit; text-decoration: none; }
 .dn-rows-title { overflow: hidden; font: var(--type-body); text-overflow: ellipsis; white-space: nowrap; }
 .dn-rows-detail { display: -webkit-box; overflow: hidden; color: var(--ink-secondary); font: var(--type-footnote); -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
@@ -91,8 +95,8 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
       <div class="dn-rows-page">
         <div class="dn-rows-bar">
           <label class="dn-input-group"><svg class="dn-icon" aria-hidden="true"><use href="#dn-search"/></svg><input type="search" placeholder="搜索任务" aria-label="搜索任务"></label>
-          <button class="dn-button is-sm" type="button" aria-label="去掉筛选：未完成">未完成<svg class="dn-icon" aria-hidden="true"><use href="#dn-close"/></svg></button>
-          <button class="dn-button is-plain is-sm" type="button">截止日期<svg class="dn-icon" aria-hidden="true"><use href="#dn-chevron-down"/></svg></button>
+          <button class="dn-button" type="button" aria-label="去掉筛选：未完成">未完成<svg class="dn-icon" aria-hidden="true"><use href="#dn-close"/></svg></button>
+          <button class="dn-button is-plain" type="button">截止日期<svg class="dn-icon" aria-hidden="true"><use href="#dn-chevron-down"/></svg></button>
         </div>
         <ul class="dn-rows">
           <li class="dn-rows-group">本周</li>
@@ -123,8 +127,8 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
       <div class="dn-split-list">
         <div class="dn-filter-bar">
           <label class="dn-input-group"><svg class="dn-icon" aria-hidden="true"><use href="#dn-search"/></svg><input type="search" placeholder="搜索" aria-label="搜索笔记"></label>
-          <button class="dn-button is-sm" type="button" aria-label="去掉筛选：工作">工作<svg class="dn-icon" aria-hidden="true"><use href="#dn-close"/></svg></button>
-          <button class="dn-button is-plain is-sm dn-filter-end" type="button">最近修改<svg class="dn-icon" aria-hidden="true"><use href="#dn-chevron-down"/></svg></button>
+          <button class="dn-button" type="button" aria-label="去掉筛选：工作">工作<svg class="dn-icon" aria-hidden="true"><use href="#dn-close"/></svg></button>
+          <button class="dn-button is-plain dn-filter-end" type="button">最近修改<svg class="dn-icon" aria-hidden="true"><use href="#dn-chevron-down"/></svg></button>
         </div>
         <div class="dn-split-scroll">
           <p class="dn-split-group">今天</p>

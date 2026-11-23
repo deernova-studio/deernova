@@ -130,3 +130,16 @@ test('page examples only borrow classes from pages the skill lists as shared', a
   }
   assert.deepEqual(loose, [], 'classes borrowed from pages that are not listed under 几页共用的写法');
 });
+
+test('page columns capped at content-max or wide-max are centered, not left with the space piled on the right', async () => {
+  const offenders = [];
+  for (const name of (await readdir(PAGES_DIR)).filter(file => file.endsWith('.md'))) {
+    const text = await readFile(join(PAGES_DIR, name), 'utf8');
+    for (const [, css] of text.matchAll(/```css\n([\s\S]*?)```/g)) {
+      for (const [rule] of css.matchAll(/[^{}\n]+\{[^{}]*max-width: var\(--(?:content|wide)-max\)[^{}]*\}/g)) {
+        if (!/margin-inline: auto/.test(rule)) offenders.push(`${name}: ${rule.trim()}`);
+      }
+    }
+  }
+  assert.deepEqual(offenders, [], 'add margin-inline: auto (layout.md: 内容比可用宽度窄时，在主内容区里水平居中)');
+});

@@ -13,7 +13,7 @@
 | 说明 | 只给会带来后果或不明显的项写一句说明，放在组的下面 | 否 |
 | 危险操作 | 退出登录、删除账户放在分类最后单独一组。退出登录是普通按钮，不确认；删除账户用 `is-danger`，点了先确认 | 有时 |
 
-- **改了就生效。** 开关、单选、下拉选择改完立即保存，不放「保存」按钮；直接填写的短项（名字）在行里放一个输入框，失焦时保存，出错时在这一项下面说明。改了要验证的项（邮箱、密码）行尾写当前值和箭头，点进下一页走验证。
+- **改了就生效。** 开关、单选、下拉选择改完立即保存，不放「保存」按钮；直接填写的短项（名字）在行里就地改（`dn-input is-inline`，平时看起来和别的当前值一样），失焦时保存，出错时在这一项下面说明。改了要验证的项（邮箱、密码）行尾写当前值和箭头，点进下一页走验证。
 - **当前值写在行尾。** 「外观　跟随系统 ›」，不用点进去就知道现在是什么。
 - **进下一级用箭头。** 一项有多个子选项时，行尾放当前值和箭头，点进去是下一页；不在当前页展开一大片。
 - 内容栏宽不超过 `form-max`，在分类栏右边剩下的区域里居中；不贴着分类栏、把留白都堆在右边。
@@ -56,7 +56,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
         </ul>
         <section class="dn-list-section">
           <ul class="dn-list">
-            <li class="dn-list-row"><label for="ex-settings-name">名字</label><span class="dn-list-control"><input class="dn-input" id="ex-settings-name" value="林一"></span></li>
+            <li class="dn-list-row"><label for="ex-settings-name">名字</label><span class="dn-list-control"><input class="dn-input is-inline" id="ex-settings-name" value="林一"></span></li>
             <li class="dn-list-row">邮箱<span class="dn-list-value">lin@deernova.me</span><svg class="dn-icon dn-chevron" aria-hidden="true"><use href="#dn-chevron-right"/></svg></li>
             <li class="dn-list-row">订阅<span class="dn-list-value">个人版，按年</span><svg class="dn-icon dn-chevron" aria-hidden="true"><use href="#dn-chevron-right"/></svg></li>
           </ul>

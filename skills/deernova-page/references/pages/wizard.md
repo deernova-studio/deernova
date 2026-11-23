@@ -33,7 +33,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 .dn-wizard-steps > .is-done > a { color: var(--ink-secondary); }
 .dn-wizard-steps > .is-done > a:hover { background: var(--fill-hover); color: var(--ink); }
 .dn-wizard-steps > [aria-current="step"] > span { background: var(--fill-selected); color: var(--ink); font-weight: var(--weight-medium); }
-.dn-wizard-num { display: grid; place-items: center; flex: none; width: 20px; height: 20px; border: var(--stroke-line) solid var(--line-control); border-radius: var(--radius-full); font: var(--weight-medium) var(--type-caption-size)/1 var(--font-sans); font-variant-numeric: tabular-nums; }
+.dn-wizard-num { display: grid; place-items: center; flex: none; width: 20px; height: 20px; border: var(--stroke-line) solid var(--line-control); border-radius: var(--radius-full); font: var(--weight-medium) var(--type-caption-size)/1 var(--font-sans); font-variant-numeric: proportional-nums; }
 .dn-wizard-num > .dn-icon { width: var(--icon-size-sm); height: var(--icon-size-sm); }
 .is-done .dn-wizard-num { border-color: var(--accent); background: var(--accent); color: var(--on-accent); }
 [aria-current="step"] .dn-wizard-num { border-color: var(--ink); color: var(--ink); }
@@ -46,6 +46,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 .dn-wizard-foot .is-primary { margin-left: auto; }
 .dn-wizard-invite { display: flex; gap: var(--space-2); }
 .dn-wizard-invite > .dn-input { flex: 1; min-width: 0; }
+.dn-wizard-invite > .dn-button { height: var(--field-height); }
 .dn-people { display: grid; margin: 0; padding: 0; list-style: none; }
 .dn-people > li { display: grid; grid-template-columns: auto minmax(0, 1fr) 128px auto; align-items: center; gap: var(--space-3); min-height: calc(var(--row-height) + var(--space-4)); border-bottom: var(--stroke-line) solid var(--line); }
 .dn-people-pending { color: var(--ink-tertiary); font: var(--type-footnote); }

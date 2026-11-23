@@ -57,11 +57,11 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 <div class="dn-app ex-page is-tall">
   <div class="dn-app-main">
     <header class="dn-toolbar">
-      <button class="dn-button is-plain is-sm" type="button"><svg class="dn-icon" aria-hidden="true"><use href="#dn-chevron-left"/></svg>发布 2.0</button>
+      <button class="dn-button is-plain" type="button"><svg class="dn-icon" aria-hidden="true"><use href="#dn-chevron-left"/></svg>发布 2.0</button>
       <div class="dn-toolbar-actions">
         <div class="dn-avatar-stack" aria-label="正在看的人：周舟、沈遥、许明、另外 2 人"><span class="dn-avatar" aria-hidden="true">周</span><span class="dn-avatar" aria-hidden="true">沈</span><span class="dn-avatar" aria-hidden="true">许</span><span class="dn-avatar is-more" aria-hidden="true">+2</span></div>
         <button class="dn-icon-button" type="button" aria-label="评论"><svg class="dn-icon" aria-hidden="true"><use href="#dn-comment"/></svg></button>
-        <button class="dn-button is-sm" type="button">分享</button>
+        <button class="dn-button" type="button">分享</button>
       </div>
     </header>
     <div class="dn-collab">

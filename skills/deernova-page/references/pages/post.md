@@ -49,7 +49,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 ```html
 <div class="dn-app ex-page is-tall">
   <div class="dn-app-main">
-    <header class="dn-toolbar"><button class="dn-button is-plain is-sm" type="button"><svg class="dn-icon" aria-hidden="true"><use href="#dn-chevron-left"/></svg>帖子</button></header>
+    <header class="dn-toolbar"><button class="dn-button is-plain" type="button"><svg class="dn-icon" aria-hidden="true"><use href="#dn-chevron-left"/></svg>帖子</button></header>
     <div class="dn-app-content">
       <div class="dn-thread-page">
         <article class="dn-entry is-parent">

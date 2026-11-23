@@ -83,7 +83,7 @@
   background: var(--accent);
   color: var(--on-accent);
   font: var(--weight-semibold) var(--type-caption-size)/1 var(--font-sans);
-  font-variant-numeric: tabular-nums;
+  font-variant-numeric: proportional-nums;
 }
 .dn-icon-button > .dn-dot, .dn-icon-button > .dn-badge { position: absolute; box-shadow: 0 0 0 2px var(--badge-ring, var(--canvas)); }
 .dn-icon-button > .dn-dot { top: 5px; right: 5px; }

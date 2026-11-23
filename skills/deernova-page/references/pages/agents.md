@@ -41,7 +41,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
   <div class="dn-app-main">
     <header class="dn-toolbar">
       <h2 class="dn-toolbar-title"><span>智能体</span></h2>
-      <div class="dn-toolbar-actions"><button class="dn-button is-primary is-sm" type="button"><svg class="dn-icon" aria-hidden="true"><use href="#dn-plus"/></svg>新建</button></div>
+      <div class="dn-toolbar-actions"><button class="dn-button is-primary" type="button"><svg class="dn-icon" aria-hidden="true"><use href="#dn-plus"/></svg>新建</button></div>
     </header>
     <div class="dn-app-content">
       <div class="dn-agents">
@@ -64,31 +64,31 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
                 <td class="is-primary"><span class="dn-table-cell"><span class="dn-mark" aria-hidden="true">票</span><span class="dn-item-text"><a class="dn-item-title" href="#">发票整理</a><span class="dn-item-detail">读邮箱里的发票，按月汇总成表格</span></span></span></td>
                 <td><span class="dn-tag is-warning"><span class="dn-dot"></span>等你确认 1</span></td>
                 <td>标准</td><td class="is-number">64</td><td>15 分钟前</td>
-                <td class="is-actions"><span class="dn-table-cell"><button class="dn-button is-plain is-sm" type="button">设置</button><button class="dn-icon-button" type="button" aria-label="更多操作"><svg class="dn-icon" aria-hidden="true"><use href="#dn-more"/></svg></button></span></td>
+                <td class="is-actions"><span class="dn-table-cell"><button class="dn-button is-plain is-sm" type="button">设置</button><button class="dn-icon-button is-sm" type="button" aria-label="更多操作"><svg class="dn-icon" aria-hidden="true"><use href="#dn-more"/></svg></button></span></td>
               </tr>
               <tr>
                 <td class="is-primary"><span class="dn-table-cell"><span class="dn-mark" aria-hidden="true"><svg class="dn-icon"><use href="#dn-code"/></svg></span><span class="dn-item-text"><a class="dn-item-title" href="#">代码审查</a><span class="dn-item-detail">看每个合并请求，指出可能出错的地方</span></span></span></td>
                 <td><span class="dn-agent-running"><dn-loader name="spinner"></dn-loader>运行中 2</span></td>
                 <td>深度</td><td class="is-number">312</td><td>刚刚</td>
-                <td class="is-actions"><span class="dn-table-cell"><button class="dn-button is-plain is-sm" type="button">设置</button><button class="dn-icon-button" type="button" aria-label="更多操作"><svg class="dn-icon" aria-hidden="true"><use href="#dn-more"/></svg></button></span></td>
+                <td class="is-actions"><span class="dn-table-cell"><button class="dn-button is-plain is-sm" type="button">设置</button><button class="dn-icon-button is-sm" type="button" aria-label="更多操作"><svg class="dn-icon" aria-hidden="true"><use href="#dn-more"/></svg></button></span></td>
               </tr>
               <tr>
                 <td class="is-primary"><span class="dn-table-cell"><span class="dn-mark" aria-hidden="true">周</span><span class="dn-item-text"><a class="dn-item-title" href="#">周报助手</a><span class="dn-item-detail">每周五读本周的笔记和日程，起草周报</span></span></span></td>
                 <td></td>
                 <td>标准</td><td class="is-number">26</td><td>周五</td>
-                <td class="is-actions"><span class="dn-table-cell"><button class="dn-button is-plain is-sm" type="button">设置</button><button class="dn-icon-button" type="button" aria-label="更多操作"><svg class="dn-icon" aria-hidden="true"><use href="#dn-more"/></svg></button></span></td>
+                <td class="is-actions"><span class="dn-table-cell"><button class="dn-button is-plain is-sm" type="button">设置</button><button class="dn-icon-button is-sm" type="button" aria-label="更多操作"><svg class="dn-icon" aria-hidden="true"><use href="#dn-more"/></svg></button></span></td>
               </tr>
               <tr>
                 <td class="is-primary"><span class="dn-table-cell"><span class="dn-mark" aria-hidden="true"><svg class="dn-icon"><use href="#dn-mail"/></svg></span><span class="dn-item-text"><a class="dn-item-title" href="#">客服回复</a><span class="dn-item-detail">按帮助中心的文档起草回复，发送前给人看</span></span></span></td>
                 <td><span class="dn-tag is-danger"><span class="dn-dot"></span>出错：帮助中心连不上</span></td>
                 <td>快速</td><td class="is-number">1,208</td><td>昨天</td>
-                <td class="is-actions"><span class="dn-table-cell"><button class="dn-button is-plain is-sm" type="button">设置</button><button class="dn-icon-button" type="button" aria-label="更多操作"><svg class="dn-icon" aria-hidden="true"><use href="#dn-more"/></svg></button></span></td>
+                <td class="is-actions"><span class="dn-table-cell"><button class="dn-button is-plain is-sm" type="button">设置</button><button class="dn-icon-button is-sm" type="button" aria-label="更多操作"><svg class="dn-icon" aria-hidden="true"><use href="#dn-more"/></svg></button></span></td>
               </tr>
               <tr class="is-off">
                 <td class="is-primary"><span class="dn-table-cell"><span class="dn-mark" aria-hidden="true">研</span><span class="dn-item-text"><a class="dn-item-title" href="#">竞品调研</a><span class="dn-item-detail">已停用</span></span></span></td>
                 <td></td>
                 <td>深度</td><td class="is-number">0</td><td>10月3日</td>
-                <td class="is-actions"><span class="dn-table-cell"><button class="dn-button is-plain is-sm" type="button">设置</button><button class="dn-icon-button" type="button" aria-label="更多操作"><svg class="dn-icon" aria-hidden="true"><use href="#dn-more"/></svg></button></span></td>
+                <td class="is-actions"><span class="dn-table-cell"><button class="dn-button is-plain is-sm" type="button">设置</button><button class="dn-icon-button is-sm" type="button" aria-label="更多操作"><svg class="dn-icon" aria-hidden="true"><use href="#dn-more"/></svg></button></span></td>
               </tr>
             </tbody>
           </table>

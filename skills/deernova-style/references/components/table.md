@@ -27,7 +27,7 @@
 
 ## 交互
 
-- **悬停**：整行 `fill-hover`。可以点开详情的行，整行都是点击区域，光标是手形。
+- **悬停**：整行 `fill-hover`，左右两端是 `row-radius` 圆角，这一行上下的分隔线让开，看起来是一块圆角底，不是一条直角灰带。可以点开详情的行，整行都是点击区域，光标是手形。
 - **选中**：最左边一列复选框（见[选择控件](choice.md)）；表头的复选框控制全选，部分选中时显示横线。选中的行 `fill-selected` 底。选中至少一行后，表格上方的工具行换成批量操作栏：「已选 3 项」、批量操作按钮、「取消选择」。
 - **排序**：可以排序的表头是文字按钮，悬停出现 `fill-hover`；当前排序的列名变 `ink`，后面一个 `icon-size-sm` 的上下箭头。一次只按一列排序，默认是最常用的顺序（通常是时间倒序）。
 - **行操作**：放在最右一列，一个「更多」图标按钮，点开是[菜单](menu.md)；常用的一两个操作可以直接显示成图标按钮，用鼠标或触控板时悬停才出现，触屏上一直显示。
@@ -60,9 +60,21 @@
 .dn-table :is(th, td).is-number { text-align: end; font-variant-numeric: tabular-nums; }
 .dn-table :is(th, td).is-check { width: var(--check-size); padding-inline-end: 0; }
 .dn-table :is(th, td).is-actions { width: 1%; text-align: end; }
-.dn-table tbody tr { transition: background-color var(--duration-instant) var(--ease-standard); }
-@media (hover: hover) { .dn-table tbody tr:hover { background: var(--fill-hover); } }
-.dn-table tbody tr[aria-selected="true"] { background: var(--fill-selected); }
+/* The fill sits on the cells so the row can take row-radius; the lines above and below a filled row step aside */
+.dn-table tbody td { transition: background-color var(--duration-instant) var(--ease-standard); }
+.dn-table tbody tr[aria-selected="true"] > td { background: var(--fill-selected); }
+.dn-table tbody tr[aria-selected="true"] > td:first-child { border-start-start-radius: var(--row-radius); border-end-start-radius: var(--row-radius); }
+.dn-table tbody tr[aria-selected="true"] > td:last-child { border-start-end-radius: var(--row-radius); border-end-end-radius: var(--row-radius); }
+.dn-table tbody tr[aria-selected="true"] > td,
+.dn-table tr:has(+ tr[aria-selected="true"]) > :is(td, th) { border-bottom-color: transparent; }
+@media (hover: hover) {
+  .dn-table tbody tr:hover > td { background: var(--fill-hover); }
+  .dn-table tbody tr[aria-selected="true"]:hover > td { background: var(--fill-selected); }
+  .dn-table tbody tr:hover > td:first-child { border-start-start-radius: var(--row-radius); border-end-start-radius: var(--row-radius); }
+  .dn-table tbody tr:hover > td:last-child { border-start-end-radius: var(--row-radius); border-end-end-radius: var(--row-radius); }
+  .dn-table tbody tr:hover > td,
+  .dn-table tr:has(+ tr:hover) > :is(td, th) { border-bottom-color: transparent; }
+}
 .dn-table-cell { display: flex; align-items: center; gap: var(--space-2); min-width: 0; max-width: 320px; }
 .dn-table-cell > span { overflow: hidden; text-overflow: ellipsis; }
 .dn-table-cell > .dn-icon { flex: none; width: var(--icon-size-md); height: var(--icon-size-md); color: var(--ink-secondary); }

@@ -22,7 +22,7 @@
 HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机浏览器见本节最后。
 
 ```css
-.dn-dash { display: grid; gap: var(--space-8); max-width: var(--wide-max); }
+.dn-dash { display: grid; gap: var(--space-8); max-width: var(--wide-max); margin-inline: auto; }
 .dn-kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); margin: 0; }
 .dn-kpi { display: grid; gap: var(--space-1); padding: 0 var(--space-6); border-left: var(--stroke-line) solid var(--line); }
 .dn-kpi:first-child { padding-left: 0; border-left: 0; }

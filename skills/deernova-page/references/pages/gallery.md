@@ -69,7 +69,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
       <h2 class="dn-toolbar-title"><span>设计稿</span></h2>
       <div class="dn-toolbar-actions">
         <button class="dn-icon-button" type="button" aria-label="上传"><svg class="dn-icon" aria-hidden="true"><use href="#dn-upload"/></svg></button>
-        <button class="dn-button is-plain is-sm" type="button">选择</button>
+        <button class="dn-button is-plain" type="button">选择</button>
       </div>
     </header>
     <div class="dn-app-content">

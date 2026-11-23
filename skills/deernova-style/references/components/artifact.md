@@ -100,7 +100,7 @@ AI 做出来的「东西」：文档、代码文件、网页、图表、图片�
   <div class="dn-artifact" role="button" tabindex="0" aria-current="true">
     <span class="dn-artifact-icon"><svg class="dn-icon" aria-hidden="true"><use href="#dn-document"/></svg></span>
     <span class="dn-artifact-text"><span class="dn-artifact-title">第三季度经营分析</span><span class="dn-artifact-meta">第 3 版，刚刚更新</span></span>
-    <span class="dn-artifact-actions"><button class="dn-button is-sm" type="button">打开</button><button class="dn-icon-button" type="button" aria-label="下载"><svg class="dn-icon" aria-hidden="true"><use href="#dn-download"/></svg></button></span>
+    <span class="dn-artifact-actions"><button class="dn-button is-sm" type="button">打开</button><button class="dn-icon-button is-sm" type="button" aria-label="下载"><svg class="dn-icon" aria-hidden="true"><use href="#dn-download"/></svg></button></span>
   </div>
   <div class="dn-artifact" role="button" tabindex="0">
     <span class="dn-artifact-icon"><svg class="dn-icon" aria-hidden="true"><use href="#dn-code"/></svg></span>

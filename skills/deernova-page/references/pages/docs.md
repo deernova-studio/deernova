@@ -29,7 +29,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 .dn-docs { display: grid; grid-template-columns: var(--sidebar-width) minmax(0, 1fr) 200px; align-items: start; gap: var(--grid-gutter); padding-inline: var(--page-margin); }
 .dn-docs-nav { position: sticky; top: var(--toolbar-height); display: flex; flex-direction: column; gap: var(--row-gap); max-height: calc(100dvh - var(--toolbar-height)); overflow-y: auto; padding: var(--space-6) 0; }
 .dn-docs-nav .dn-sidebar-heading { cursor: default; }
-.dn-docs-main { min-width: 0; max-width: var(--content-max); padding: var(--space-8) 0 var(--space-12); }
+.dn-docs-main { width: 100%; min-width: 0; max-width: var(--content-max); margin-inline: auto; padding: var(--space-8) 0 var(--space-12); }
 .dn-docs-main h1 { margin: 0 0 var(--space-3); font: var(--weight-semibold) var(--type-display-size)/var(--type-display-line) var(--font-display); letter-spacing: var(--type-display-tracking); text-wrap: balance; }
 .dn-docs-lede { margin: 0 0 var(--space-8); color: var(--ink-secondary); font: var(--type-body); }
 .dn-docs-main h2 { margin: var(--space-10) 0 var(--space-3); font: var(--weight-semibold) var(--type-title-size)/var(--type-title-line) var(--font-display); }

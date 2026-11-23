@@ -22,7 +22,7 @@
 HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机浏览器见本节最后。标记的写法同[智能体列表](agents.md)，权限行的写法同[智能体配置](agent-settings.md)。
 
 ```css
-.dn-connect { display: grid; gap: var(--space-8); max-width: var(--content-max); }
+.dn-connect { display: grid; gap: var(--space-8); max-width: var(--content-max); margin-inline: auto; }
 .dn-connect h3 { margin: 0 0 var(--space-1); font: var(--type-headline); }
 .dn-connect-note { margin: var(--space-2) 0 0; color: var(--ink-tertiary); font: var(--type-footnote); }
 .dn-connect .dn-rows-item { align-items: center; }
@@ -76,7 +76,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
 ```html
 <div class="dn-app ex-page is-auto">
   <div class="dn-app-main">
-    <header class="dn-toolbar"><button class="dn-button is-plain is-sm" type="button"><svg class="dn-icon" aria-hidden="true"><use href="#dn-chevron-left"/></svg>工具与连接</button></header>
+    <header class="dn-toolbar"><button class="dn-button is-plain" type="button"><svg class="dn-icon" aria-hidden="true"><use href="#dn-chevron-left"/></svg>工具与连接</button></header>
     <div class="dn-app-content">
       <div class="dn-connect">
         <div class="dn-connect-head"><span class="dn-mark" aria-hidden="true"><svg class="dn-icon"><use href="#dn-mail"/></svg></span><div><h3>邮件</h3><p>lin@deernova.me，11月2日授权</p></div></div>

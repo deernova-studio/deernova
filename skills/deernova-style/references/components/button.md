@@ -38,7 +38,9 @@
 **怎么选尺寸**：按按钮所在的位置定，不随意挑。
 
 - 列表行、卡片角落里的行内操作（获取、关注、打开）→ 小号 `is-sm`。
-- 页面和卡片里的普通按钮，包括并排的两个按钮（以后再说 / 开启）→ 默认。同一行里的按钮用同一个尺寸。
+- 页面和卡片里的普通按钮，包括并排的两个按钮（以后再说 / 开启）→ 默认。
+- 顶栏、工具行（搜索框、筛选、视图切换排在一起的那一行）→ 默认。顶栏标题、图标按钮、分段控件都是 `button-height-md`，文字按钮也用默认尺寸，不用 `is-sm`。
+- **同一行的控件一样高。** 按钮、图标按钮、分段控件、输入框排在一行时用同一个高度：小按钮旁边的图标按钮加 `is-sm`；按钮跟输入框同排时用输入框的高度 `field-height`（桌面两者都是 32，触屏输入框更高）。
 - 空状态、引导页的操作 → 大号 `is-lg`。触屏上整页唯一的底部主操作（登录、订阅、创建账号）用大号加 `is-block` 通栏，一屏最多一个。
 - 导航栏、标签栏、工具栏里的按钮 → 用系统控件或[玻璃操作层](glass-controls.md)，不自己设尺寸。
 
@@ -111,6 +113,8 @@
   cursor: pointer;
   transition: color var(--duration-instant) var(--ease-standard);
 }
+/* Beside a small button in a table cell or card corner, so the pair shares one height */
+.dn-icon-button.is-sm { width: var(--button-height-sm); height: var(--button-height-sm); }
 @media (hover: hover) { .dn-icon-button:hover { color: var(--ink); } }
 .dn-icon-button:active { color: var(--ink); }
 .dn-icon-button:focus-visible { outline: var(--stroke-focus) solid var(--focus-ring); outline-offset: var(--focus-offset); }

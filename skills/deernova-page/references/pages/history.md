@@ -55,7 +55,7 @@ HTML 和 CSS 的写法，Web 应用和官网都按这一节做。窄屏和手机
       <h2 class="dn-toolbar-title"><span>正在看 11月18日 14:02 的版本</span></h2>
       <div class="dn-toolbar-actions">
         <label class="dn-history-toggle"><input class="dn-switch" type="checkbox" role="switch" checked>标出改动</label>
-        <button class="dn-button is-primary is-sm" type="button">恢复这个版本</button>
+        <button class="dn-button is-primary" type="button">恢复这个版本</button>
       </div>
     </header>
     <div class="dn-history">

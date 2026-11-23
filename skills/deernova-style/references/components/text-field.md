@@ -58,6 +58,7 @@
 - **和外部对齐**：输入框文字的左边缘和上方标签、下方说明的左边缘不对齐也没关系，但同一表单里所有输入框的左边缘必须对齐；和按钮同排时，两者同高（都用桌面 32），按中线对齐。
 - **多行文本框**：第一行文字的位置和单行输入框一致（上内边距 =（`field-height` − 行高）÷ 2），行高 1.5；最少 3 行，随内容长高到最多 8 行后在内部滚动，只能纵向拖动调整大小。字数统计放在下方说明的右侧，`caption` 字号、`ink-tertiary`，接近上限时变 `warning`，超出时变 `danger`。
 - **宽度**：按预期内容定宽。表单里默认占满表单栏（不超过 `form-max`）；邮编、数量这类短内容可以窄一些，但不要窄到放不下占位符。
+- **设置行里直接改的短项**（名字、设备名）用 `is-inline`：平时和同组其他行的当前值一样，是右对齐的 `ink-secondary` 文字，没有框；悬停出现 `fill-hover` 底，点进去才变成输入框。不要在一列文字值中间放一个 300px 宽的实框，它比别的行重得多，字只占框的一小角。
 
 ## Web
 
@@ -81,6 +82,10 @@
 .dn-input[aria-invalid="true"] { background: var(--danger-soft); }
 .dn-input[aria-invalid="true"]:focus { background: var(--danger-soft); }
 .dn-input:disabled { opacity: var(--opacity-disabled); }
+/* Edited in place inside a setting row: reads like the other rows' values until hovered or focused */
+.dn-input.is-inline { margin-inline-end: calc(-1 * var(--field-padding-x)); border-color: transparent; background: transparent; color: var(--ink-secondary); text-align: end; }
+@media (hover: hover) { .dn-input.is-inline:hover { background: var(--fill-hover); } }
+.dn-input.is-inline:focus { border-color: var(--line); background: var(--surface-raised); color: var(--ink); }
 .dn-field-help { color: var(--ink-tertiary); font: var(--weight-regular) var(--type-caption-size)/var(--type-caption-line) var(--font-sans); }
 .dn-field-help.is-error { color: var(--danger); }
 .dn-field-foot { display: flex; gap: var(--space-3); }
