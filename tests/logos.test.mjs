@@ -9,7 +9,7 @@ import { PACKAGES } from '../scripts/publish.mjs';
 
 const require = createRequire(import.meta.url);
 
-test('every listed logo has a one-color, a light and a dark SVG, and nothing else is in svg/', async () => {
+test('every listed logo has a one-color, a light and a dark SVG in its set folder, and nothing else is in svg/', async () => {
   const set = await readLogoFiles();
   assert.deepEqual(problems(set, set.files), []);
   assert.equal(set.files.length, set.logos.length * 3);
@@ -23,7 +23,7 @@ test('the committed logos are exactly what the sources produce', async () => {
   const { logos } = await renderLogos();
   const committed = await readLogoFiles();
   for (const logo of logos) {
-    const files = committed.logos.find(item => item.id === logo.id).files;
+    const files = committed.logos.find(item => item.set === logo.set && item.id === logo.id).files;
     for (const [name, svg] of Object.entries(logo.files)) assert.equal(files[name], svg, `${name} is out of date; run npm run logos`);
   }
 });
@@ -36,7 +36,8 @@ test('themed files only keep brand colors that stay visible on that theme', asyn
       if (logo.modes[mode] === 'mono') assert.equal(fixedColors(svg).length, 1, `${logo.id}-${mode}.svg is drawn in the ink color only`);
     }
   }
-  const openai = logos.find(logo => logo.id === 'openai');
+  assert.deepEqual([...new Set(logos.map(logo => logo.set))], ['ai', 'app']);
+  const openai = logos.find(logo => logo.set === 'ai' && logo.id === 'openai');
   assert.match(openai.files['openai-light.svg'], /fill="#171717"/);
   assert.match(openai.files['openai-dark.svg'], /fill="#ededed"/);
 });
@@ -46,20 +47,21 @@ test('a logo without an SVG is traced from its PNG', async () => {
   try {
     await mkdir(join(root, 'skills/deernova-style/assets'), { recursive: true });
     await cp('skills/deernova-style/assets/tokens.json', join(root, 'skills/deernova-style/assets/tokens.json'));
-    await mkdir(join(root, 'art/logos'), { recursive: true });
+    await mkdir(join(root, 'art/logos/app'), { recursive: true });
     const { PNG } = require('pngjs');
     const png = new PNG({ width: 64, height: 64 });
     for (let y = 0; y < 64; y++) for (let x = 0; x < 64; x++) {
       const d = (x - 32) ** 2 + (y - 32) ** 2;
       png.data.set(d < 400 && d > 100 ? [20, 20, 20, 255] : [0, 0, 0, 0], (y * 64 + x) * 4);
     }
-    await writeFile(join(root, 'art/logos/ring.png'), PNG.sync.write(png));
-    const { files, modes } = await renderLogo({ id: 'ring', name: 'Ring', png: true }, { root });
-    assert.deepEqual(modes, { light: 'mono', dark: 'mono' });
+    await writeFile(join(root, 'art/logos/app/ring.png'), PNG.sync.write(png));
+    const { files, modes } = await renderLogo({ id: 'ring', name: 'Ring', png: true }, { root, set: { id: 'app', source: 'simple' } });
+    assert.deepEqual(modes, { light: 'color', dark: 'mono' }, 'the near-black ring keeps its color on light paper only');
     assert.match(files['ring.svg'], /viewBox="0 0 64 64"[^>]*fill="currentColor"[^>]*fill-rule="evenodd"/);
     assert.match(files['ring.svg'], /<path d="M [\d.]+ [\d.]+ [^"]*Z M /, 'the hole is kept as a second subpath');
     assert.match(files['ring-dark.svg'], /fill="#ededed"/);
-    assert.deepEqual(problems({ manifest: { source: { license: 'MIT' } }, logos: [{ id: 'ring', name: 'Ring', files }] }, Object.keys(files)), []);
+    const manifest = { sources: { simple: { license: 'CC0-1.0' } }, sets: [{ id: 'app', source: 'simple' }] };
+    assert.deepEqual(problems({ manifest, logos: [{ id: 'ring', name: 'Ring', set: 'app', files }] }, Object.keys(files).map(name => `app/${name}`)), []);
   } finally {
     await rm(root, { recursive: true, force: true });
   }
@@ -82,8 +84,10 @@ test('the Material page shows icons, loaders and every logo; the Style guide no 
   }
   const { logos } = await readLogoFiles();
   for (const logo of logos) for (const mode of ['light', 'dark']) {
-    assert.ok(material.includes(`src="assets/logos/${logo.id}-${mode}.svg"`), `${logo.id} ${mode} is on the page`);
-    await readFile(join('dist/assets/logos', `${logo.id}-${mode}.svg`));
+    const path = `${logo.set}/${logo.id}-${mode}.svg`;
+    assert.ok(material.includes(`src="assets/logos/${path}"`), `${path} is on the page`);
+    await readFile(join('dist/assets/logos', path));
   }
+  for (const id of ['package-logos-ai', 'package-logos-app']) assert.match(material, new RegExp(`id="${id}"`));
   assert.match(await readFile('dist/index.html', 'utf8'), /href="material.html"/);
 });

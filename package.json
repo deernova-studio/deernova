@@ -35,11 +35,13 @@
     "logos": "node scripts/logos.mjs"
   },
   "devDependencies": {
+    "@iconify-json/logos": "1.2.20",
     "@lobehub/icons-static-svg": "1.106.0",
     "imagetracerjs": "1.2.6",
     "lucide-static": "1.61.0",
     "marked": "18.1.2",
     "pngjs": "7.0.0",
+    "simple-icons": "16.38.1",
     "vite": "8.3.5"
   }
 }

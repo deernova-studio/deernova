@@ -27,7 +27,7 @@ apps/website/                   官网
   index.html                    首页：满屏麋鹿动画，依次走过草原、森林、雪山、星空、沙漠；点天空有场景特效，点鹿向全画面扩散颜色后淡回黑白；顶部保留玻璃导航
   guide.html                    规范页（首页产品菜单里的 Deernova Style）：顶栏左侧是和产品菜单相同的图标与名称；总览（总则和作为第 7 部分的整页示例、核心规则、不要做）、基础、组件、场景、资源。活样例按设备的默认密度显示（桌面，触屏设备上是触控），尺寸表列出全部场景
   page.html                     Page 规范页（首页产品菜单里的 Deernova Page）：和 guide.html 同一套框架和渲染器（guide.mjs 的 renderPageGuide），但所有页面排成一整页往下滚（`<main data-flow="scroll">`），目录跟着滚动标出当前一节；guide.html 仍然一次显示一篇，内容来自 skills/deernova-page；页面表为空时显示空状态，指向 Style 的整页示例；page 文档里指向 ../deernova-style/ 的链接变成 guide.html 的锚点
-  material.html                 Material 页（首页产品菜单里的 Deernova Material）：和 page.html 同一套框架、整页往下滚；图标、加载动效和 logo 三节（scripts/lib/material.mjs）。图标和加载动效原来是 Style 规范页的两节，现在只在这里；logo 卡片按外观显示 -light 或 -dark 文件，构建时从 packages/logos/svg 复制到 assets/logos/
+  material.html                 Material 页（首页产品菜单里的 Deernova Material）：和 page.html 同一套框架、整页往下滚；图标、加载动效和 logo 三节（scripts/lib/material.mjs）。图标和加载动效原来是 Style 规范页的两节，现在只在这里；logo 分 AI 和应用两套，卡片按外观显示 -light 或 -dark 文件，构建时从 packages/logos/svg 复制到 assets/logos/
   styles/                       网站自己的样式；base.css 里用 @font-face 声明官网标题的中文宋体
   assets/fonts/                 思源宋体（Noto Serif SC，SIL OFL）600 的 WOFF2 子集，只含示例里出现的字，附许可证和字表；由 scripts/subset-display-font.py 生成
   assets/examples/              页面示例用的网点插画，浅色和深色各一张
@@ -41,7 +41,7 @@ art/screens/                    skill 截图的源页面（mac-window.html、iph
 art/milu/                       首页麋鹿的原始彩色插画（source/）、姿态表、登记和离线烘焙脚本，不进网站构建
 packages/style/                 npm 包 @deernova/style
   bin/cli.mjs                   install / update / doctor；所有包共用这一份，按 manifest 里的名字决定装哪个 skill
-packages/logos/                 npm 包 @deernova/logos：logos.json 列出 logo，svg/ 每个 logo 三个文件（单色 currentColor、-light、-dark），由 `npm run logos`（scripts/logos.mjs）从 LobeHub Icons（@lobehub/icons-static-svg，MIT）生成；LobeHub 没有的从 art/logos/<id>.png 描成矢量。浅色、深色各自按对比度决定用品牌色还是墨色，logos.json 里的 theme 可以指定
+packages/logos/                 npm 包 @deernova/logos：logos.json 分两套（ai：模型、AI 产品和平台；app：公司和常用应用），svg/<套>/ 每个 logo 三个文件（单色 currentColor、-light、-dark），由 `npm run logos`（scripts/logos.mjs）从开源图标集生成：LobeHub Icons（MIT）、Simple Icons（CC0）、SVG Logos（CC0）；都没有的从 art/logos/<套>/<id>.png 描成矢量。浅色、深色各自按对比度决定用品牌色还是墨色，logos.json 里的 theme 可以指定
 packages/page/                  npm 包 @deernova/page（private，第一批页面写完再去掉）；bin/ 和 skill/ 都由 build-skill 生成
 scripts/                        tokens、build-site、build-skill、发布工具
   vite-website.mjs               开发时渲染规范、提供共享素材并监听规范和 token 修改
