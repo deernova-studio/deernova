@@ -58,3 +58,8 @@ description = 'Restore and verify the previous server release'
 dir = '.'
 raw_args = true
 run = 'npm run rollback --'
+
+[tasks.'packages:publish']
+description = 'Test, load the npm token from Infisical and publish unpublished @deernova packages'
+dir = '.'
+run = 'npm run release:publish'

@@ -116,3 +116,11 @@ npm run release:publish
 ```
 
 发布由 npm 账号所有者执行，普通提交不会自动发包。只改网站不需要发布。
+
+npm token 和部署凭据放在同一个 Infisical 项目里（`shared-credentials`，`prod` 环境，`/deernova-npm` 目录，变量名 `NPM_TOKEN`），任何登录了 One 的维护者电脑都能发包，不需要 `npm login`，也不读 `~/.npmrc`。`npm run release:publish`（或 `one run packages:publish`）先跑测试，再通过 `one exec` 取出 token 发布；环境里已有 `NPM_TOKEN`（比如 CI）时直接用它。token 只放在环境变量里，由 npm 自己展开，不写进任何文件。
+
+第一次配置或 token 过期时：在 npmjs.com 生成一个能发布 `@deernova` 包的 Granular Access Token；在 Infisical 网页里 `shared-credentials` → `prod` 下新建 `deernova-npm` 文件夹（One 不能建文件夹），再从标准输入写入，不要把 token 写在命令参数里：
+
+```sh
+pbpaste | one env set --global --env prod --path /deernova-npm --stdin NPM_TOKEN
+```
