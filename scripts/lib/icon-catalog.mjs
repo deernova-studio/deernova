@@ -1,16 +1,16 @@
 import { escape } from './files.mjs';
 import { readIcons } from '../icons.mjs';
 
-// The Deernova Icons section of the Style guide: what the set is, an app put together from it, install, and every icon by group.
+// The icons section of the Material page: what the set is, an app put together from it, install, and every icon by group.
 const use = (name, size) => `<svg class="dn-icon"${size ? ` style="width:${size}px;height:${size}px"` : ''} aria-hidden="true"><use href="#dn-${name}"/></svg>`;
 const button = (name, label) => `<button class="dn-icon-button" type="button" aria-label="${label}">${use(name)}</button>`;
 
-export async function renderIconsDoc(root, mark) {
+export async function renderIconsDoc(root) {
   const { manifest, icons } = await readIcons(root);
   return `<section class="doc doc-package" id="package-icons" aria-labelledby="package-icons-title">
-<header class="doc-head">${mark}<h2 id="package-icons-title">Deernova Icons</h2><code class="doc-path">@deernova/icons</code></header>
+<header class="doc-head"><h2 id="package-icons-title">图标</h2><code class="doc-path">@deernova/icons</code></header>
 <div class="doc-body">
-<p class="lede">AI 应用常用的 ${icons.length} 个线性图标：${manifest.grid}×${manifest.grid} 网格、${manifest.stroke} 描边、圆头圆角、无填充，颜色跟随文字。每个图标对应的 SF Symbol 和使用规则见<a href="#foundations-iconography">图标</a>。</p>
+<p class="lede">AI 应用常用的 ${icons.length} 个线性图标：${manifest.grid}×${manifest.grid} 网格、${manifest.stroke} 描边、圆头圆角、无填充，颜色跟随文字。每个图标对应的 SF Symbol 和使用规则见<a href="guide.html#foundations-iconography">图标</a>。</p>
 <div class="specimen" data-density="desktop"><div class="icons-context">
   <nav class="icons-sidebar" aria-label="示例侧边栏">
     <div class="icons-row">${button('sidebar', '收起侧边栏')}<span class="icons-spacer"></span>${button('search', '搜索')}${button('new-chat', '新对话')}</div>

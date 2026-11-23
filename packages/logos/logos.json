@@ -1,0 +1,133 @@
+{
+  "source": {
+    "package": "@lobehub/icons-static-svg",
+    "url": "https://github.com/lobehub/lobe-icons",
+    "license": "MIT"
+  },
+  "groups": [
+    {
+      "id": "global",
+      "title": "海外模型与公司",
+      "logos": [
+        { "id": "openai", "name": "OpenAI", "for": "GPT、ChatGPT、o 系列" },
+        { "id": "anthropic", "name": "Anthropic" },
+        { "id": "claude", "name": "Claude" },
+        { "id": "gemini", "name": "Gemini" },
+        { "id": "gemma", "name": "Gemma", "theme": { "light": "mono", "dark": "mono" } },
+        { "id": "google", "name": "Google" },
+        { "id": "deepmind", "name": "Google DeepMind", "lobe": "deepmind" },
+        { "id": "grok", "name": "Grok" },
+        { "id": "xai", "name": "xAI" },
+        { "id": "meta", "name": "Meta", "for": "Llama" },
+        { "id": "microsoft", "name": "Microsoft", "for": "Phi" },
+        { "id": "copilot", "name": "Microsoft Copilot" },
+        { "id": "mistral", "name": "Mistral AI" },
+        { "id": "cohere", "name": "Cohere", "for": "Command" },
+        { "id": "perplexity", "name": "Perplexity" },
+        { "id": "apple", "name": "Apple", "for": "Apple Intelligence" },
+        { "id": "nvidia", "name": "NVIDIA", "for": "Nemotron" },
+        { "id": "huggingface", "name": "Hugging Face" }
+      ]
+    },
+    {
+      "id": "china",
+      "title": "国内模型与公司",
+      "logos": [
+        { "id": "deepseek", "name": "DeepSeek" },
+        { "id": "qwen", "name": "通义千问", "for": "Qwen" },
+        { "id": "alibabacloud", "name": "阿里云" },
+        { "id": "bailian", "name": "阿里云百炼" },
+        { "id": "modelscope", "name": "魔搭 ModelScope" },
+        { "id": "kimi", "name": "Kimi" },
+        { "id": "moonshot", "name": "月之暗面" },
+        { "id": "zhipu", "name": "智谱" },
+        { "id": "chatglm", "name": "ChatGLM", "for": "GLM" },
+        { "id": "qingyan", "name": "智谱清言" },
+        { "id": "doubao", "name": "豆包" },
+        { "id": "bytedance", "name": "字节跳动" },
+        { "id": "volcengine", "name": "火山引擎" },
+        { "id": "hunyuan", "name": "腾讯混元" },
+        { "id": "yuanbao", "name": "腾讯元宝" },
+        { "id": "tencent", "name": "腾讯" },
+        { "id": "wenxin", "name": "文心", "for": "ERNIE" },
+        { "id": "baidu", "name": "百度" },
+        { "id": "spark", "name": "讯飞星火" },
+        { "id": "minimax", "name": "MiniMax" },
+        { "id": "stepfun", "name": "阶跃星辰", "for": "Step" },
+        { "id": "baichuan", "name": "百川智能" },
+        { "id": "yi", "name": "零一万物", "for": "Yi" },
+        { "id": "internlm", "name": "书生", "for": "InternLM" },
+        { "id": "sensenova", "name": "商汤日日新" },
+        { "id": "tiangong", "name": "天工" },
+        { "id": "xiaomimimo", "name": "小米 MiMo" }
+      ]
+    },
+    {
+      "id": "media",
+      "title": "图像、视频与声音",
+      "logos": [
+        { "id": "sora", "name": "Sora" },
+        { "id": "dalle", "name": "DALL·E" },
+        { "id": "midjourney", "name": "Midjourney" },
+        { "id": "flux", "name": "FLUX" },
+        { "id": "stability", "name": "Stability AI" },
+        { "id": "ideogram", "name": "Ideogram" },
+        { "id": "runway", "name": "Runway" },
+        { "id": "pika", "name": "Pika" },
+        { "id": "kling", "name": "可灵" },
+        { "id": "jimeng", "name": "即梦" },
+        { "id": "hailuo", "name": "海螺" },
+        { "id": "vidu", "name": "Vidu" },
+        { "id": "suno", "name": "Suno" },
+        { "id": "elevenlabs", "name": "ElevenLabs" }
+      ]
+    },
+    {
+      "id": "agents",
+      "title": "编程与智能体",
+      "logos": [
+        { "id": "claude-code", "name": "Claude Code", "lobe": "claudecode" },
+        { "id": "codex", "name": "Codex" },
+        { "id": "gemini-cli", "name": "Gemini CLI", "lobe": "geminicli" },
+        { "id": "cursor", "name": "Cursor" },
+        { "id": "windsurf", "name": "Windsurf" },
+        { "id": "github-copilot", "name": "GitHub Copilot", "lobe": "githubcopilot" },
+        { "id": "cline", "name": "Cline" },
+        { "id": "trae", "name": "Trae" },
+        { "id": "qoder", "name": "Qoder" },
+        { "id": "kiro", "name": "Kiro" },
+        { "id": "v0", "name": "v0" },
+        { "id": "lovable", "name": "Lovable" },
+        { "id": "devin", "name": "Devin" },
+        { "id": "manus", "name": "Manus" },
+        { "id": "dify", "name": "Dify" },
+        { "id": "coze", "name": "扣子", "for": "Coze" },
+        { "id": "n8n", "name": "n8n" },
+        { "id": "langchain", "name": "LangChain" },
+        { "id": "llamaindex", "name": "LlamaIndex" },
+        { "id": "mcp", "name": "MCP", "for": "Model Context Protocol" }
+      ]
+    },
+    {
+      "id": "platforms",
+      "title": "平台与本地运行",
+      "logos": [
+        { "id": "openrouter", "name": "OpenRouter" },
+        { "id": "siliconcloud", "name": "硅基流动", "for": "SiliconCloud" },
+        { "id": "groq", "name": "Groq" },
+        { "id": "together", "name": "Together AI" },
+        { "id": "fireworks", "name": "Fireworks AI" },
+        { "id": "replicate", "name": "Replicate" },
+        { "id": "cloudflare", "name": "Cloudflare" },
+        { "id": "aws", "name": "AWS" },
+        { "id": "bedrock", "name": "Amazon Bedrock" },
+        { "id": "azure", "name": "Azure" },
+        { "id": "vertexai", "name": "Vertex AI" },
+        { "id": "ollama", "name": "Ollama" },
+        { "id": "lmstudio", "name": "LM Studio" },
+        { "id": "openwebui", "name": "Open WebUI" },
+        { "id": "cherrystudio", "name": "Cherry Studio" }
+      ]
+    }
+  ]
+}

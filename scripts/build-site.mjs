@@ -4,13 +4,15 @@ import { ROOT, isMain, read, write } from './lib/files.mjs';
 import { SKILL_DIR } from './lib/design.mjs';
 import { referenceCss, renderGuide, renderPageGuide } from './lib/guide.mjs';
 import { readIcons, spriteSvg } from './icons.mjs';
+import { LOGOS_DIR } from './logos.mjs';
+import { renderMaterialGuide } from './lib/material.mjs';
 import { staleTokenOutputs } from './tokens.mjs';
 
 const SITE = 'apps/website';
 // Skill files the website serves as downloads, next to tokens.css.
 export const SHARED_ASSETS = ['tokens.css', 'tokens.json', 'tailwind.css', 'DeernovaTokens.swift'];
 // Every page the site publishes; package-site.mjs and deploy-site.py accept exactly these.
-export const PAGES = ['index', 'guide', 'page'];
+export const PAGES = ['index', 'guide', 'page', 'material'];
 
 // The dev server and static build share the same renderer. Each {{placeholder}} is filled only when a page uses it.
 export async function renderSiteHtml(html, { root = ROOT } = {}) {
@@ -20,6 +22,7 @@ export async function renderSiteHtml(html, { root = ROOT } = {}) {
   const icons = has('iconSprite') ? (await readIcons(root)).icons : [];
   const values = has('docs') ? await renderGuide(root) : {};
   if (has('pageDocs') || has('pageMark')) Object.assign(values, await renderPageGuide(root));
+  if (has('materialDocs') || has('materialMark')) Object.assign(values, await renderMaterialGuide(root));
   if (has('referenceCss') && !values.referenceCss) values.referenceCss = await referenceCss(root);
   if (has('iconSprite')) values.iconSprite = spriteSvg(icons);
   if (has('loaderScript')) values.loaderScript = await read(join(root, 'packages/icons/loaders.mjs'));
@@ -36,6 +39,8 @@ export async function buildSite({ root = ROOT, out = join(root, 'dist') } = {}) 
   for (const directory of ['styles', 'scripts', 'assets']) await cp(join(root, SITE, directory), join(out, directory), { recursive: true });
   for (const file of SHARED_ASSETS) await cp(join(root, SKILL_DIR, 'assets', file), join(out, 'assets', file));
   await cp(join(root, SKILL_DIR, 'assets/screens'), join(out, 'assets/screens'), { recursive: true });
+  // The Material page shows the logo files themselves, so they are served next to the other assets.
+  await cp(join(root, LOGOS_DIR, 'svg'), join(out, 'assets/logos'), { recursive: true });
   for (const page of PAGES) {
     const template = await read(join(root, SITE, `${page}.html`));
     await write(join(out, `${page}.html`), await renderSiteHtml(template, { root }));

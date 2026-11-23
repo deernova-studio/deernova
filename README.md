@@ -1,6 +1,6 @@
 # Deernova
 
-Deernova 的设计仓库。现在有三个包：`@deernova/style`（设计语言）、`@deernova/page`（页面布局）和 `@deernova/icons`（图标）；以后加入动画。
+Deernova 的设计仓库。现在有四个包：`@deernova/style`（设计语言）、`@deernova/page`（页面布局）、`@deernova/icons`（图标和加载动效）和 `@deernova/logos`（AI 模型、公司和工具的 logo）。后两个是官网上的 Deernova Material。
 
 `@deernova/style` 是 Deernova 的设计语言，写成一个给 AI agent 读的 skill。agent 在你的项目里写界面时参考它，用项目现有的技术栈实现 Deernova 的风格。它不是组件库：不会往项目里加任何依赖、样式文件或业务代码。
 

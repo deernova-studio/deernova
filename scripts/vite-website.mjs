@@ -12,6 +12,7 @@ export function websitePlugin({ root = ROOT } = {}) {
   const skill = normalizePath(join(root, SKILL_DIR));
   const pageSkill = normalizePath(join(root, PAGE_SKILL_DIR));
   const pagePackage = normalizePath(join(root, 'packages/page/package.json'));
+  const logos = normalizePath(join(root, 'packages/logos'));
   const tokensCss = `${skill}/assets/tokens.css`;
   const tokensJson = `${skill}/assets/tokens.json`;
   const assets = normalizePath(join(root, 'apps/website/assets'));
@@ -21,7 +22,7 @@ export function websitePlugin({ root = ROOT } = {}) {
     name: 'deernova-website',
     apply: 'serve',
     configureServer(server) {
-      server.watcher.add([skill, pageSkill, packageFile, pagePackage]);
+      server.watcher.add([skill, pageSkill, packageFile, pagePackage, logos]);
     },
     transformIndexHtml: {
       order: 'pre',
@@ -31,7 +32,8 @@ export function websitePlugin({ root = ROOT } = {}) {
         return rendered
           .replaceAll('href="assets/tokens.css"', `href="/@fs/${tokensCss}"`)
           .replace(/href="assets\/(tokens\.json|tailwind\.css|DeernovaTokens\.swift)"/g, `href="/@fs/${skill}/assets/$1"`)
-          .replaceAll('src="assets/screens/', `src="/@fs/${skill}/assets/screens/`);
+          .replaceAll('src="assets/screens/', `src="/@fs/${skill}/assets/screens/`)
+          .replaceAll('src="assets/logos/', `src="/@fs/${logos}/svg/`);
       }
     },
     async load(id) {
@@ -55,6 +57,10 @@ export function websitePlugin({ root = ROOT } = {}) {
       }
       if ((path.startsWith(`${pageSkill}/`) && path.endsWith('.md')) || path === pagePackage) {
         server.ws.send({ type: 'full-reload', path: '/page.html' });
+        return [];
+      }
+      if (path.startsWith(`${logos}/`)) {
+        server.ws.send({ type: 'full-reload', path: '/material.html' });
         return [];
       }
       if (path === packageFile || path.startsWith(`${assets}/`) || path.startsWith(`${skill}/assets/screens/`)) {

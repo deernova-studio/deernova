@@ -36,7 +36,7 @@ test('Vite serves source files and sends updates over its live connection', asyn
   let server;
   let socket;
   try {
-    for (const path of ['apps', 'skills', 'packages/icons/src', 'packages/icons/icons.json', 'packages/icons/loaders.mjs', 'packages/page/package.json', 'package.json']) {
+    for (const path of ['apps', 'skills', 'packages/icons/src', 'packages/icons/icons.json', 'packages/icons/loaders.mjs', 'packages/page/package.json', 'packages/icons/package.json', 'packages/logos/package.json', 'packages/logos/logos.json', 'packages/logos/svg', 'package.json']) {
       await cp(join(ROOT, path), join(root, path), { recursive: true });
     }
     const sources = () => Promise.all(['apps', 'skills'].map(path => hashTree(join(root, path))));
@@ -76,7 +76,7 @@ test('Vite serves source files and sends updates over its live connection', asyn
     let tokensUrl;
 
     await t.test('renders both pages, shared assets and modules without writing source or dist', async () => {
-      for (const path of ['/', '/guide.html', '/page.html']) {
+      for (const path of ['/', '/guide.html', '/page.html', '/material.html']) {
         const html = await get(path);
         assert.match(html, /\/@vite\/client/);
         assert.doesNotMatch(html, /\{\{\w+\}\}/);

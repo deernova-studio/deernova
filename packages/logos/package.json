@@ -1,0 +1,20 @@
+{
+  "name": "@deernova/logos",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Logos of AI models, companies and tools as SVG, each in a light, a dark and a one-color version",
+  "license": "MIT",
+  "files": [
+    "svg",
+    "logos.json",
+    "LICENSE",
+    "LICENSE-LOBEHUB"
+  ],
+  "exports": {
+    "./svg/*": "./svg/*",
+    "./logos.json": "./logos.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -9,7 +9,7 @@ import { runChild } from './deploy-credentials.mjs';
 // each release; page and icons keep their own versions and are skipped until someone bumps them.
 // A package marked private is never published. The registry is pinned so a mirror set in ~/.npmrc is never the target.
 export const REGISTRY = 'https://registry.npmjs.org/';
-export const PACKAGES = ['style', 'page', 'icons'];
+export const PACKAGES = ['style', 'page', 'icons', 'logos'];
 
 // The npm token lives in Infisical next to the deployment credentials, so any maintainer machine logged in
 // to One can publish. CI or a one-off run can still pass NPM_TOKEN directly.

@@ -1,6 +1,4 @@
-/* Deernova Icons and Deernova Loaders, shown as sections of the Style guide. */
-.doc-package .doc-head { align-items: center; }
-.doc-package .doc-head .product-symbol { flex: 0 0 32px; width: 32px; height: 32px; fill: currentColor; }
+/* The Material page: icons, loaders and logos, each a section with its npm package next to the title. */
 .doc-package .lede { margin: 0 0 var(--space-4); }
 .doc-credit { margin-top: var(--space-6); color: var(--ink-tertiary); font: var(--type-caption); }
 .doc-credit a { color: inherit; }
@@ -48,3 +46,14 @@
 .doc-body > .icon-grid { max-width: none; margin: 0 0 var(--space-5); padding: 0; }
 .doc-body > .icon-grid > li + li { margin-top: 0; }
 .doc-body > .icon-grid code { padding: 0; background: none; }
+
+/* Logos: the same card grid as the icons, each card showing the file for the current theme. */
+.doc .logo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(132px, 1fr)); gap: var(--space-1); max-width: none; margin: 0 0 var(--space-5); padding: 0; list-style: none; }
+.doc-body > .logo-grid > li + li { margin-top: 0; }
+.logo-grid li { display: grid; justify-items: center; align-content: start; gap: 2px; padding: var(--space-4) var(--space-1) var(--space-3); border: var(--stroke-line) solid var(--line); border-radius: var(--radius-md); background: var(--surface-raised); text-align: center; }
+.logo-art { display: grid; place-items: center; height: 32px; margin-bottom: var(--space-2); }
+.logo-art img { width: auto; height: 32px; }
+.logo-name { color: var(--ink); font: var(--type-callout); }
+.logo-for { color: var(--ink-secondary); font: var(--type-caption); }
+.logo-grid code { padding: 0; background: none; color: var(--ink-tertiary); font: var(--weight-regular) 11px/1.4 var(--font-mono); }
+.doc-version { color: var(--ink-tertiary); font: var(--type-caption); }

@@ -1,4 +1,4 @@
-// The Deernova Loaders section of the Style guide: the three loaders, install, which to use, sizes, and the
+// The loaders section of the Material page: the three loaders, install, which to use, sizes, and the
 // thinking loader settling into its icon. The live <dn-loader> elements are defined by the page script.
 const LOADERS = [
   { name: 'thinking', title: '思考', use: 'AI 正在思考。', curve: '三瓣玫瑰线 r = cos 3θ，花瓣加宽（|cos 3θ|^0.6），一个花瓣朝上', lap: '5.2 秒', rest: '落成 <code>thinking</code> 图标，就是「已思考 12 秒」前面那个图标', status: '正在思考' },
@@ -13,11 +13,11 @@ const LOADERS = [
 const sizes = name => `<div class="loaders-sizes">${[14, 16, 20, 32, 64].map(size =>
   `<figure><dn-loader name="${name}" style="--loader-size:${size}px"></dn-loader><figcaption>${size}</figcaption></figure>`).join('')}</div>`;
 
-export function renderLoadersDoc(thinkingIcon, mark) {
+export function renderLoadersDoc(thinkingIcon) {
   return `<section class="doc doc-package" id="package-loaders" aria-labelledby="package-loaders-title">
-<header class="doc-head">${mark}<h2 id="package-loaders-title">Deernova Loaders</h2><code class="doc-path">@deernova/icons/loaders</code></header>
+<header class="doc-head"><h2 id="package-loaders-title">加载动效</h2><code class="doc-path">@deernova/icons/loaders</code></header>
 <div class="doc-body">
-<p class="lede">一笔单色的线沿着数学曲线走，尾巴逐渐变细，后面是很淡的完整曲线。AI 在做什么，就用哪条曲线：思考、深度思考、搜索、读取、写入、运行工具各有一条，其他加载用圆。网格和描边与 Deernova Icons 相同（24×24、1.75），颜色跟随文字，不依赖任何库。它是 Deernova Icons 的一部分。什么时候用哪个见<a href="#components-skeleton">加载状态</a>。</p>
+<p class="lede">一笔单色的线沿着数学曲线走，尾巴逐渐变细，后面是很淡的完整曲线。AI 在做什么，就用哪条曲线：思考、深度思考、搜索、读取、写入、运行工具各有一条，其他加载用圆。网格和描边与图标相同（24×24、1.75），颜色跟随文字，不依赖任何库。它和图标在同一个包里。什么时候用哪个见<a href="guide.html#components-skeleton">加载状态</a>。</p>
 <div class="specimen" data-density="desktop"><div class="loaders-hero">${LOADERS.map(item => `<figure><dn-loader name="${item.name}" style="--loader-size:48px"></dn-loader><figcaption><code>${item.name}</code>${item.title}</figcaption></figure>`).join('')}</div></div>
 <h3 id="package-loaders-install">安装和使用</h3>
 <p>加载动效在图标包里，装了 <code>@deernova/icons</code> 就有：</p>
