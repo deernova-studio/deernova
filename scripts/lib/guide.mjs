@@ -397,7 +397,7 @@ export async function renderPageGuide(root) {
   const skill = await read(join(root, PAGE_SKILL_DIR, 'SKILL.md'));
   const { version } = JSON.parse(await read(join(root, 'packages/page/package.json')));
   const lede = withoutTitle(skill).trim().split('\n\n')[0];
-  const nav = ['<a class="toc-top" href="#overview">总览</a>', '<ol><li><a href="#overview-1">和 Style 的分工</a></li><li><a href="#overview-2">工作流程</a></li></ol>'];
+  const nav = ['<a class="toc-top" href="#overview">总览</a>'];
   const docs = [`<section class="doc doc-overview" id="overview" aria-labelledby="overview-title">
 <header class="overview-head"><h1 id="overview-title">Deernova Page</h1><p class="lede">${inline(lede)}</p></header>
 <div class="doc-body">
@@ -442,11 +442,12 @@ export async function renderPageGuide(root) {
   nav.push('<p class="toc-group">资源</p><ol><li><a href="#resources">安装</a></li></ol>');
   const commands = [
     ['npx @deernova/page@latest install --agent claude', 'Claude Code：写入项目的 .claude/skills/deernova-page/'],
-    ['npx @deernova/page@latest install --global --agent claude', '写入 ~/.claude/skills/deernova-page/']
+    ['npx @deernova/page@latest install --global --agent claude', '写入 ~/.claude/skills/deernova-page/'],
+    ['npx @deernova/page@latest update --agent claude', '更新到最新版本，参数和安装时一致']
   ].map(([command, text]) => `<li><code>${command}</code><span>${text}</span></li>`).join('');
   docs.push(`<section class="doc" id="resources" aria-labelledby="resources-title">
 <header class="doc-head"><h2 id="resources-title">安装</h2></header>
-<div class="doc-body"><p>还没有发布到 npm。发布后和 Style 装在一起：</p><ul class="commands">${commands}</ul></div>
+<div class="doc-body"><p>Page 的示例用的是 Style 的组件，所以要和 Style 装在同一个地方，命令和 Style 的一样：</p><ul class="commands">${commands}</ul></div>
 </section>`);
 
   // Each page doc's example CSS lays out its live examples, the way component CSS does on the style guide.
