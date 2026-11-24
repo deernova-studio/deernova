@@ -16,7 +16,7 @@
 
 - 用户消息：靠右，最大宽度 80%，`surface-raised` 底，`radius-lg`，内边距上下 `space-3`、左右 `space-4`，字号 `message-font-size`、行高同 `type-body`。
 - AI 消息：靠左，不加气泡，正文用 `type-body`（桌面 15/24），栏宽不超过 `content-max`。段落之间 `space-3`；加粗用 600；列表缩进一级、项与项之间 4。代码见[代码块](code-block.md)，行内代码用等宽字加 `fill-selected` 底；链接用靛青 `link` 加一条浅下划线。
-- 消息、工具调用行、卡片之间统一 `space-4`。
+- 一轮里的块（AI 回答、工具调用行、卡片）之间统一 `space-4`。新的一轮从用户消息开始，它和上一轮之间留 `space-6`，比轮内多一档，对话长了也看得出哪些是一问一答。操作行隐藏时仍占着位置，这段间距从操作行下方算起。
 - 操作按钮放在 AI 消息下方，`message-action-size` 的图标按钮，`ink-tertiary` 色；什么时候显示见下文「操作和分支」。
 - 链接用 `ink` 色，加 1px 的 `line-control` 色下划线，下偏移 3px。
 - 生成中：回答末尾显示「正在运行」状态（见 [思考、工具调用与执行步骤](step-row.md)），Composer 的发送按钮变成「停止」。
@@ -53,6 +53,8 @@
 
 ```css
 .dn-thread { display: flex; flex-direction: column; gap: var(--space-4); max-width: var(--content-max); }
+/* A user message starts a new turn: turns are space-6 apart, blocks inside one turn space-4. */
+.dn-thread > .dn-message-user:not(:first-child) { margin-top: calc(var(--space-6) - var(--space-4)); }
 .dn-message-user {
   align-self: flex-end;
   max-width: 80%;
@@ -115,6 +117,10 @@
       <button class="dn-icon-button" type="button" aria-label="没帮助" aria-pressed="false"><svg class="dn-icon" aria-hidden="true"><use href="#dn-thumbs-down"/></svg></button>
     </div>
   </div>
+  <div class="dn-message-user">第二条再写短一点</div>
+  <div class="dn-message-assistant">
+    <p><strong>同步问题修复。</strong>离线编辑后不再重复保存。</p>
+  </div>
 </div>
 ```
 
@@ -140,6 +146,14 @@
 ## SwiftUI
 
 ```swift
+// 对话：一轮里的块之间 space4；用户消息开始新的一轮，和上一轮之间共 space6
+LazyVStack(alignment: .leading, spacing: Deernova.space4) {
+    ForEach(blocks) { block in
+        BlockView(block)
+            .padding(.top, block.isUser && block.id != blocks.first?.id ? Deernova.space6 - Deernova.space4 : 0)
+    }
+}
+
 // 用户消息
 Text(message.text)
     .font(.system(size: Deernova.messageFontSize))
