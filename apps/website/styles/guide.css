@@ -109,7 +109,7 @@ body.guide-page { background: var(--surface); font: var(--type-body); }
 .dn-row > .dn-field { flex: 1 1 220px; max-width: 320px; }
 .dn-stack { display: grid; justify-items: start; gap: var(--gap-stack); max-width: 560px; }
 .dn-stack > .dn-banner { width: 100%; }
-.specimen :is(.dn-composer-stack, .dn-code, .dn-stack, .dn-thread, .dn-task-list) { max-width: 600px; }
+.specimen :is(.dn-composer-stack, .dn-code, .dn-stack, .dn-thread, .dn-task-list) { max-width: 600px; margin-inline: auto; }
 .specimen .dn-app-demo { height: 280px; border: var(--stroke-line) solid var(--line); border-radius: var(--radius-md); overflow: hidden; }
 .specimen .dn-app-demo .dn-panel { width: min(320px, 42%); }
 .specimen .dn-list-section { max-width: 420px; }

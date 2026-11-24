@@ -6,7 +6,7 @@ AI 在对话里想了什么、做了什么。思考和工具调用都是「过�
 
 ## 尺寸
 
-行高用 `button-height-md`，图标用 `icon-size-md`；工具详情另有两个：
+执行步骤的行高用 `button-height-md`；摘要行和运行中状态就是一行正文，高度等于 `type-body` 的行高，点击范围用透明的命中区补到 `hit-min`。图标用 `icon-size-md`；工具详情另有两个：
 
 <!-- tokens:step-row -->
 | Token | 桌面<br>Web 应用、macOS 内容区 | 触控<br>iOS、iPadOS、Web 触屏 | 舒展<br>官网与文档 | 用途 |
@@ -18,7 +18,7 @@ AI 在对话里想了什么、做了什么。思考和工具调用都是「过�
 | `tool-detail-max-height` | `320px` | 工具详情（预览或 JSON）的最大高度，超出时在块内滚动。 |
 <!-- /tokens -->
 
-- **摘要行**：`type-body` 字号、`ink-secondary`；前面一个 `icon-size-md` 的图标（思考是 `thinking`，工具调用是 `tool`），末尾一个小箭头，点开后箭头转向下；悬停时文字变 `ink`。没有底色、没有边框，和正文段落之间 `space-4`。
+- **摘要行**：`type-body` 字号、`ink-secondary`；前面一个 `icon-size-md` 的图标（思考是 `thinking`，工具调用是 `tool`），末尾一个小箭头，点开后箭头转向下；悬停时文字变 `ink`。没有底色、没有边框。行高就是正文行高，不另外加高，所以和上下正文段落之间就是对话里块与块的 `space-4`，不会因为行本身更高而多出空白。
 - **执行步骤**：在摘要下方缩进，左边一条 1px `line`。每步高 `button-height-md`，`radius-sm`，悬停 `fill-hover`。状态图标：进行中是 `spinner` 动效（`ink`），成功 `success`，失败 `danger`（失败时摘要写清楚原因）。动作名 `callout` 半粗 `ink`；对象摘要 `caption` 等宽、单行截断；耗时 `caption`、`ink-tertiary`、等宽数字。
 - **步骤详情**：再点开一步，缩进到和文字对齐，`surface-sunken` 底，`radius-sm`。默认显示可读的**预览**，原始数据放在 **JSON** 视图里，见下面的[工具详情](#工具详情)。
 - **运行中**：对话末尾一行：朱砂 `brand` 色的加载动效（思考时 `thinking`，运行工具时 `working`，见[加载状态](skeleton.md)）+ 动作名 + 已用时间（`ink-tertiary`），`type-body`、`ink-secondary`。思考结束时动效停下，正好落成摘要行前面的 `thinking` 图标。等待用户确认时改成「等待你确认」，动效换成 `waiting` 图标，见 [确认与审批](approval.md)。
@@ -87,12 +87,14 @@ AI 在对话里想了什么、做了什么。思考和工具调用都是「过�
   display: flex;
   align-items: center;
   gap: var(--space-1);
-  min-height: var(--button-height-md);
+  position: relative;
   color: var(--ink-secondary);
   font: var(--type-body);
   list-style: none;
   cursor: pointer;
 }
+/* The row is one line of body text tall; a transparent hit area keeps it easy to tap. */
+.dn-activity > summary::before { content: ""; position: absolute; inset: 50% 0 auto; height: max(100%, var(--hit-min)); transform: translateY(-50%); }
 .dn-activity > summary::-webkit-details-marker { display: none; }
 @media (hover: hover) { .dn-activity > summary:hover { color: var(--ink); } }
 .dn-activity > summary > .dn-icon:last-child { width: var(--icon-size-sm); height: var(--icon-size-sm); transition: transform var(--duration-base) var(--ease-standard); }
@@ -173,7 +175,7 @@ details > .dn-step { cursor: pointer; }
 .dn-tool-head .dn-icon-button { flex: none; width: calc(var(--button-height-md) - 8px); height: calc(var(--button-height-md) - 8px); color: var(--ink-tertiary); }
 .dn-tool-head .dn-icon-button .dn-icon { width: var(--icon-size-sm); height: var(--icon-size-sm); }
 
-.dn-running { display: flex; align-items: center; gap: var(--space-2); min-height: var(--button-height-md); color: var(--ink-secondary); font: var(--type-body); }
+.dn-running { display: flex; align-items: center; gap: var(--space-2); color: var(--ink-secondary); font: var(--type-body); }
 .dn-running > dn-loader { color: var(--brand); }
 .dn-running-time { color: var(--ink-tertiary); font-variant-numeric: tabular-nums; }
 ```
